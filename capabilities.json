@@ -1,0 +1,83 @@
+{
+    "dataRoles": [
+        {
+            "name": "category",
+            "displayName": "Hierarquia",
+            "displayNameKey": "Visual_Category",
+            "kind": "Grouping"
+        },
+        {
+            "name": "subTipo",
+            "displayName": "Agrupamento",
+            "kind": "Grouping"
+        },
+        {
+            "name": "dataInicial",
+            "displayName": "Data Inicio/Milestone",
+            "kind": "Grouping"
+        },
+        {
+            "name": "dataFinal",
+            "displayName": "Data Fim",
+            "kind": "Grouping"
+        },
+        {
+            "name": "rotulo",
+            "displayName": "Rótulo",
+            "kind": "Grouping"
+        }
+    ],
+    "objects": {},
+    "dataViewMappings": [
+        {
+            "matrix": {
+                "rows": {
+                    "for": {
+                        "in": "category"
+                    }
+                },
+                "values": {
+                    "select": [
+                        {
+                            "for": {
+                                "in": "subTipo"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "dataInicial"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "dataFinal"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "rotulo"
+                            }
+                        }
+                    ]
+                }
+            },
+            "conditions": [
+                {
+                    "category": {
+                        "max": 3
+                    },
+                    "subTipo": {
+                        "max": 1
+                    },
+                    "dataInicio": {
+                        "max": 1
+                    },
+                    "dataFim": {
+                        "max": 1
+                    }
+                }
+            ]
+        }
+    ],
+    "privileges": []
+}

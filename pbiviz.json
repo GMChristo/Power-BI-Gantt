@@ -1,0 +1,25 @@
+{
+    "visual": {
+        "name": "ganttChart",
+        "displayName": "Gantt Chart",
+        "guid": "ganttChart",
+        "visualClassName": "Visual",
+        "version": "1.1.0.0",
+        "description": "Gantt visual personalizado",
+        "supportUrl": "https://github.com/gmchristo",
+        "gitHubUrl": "https://github.com/gmchristo"
+    },
+    "apiVersion": "5.3.0",
+    "author": {
+        "name": "GabrielChristo",
+        "email": "gabrielchristo@hotmail.com"
+    },
+    "assets": {
+        "icon": "assets/icon.png"
+    },
+    "style": "style/visual.less",
+    "capabilities": "capabilities.json",
+    "dependencies": null,
+    "stringResources": [],
+    "version": "1.1.0.0"
+}
