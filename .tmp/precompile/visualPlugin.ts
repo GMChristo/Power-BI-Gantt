@@ -5,8 +5,8 @@ import VisualConstructorOptions = powerbiVisualsApi.extensibility.visual.VisualC
 import DialogConstructorOptions = powerbiVisualsApi.extensibility.visual.DialogConstructorOptions;
 var powerbiKey: any = "powerbi";
 var powerbi: any = window[powerbiKey];
-var ganttChart: IVisualPlugin = {
-    name: 'ganttChart',
+var ganttChart_DEBUG: IVisualPlugin = {
+    name: 'ganttChart_DEBUG',
     displayName: 'Gantt Chart',
     class: 'Visual',
     apiVersion: '5.3.0',
@@ -27,6 +27,6 @@ var ganttChart: IVisualPlugin = {
 if (typeof powerbi !== "undefined") {
     powerbi.visuals = powerbi.visuals || {};
     powerbi.visuals.plugins = powerbi.visuals.plugins || {};
-    powerbi.visuals.plugins["ganttChart"] = ganttChart;
+    powerbi.visuals.plugins["ganttChart_DEBUG"] = ganttChart_DEBUG;
 }
-export default ganttChart;
+export default ganttChart_DEBUG;

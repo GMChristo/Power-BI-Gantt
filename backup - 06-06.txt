@@ -1,0 +1,672 @@
+"use strict";
+
+import "./../style/visual.less";
+import powerbi from "powerbi-visuals-api";
+import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructorOptions;
+import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
+import IVisual = powerbi.extensibility.visual.IVisual;
+import DataView = powerbi.DataView;
+import DataViewCategorical = powerbi.DataViewCategorical;
+import DataViewValueColumnGroup = powerbi.DataViewValueColumnGroup;
+import * as d3 from "d3";
+// import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
+// import DataViewObjectsParser = dataViewObjectsParser.dataViewObjectsParser;
+type Selection<T extends d3.BaseType> = d3.Selection<T, any, any, any>;
+
+
+import { FormattingSettingsService } from "powerbi-visuals-utils-formattingmodel";
+import { VisualFormattingSettingsModel } from "./settings";
+
+export interface ganttChartDataPoint {
+    id: number;
+    modulo: string;
+    tipo: string;
+    subtipo: string;
+    evento: string;
+    start: string;
+    end: string;
+    color: string;
+    icon: string;
+}
+
+export class Visual implements IVisual {
+    private svgRoot: Selection<SVGElement>;
+    private viewBox: Selection<SVGElement>;
+    private grid: Selection<SVGElement>;
+    private linhaCronograma: Selection<SVGElement>;
+    private formattingSettings: VisualFormattingSettingsModel;
+    private formattingSettingsService: FormattingSettingsService;
+
+    constructor(options: VisualConstructorOptions) {
+        // console.log("VisualConstructorOptions: " + options.element);
+        // console.log("VisualConstructorOptions Json: " + JSON.stringify(options));
+        // console.log("options: " + JSON.stringify(options));
+
+        this.svgRoot = d3.select(options.element)
+            .append('svg')
+            .classed('card', true);
+        this.viewBox = this.svgRoot.attr("viewBox", [0, 0, 1200, 600])
+        this.grid = this.viewBox.append("g").classed('grid', true)
+        this.linhaCronograma = this.viewBox.append("g").classed('linhaCronograma', true)
+        setupScales(this.svgRoot, 1200, 600)
+        treeModulos(data, this.svgRoot, itensExibir);
+        dadosLinha(data, this.svgRoot, itensExibir);
+        milestone(this.svgRoot);
+
+        // const dataView: DataView = options.dataViews[0];
+        // console.log("options.dataViews[0]: " + options.dataViews[0]);
+
+    }
+
+    public update(options: VisualUpdateOptions) {
+        const dataView: DataView = options.dataViews[0];
+        var aaa = dataView.table;
+        // console.log("data-inicial: " + JSON.stringify(aaa.rows));
+
+
+        const dataMap = aaa.rows.filter((item) => {
+            const dateStart = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ")(item[4].toString());
+            return dateStart >= DATA_INICIAL && dateStart <= DATA_FINAL;
+        }).map((item, i) => {
+            const dateStart = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ")(item[4].toString());
+            const formattedDateStart = d3.utcFormat("%Y-%m-%d")(dateStart);
+            var formattedDateEnd
+            if (typeof item[5] != "string") {
+                formattedDateEnd = formattedDateStart
+            }else{
+                const dateEnd = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ")(item[5].toString());
+                formattedDateEnd = d3.utcFormat("%Y-%m-%d")(dateEnd);
+            }
+
+            return {
+                modulo: item[0],
+                tipo: item[1],
+                subtipo: item[2],
+                evento: item[3],
+                start: formattedDateStart,
+                end: formattedDateEnd,
+                color: item[6],
+                icon: item[7],
+            };
+        });
+
+        data = dataMap
+        // console.log("data-inicial: " + JSON.stringify(data));
+        // var data2 = data;
+        data.sort((a, b) => {
+            if (a.modulo < b.modulo) return -1;
+            if (a.modulo > b.modulo) return 1;
+            return a.start.localeCompare(b.start);
+          });
+        // var data2 = data;
+        // data2.sort((a, b) => {
+        //     if (a.modulo < b.modulo) return -1;
+        //     if (a.modulo > b.modulo) return 1;
+        //     return 0;
+        // }); 
+        // console.log("data-inicial: " + JSON.stringify(data2));
+        
+
+        treeModulos(data, this.svgRoot, itensExibir);
+
+
+
+        // console.log("categoricalDataView categoria: " + JSON.stringify(categoricalDataView.categories[0].values));
+        // console.log("categoricalDataView evento: " + JSON.stringify(categoricalDataView.categories[1].values));
+        // console.log("categoricalDataView: " + JSON.stringify(categoricalDataView));
+        // console.log("categoricalDataView: " + categoricalDataView);
+        // console.log("dataView: " + JSON.stringify(dataView));
+        // console.log("dataView: " + dataView);
+        // console.log(" options.dataViews[0]: " + JSON.stringify( options.dataViews[0]));
+        // console.log(" options.dataViews[0]: " +  options.dataViews[0]);
+    }
+
+    public getFormattingModel(): powerbi.visuals.FormattingModel {
+        return this.formattingSettingsService.buildFormattingModel(this.formattingSettings);
+    }
+
+    public createViewModel(dataView: DataView): ganttChartDataPoint {
+
+        if (typeof dataView === "undefined" ||
+            typeof dataView.categorical === "undefined" ||
+            typeof dataView.categorical.categories === "undefined" ||
+            typeof dataView.categorical.values === "undefined") {
+            return;
+        }
+        console.log("lalalala");
+
+        // this.settin
+    }
+
+
+}
+
+// Constants
+const MARGIN_LEFT = 110;
+const MARGIN_RIGHT = 10;
+const MARGIN_TOP = 20;
+const MARGIN_BOTTOM = 10;
+const CHART_WIDTH = 980;
+const CHART_HEIGHT = 530;
+const BAR_HEIGHT = 25;
+const AXIS_HEIGHT = 40;
+const DATA_INICIAL = new Date("2023-01-01");
+const DATA_FINAL = new Date("2025-06-06");
+const DATA_MARCO = d3.timeDay(new Date());
+let barHeight = 15;
+let gap = barHeight + 4 //! define o espaçamento entre as barras
+
+var posicao = 35;
+var tamanho_rolagem = 0;
+
+var itensExibir = [];
+var calculaPosicao = [];
+
+let previousCont = 0;
+let previousContNome = 0;
+
+// console.log("testeAxisTop: " + JSON.stringify(testeAxisTop));
+
+// Data
+var data = []
+function checkUnique(arr) {
+    var hash = {}, result = [];
+    for (var i = 0, l = arr.length; i < l; ++i) {
+        if (!hash.hasOwnProperty(arr[i])) { //it works with objects! in FF, at least
+            hash[arr[i]] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+
+function createDateParser() {
+    // return d3.timeParse("%Y-%m-%d");
+    return d3.timeFormat("%Y-%m-%d");
+}
+
+
+function timeScaleAxis() {
+    var tamanhoData = (d3.scaleTime()
+        .domain([
+            DATA_INICIAL,
+            DATA_FINAL,
+        ])
+        .nice()
+        .range([0, 980 - 110 * 2]));
+    return tamanhoData;
+}
+
+function timeScale(data) {
+    var tamanhoData = (d3.scaleTime()
+        .domain([
+            DATA_INICIAL,
+            DATA_FINAL,
+        ])
+        .nice()
+        .range([0, 980 - 110 * 2]));
+    return tamanhoData(new Date(data));
+}
+
+function allModulos(data) {
+    let all_modulos = new Array();
+    for (var i = 0; i < data.length; i++) {
+        all_modulos.push(data[i].modulo);
+    }
+    return all_modulos;
+}
+
+function allTipos(data) {
+    let all_tipos = new Array();
+    for (var i = 0; i < data.length; i++) {
+        all_tipos.push(data[i].tipo);
+    }
+    return all_tipos;
+}
+
+// function colorOfScale(modulosLength) {
+//   let colorScale = d3.scaleLinear() //!cria o degrade de cor exibido na tabela
+//     .domain([0, modulosLength])
+//     .range(["#04214A", "#D5DEE9"])
+//     .interpolate(d3.interpolateHcl);
+//   return colorScale;
+// }
+
+function getCounts(arr) {
+    const obj = {};
+    for (const item of arr) {
+        obj[item] = (obj[item] || 0) + 1;
+    }
+    return obj;
+}
+
+function getCount(word, arr) {
+    const counts = getCounts(arr);
+    return counts[word] || 0;
+}
+
+
+// Set up scales
+/// calcular tamanho das escalas
+function setupScales(svg, width, height) {
+
+    svg.attr("viewBox", [0, 0, CHART_WIDTH, CHART_HEIGHT])
+
+    var grid = svg.append('g') //! utilizado para style das datas
+        .attr('class', 'grid')
+        .attr("transform", `translate(${MARGIN_LEFT + MARGIN_RIGHT + 20},${MARGIN_TOP})`)
+        // .call(xAxis)
+        .call(d3.axisTop(timeScaleAxis())
+            .ticks(4)
+            .tickSize(-CHART_HEIGHT + MARGIN_TOP)
+            .tickSizeOuter(-CHART_HEIGHT + MARGIN_TOP + MARGIN_BOTTOM)
+            .tickFormat(d3.timeFormat('%b %Y')))
+        .selectAll("text")
+        .style("text-anchor", "middle")
+        .attr("y", "-15")
+        .attr("fill", "black")
+        .attr("stroke", "none")
+        .attr("font-size", 10)
+        .attr("dy", "1em")
+
+}
+
+function milestone(svg) {
+    var mile = svg.append('g')
+        .attr("transform", function (d) {
+            var hoje = timeScale(d3.timeDay(new Date()));
+            return `translate(${hoje})`;
+        })
+        .append('line')
+        .attr("y2", CHART_HEIGHT)
+        .attr("stroke", "red")
+
+}
+
+
+function treeModulos(data, svg, itensExibir) {
+
+    // console.log("data: " + JSON.stringify(data));
+    // console.log("itensExibir: " + JSON.stringify(itensExibir));
+
+    // const dadosExibidos = itensExibir.length ? listaModulos(data, itensExibir) : data;
+    var dadosExibidos = data;
+    // console.log("treeModulos-data: " + JSON.stringify(dadosExibidos));
+    dadosExibidos = listaModulos(data, itensExibir)
+
+    let all_tipos = allTipos(data)
+    let tipos = checkUnique(all_tipos)
+
+    var blocoModulos = svg.append('g')
+        .attr("transform", `translate(10,50)`)
+        .attr("class", "nomesModulos")
+        .selectAll("rect")
+        .data(dadosExibidos)
+        .enter();
+
+    var nomeModulosBar = blocoModulos.append("text")
+        .text(function (d) {
+            return d.modulo;
+        })
+        .attr("transform", function (d, i) {
+            if (i === 0) {
+                previousContNome = d.cont;
+                return `translate(10,0)`;
+            } else {
+                const currentPosition = previousContNome;
+                previousContNome = currentPosition + d.cont;
+                return `translate(10,${(currentPosition * 19)})`;
+            }
+        })
+        .attr("font-size", 9)
+        .attr("text-height", barHeight)
+        .attr("id", "nomeModulos")
+        .attr("fill", "#black")
+        .attr('pointer-events', 'none')
+
+    // var nomeTiposBar = blocoModulos.append("text")
+    // .attr("id", "nomeTipos")
+    //   .text(function (d) {
+    //     console.log("d.tipo: "+d.tipo);
+    //     return d.tipo;
+    //   })
+    //   .attr("x", 110)
+    //   .attr("y", function (d, i) {
+    //     return i * gap + barHeight / 2 + 4 + MARGIN_TOP * 2;
+    //   })
+    //   .attr("font-size", 8)
+    //   .attr("text-height", barHeight)
+    //   .attr("fill", "#black")
+    //   // .attr('pointer-events', 'none')
+
+
+    var bigRects = svg.append("g") //! define a cor de fundo dos modulos
+        .attr("transform", function (d, i) {
+            return `translate(-10,40)`;
+        })
+        .attr("class", "blocoModulos")
+        .selectAll("rect")
+        .data(dadosExibidos)
+        .enter()
+        .append("rect")
+        .attr("transform", function (d, i) {
+            if (i === 0) {
+                previousCont = d.cont;
+                return `translate(10,0)`;
+            } else {
+                const currentPosition = previousCont;
+                previousCont = currentPosition + d.cont;
+                return `translate(10,${(currentPosition * 19)})`;
+            }
+        })
+
+        .attr("width", function (d) {
+            return (MARGIN_LEFT + MARGIN_RIGHT * 3);
+        })
+        .attr("height", function (d) {
+            return `${gap * d.cont}`;
+        })
+        .attr("stroke", "none")
+        .attr("id", "nomeModulos")
+        .attr("fill", function (d) {
+            for (var i = 0; i < dadosExibidos.length; i++) {
+                if (d.modulo == dadosExibidos[i]) {
+                    //   return d3.rgb(colorOfScale(dadosExibidos.length, i));
+                    return "grey";
+                }
+            }
+        })
+        .attr("opacity", 0.2)
+        .on("click", function (d, i) {
+
+            const tagIdModulos = d3.selectAll("#nomeModulos");
+            tagIdModulos.remove();
+            const tagClassModulos = d3.selectAll(".nomesModulos");
+            tagClassModulos.remove();
+            const tagClassBlocoModulos = d3.selectAll(".blocoModulos");
+            tagClassBlocoModulos.remove();
+            const tagClassLinhas = d3.selectAll("#linhaCronograma");
+            tagClassLinhas.remove();
+            const tagIdLinhas = d3.selectAll(".linhaCronograma");
+            tagIdLinhas.remove();
+
+            //!usando modulo
+            if (itensExibir.indexOf(i.modulo) === -1) {
+                itensExibir.push(i.modulo);
+                calculaPosicao.push(i.modulo, i.cont)
+            } else {
+                const index = itensExibir.indexOf(i.modulo);
+                itensExibir.splice(index, 1);
+            }
+
+            //!usando id
+            // if (itensExibir.indexOf(i.id) === -1) {
+            //     itensExibir.push(i.id);
+            //     calculaPosicao.push(i.id, i.cont)
+            // } else {
+            //     const index = itensExibir.indexOf(i.id);
+            //     itensExibir.splice(index, 1);
+            // }
+
+            treeModulos(data, svg, itensExibir);
+            dadosLinha(data, svg, itensExibir);
+
+        });
+
+}
+
+function dadosLinha(data, svg, itensExibirr) {
+
+    // console.log("dadosLinha-data: " + JSON.stringify(data));
+    // console.log("itensExibirr: " + JSON.stringify(itensExibirr));
+    itensExibir = itensExibirr;
+    
+    if (itensExibir.length != 0) {
+        
+        var dadosExibidos = data;
+        
+        dadosExibidos = listaDados(data, itensExibir)
+        // console.log("dadosExibidos: " + JSON.stringify(dadosExibidos));
+        // console.log("dadosLinha-dadosExibidos: " + JSON.stringify(dadosExibidos));
+
+        var rectangles = svg.append('g')
+            .attr("class", "linhaCronograma")
+            .selectAll("rect")
+            .data(dadosExibidos)
+            .enter();
+
+        var linha = rectangles.append("g")
+            .attr("y", function (d, i) {
+    // console.log("y d: " + JSON.stringify(d));
+                // console.log("i gap: " + d.modulo);
+                
+                if (typeof d.start != 'undefined') {
+                    // console.log("if (typeof: " + gap + i);
+
+                    return i * gap + (MARGIN_TOP * 2) + 2;
+                }
+            })
+            // .attr("id", function (d){
+            //     return "linhaCronograma-"+d.modulo
+            // })
+            .attr("id", "linhaCronograma")
+
+            var g =linha.append("g")
+            .attr("class", function (d){
+                    return d.modulo
+                })
+
+        //!define as posições das barras
+        var innerRects = g.append("rect")
+        // var innerRects = linha.append("rect")
+            .attr("rx", 3)
+            .attr("ry", 3)
+            .attr("x", function (d) {
+                if (typeof d.start != 'undefined') {
+                    return timeScale(d.start) + MARGIN_RIGHT + MARGIN_LEFT + 20;
+                }
+            })
+            .attr("y", function (d, i) {
+                if (typeof d.start != 'undefined') {
+                    return i * gap + (MARGIN_TOP * 2) + 2;
+                }
+            })
+            .attr("width", function (d) {
+                if (typeof d.start != 'undefined') {
+                    var dataFim = d.end;
+                    if (d.end == "") {
+                        dataFim = d.start;
+                    }
+                    return (timeScale(dataFim)) - timeScale(d.start);
+                }
+            })
+            .attr("height", barHeight)
+            .attr("stroke", "none")
+            .attr("fill", function (d) {
+                if (d.color == "" || d.color == null) {
+                    return "#3fc6ff"
+                }
+                return d.color
+            })
+
+        //!adiciona o nome da linha (evento)
+        var rectText = g.append("text")
+        // var rectText = linha.append("text")
+            .text(function (d) {
+                if (typeof d.tipo == 'undefined' || d.tipo == null) {
+                    return d.evento
+                }
+                return d.tipo + " - " + d.evento;
+            })
+            .attr("x", function (d) {
+                if (typeof d.start != 'undefined' || d.start != null) {
+                    var dataFim = d.end;
+                    if (d.end == "") {
+                        dataFim = d.start;
+                    }
+                    return ((timeScale(dataFim)) - (timeScale(d.start))) + 3 + timeScale(d.start) + MARGIN_RIGHT + MARGIN_LEFT + 20;
+                }
+            })
+            .attr("y", function (d, i) {
+                return i * gap + barHeight / 2 + 4 + MARGIN_TOP * 2;
+            })
+            .attr("font-size", 10)
+            .attr("text-height", barHeight)
+            .attr("fill", "#black")
+            .attr('pointer-events', 'none')
+
+        //! adiciona as datas antes do icone
+        var rectText = g.append("text")
+        // var rectText = linha.append("text")
+            .text(function (d) {
+                var dataFim = d.end;
+                if (d.end == "") {
+                    dataFim = d.start;
+                }
+                return (d.start);
+            })
+            .attr("x", function (d) {
+                if (typeof d.start != 'undefined') {
+                    var dataFim = d.end;
+                    if (d.end == "") {
+                        dataFim = d.start;
+                    }
+                    return ((timeScale(d.start))) + MARGIN_RIGHT + MARGIN_LEFT - 50;
+                }
+            })
+            .attr("y", function (d, i) {
+                if (typeof d.start != 'undefined') {
+                    return i * gap + barHeight / 2 + 4 + MARGIN_TOP * 2;
+                }
+            })
+            .attr("font-size", 10)
+            .attr("text-height", barHeight)
+            .attr("fill", "#black")
+            .attr('pointer-events', 'none')
+
+        //! Adiciona icones antes da barra de tempo
+        var iconBar = g.append("text")
+        // var iconBar = linha.append("text")
+            .attr("class", "fa")
+            .attr("x", function (d) {
+                if (typeof d.start != 'undefined') {
+                    return timeScale(d.start) + MARGIN_RIGHT + MARGIN_LEFT;
+                }
+            })
+            .attr("y", function (d, i) {
+                if (typeof d.start != 'undefined') {
+                    return (i * gap + barHeight / 2 + 4 + MARGIN_TOP * 2) + 3;
+                }
+            })
+            .attr("font-size", "15px")
+            .attr("fill", function (d) {
+                if (d.color == "") {
+                    return "#3fc6ff"
+                }
+                return d.color
+            })
+            .attr("opacity", 0.4)
+            .text(function (d) {
+                if (d.icon == "" || d.icon) {
+                    return "\uf05a"
+                }
+                return d.icon
+            })
+    }
+}
+
+
+function listaModulos(data, modulosExibir) {
+    // console.log("listaModulos-data: " + JSON.stringify(data));
+    const newData = data
+        .map((item) => ({ modulo: item.modulo }))
+        .reduce((acc, item) => {
+            const index = acc.findIndex((t) => t.modulo === item.modulo);
+            if (modulosExibir.includes(item.modulo) || index === -1) {
+                if (index === -1) {
+                    acc.push(item);
+                }
+                acc[acc.length - 1].cont = (acc[acc.length - 1].cont || 0) + 1;
+            }
+            return acc;
+        }, []);
+    console.log("listaModulos: " + JSON.stringify(newData));
+    return newData;
+}
+
+// function listaModulos(data, idBases) {
+//     const newData = data
+//         .map((item) => ({ id: item.id, modulo: item.modulo }))
+//         .reduce((acc, item) => {
+//             const index = acc.findIndex((t) => t.id === item.id && t.modulo === item.modulo);
+//             if (idBases.includes(item.id) || index === -1) {
+//                 if (index === -1) {
+//                     acc.push(item);
+//                 }
+//                 acc[acc.length - 1].cont = (acc[acc.length - 1].cont || 0) + 1;
+//             }
+//             return acc;
+//         }, []);
+//     // console.log("listaModulos: " + JSON.stringify(newData));
+//     return newData;
+// }
+
+
+//!usando modulo como principal
+function listaDados(data, moduloBase) {
+    console.log("listaDados-data: " + JSON.stringify(data));
+    
+    const resultado = data.filter((item) => moduloBase.includes(item.modulo));
+    const itensSemCorrespondencia = data
+    .filter((item) => !moduloBase.includes(item.modulo))
+    .reduce((acc, item) => {
+        if (!acc.some((accItem) => accItem.modulo === item.modulo)) {
+            acc.push({modulo: item.modulo });
+        }
+        return acc;
+    }, []);
+    
+    const ordenado = resultado.concat(itensSemCorrespondencia);
+    ordenado.sort((a, b) => {
+            if (a.modulo < b.modulo) return -1;
+            if (a.modulo > b.modulo) return 1;
+            return 0;
+        }); 
+    // const ordenado = resultado.concat(itensSemCorrespondencia).sort((a, b) => a.id - b.id);
+    console.log("listaDados-resultado: " + JSON.stringify(resultado));
+    console.log("listaDados-ordenado: " + JSON.stringify(ordenado));
+
+    return ordenado;
+}
+
+//!usando id como principal
+// function listaDados(data, idBases) {
+//     const resultado = data.filter((item) => idBases.includes(item.id));
+//     const itensSemCorrespondencia = data
+//         .filter((item) => !idBases.includes(item.id))
+//         .reduce((acc, item) => {
+//             if (!acc.some((accItem) => accItem.id === item.id)) {
+//                 acc.push({ id: item.id, modulo: item.modulo });
+//             }
+//             return acc;
+//         }, []);
+
+//     const ordenado = resultado.concat(itensSemCorrespondencia).sort((a, b) => a.id - b.id);
+
+//     return ordenado;
+// }
+
+
+/*
+  {
+    "id": 1,
+    "modulo": "Prazos Contratuais ANP",
+    "tipo": "Orion",
+    "subtipo": "Projeto Poço Tipo",
+    "evento": "Projeto Poço Tipo",
+    "start": "2024-01-05",
+    "end": "2024-01-10",
+    "color": "red",
+    "icon": "\uf669",
+  },
+*/

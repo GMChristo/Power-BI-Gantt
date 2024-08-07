@@ -23,6 +23,7 @@ var DATA_INICIAL = new Date("3000-01-01");
 var DATA_FINAL = new Date("1500-01-01");
 var dataMap = [];
 var estruturaDados = [];
+var exibir = [];
 var dadosEstruturais = [];
 var svgRoot;
 var svgBase;
@@ -39,11 +40,11 @@ export class Visual implements IVisual {
 
     public update(options: VisualUpdateOptions) {
 
-        console.log("dataMap0: " + dataMap);
+        // console.log("dataMap0: " + dataMap);
         dataMap = [];
         estruturaDados = [];
         dadosEstruturais = [];
-        console.log("dataMap1: " + dataMap);
+        // console.log("dataMap1: " + dataMap);
 
         const dataView: DataView = options.dataViews[0];
         CHART_HEIGHT = options.viewport.height
@@ -51,7 +52,6 @@ export class Visual implements IVisual {
         const categorias = matrixDataView.rows.root.children;
         const estrutura = matrixDataView.rows.levels;
         const dadoEstrutura = estrutura[estrutura.length - 1].sources;
-
 
         const tagMainDiv = d3.selectAll(".main-div");
         tagMainDiv.remove();
@@ -78,12 +78,9 @@ export class Visual implements IVisual {
 
         estruturaHierarquia(dadoEstrutura, estruturaDados) //retorna quais campos no visual foram preenchidos
         dadosEstruturais = estruturaDados;
-        console.log("dadosEstruturais: " + JSON.stringify(dadosEstruturais));
-        console.log("update 8");
+        // console.log("dadosEstruturais: " + JSON.stringify(dadosEstruturais));
 
-        //! erro no hierarquiaTree ao remover um rotulo ou agrupamentoe fazer o reload 
         hierarquiaTree(categorias, 0, dataMap)
-        console.log("update 9");
         preencheDataInicio(dataMap)
         preencheDataFim(dataMap)
         agrupamentoHierarquia(dataMap, dataAgrupado)
@@ -97,8 +94,80 @@ export class Visual implements IVisual {
 
         setupScales(svgRoot, 1200, 600);
         treeModulos(dataMap, testeHTML3);
+        // modulosTree(dataMap, testeHTML3, 1); //versao recursiva
         milestone(svgRoot);
+        dadosExpandidos(testeHTML3)
     }
+}
+
+function dadosExpandidos(svg) {
+
+    exibir.forEach((e) => {
+
+        var categoriaExibir = svg.selectAll('[class^="' + e + '"]')
+        if (categoriaExibir.nodes().length > 0) {
+            var eventoDiv = categoriaExibir.select('[class^="evento-div"]')
+            if (eventoDiv) {
+                eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
+            }
+            var eventoHide = categoriaExibir.select('[class^="iconPlus-div"]')
+            if (eventoHide) {
+                eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
+            }
+            var eventoShow = categoriaExibir.select('[class^="iconMinus-div"]')
+            if (eventoShow) {
+                eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
+            }
+
+            //!TODO rgb(204,0,0) verificar a logica abaixo pois pode ser otimizada para uso parecido do else .querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) 
+            var segundaHierarquia = categoriaExibir.selectAll('[class^="row-modulo2-"]')
+            // console.log("else categoriaExibir HTML: " + e + " - " + categoriaExibir.nodes()[0].outerHTML);
+
+            if (segundaHierarquia) {
+                if (!categoriaExibir.selectAll('[class^="ocultar"]').empty()) {
+                    console.log("if");
+                    console.log("e: " + e);
+
+
+                    var segundaHierarquia2 = categoriaExibir.selectAll('[class^="row-modulo2-null"]')
+                    if (segundaHierarquia2) {
+                        segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    console.log("else categoriaExibir HTML: " + e + " - " + categoriaExibir.nodes()[0].outerHTML);
+                    var segundaHierarquia2 = categoriaExibir.selectAll('[class^="ocultar"]')
+                    console.log("segundaHierarquia2 HTML: " + e + " - " + segundaHierarquia2.nodes()[0].outerHTML);
+                    if (segundaHierarquia2.size() > 0) {
+                        segundaHierarquia2.style('display', 'none');
+                    }
+
+                    var terceiraHierarquia = categoriaExibir.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquia) {
+                        terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
+                    }
+                }
+                else {
+                    try {
+                        if (categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) {
+                            var filhos = categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`);
+                            filhos.forEach(function (filho) {
+                                filho.style.display = 'contents';
+                            });
+                        }
+                        if (categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`).length > 0) {
+                            var filhos = categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`);
+                            filhos.forEach(function (filho) {
+                                filho.style.display = 'contents';
+                            });
+                        }
+                    } catch (error) {
+                        console.log("catch: ");
+
+                    }
+                }
+            }
+        }
+    })
 }
 
 var dataAgrupado = []
@@ -198,7 +267,6 @@ function hierarquiaTree(element, lvl, dataMap) {
             })
 
             if (dataMap.length == 0) {
-
                 dataMap.push({
                     evento: element[cat].value,
                     ...(element[sTipo] && { subTipo: element[sTipo].value }),
@@ -266,7 +334,6 @@ function timeScale(data) {
     var parser = d3.timeParse("%d/%m/%Y");
     var parsedData = parser(data);
 
-
     var tamanhoData = (d3.scaleTime()
         .domain([
             DATA_INICIAL,
@@ -285,9 +352,7 @@ function timeScale(data) {
 
 // Set up scales
 /// calcular tamanho das escalas
-
 function setupScales(svg, width, height) {
-
     var grid = svg.append("g")
         .attr("class", "grid")
         .attr("transform", `translate(${MARGIN_LEFT}, ${MARGIN_TOP})`)
@@ -316,9 +381,482 @@ function milestone(svg) {
         .attr("y2", CHART_HEIGHT + 20)
         .attr("stroke", "red")
 }
+
+/*
+// var dadosEventoSubTipo = []
+// var tipoEventoBar = []
+// var tipoCategoriaBar = []
+function modulosTree(data, svg, lvl) {
+    data.forEach((d) => {
+        var tipoCategoriaBar = []
+        var tipoEventoBar = []
+        var dadosEventoSubTipo = []
+
+
+        if ("dados" in d) {
+            var next = lvl + 1
+
+
+            // if (d.nome == "null") {
+            //     console.log("nome null");
+
+            //     modulosTree(d.dados, svg, lvl + 1)
+            // } else 
+            {
+
+                var tableModulos = svg.append("table")
+                    .attr("class", function () {
+                        // if(lvl == 0){
+                        if (lvl == 1) {
+                            return "row-modulo-" + d.nome
+                        } else {
+                            console.log("tableModulos + lvl: " + lvl);
+                            return "tableModulos" + lvl
+                        }
+                    })
+                    .style("display", function () {
+                        if (lvl != 1) {
+                            return "none"
+                        }
+                    })
+                    .attr("height", 20)
+
+                var row = tableModulos.append("tr")
+                    .style("display", "flex")
+                    .attr("height", 20)
+                    .style("margin-bottom", "5px")
+                    .style("padding-left", (lvl - 1) * 15 + "px")
+
+                var buttonPlus = row.append("button")
+                    .attr("class", "iconPlus-div")
+                    .on("click", function () {
+
+                        // var eventoDiv = row.select(".evento-div")
+                        // if (eventoDiv) {
+                        //     eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
+                        // }
+
+                        var eventoHide = row.select(".iconPlus-div")
+                        if (eventoHide) {
+                            eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
+                        }
+                        var eventoShow = row.select(".iconMinus-div")
+                        if (eventoShow) {
+                            eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
+                        }
+                        var segundaHierarquia = tableModulos.selectAll(".tableModulos" + next)
+                        segundaHierarquia.style("display", function (d) {
+                            return this.style.display === "none" ? "contents" : "none";
+                        })
+                        if (d.dados[0].levelValues) {
+                            var eventoNome = tableModulos.selectAll(".eventoNome")
+                            if (eventoNome) {
+                                eventoNome.style("display", eventoNome.style("display") === "none" ? "contents" : "none");
+                            }
+                        }
+                    })
+                    .append("svg")
+                    .attr("viewBox", [0, 0, 448, 512])
+                    .attr("height", 16)
+                    .attr("width", 14)
+                    .append("path")
+                    .attr("d", iconsBase.plus)
+
+                var buttonMinus = row.append("button")
+                    .style("display", "none")
+                    .attr("class", "iconMinus-div")
+                    .on("click", function () {
+
+                        // var eventoDiv = row.select(".evento-div")
+                        // if (eventoDiv) {
+                        //     eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
+                        // }
+
+                        var eventoHide = row.select(".iconPlus-div")
+                        if (eventoHide) {
+                            eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
+                        }
+                        var eventoShow = row.select(".iconMinus-div")
+                        if (eventoShow) {
+                            eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
+                        }
+                        var segundaHierarquia = tableModulos.selectAll(".tableModulos" + next)
+                        segundaHierarquia.style("display", function (d) {
+                            return this.style.display === "none" ? "contents" : "none";
+                        })
+                        if (d.dados[0].levelValues) {
+                            console.log("d.levelValues");
+
+                            var eventoNome = tableModulos.selectAll(".eventoNome")
+                            if (eventoNome) {
+                                eventoNome.style("display", eventoNome.style("display") === "none" ? "contents" : "none");
+                            }
+                        }
+                    })
+                    .append("svg")
+                    .attr("viewBox", [0, 0, 448, 512])
+                    .attr("height", 16)
+                    .attr("width", 14)
+                    .append("path")
+                    .attr("d", iconsBase.minor)
+
+
+                row.append("div")
+                    .style("width", "260px")
+                    .style("padding-left", "5px")
+                    .attr("class", "text-div")
+                    .append("text")
+                    .attr("x", 10)
+                    .attr("height", 20)
+                    .attr("font-size", "12px")
+                    .text(d.nome)
+                var retornoEvento = modulosTree(d.dados, tableModulos, lvl + 1)
+                console.log("retornoEvento: " + JSON.stringify(retornoEvento));
+
+
+                // console.log("executou depois do callback modulosTree(d.dados, tableModulos, lvl + 1)");
+                // console.log("dadosEventoSubTipo: " + JSON.stringify(dadosEventoSubTipo));
+                console.log("tipoEventoBar: " + JSON.stringify(tipoEventoBar));
+
+
+                if (dadosEventoSubTipo.length != 0) {
+                    dadosEventoSubTipo.forEach((item, i) => {
+                        var tableModulos3 = svg.append("table")
+                            .attr("class", "tableModulos3")
+                            .style("display", "none")
+
+                        var row3 = tableModulos3.append("tr")
+                            .style("display", "flex")
+                            .style("padding-left", "30px")
+                            .style("width", "1147px")
+                            .style("margin-bottom", "5px")
+
+                        var testeRow = row3.append("tr")
+                            .attr("class", "row-modulo-evento")
+                            // .attr("height", 20)
+                            .style("padding-left", "5px")
+                            .style("width", "260px")
+                            .text(Object.keys(dadosEventoSubTipo[i])[0])
+
+                        var barraGeralEvento = row3.append("g")
+                            .attr("transform", `translate(0,0)`)
+                            .attr("class", "evento-div3")
+
+                        Object.keys(item).forEach((key, j) => {
+
+                            item[key].forEach((gov, k) => {
+
+                                var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
+                                    .style("display", "flex")
+                                    .style("position", "absolute")
+                                    .attr("transform", function (f) {
+                                        if (gov.width != 0) {
+                                            return `translate(${gov.posInin},0)`
+                                        } else {
+                                            return `translate(${gov.posInin - 15},0)`
+                                        }
+                                    })
+                                    .attr("height", 20)
+                                    .attr("width", function (f) {
+                                        if (gov.width != 0) {
+                                            tipoEventoBar.push({
+                                                //adicionar a posição x do translate e o tamanho do width
+                                                "posInin": gov.posInin,
+                                                "width": gov.width,
+                                            })
+                                            tipoCategoriaBar.push({
+                                                //adicionar a posição x do translate e o tamanho do width
+                                                "posInin": gov.posInin,
+                                                "width": gov.width,
+                                            })
+                                            return gov.width
+                                        } else {
+                                            tipoEventoBar.push({
+                                                //adicionar a posição x do translate e o tamanho do width
+                                                "posInin": gov.posInin,
+                                                "width": 0,
+                                            })
+                                            tipoCategoriaBar.push({
+                                                //adicionar a posição x do translate e o tamanho do width
+                                                "posInin": gov.posInin,
+                                                "width": 0,
+                                            })
+                                            return "30px"
+                                        }
+                                    })
+                                if (gov.width != 0) {
+                                    barraGeralEventoAgrupado.append("rect")
+                                        // .attr("fill", "rgb(90, 3, 150)")
+                                        .attr("fill", "rgb(128, 52, 52)")
+                                        .attr("width", gov.width)
+                                        .attr("height", 20)
+                                } else {
+                                    barraGeralEventoAgrupado
+                                        .attr("viewBox", [0, 0, 448, 512])
+                                        .attr("height", 20)
+                                        .attr("width", 30)
+                                        .append("path")
+                                        .attr("d", iconsBase.diamond)
+                                }
+
+                                if (!gov.group) {
+                                    barraGeralEvento.append("svg")
+                                        .attr("transform", function () {
+                                            if (gov.width != 0) {
+                                                return `translate(${gov.posInin + gov.width + 5}, 0)`;
+                                            } else {
+                                                return `translate(${gov.posInin + 15}, 0)`;
+                                            }
+                                        })
+                                        .attr("height", 20)
+                                        .attr("class", "evento-div")
+                                        .style("display", "block")
+                                        .append("g")
+                                        .append("text")
+                                        .attr("y", 15)
+                                        .attr("font-size", 12)
+                                        .text(function () {
+                                            if (gov.rot && (gov.rot != "null" && gov.rot != null)) {
+                                                return gov.rot
+                                            } else {
+                                                return key
+                                            }
+                                        });
+                                }
+                            });
+                        });
+                    }
+                    )
+                }
+                console.log("var barraGeralTeste ");
+
+                //Gera os marcos agrupados referentes ao tipo
+                var barraGeralTeste = row.append("g")
+                    .attr("transform", `translate(0,0)`)
+                    .attr("class", "evento-div2")
+
+                tipoEventoBar.forEach((item, i) => {
+
+                    var barraGeralTeste2 = barraGeralTeste.append("svg")
+                        .style("display", "flex")
+                        .style("position", "absolute")
+                        .attr("transform", function (f) {
+                            if (item.width != 0) {
+                                return `translate(${item.posInin},0)`
+                            } else {
+                                return `translate(${item.posInin - 15},0)`
+                            }
+                        })
+                        .attr("height", 20)
+                        .attr("width", function (f) {
+                            if (item.width != 0) {
+                                return item.width
+                            } else {
+                                return "30px"
+                            }
+                        })
+                    if (item.width != 0) {
+                        barraGeralTeste2.append("rect")
+                            .attr("fill", "rgb(128, 52, 52)")
+                            .attr("width", item.width)
+                            .attr("height", 20)
+                    } else {
+                        barraGeralTeste2.append("svg")
+                            .attr("transform", `translate(${item.posInin},0)`)
+                            .attr("height", 20)
+                            .attr("width", 30)
+                            .attr("viewBox", [0, 0, 448, 512])
+                            .attr("height", 20)
+                            .attr("width", 30)
+                            .append("path")
+                            .attr("fill", "rgb(128, 52, 52)")
+                            .attr("d", iconsBase.diamond)
+                    }
+                })
+
+
+
+            }
+        }
+        else if ("levelValues" in d) {
+            // console.log("else if (levelValues in d)");
+
+            // var dadosEventoSubTipo = []
+
+            d.levelValues.forEach((value) => {
+
+                var tamanhoBarraEvento = timeScale(value.dataInicio);
+                var dataInicio = timeScale(value.dataInicio);
+                var posicaoTextoEvento;
+                var dataFimTeste = "null";
+                if (value.dataFim != "null" && value.dataFim != null) {
+                    dataFimTeste = value.dataFim
+                }
+
+                //**********
+
+                if (dataFimTeste != "null") {
+
+                    var dataFim = timeScale(value.dataFim)
+                    tamanhoBarraEvento = dataFim - dataInicio
+                    posicaoTextoEvento = dataInicio + 15
+                } else {
+                    posicaoTextoEvento = dataInicio
+                    tamanhoBarraEvento = 0
+                }
+
+                //**********
+
+                if (value.subTipo) {
+                    if (value.subTipo == "null") {
+                        dadosEventoSubTipo.push({
+                            [value.evento]: [
+                                {
+                                    posInin: dataInicio,
+                                    width: tamanhoBarraEvento,
+                                    group: false,
+                                    rot: value.rot
+                                },
+                            ],
+                        });
+                    } else {
+                        const existingSubTipo = dadosEventoSubTipo.find(item => Object.keys(item)[0] === value.subTipo);
+                        if (!existingSubTipo) {
+                            dadosEventoSubTipo.push({
+                                [value.subTipo]: [
+                                    {
+                                        posInin: dataInicio,
+                                        width: tamanhoBarraEvento,
+                                        group: true
+                                    },
+                                ],
+                            });
+                        } else {
+                            existingSubTipo[value.subTipo].push({
+                                posInin: dataInicio,
+                                width: tamanhoBarraEvento,
+                                group: true
+                            });
+                        }
+                    }
+                } else {
+
+                    var tableModulos3 = svg.append("table")
+                        .attr("class", "eventoNome")
+                        .style("display", "none")
+
+                    var row3 = tableModulos3.append("tr")
+                        .style("display", "flex")
+                        .style("padding-left", "30px")
+                        .style("width", "1147px")
+                        .style("align-items", "center")
+                        .style("margin-bottom", "5px")
+
+                    var testeRow3 = row3.append("tr")
+                        .attr("class", "row-modulo-segundo")
+                        .style("padding-left", "5px")
+                        .style("width", "260px")
+                        .text(value.evento)
+
+                    var eventoBarDiv = row3.append("svg")
+                        .attr("transform", function (d, i) {
+                            if (dataFimTeste == "null") {
+                                return `translate(${dataInicio - 15}, 0)`;
+                            } else {
+                                return `translate(${dataInicio}, 0)`;
+                            }
+                        })
+                        .attr("height", 20)
+                        .attr("width", function () {
+                            if (dataFimTeste !== "null") {
+                                tipoEventoBar.push({
+                                    "posInin": dataInicio,
+                                    "width": tamanhoBarraEvento,
+                                })
+                                tipoCategoriaBar.push({
+                                    "posInin": dataInicio,
+                                    "width": tamanhoBarraEvento,
+                                })
+                                return tamanhoBarraEvento
+                            } else {
+                                tipoEventoBar.push({
+                                    "posInin": dataInicio,
+                                    "width": 0,
+                                })
+                                tipoCategoriaBar.push({
+                                    "posInin": dataInicio,
+                                    "width": 0,
+                                })
+                                return tamanhoBarraEvento + 20
+                            }
+                        })
+                        .attr("class", "eventoBarDiv")
+                        .style("display", "block")
+
+                    if (dataFimTeste == "null") {
+                        var iconeDiv = eventoBarDiv
+                            .attr("viewBox", [0, 0, 448, 512])
+                            .attr("height", 20)
+                            .attr("width", 30)
+                            .append("path")
+                            .attr("d", iconsBase.diamond)
+
+                    } else {
+
+                        var iconeDiv = eventoBarDiv.append("rect")
+                            .attr("fill", function () {
+                                return "rgb(0, 0153, 128)"
+                            }
+                            )
+                            .style("height", "20px")
+                            .attr("width", function (d) {
+                                if (dataFimTeste != "null") {
+                                    var dataFim = timeScale(value.dataFim)
+                                    tamanhoBarraEvento = dataFim - dataInicio
+                                    return tamanhoBarraEvento
+                                } else {
+                                    return tamanhoBarraEvento + 20
+                                }
+                            })
+                    }
+
+                    var eventoNomeDiv = row3.append("svg")
+                        .attr("transform", function () {
+                            return `translate(${posicaoTextoEvento}, 0)`;
+                        })
+                        .attr("height", 20)
+                        .attr("class", "evento-div")
+                        .style("display", "block")
+                        .append("g")
+                        .append("text")
+                        .attr("y", 15)
+                        .attr("font-size", 12)
+                        .text(function () {
+                            if ("rot" in value) {
+                                return value.rot
+                            } else {
+                                return value.evento
+                            }
+                        });
+                }
+                console.log("tipoEventoBar1: " + JSON.stringify(tipoEventoBar) + value.evento);
+            })
+            return "tipoEventoBar"
+            console.log("tipoEventoBar2: " + JSON.stringify(tipoEventoBar));
+            console.log("teste de retorno do callback else if (levelValues in d)");
+        }
+    })
+
+}
+*/
+
+
+
 //rgb(204,0,0)
 //TODO necessario fazer refatoração para que seja utilizado recursividade, tornando possivel o uso de N hierarquias
 function treeModulos(data, svg) {
+    // console.log("treeModulos data: " + JSON.stringify(data));
+
     data.forEach((d) => {
         var tipoCategoriaBar = []
         var tableModulos = svg.append("table")
@@ -334,6 +872,10 @@ function treeModulos(data, svg) {
             .attr("class", "iconPlus-div")
             .on("click", function () {
 
+                exibir.push("row-modulo-" + d.nome)
+                // console.log("exibir - buttonPlus: " + exibir);
+
+
                 var eventoDiv = row.select(".evento-div")
                 if (eventoDiv) {
                     eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
@@ -347,9 +889,24 @@ function treeModulos(data, svg) {
                 if (eventoShow) {
                     eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                 }
-                var segundaHierarquia = tableModulos.selectAll(".tableModulos2")
+                // var segundaHierarquia = tableModulos.selectAll(".tableModulos2")
+                var segundaHierarquia = tableModulos.selectAll('[class^="row-modulo2-"]')
                 if (segundaHierarquia) {
                     segundaHierarquia.style("display", segundaHierarquia.style("display") === "none" ? "contents" : "none");
+                }
+                try {
+                    var segundaHierarquia2 = tableModulos.selectAll('[class^="ocultar"]')
+                    if (segundaHierarquia2) {
+                        segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    var terceiraHierarquia = tableModulos.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquia) {
+                        terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
+                    }
+                } catch (error) {
+                    // console.log("erro catch: " + error);
+
                 }
             })
             .append("svg")
@@ -363,6 +920,9 @@ function treeModulos(data, svg) {
             .style("display", "none")
             .attr("class", "iconMinus-div")
             .on("click", function () {
+                exibir = exibir.filter(elemento => elemento !== "row-modulo-" + d.nome);
+                // console.log("exibir - buttonMinus: " + exibir);
+
 
                 var eventoDiv = row.select(".evento-div")
                 if (eventoDiv) {
@@ -377,9 +937,25 @@ function treeModulos(data, svg) {
                 if (eventoShow) {
                     eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                 }
-                var segundaHierarquia = tableModulos.selectAll(".tableModulos2")
+                // var segundaHierarquia = tableModulos.selectAll(".tableModulos2")
+                var segundaHierarquia = tableModulos.selectAll('[class^="row-modulo2-"]')
                 if (segundaHierarquia) {
                     segundaHierarquia.style("display", segundaHierarquia.style("display") === "none" ? "contents" : "none");
+                }
+
+                try {
+                    var segundaHierarquia2 = tableModulos.selectAll('[class^="ocultar"]')
+                    if (segundaHierarquia2) {
+                        segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    var terceiraHierarquia = tableModulos.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquia) {
+                        terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
+                    }
+                } catch (error) {
+                    // console.log("erro catch: " + error);
+
                 }
 
             })
@@ -407,15 +983,26 @@ function treeModulos(data, svg) {
 
 
         d.dados.forEach((h, i) => {
+            // console.log("d.dados.forEach: " + JSON.stringify(h));
+
             var tipoEventoBar = []
+
             var tableModulos2 = tableModulos.append("table")
-                .attr("class", "tableModulos2")
+                // .attr("class", "tableModulos2")
+                .attr("class", "row-modulo2-" + h.nome)
                 .style("display", "none")
                 .style("padding-left", "15px")
                 .style("margin-bottom", "5px")
                 .attr("height", 20)
 
             var row2 = tableModulos2.append("tr")
+                .attr("class", function () {
+                    if (h.nome === null) {
+                        return "ocultar"
+                    } else {
+                        return "exibir"
+                    }
+                })
                 .style("display", "flex")
                 .attr("height", 20)
                 .style("padding-left", "15px")
@@ -425,6 +1012,10 @@ function treeModulos(data, svg) {
             var buttonPlus = row2.append("button")
                 .attr("class", "iconPlus-div2")
                 .on("click", function () {
+
+                    // exibir.push("tableModulos2")
+                    exibir.push("row-modulo2-" + h.nome)
+                    console.log("exibir - buttonPlus: " + exibir);
 
                     var eventoDiv2 = row2.select(".evento-div2")
                     if (eventoDiv2) {
@@ -439,7 +1030,8 @@ function treeModulos(data, svg) {
                     if (eventoShow) {
                         eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                     }
-                    var terceiraHierarquia = tableModulos2.selectAll(".tableModulos3")
+                    // var terceiraHierarquia = tableModulos2.selectAll(".tableModulos3")
+                    var terceiraHierarquia = tableModulos2.selectAll('[class^="row-modulo3-"]')
                     if (terceiraHierarquia) {
                         terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
                     }
@@ -455,6 +1047,8 @@ function treeModulos(data, svg) {
                 .style("display", "none")
                 .attr("class", "iconMinus-div2")
                 .on("click", function () {
+                    exibir = exibir.filter(elemento => elemento !== "row-modulo2-" + h.nome);
+                    console.log("exibir - iconMinus-div2: " + exibir);
 
                     var eventoDiv = row2.select(".evento-div2")
                     if (eventoDiv) {
@@ -469,7 +1063,8 @@ function treeModulos(data, svg) {
                     if (eventoShow) {
                         eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                     }
-                    var terceiraHierarquia = tableModulos2.selectAll(".tableModulos3")
+                    // var terceiraHierarquia = tableModulos2.selectAll(".tableModulos3")
+                    var terceiraHierarquia = tableModulos2.selectAll('[class^="row-modulo3-"]')
                     if (terceiraHierarquia) {
                         terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
                     }
@@ -487,6 +1082,8 @@ function treeModulos(data, svg) {
                 .style("padding-left", "5px")
                 .style("width", "245px")
                 .text(h.nome)
+
+
 
             //! bloco abaixo é usado para a parte de evento da hierarquia
 
@@ -545,8 +1142,10 @@ function treeModulos(data, svg) {
                     }
                 } else {
 
+
                     var tableModulos3 = tableModulos2.append("table")
-                        .attr("class", "tableModulos3")
+                        // .attr("class", "tableModulos3")
+                        .attr("class", "row-modulo3-" + l.levelValues[0].evento)
                         .style("display", "none")
 
                     var row3 = tableModulos3.append("tr")
@@ -556,11 +1155,24 @@ function treeModulos(data, svg) {
                         .style("align-items", "center")
                         .style("margin-bottom", "5px")
 
+
+                    var textPrint = l.levelValues[0].evento
+                    var indiceEspaco = textPrint.indexOf(' ');
+                    if (indiceEspaco === -1 || indiceEspaco > 27) {
+                        var textSplit
+                        textSplit = textPrint.substring(0, 25) + ' ' + textPrint.substring(25);
+                        textPrint = textSplit
+                    } else {
+                        textPrint;
+                    }
+
+
                     var testeRow3 = row3.append("tr")
                         .attr("class", "row-modulo-segundo")
                         .style("padding-left", "5px")
                         .style("width", "260px")
-                        .text(l.levelValues[0].evento)
+                        .text(textPrint)
+
 
                     var eventoBarDiv = row3.append("svg")
                         .attr("transform", function (d, i) {
@@ -603,13 +1215,25 @@ function treeModulos(data, svg) {
                             .attr("height", 20)
                             .attr("width", 30)
                             .append("path")
+                            .attr("fill", function () {
+                                if (l.levelValues[0].cor) {
+                                    return l.levelValues[0].cor
+                                } else {
+                                    return "rgb(0, 0153, 128)"
+                                }
+                            }
+                            )
                             .attr("d", iconsBase.diamond)
 
                     } else {
 
                         var iconeDiv = eventoBarDiv.append("rect")
                             .attr("fill", function () {
-                                return "rgb(0, 0153, 128)"
+                                if (l.levelValues[0].cor) {
+                                    return l.levelValues[0].cor
+                                } else {
+                                    return "rgb(0, 0153, 128)"
+                                }
                             }
                             )
                             .style("height", "20px")
@@ -647,8 +1271,11 @@ function treeModulos(data, svg) {
 
             if (dadosEventoSubTipo.length != 0) {
                 dadosEventoSubTipo.forEach((item, i) => {
+                    // console.log("tableModulos3 = tableModulos2.append: " + JSON.stringify(item));
+                    // console.log("tableModulos3 = tableModulos2.append item[0]: " + Object.keys(item)[0]);
                     var tableModulos3 = tableModulos2.append("table")
-                        .attr("class", "tableModulos3")
+                        // .attr("class", "tableModulos3")
+                        .attr("class", "row-modulo3-" + Object.keys(item)[0])
                         .style("display", "none")
 
                     var row3 = tableModulos3.append("tr")
@@ -713,7 +1340,16 @@ function treeModulos(data, svg) {
                             if (gov.width != 0) {
                                 barraGeralEventoAgrupado.append("rect")
                                     // .attr("fill", "rgb(90, 3, 150)")
-                                    .attr("fill", "rgb(128, 52, 52)")
+                                    // .attr("fill", "rgb(128, 52, 52)")
+                                    .attr("fill", function () {
+                                        // if (l.levelValues[0].cor) {
+                                        //     return l.levelValues[0].cor
+                                        // } else {
+                                        return "rgb(10, 0, 250)"
+                                        // }
+                                    }
+
+                                    )
                                     .attr("width", gov.width)
                                     .attr("height", 20)
                             } else {
@@ -722,6 +1358,13 @@ function treeModulos(data, svg) {
                                     .attr("height", 20)
                                     .attr("width", 30)
                                     .append("path")
+                                    .attr("fill", function () {
+                                        // if (l.levelValues[0].cor) {
+                                        //     return l.levelValues[0].cor
+                                        // } else {
+                                        return "rgb(10, 0, 250)"
+                                        // }
+                                    })
                                     .attr("d", iconsBase.diamond)
                             }
 

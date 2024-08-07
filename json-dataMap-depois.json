@@ -1,0 +1,2103 @@
+[
+    {
+        "level": 0,
+        "nome": "Governança",
+        "qtdSub": 1,
+        "dados": [
+            {
+                "level": 1,
+                "nome": "null",
+                "qtdSub": 17,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRT",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-02-06T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRBLOC",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-02-29T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRT",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-04-17T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRLOC",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-04-18T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "COMEXP",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-04-25T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRLOC",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-05-02T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRT",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-05-07T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "COMEXP",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-05-29T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Ciclo GAP",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-05-31T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRT",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-06-06T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRT",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-06-10T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRLOC",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-06-14T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRLOC",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-06-19T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "COMEXP",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-06-27T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRLOC",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-06-27T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "GRLOC",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-07-10T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "COMEXP",
+                                "subTipo": "Governança",
+                                "dataInicio": "2024-07-25T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "level": 0,
+        "nome": "Licenciamento Ambiental",
+        "qtdSub": 1,
+        "dados": [
+            {
+                "level": 1,
+                "nome": "null",
+                "qtdSub": 74,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2006-11-10T02:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão do Termo de Referência",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2008-08-18T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2010-02-24T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "_PERFURAÇÃO BM-BAR-1",
+                                "dataInicio": "2011-09-30T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2011-12-19T02:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da LP",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2012-05-22T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Requerimento da 2ª LO",
+                                "subTipo": "_PERFURAÇÃO BM-BAR-1",
+                                "dataInicio": "2013-03-15T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2013-05-20T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Entrada em Operação da 1ª UEP (determinístico)",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2013-05-23T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Solicitação de Anuência",
+                                "subTipo": "Inclusão Poço Umbu",
+                                "dataInicio": "2013-12-23T02:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão de Anuência",
+                                "subTipo": "Inclusão Poço Umbu",
+                                "dataInicio": "2014-04-24T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão do Termo de Referência",
+                                "subTipo": "PERFURAÇÃO FZA-M-59",
+                                "dataInicio": "2014-08-22T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO FZA-M-59",
+                                "dataInicio": "2015-03-31T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Solicitação de Anuência",
+                                "subTipo": "Anuência POT-M-764 e 3 poços",
+                                "dataInicio": "2016-03-07T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Arquivamento/Indeferimento de Processo",
+                                "subTipo": "_PERFURAÇÃO BM-BAR-1",
+                                "dataInicio": "2016-04-20T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO FZA-M-59",
+                                "dataInicio": "2017-11-13T02:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "ALTO DE CABO FRIO CENTRAL, DOIS IRMÃOS E SC-AP-5 (EXTENSÃO AGBC)",
+                                "dataInicio": "2018-12-28T02:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Solicitação de Anuência",
+                                "subTipo": "Inclusão Poço Pitu Oeste",
+                                "dataInicio": "2019-03-15T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO BM-BAR-3 E BM-BAR-5",
+                                "dataInicio": "2019-07-17T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO BM-BAR-3 E BM-BAR-5",
+                                "dataInicio": "2019-09-16T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "ALTO DE CABO FRIO CENTRAL, DOIS IRMÃOS E SC-AP-5 (EXTENSÃO AGBC)",
+                                "dataInicio": "2019-11-18T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Autorização de distribuição dos EAs",
+                                "subTipo": "PERFURAÇÃO BM-BAR-3 E BM-BAR-5",
+                                "dataInicio": "2019-12-19T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Publicação do edital de convocações das APs/RPs",
+                                "subTipo": "PERFURAÇÃO BM-BAR-3 E BM-BAR-5",
+                                "dataInicio": "2020-01-13T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2020-02-28T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO BM-BAR-3 E BM-BAR-5",
+                                "dataInicio": "2020-03-03T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "_PERFURAÇÃO POT-M-762",
+                                "dataInicio": "2020-04-23T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO FZA-M-59",
+                                "dataInicio": "2020-06-01T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2020-06-08T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO FZA-M-57_86_88_125_127",
+                                "dataInicio": "2020-09-01T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Solicitação de Anuência",
+                                "subTipo": "Inclusão Poços do Bloco C-M-477",
+                                "dataInicio": "2020-12-16T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão do Termo de Referência",
+                                "subTipo": "PERFURAÇÃO FZA-M-57_86_88_125_127",
+                                "dataInicio": "2020-12-31T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Arquivamento/Indeferimento de Processo",
+                                "subTipo": "_PERFURAÇÃO POT-M-762",
+                                "dataInicio": "2021-03-01T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO FZA-M-57_86_88_125_127",
+                                "dataInicio": "2021-08-30T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão do Termo de Referência",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2021-10-26T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão do Termo de Referência",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2021-10-26T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Arquivamento/Indeferimento de Processo",
+                                "subTipo": "_PERFURAÇÃO BM-PAMA-8",
+                                "dataInicio": "2022-04-13T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO BM-BAR-1 2022",
+                                "dataInicio": "2022-04-28T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão do Termo de Referência",
+                                "subTipo": "PERFURAÇÃO BM-BAR-1 2022",
+                                "dataInicio": "2022-07-29T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de abertura do processo",
+                                "subTipo": "PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8",
+                                "dataInicio": "2022-08-01T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão do Termo de Referência",
+                                "subTipo": "PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8",
+                                "dataInicio": "2022-10-31T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão de Anuência",
+                                "subTipo": "Inclusão Poço Pitu Oeste",
+                                "dataInicio": "2023-05-03T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Avaliação Pré Operacional (APO)",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2023-09-18T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 2ª LO",
+                                "subTipo": "PERFURAÇÃO BM-POT-16 e 17",
+                                "dataInicio": "2023-10-02T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2024-06-13T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2024-06-29T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Arquivamento/Indeferimento de Processo",
+                                "subTipo": "PERFURAÇÃO FZA-4",
+                                "dataInicio": "2024-08-28T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO BM-BAR-1 2022",
+                                "dataInicio": "2024-09-27T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Protocolo de Estudo Ambiental",
+                                "subTipo": "PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8",
+                                "dataInicio": "2024-10-28T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Autorização de distribuição dos EAs",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2024-11-27T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Autorização de distribuição dos EAs",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2024-12-25T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Avaliação Pré Operacional (APO)",
+                                "subTipo": "PERFURAÇÃO FZA-M-59",
+                                "dataInicio": "2024-12-26T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO FZA-M-59",
+                                "dataInicio": "2025-01-22T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Publicação do edital de convocações das APs/RPs",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2025-02-28T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Publicação do edital de convocações das APs/RPs",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2025-04-18T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2025-06-02T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2025-06-30T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Publicação do edital de convocações das APs/RPs",
+                                "subTipo": "PERFURAÇÃO BM-BAR-1 2022",
+                                "dataInicio": "2026-03-06T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO BM-BAR-1 2022",
+                                "dataInicio": "2026-03-23T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Publicação do edital de convocações das APs/RPs",
+                                "subTipo": "PERFURAÇÃO FZA-M-57_86_88_125_127",
+                                "dataInicio": "2026-08-03T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO FZA-M-57_86_88_125_127",
+                                "dataInicio": "2026-08-17T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2026-10-26T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Entrada em Operação da 1ª UEP (determinístico)",
+                                "subTipo": "PERFURAÇÃO POT-M-952",
+                                "dataInicio": "2026-10-27T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Publicação do edital de convocações das APs/RPs",
+                                "subTipo": "PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8",
+                                "dataInicio": "2027-01-01T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Realização das APs/RPs",
+                                "subTipo": "PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8",
+                                "dataInicio": "2027-01-18T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2027-05-11T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Entrada em Operação da 1ª UEP (determinístico)",
+                                "subTipo": "PERFURAÇÃO POT-M-859",
+                                "dataInicio": "2027-05-12T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Avaliação Pré Operacional (APO)",
+                                "subTipo": "PERFURAÇÃO FZA-M-57_86_88_125_127",
+                                "dataInicio": "2027-07-14T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Avaliação Pré Operacional (APO)",
+                                "subTipo": "PERFURAÇÃO BM-BAR-3 E BM-BAR-5",
+                                "dataInicio": "2027-07-23T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO FZA-M-57_86_88_125_127",
+                                "dataInicio": "2027-07-30T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO BM-BAR-3 E BM-BAR-5",
+                                "dataInicio": "2027-08-13T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Avaliação Pré Operacional (APO)",
+                                "subTipo": "PERFURAÇÃO BM-BAR-1 2022",
+                                "dataInicio": "2027-12-27T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO BM-BAR-1 2022",
+                                "dataInicio": "2028-01-11T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Avaliação Pré Operacional (APO)",
+                                "subTipo": "PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8",
+                                "dataInicio": "2028-11-22T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": " Emissão da 1ª LO",
+                                "subTipo": "PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8",
+                                "dataInicio": "2028-12-06T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "level": 0,
+        "nome": "Parceria",
+        "qtdSub": 1,
+        "dados": [
+            {
+                "level": 1,
+                "nome": "null",
+                "qtdSub": 20,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-02-22T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-02-26T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-02-28T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-02-29T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "OCM",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-03-06T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-03-06T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-03-07T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-03-19T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "OCM",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-04-05T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-04-09T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-04-11T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-04-24T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-04-25T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-05-29T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-06-28T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "TCM",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-07-04T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-07-31T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-08-30T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "TCM",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-09-30T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "WS",
+                                "subTipo": "Parceria",
+                                "dataInicio": "2024-09-30T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "level": 0,
+        "nome": "Poços",
+        "qtdSub": 22,
+        "dados": [
+            {
+                "level": 1,
+                "nome": "1-MAS-37",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "1-MAS-37",
+                                "dataInicio": "2028-01-15T03:00:00.000Z",
+                                "dataFim": "22/05/2028"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "1-PAS-28-PA",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "1-PAS-28-PA",
+                                "dataInicio": "2029-06-22T03:00:00.000Z",
+                                "dataFim": "25/10/2029"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "ACFC-01",
+                "qtdSub": 2,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "ACFC-01",
+                                "dataInicio": "2025-03-25T03:00:00.000Z",
+                                "dataFim": "26/06/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Avaliação",
+                                "subTipo": "ACFC-01",
+                                "dataInicio": "2025-06-27T03:00:00.000Z",
+                                "dataFim": "09/08/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "BUENA SUERTE-1",
+                "qtdSub": 2,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "BUENA SUERTE-1",
+                                "dataInicio": "2025-01-01T03:00:00.000Z",
+                                "dataFim": "11/03/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Avaliação",
+                                "subTipo": "BUENA SUERTE-1",
+                                "dataInicio": "2025-03-12T03:00:00.000Z",
+                                "dataFim": "26/04/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "BUZ N2",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "BUZ N2",
+                                "dataInicio": "2025-09-21T03:00:00.000Z",
+                                "dataFim": "05/12/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "BUZ W",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "BUZ W",
+                                "dataInicio": "2025-01-29T03:00:00.000Z",
+                                "dataFim": "31/03/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "C3",
+                "qtdSub": 3,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "C3",
+                                "dataInicio": "2025-01-21T03:00:00.000Z",
+                                "dataFim": "31/01/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "C3",
+                                "dataInicio": "2025-02-01T03:00:00.000Z",
+                                "dataFim": "12/04/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Avaliação",
+                                "subTipo": "C3",
+                                "dataInicio": "2025-04-13T03:00:00.000Z",
+                                "dataFim": "04/05/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "CALLIBAN",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "CALLIBAN",
+                                "dataInicio": "2029-03-26T03:00:00.000Z",
+                                "dataFim": "14/06/2029"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "EXTENSÃO W SAGITARIO",
+                "qtdSub": 3,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "EXTENSÃO W SAGITARIO",
+                                "dataInicio": "2023-06-05T03:00:00.000Z",
+                                "dataFim": "03/07/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "EXTENSÃO W SAGITARIO",
+                                "dataInicio": "2023-07-04T03:00:00.000Z",
+                                "dataFim": "16/11/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Avaliação",
+                                "subTipo": "EXTENSÃO W SAGITARIO",
+                                "dataInicio": "2023-11-17T03:00:00.000Z",
+                                "dataFim": "01/02/2024"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "LOC. PEDÚNCULO",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "LOC. PEDÚNCULO",
+                                "dataInicio": "2022-07-25T03:00:00.000Z",
+                                "dataFim": "14/11/2022"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "MIRANTE DE BRAVA",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "MIRANTE DE BRAVA",
+                                "dataInicio": "2026-02-09T03:00:00.000Z",
+                                "dataFim": "24/05/2026"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "MIRANTE DE FORNO",
+                "qtdSub": 2,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "MIRANTE DE FORNO",
+                                "dataInicio": "2024-10-02T03:00:00.000Z",
+                                "dataFim": "14/01/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Avaliação",
+                                "subTipo": "MIRANTE DE FORNO",
+                                "dataInicio": "2025-01-15T03:00:00.000Z",
+                                "dataFim": "21/03/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "MORPHO",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "MORPHO",
+                                "dataInicio": "2025-06-08T03:00:00.000Z",
+                                "dataFim": "18/10/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "ORION-N",
+                "qtdSub": 2,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "ORION-N",
+                                "dataInicio": "2025-09-18T03:00:00.000Z",
+                                "dataFim": "31/01/2026"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Avaliação",
+                                "subTipo": "ORION-N",
+                                "dataInicio": "2026-02-01T03:00:00.000Z",
+                                "dataFim": "29/03/2026"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "PITU OESTE",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "PITU OESTE",
+                                "dataInicio": "2023-12-18T03:00:00.000Z",
+                                "dataFim": "06/02/2024"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "POTA-1",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "POTA-1",
+                                "dataInicio": "2025-06-22T03:00:00.000Z",
+                                "dataFim": "09/09/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "RJS-683A",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Abandono Definitivo",
+                                "subTipo": "RJS-683A",
+                                "dataInicio": "2023-12-13T03:00:00.000Z",
+                                "dataFim": "23/01/2024"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "SALMONETTE-1",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "SALMONETTE-1",
+                                "dataInicio": "2025-04-03T03:00:00.000Z",
+                                "dataFim": "21/06/2025"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "TACAPU",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "TACAPU",
+                                "dataInicio": "2028-12-16T03:00:00.000Z",
+                                "dataFim": "28/04/2029"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "TUCANO-BATUQUE",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "TUCANO-BATUQUE",
+                                "dataInicio": "2027-08-01T03:00:00.000Z",
+                                "dataFim": "01/12/2027"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "UAPI",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "UAPI",
+                                "dataInicio": "2029-04-29T03:00:00.000Z",
+                                "dataFim": "30/08/2029"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "level": 1,
+                "nome": "VAZ LOBO - NORTE",
+                "qtdSub": 1,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "Perfuração",
+                                "subTipo": "VAZ LOBO - NORTE",
+                                "dataInicio": "2022-03-07T03:00:00.000Z",
+                                "dataFim": "05/05/2022"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "level": 0,
+        "nome": "Prazos Contratuais ANP",
+        "qtdSub": 1,
+        "dados": [
+            {
+                "level": 1,
+                "nome": "null",
+                "qtdSub": 2,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "1º ÓLEO",
+                                "subTipo": "Prazos Contratuais ANP",
+                                "dataInicio": "2029-01-31T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "1º ÓLEO",
+                                "subTipo": "Prazos Contratuais ANP",
+                                "dataInicio": "2030-07-31T03:00:00.000Z",
+                                "dataFim": "null"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "level": 0,
+        "nome": "Sísmica",
+        "qtdSub": 1,
+        "dados": [
+            {
+                "level": 1,
+                "nome": "null",
+                "qtdSub": 27,
+                "dados": [
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Albacora Leste Roncador - Streamer",
+                                "subTipo": "AG - Albacora Leste Roncador - Streamer",
+                                "dataInicio": "2018-08-29T03:00:00.000Z",
+                                "dataFim": "10/01/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Búzios Nodes",
+                                "subTipo": "AG - Búzios Nodes",
+                                "dataInicio": "2018-10-29T03:00:00.000Z",
+                                "dataFim": "04/11/2019"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Itapu Nodes",
+                                "subTipo": "AG - Itapu Nodes",
+                                "dataInicio": "2018-12-27T02:00:00.000Z",
+                                "dataFim": "19/12/2022"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Uirapuru Nodes",
+                                "subTipo": "AG - Uirapuru Nodes",
+                                "dataInicio": "2019-01-14T02:00:00.000Z",
+                                "dataFim": "08/08/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Golfinho Nodes",
+                                "subTipo": "AG - Golfinho Nodes",
+                                "dataInicio": "2019-02-06T02:00:00.000Z",
+                                "dataFim": "01/07/2022"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Jubarte Nodes",
+                                "subTipo": "AG - Jubarte Nodes",
+                                "dataInicio": "2019-02-06T02:00:00.000Z",
+                                "dataFim": "29/11/2021"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Alto de Cabo Frio Central Nodes",
+                                "subTipo": "AG - Alto de Cabo Frio Central Nodes",
+                                "dataInicio": "2019-02-08T02:00:00.000Z",
+                                "dataFim": "20/03/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Lula Full-Field Nodes",
+                                "subTipo": "AG - Lula Full-Field Nodes",
+                                "dataInicio": "2019-04-04T03:00:00.000Z",
+                                "dataFim": "28/07/2022"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Bloco PAR-T-175 Vibroseis",
+                                "subTipo": "AG - Bloco PAR-T-175 Vibroseis",
+                                "dataInicio": "2019-04-08T03:00:00.000Z",
+                                "dataFim": "06/05/2021"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Sagitário Nodes",
+                                "subTipo": "AG - Sagitário Nodes",
+                                "dataInicio": "2019-05-01T03:00:00.000Z",
+                                "dataFim": "02/12/2024"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Sépia - Nodes",
+                                "subTipo": "AG - Sépia - Nodes",
+                                "dataInicio": "2019-05-01T03:00:00.000Z",
+                                "dataFim": "05/03/2024"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Atapu, Berbigão, Sururu (ABS) Nodes",
+                                "subTipo": "AG - Atapu, Berbigão, Sururu (ABS) Nodes",
+                                "dataInicio": "2019-05-17T03:00:00.000Z",
+                                "dataFim": "14/09/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Albacora Marlim Voador Streamer",
+                                "subTipo": "AG - Albacora Marlim Voador Streamer",
+                                "dataInicio": "2019-05-29T03:00:00.000Z",
+                                "dataFim": "03/05/2022"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Sapinhoá Nodes",
+                                "subTipo": "AG - Sapinhoá Nodes",
+                                "dataInicio": "2019-05-31T03:00:00.000Z",
+                                "dataFim": "09/08/2021"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",
+                                "subTipo": "AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",
+                                "dataInicio": "2019-06-14T03:00:00.000Z",
+                                "dataFim": "25/11/2024"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Roncador Nodes",
+                                "subTipo": "AG - Roncador Nodes",
+                                "dataInicio": "2019-09-20T03:00:00.000Z",
+                                "dataFim": "06/03/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Dois Irmãos Nodes",
+                                "subTipo": "AG - Dois Irmãos Nodes",
+                                "dataInicio": "2019-10-30T03:00:00.000Z",
+                                "dataFim": "07/08/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "TAID-AG - Dois Irmãos Nodes",
+                                "subTipo": "TAID-AG - Dois Irmãos Nodes",
+                                "dataInicio": "2019-10-31T03:00:00.000Z",
+                                "dataFim": "31/12/2024"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Búzios Monitor Nodes",
+                                "subTipo": "AG - Búzios Monitor Nodes",
+                                "dataInicio": "2019-12-10T03:00:00.000Z",
+                                "dataFim": "03/10/2024"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - 4D - Tartaruga Verde - Streamer",
+                                "subTipo": "AG - 4D - Tartaruga Verde - Streamer",
+                                "dataInicio": "2020-03-11T03:00:00.000Z",
+                                "dataFim": "25/01/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Aram Nodes",
+                                "subTipo": "AG - Aram Nodes",
+                                "dataInicio": "2020-07-09T03:00:00.000Z",
+                                "dataFim": "21/08/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Urissanê Nodes",
+                                "subTipo": "AG - Urissanê Nodes",
+                                "dataInicio": "2020-12-10T03:00:00.000Z",
+                                "dataFim": "07/02/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Yba Nodes",
+                                "subTipo": "AG - Yba Nodes",
+                                "dataInicio": "2020-12-17T03:00:00.000Z",
+                                "dataFim": "08/03/2023"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "TAID-AG - Búzios Nodes",
+                                "subTipo": "TAID-AG - Búzios Nodes",
+                                "dataInicio": "2021-05-06T03:00:00.000Z",
+                                "dataFim": "31/12/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "TAID-AG - Foz do Amazonas Streamer",
+                                "subTipo": "TAID-AG - Foz do Amazonas Streamer",
+                                "dataInicio": "2021-05-21T03:00:00.000Z",
+                                "dataFim": "25/12/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "TAID-AG - Sépia Nodes",
+                                "subTipo": "TAID-AG - Sépia Nodes",
+                                "dataInicio": "2021-06-16T03:00:00.000Z",
+                                "dataFim": "31/07/2025"
+                            }
+                        ]
+                    },
+                    {
+                        "level": 2,
+                        "levelValues": [
+                            {
+                                "evento": "AG - Três Marias Nodes",
+                                "subTipo": "AG - Três Marias Nodes",
+                                "dataInicio": "2022-11-16T03:00:00.000Z",
+                                "dataFim": "02/02/2026"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

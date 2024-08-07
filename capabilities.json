@@ -25,6 +25,11 @@
             "name": "rotulo",
             "displayName": "Rótulo",
             "kind": "Grouping"
+        },
+        {
+            "name": "cor",
+            "displayName": "Cor",
+            "kind": "Grouping"
         }
     ],
     "objects": {},
@@ -56,6 +61,11 @@
                         {
                             "for": {
                                 "in": "rotulo"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "cor"
                             }
                         }
                     ]
