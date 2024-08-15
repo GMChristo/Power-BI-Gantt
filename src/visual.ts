@@ -17,6 +17,7 @@ const MARGIN_LEFT = 300;
 const MARGIN_RIGHT = 20;
 const MARGIN_TOP = 20;
 const MARGIN_BOTTOM = 20;
+const MARGIN_SCALE_LEFT = 15;
 var CHART_WIDTH = 1200;
 var CHART_HEIGHT = 640;
 var DATA_INICIAL = new Date("3000-01-01");
@@ -27,7 +28,9 @@ var exibir = [];
 var dadosEstruturais = [];
 var svgRoot;
 var svgBase;
-var testeHTML3;
+var nomesEventoHTML;
+var dadosEventoHTML;
+var tamanhoScalaExib;
 
 export class Visual implements IVisual {
     private svgRootHTML: Selection<any>;
@@ -37,9 +40,7 @@ export class Visual implements IVisual {
         svgBase = this.svgRootHTML
     }
 
-
     public update(options: VisualUpdateOptions) {
-
         // console.log("dataMap0: " + dataMap);
         dataMap = [];
         estruturaDados = [];
@@ -47,11 +48,15 @@ export class Visual implements IVisual {
         // console.log("dataMap1: " + dataMap);
 
         const dataView: DataView = options.dataViews[0];
+        // console.log("dados iniciais dataView: " + JSON.stringify(options));
         CHART_HEIGHT = options.viewport.height
+        CHART_WIDTH = options.viewport.width
+        tamanhoScalaExib = CHART_WIDTH * 2.2
         const matrixDataView: DataViewMatrix = dataView.matrix;
         const categorias = matrixDataView.rows.root.children;
         const estrutura = matrixDataView.rows.levels;
         const dadoEstrutura = estrutura[estrutura.length - 1].sources;
+        // console.log("dados iniciais: " + JSON.stringify(categorias));
 
         const tagMainDiv = d3.selectAll(".main-div");
         tagMainDiv.remove();
@@ -59,22 +64,47 @@ export class Visual implements IVisual {
         const tagMainSvg = d3.selectAll(".main-svg");
         tagMainSvg.remove();
 
-        var testeHTMLTable = svgBase.append("div")
+        var mainDivTable = svgBase.append("div")
             .attr("class", "main-div")
-            .style("margin-top", "40px")
+            // .style("margin-top", "40px")
             .style("position", "absolute")
-            .style("height", CHART_HEIGHT - MARGIN_BOTTOM - MARGIN_TOP + "px")
-            .style("width", CHART_WIDTH + MARGIN_RIGHT + "px")
+            .style("height", CHART_HEIGHT + "px")
+            .style("width", CHART_WIDTH + "px")
             .style("overflow-y", "auto")
             .style("overflow-x", "hidden")
+            // .style("overflow-x", "auto")
             .append("table")
-        var testeHTML2 = testeHTMLTable.append("tr")
-        testeHTML3 = testeHTML2.append("td")
+            .attr("class", "main-table")
 
-        svgRoot = this.svgRootHTML.append("svg")
+        var mainTableTr = mainDivTable.append("tr")
+
+        var tamanhoExibicaoHeight = CHART_HEIGHT - MARGIN_TOP - MARGIN_TOP
+
+        nomesEventoHTML = mainTableTr.append("td")
+            .style("width", "300px")
+            .style("height", tamanhoExibicaoHeight + "px")
+            .style("background-color", "bisque")
+            .style("min-width", "300px")
+            .style("padding-top", MARGIN_TOP * 2 + "px")
+            .style("padding-bottom", MARGIN_TOP + "px")
+            .style("vertical-align", "top")
+
+        dadosEventoHTML = mainTableTr.append("td")
+            .style("height", tamanhoExibicaoHeight + "px")
+            .style("width", CHART_WIDTH + "px")
+            .style("background-color", "darkgrey")
+            .style("vertical-align", "top")
+            .style("padding-top", MARGIN_TOP * 2 + "px")
+            .append("div")
+            .style("max-width", CHART_WIDTH - 300 + "px")
+            .style("overflow", "auto")
+
+        //necessario para criar as escalas
+        svgRoot = dadosEventoHTML.append("svg")
             .attr("class", "main-svg")
-            .attr("width", CHART_WIDTH)
-            .attr("height", MARGIN_TOP + MARGIN_TOP + CHART_HEIGHT);
+            .style("width", tamanhoScalaExib + MARGIN_RIGHT + "px")
+            .style("height", tamanhoExibicaoHeight + "px")
+
 
         estruturaHierarquia(dadoEstrutura, estruturaDados) //retorna quais campos no visual foram preenchidos
         dadosEstruturais = estruturaDados;
@@ -92,76 +122,129 @@ export class Visual implements IVisual {
         const tagtreeModulos = d3.selectAll('[class^="row-modulo-"]');
         tagtreeModulos.remove();
 
-        setupScales(svgRoot, 1200, 600);
-        treeModulos(dataMap, testeHTML3);
-        // modulosTree(dataMap, testeHTML3, 1); //versao recursiva
+        setupScales(svgRoot, CHART_WIDTH, 600);
         milestone(svgRoot);
-        dadosExpandidos(testeHTML3)
+        // setupScales(svgRoot, 1200, 600);
+        treeModulos(dataMap, nomesEventoHTML, dadosEventoHTML);
+        dadosExpandidos(nomesEventoHTML, dadosEventoHTML) // mantem as linhas em exibição apos atualizar o visual
     }
 }
 
-function dadosExpandidos(svg) {
+function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
 
     exibir.forEach((e) => {
 
-        var categoriaExibir = svg.selectAll('[class^="' + e + '"]')
-        if (categoriaExibir.nodes().length > 0) {
-            var eventoDiv = categoriaExibir.select('[class^="evento-div"]')
-            if (eventoDiv) {
-                eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
-            }
-            var eventoHide = categoriaExibir.select('[class^="iconPlus-div"]')
+        var categoriaExibirNomes = svgHierarquiaNomes.selectAll('[class^="' + e + '"]')
+        if (categoriaExibirNomes.nodes().length > 0) {
+            // var eventoDiv = categoriaExibirNomes.select('[class^="evento-div"]')
+            // if (eventoDiv) {
+            //     eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
+            // }
+            var eventoHide = categoriaExibirNomes.select('[class^="iconPlus-div"]')
             if (eventoHide) {
                 eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
             }
-            var eventoShow = categoriaExibir.select('[class^="iconMinus-div"]')
+            var eventoShow = categoriaExibirNomes.select('[class^="iconMinus-div"]')
             if (eventoShow) {
                 eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
             }
 
             //!TODO rgb(204,0,0) verificar a logica abaixo pois pode ser otimizada para uso parecido do else .querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) 
-            var segundaHierarquia = categoriaExibir.selectAll('[class^="row-modulo2-"]')
+            var segundaHierarquia = categoriaExibirNomes.selectAll('[class^="row-modulo2-"]')
             // console.log("else categoriaExibir HTML: " + e + " - " + categoriaExibir.nodes()[0].outerHTML);
 
             if (segundaHierarquia) {
-                if (!categoriaExibir.selectAll('[class^="ocultar"]').empty()) {
-                    console.log("if");
-                    console.log("e: " + e);
+                if (!categoriaExibirNomes.selectAll('[class^="ocultar"]').empty()) {
+                    // console.log("if");
+                    // console.log("e: " + e);
 
 
-                    var segundaHierarquia2 = categoriaExibir.selectAll('[class^="row-modulo2-null"]')
+                    var segundaHierarquia2 = categoriaExibirNomes.selectAll('[class^="row-modulo2-null"]')
                     if (segundaHierarquia2) {
                         segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
                     }
 
-                    console.log("else categoriaExibir HTML: " + e + " - " + categoriaExibir.nodes()[0].outerHTML);
-                    var segundaHierarquia2 = categoriaExibir.selectAll('[class^="ocultar"]')
-                    console.log("segundaHierarquia2 HTML: " + e + " - " + segundaHierarquia2.nodes()[0].outerHTML);
+                    // console.log("else categoriaExibir HTML: " + e + " - " + categoriaExibir.nodes()[0].outerHTML);
+                    var segundaHierarquia2 = categoriaExibirNomes.selectAll('[class^="ocultar"]')
+                    // console.log("segundaHierarquia2 HTML: " + e + " - " + segundaHierarquia2.nodes()[0].outerHTML);
                     if (segundaHierarquia2.size() > 0) {
                         segundaHierarquia2.style('display', 'none');
                     }
 
-                    var terceiraHierarquia = categoriaExibir.selectAll('[class^="row-modulo3-"]')
+                    var terceiraHierarquia = categoriaExibirNomes.selectAll('[class^="row-modulo3-"]')
                     if (terceiraHierarquia) {
                         terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
                     }
                 }
                 else {
                     try {
-                        if (categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) {
-                            var filhos = categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`);
+                        if (categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) {
+                            var filhos = categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`);
                             filhos.forEach(function (filho) {
                                 filho.style.display = 'contents';
                             });
                         }
-                        if (categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`).length > 0) {
-                            var filhos = categoriaExibir.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`);
+                        if (categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`).length > 0) {
+                            var filhos = categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`);
                             filhos.forEach(function (filho) {
                                 filho.style.display = 'contents';
                             });
                         }
                     } catch (error) {
-                        console.log("catch: ");
+                        // console.log("catch: ");
+
+                    }
+                }
+            }
+        }
+
+        console.log("dados expandios evento");
+        
+        var categoriaExibirEventos = svgHierarquiaEventos.selectAll('[class^="' + e + '"]')
+        if (categoriaExibirEventos.nodes().length > 0) {
+            var eventoDivEvento = categoriaExibirEventos.select('[class^="evento-div"]')
+            if (eventoDivEvento) {
+                eventoDivEvento.style("display", eventoDivEvento.style("display") === "none" ? "block" : "none");
+            }
+            
+
+            //!TODO rgb(204,0,0) verificar a logica abaixo pois pode ser otimizada para uso parecido do else .querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) 
+            var segundaHierarquiaEvento = categoriaExibirEventos.selectAll('[class^="row-modulo2-"]')
+
+            if (segundaHierarquiaEvento) {
+                if (!categoriaExibirEventos.selectAll('[class^="ocultar"]').empty()) {
+
+                    var segundaHierarquia2Evento = categoriaExibirEventos.selectAll('[class^="row-modulo2-null"]')
+                    if (segundaHierarquia2Evento) {
+                        segundaHierarquia2Evento.style("display", segundaHierarquia2Evento.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    var segundaHierarquia2Evento = categoriaExibirEventos.selectAll('[class^="ocultar"]')
+                    if (segundaHierarquia2Evento.size() > 0) {
+                        segundaHierarquia2Evento.style('display', 'none');
+                    }
+
+                    var terceiraHierarquiaEvento = categoriaExibirEventos.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquiaEvento) {
+                        terceiraHierarquiaEvento.style("display", terceiraHierarquiaEvento.style("display") === "none" ? "contents" : "none");
+                    }
+                }
+                else {
+                    try {
+                        if (categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) {
+                            var filhosEvento = categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`);
+                            filhosEvento.forEach(function (filho) {
+                                filho.style.display = 'contents';
+                            });
+                        }
+                        if (categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`).length > 0) {
+                            var filhosEvento = categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo3-"]`);
+                            filhosEvento.forEach(function (filho) {
+                                filho.style.display = 'contents';
+                            });
+                        }
+                    } catch (error) {
+                        // console.log("catch: ");
 
                     }
                 }
@@ -320,15 +403,20 @@ function preencheDataFim(jsonData) {
 }
 
 function timeScaleAxis() {
+    console.log("timeScaleAxis() CHART_WIDTH: " + CHART_WIDTH);
+
     var tamanhoData = (d3.scaleTime()
         .domain([
             DATA_INICIAL,
             DATA_FINAL,
         ])
-        .nice()
-        .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
+        // .nice()
+        .range([0, tamanhoScalaExib]));
+    // .range([0, CHART_WIDTH*2.5]));
+    // .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
     return tamanhoData;
 }
+
 
 function timeScale(data) {
     var parser = d3.timeParse("%d/%m/%Y");
@@ -340,8 +428,8 @@ function timeScale(data) {
             DATA_FINAL,
         ])
         .nice()
-        .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
-
+        // .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
+        .range([0, tamanhoScalaExib]));
     if (!parsedData) {
         return tamanhoData(new Date(data));
     }
@@ -350,22 +438,50 @@ function timeScale(data) {
     }
 }
 
+function tipoEscala() {
+    var start = new Date(DATA_INICIAL);
+    var end = new Date(DATA_FINAL);
+    var diff = end.getTime() - start.getTime();
+
+    if (diff < 3 * 365.25 * 24 * 60 * 60 * 1000) { // 2 anos em milissegundos
+        const months = Math.floor(diff / (30 * 24 * 60 * 60 * 1000)); // aproximadamente 30 dias por mês
+        console.log("months: " + months);
+        return d3.utcMonth.every(3);
+    } else {
+        const years = Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000)); // aproximadamente 365.25 dias por ano
+        console.log("years: " + years);
+        return d3.utcYear.every(1);
+    }
+}
+
 // Set up scales
 /// calcular tamanho das escalas
 function setupScales(svg, width, height) {
+    // var tempo = tipoEscala()
+    // console.log("tempo: " + tempo);
+    // var tempoEscala = d3.utcMonth.every(6)
+    // var tempoEscala = d3.utcYear.every(1)
+
     var grid = svg.append("g")
         .attr("class", "grid")
-        .attr("transform", `translate(${MARGIN_LEFT}, ${MARGIN_TOP})`)
+        // .style("width", 200 + "px")
+        // .attr("transform", `translate(${MARGIN_LEFT}, ${MARGIN_TOP})`)
+        .attr("transform", `translate(${MARGIN_SCALE_LEFT}, ${MARGIN_TOP})`)
         .call(d3.axisTop(timeScaleAxis())
-            .ticks(12)
+            // .ticks(12)
+            // .ticks(tempoEscala)
+            .ticks(d3.utcMonth.every(1))
+            // .ticks(d3.utcMonth.every(8))
+            // .ticks(d3.utcYear.every(1))
+            // .ticks(tempo)
             .tickSize(-CHART_HEIGHT)
-            .tickSizeOuter(-CHART_HEIGHT)
+            // .tickSizeOuter(-CHART_HEIGHT)
             .tickFormat(d3.timeFormat("%b %Y")))
         .selectAll("text")
         .style("text-anchor", "middle")
         .attr("y", "-15")
         .attr("fill", "black")
-        .attr("stroke", "none")
+        .attr("stroke", "none") // cria as linhas ao redor
         .attr("font-size", 10)
         .attr("dy", "1em")
 }
@@ -374,7 +490,7 @@ function milestone(svg) {
     var mile = svg.append("g")
         .attr("transform", function () {
             var hoje = timeScale(d3.timeDay(new Date()));
-            return `translate(${hoje + MARGIN_LEFT})`;
+            return `translate(${hoje + MARGIN_SCALE_LEFT})`;
         })
         .attr("class", "milestone")
         .append("line")
@@ -382,531 +498,96 @@ function milestone(svg) {
         .attr("stroke", "red")
 }
 
-/*
-// var dadosEventoSubTipo = []
-// var tipoEventoBar = []
-// var tipoCategoriaBar = []
-function modulosTree(data, svg, lvl) {
-    data.forEach((d) => {
-        var tipoCategoriaBar = []
-        var tipoEventoBar = []
-        var dadosEventoSubTipo = []
-
-
-        if ("dados" in d) {
-            var next = lvl + 1
-
-
-            // if (d.nome == "null") {
-            //     console.log("nome null");
-
-            //     modulosTree(d.dados, svg, lvl + 1)
-            // } else 
-            {
-
-                var tableModulos = svg.append("table")
-                    .attr("class", function () {
-                        // if(lvl == 0){
-                        if (lvl == 1) {
-                            return "row-modulo-" + d.nome
-                        } else {
-                            console.log("tableModulos + lvl: " + lvl);
-                            return "tableModulos" + lvl
-                        }
-                    })
-                    .style("display", function () {
-                        if (lvl != 1) {
-                            return "none"
-                        }
-                    })
-                    .attr("height", 20)
-
-                var row = tableModulos.append("tr")
-                    .style("display", "flex")
-                    .attr("height", 20)
-                    .style("margin-bottom", "5px")
-                    .style("padding-left", (lvl - 1) * 15 + "px")
-
-                var buttonPlus = row.append("button")
-                    .attr("class", "iconPlus-div")
-                    .on("click", function () {
-
-                        // var eventoDiv = row.select(".evento-div")
-                        // if (eventoDiv) {
-                        //     eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
-                        // }
-
-                        var eventoHide = row.select(".iconPlus-div")
-                        if (eventoHide) {
-                            eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
-                        }
-                        var eventoShow = row.select(".iconMinus-div")
-                        if (eventoShow) {
-                            eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
-                        }
-                        var segundaHierarquia = tableModulos.selectAll(".tableModulos" + next)
-                        segundaHierarquia.style("display", function (d) {
-                            return this.style.display === "none" ? "contents" : "none";
-                        })
-                        if (d.dados[0].levelValues) {
-                            var eventoNome = tableModulos.selectAll(".eventoNome")
-                            if (eventoNome) {
-                                eventoNome.style("display", eventoNome.style("display") === "none" ? "contents" : "none");
-                            }
-                        }
-                    })
-                    .append("svg")
-                    .attr("viewBox", [0, 0, 448, 512])
-                    .attr("height", 16)
-                    .attr("width", 14)
-                    .append("path")
-                    .attr("d", iconsBase.plus)
-
-                var buttonMinus = row.append("button")
-                    .style("display", "none")
-                    .attr("class", "iconMinus-div")
-                    .on("click", function () {
-
-                        // var eventoDiv = row.select(".evento-div")
-                        // if (eventoDiv) {
-                        //     eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
-                        // }
-
-                        var eventoHide = row.select(".iconPlus-div")
-                        if (eventoHide) {
-                            eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
-                        }
-                        var eventoShow = row.select(".iconMinus-div")
-                        if (eventoShow) {
-                            eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
-                        }
-                        var segundaHierarquia = tableModulos.selectAll(".tableModulos" + next)
-                        segundaHierarquia.style("display", function (d) {
-                            return this.style.display === "none" ? "contents" : "none";
-                        })
-                        if (d.dados[0].levelValues) {
-                            console.log("d.levelValues");
-
-                            var eventoNome = tableModulos.selectAll(".eventoNome")
-                            if (eventoNome) {
-                                eventoNome.style("display", eventoNome.style("display") === "none" ? "contents" : "none");
-                            }
-                        }
-                    })
-                    .append("svg")
-                    .attr("viewBox", [0, 0, 448, 512])
-                    .attr("height", 16)
-                    .attr("width", 14)
-                    .append("path")
-                    .attr("d", iconsBase.minor)
-
-
-                row.append("div")
-                    .style("width", "260px")
-                    .style("padding-left", "5px")
-                    .attr("class", "text-div")
-                    .append("text")
-                    .attr("x", 10)
-                    .attr("height", 20)
-                    .attr("font-size", "12px")
-                    .text(d.nome)
-                var retornoEvento = modulosTree(d.dados, tableModulos, lvl + 1)
-                console.log("retornoEvento: " + JSON.stringify(retornoEvento));
-
-
-                // console.log("executou depois do callback modulosTree(d.dados, tableModulos, lvl + 1)");
-                // console.log("dadosEventoSubTipo: " + JSON.stringify(dadosEventoSubTipo));
-                console.log("tipoEventoBar: " + JSON.stringify(tipoEventoBar));
-
-
-                if (dadosEventoSubTipo.length != 0) {
-                    dadosEventoSubTipo.forEach((item, i) => {
-                        var tableModulos3 = svg.append("table")
-                            .attr("class", "tableModulos3")
-                            .style("display", "none")
-
-                        var row3 = tableModulos3.append("tr")
-                            .style("display", "flex")
-                            .style("padding-left", "30px")
-                            .style("width", "1147px")
-                            .style("margin-bottom", "5px")
-
-                        var testeRow = row3.append("tr")
-                            .attr("class", "row-modulo-evento")
-                            // .attr("height", 20)
-                            .style("padding-left", "5px")
-                            .style("width", "260px")
-                            .text(Object.keys(dadosEventoSubTipo[i])[0])
-
-                        var barraGeralEvento = row3.append("g")
-                            .attr("transform", `translate(0,0)`)
-                            .attr("class", "evento-div3")
-
-                        Object.keys(item).forEach((key, j) => {
-
-                            item[key].forEach((gov, k) => {
-
-                                var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
-                                    .style("display", "flex")
-                                    .style("position", "absolute")
-                                    .attr("transform", function (f) {
-                                        if (gov.width != 0) {
-                                            return `translate(${gov.posInin},0)`
-                                        } else {
-                                            return `translate(${gov.posInin - 15},0)`
-                                        }
-                                    })
-                                    .attr("height", 20)
-                                    .attr("width", function (f) {
-                                        if (gov.width != 0) {
-                                            tipoEventoBar.push({
-                                                //adicionar a posição x do translate e o tamanho do width
-                                                "posInin": gov.posInin,
-                                                "width": gov.width,
-                                            })
-                                            tipoCategoriaBar.push({
-                                                //adicionar a posição x do translate e o tamanho do width
-                                                "posInin": gov.posInin,
-                                                "width": gov.width,
-                                            })
-                                            return gov.width
-                                        } else {
-                                            tipoEventoBar.push({
-                                                //adicionar a posição x do translate e o tamanho do width
-                                                "posInin": gov.posInin,
-                                                "width": 0,
-                                            })
-                                            tipoCategoriaBar.push({
-                                                //adicionar a posição x do translate e o tamanho do width
-                                                "posInin": gov.posInin,
-                                                "width": 0,
-                                            })
-                                            return "30px"
-                                        }
-                                    })
-                                if (gov.width != 0) {
-                                    barraGeralEventoAgrupado.append("rect")
-                                        // .attr("fill", "rgb(90, 3, 150)")
-                                        .attr("fill", "rgb(128, 52, 52)")
-                                        .attr("width", gov.width)
-                                        .attr("height", 20)
-                                } else {
-                                    barraGeralEventoAgrupado
-                                        .attr("viewBox", [0, 0, 448, 512])
-                                        .attr("height", 20)
-                                        .attr("width", 30)
-                                        .append("path")
-                                        .attr("d", iconsBase.diamond)
-                                }
-
-                                if (!gov.group) {
-                                    barraGeralEvento.append("svg")
-                                        .attr("transform", function () {
-                                            if (gov.width != 0) {
-                                                return `translate(${gov.posInin + gov.width + 5}, 0)`;
-                                            } else {
-                                                return `translate(${gov.posInin + 15}, 0)`;
-                                            }
-                                        })
-                                        .attr("height", 20)
-                                        .attr("class", "evento-div")
-                                        .style("display", "block")
-                                        .append("g")
-                                        .append("text")
-                                        .attr("y", 15)
-                                        .attr("font-size", 12)
-                                        .text(function () {
-                                            if (gov.rot && (gov.rot != "null" && gov.rot != null)) {
-                                                return gov.rot
-                                            } else {
-                                                return key
-                                            }
-                                        });
-                                }
-                            });
-                        });
-                    }
-                    )
-                }
-                console.log("var barraGeralTeste ");
-
-                //Gera os marcos agrupados referentes ao tipo
-                var barraGeralTeste = row.append("g")
-                    .attr("transform", `translate(0,0)`)
-                    .attr("class", "evento-div2")
-
-                tipoEventoBar.forEach((item, i) => {
-
-                    var barraGeralTeste2 = barraGeralTeste.append("svg")
-                        .style("display", "flex")
-                        .style("position", "absolute")
-                        .attr("transform", function (f) {
-                            if (item.width != 0) {
-                                return `translate(${item.posInin},0)`
-                            } else {
-                                return `translate(${item.posInin - 15},0)`
-                            }
-                        })
-                        .attr("height", 20)
-                        .attr("width", function (f) {
-                            if (item.width != 0) {
-                                return item.width
-                            } else {
-                                return "30px"
-                            }
-                        })
-                    if (item.width != 0) {
-                        barraGeralTeste2.append("rect")
-                            .attr("fill", "rgb(128, 52, 52)")
-                            .attr("width", item.width)
-                            .attr("height", 20)
-                    } else {
-                        barraGeralTeste2.append("svg")
-                            .attr("transform", `translate(${item.posInin},0)`)
-                            .attr("height", 20)
-                            .attr("width", 30)
-                            .attr("viewBox", [0, 0, 448, 512])
-                            .attr("height", 20)
-                            .attr("width", 30)
-                            .append("path")
-                            .attr("fill", "rgb(128, 52, 52)")
-                            .attr("d", iconsBase.diamond)
-                    }
-                })
-
-
-
-            }
-        }
-        else if ("levelValues" in d) {
-            // console.log("else if (levelValues in d)");
-
-            // var dadosEventoSubTipo = []
-
-            d.levelValues.forEach((value) => {
-
-                var tamanhoBarraEvento = timeScale(value.dataInicio);
-                var dataInicio = timeScale(value.dataInicio);
-                var posicaoTextoEvento;
-                var dataFimTeste = "null";
-                if (value.dataFim != "null" && value.dataFim != null) {
-                    dataFimTeste = value.dataFim
-                }
-
-                //**********
-
-                if (dataFimTeste != "null") {
-
-                    var dataFim = timeScale(value.dataFim)
-                    tamanhoBarraEvento = dataFim - dataInicio
-                    posicaoTextoEvento = dataInicio + 15
-                } else {
-                    posicaoTextoEvento = dataInicio
-                    tamanhoBarraEvento = 0
-                }
-
-                //**********
-
-                if (value.subTipo) {
-                    if (value.subTipo == "null") {
-                        dadosEventoSubTipo.push({
-                            [value.evento]: [
-                                {
-                                    posInin: dataInicio,
-                                    width: tamanhoBarraEvento,
-                                    group: false,
-                                    rot: value.rot
-                                },
-                            ],
-                        });
-                    } else {
-                        const existingSubTipo = dadosEventoSubTipo.find(item => Object.keys(item)[0] === value.subTipo);
-                        if (!existingSubTipo) {
-                            dadosEventoSubTipo.push({
-                                [value.subTipo]: [
-                                    {
-                                        posInin: dataInicio,
-                                        width: tamanhoBarraEvento,
-                                        group: true
-                                    },
-                                ],
-                            });
-                        } else {
-                            existingSubTipo[value.subTipo].push({
-                                posInin: dataInicio,
-                                width: tamanhoBarraEvento,
-                                group: true
-                            });
-                        }
-                    }
-                } else {
-
-                    var tableModulos3 = svg.append("table")
-                        .attr("class", "eventoNome")
-                        .style("display", "none")
-
-                    var row3 = tableModulos3.append("tr")
-                        .style("display", "flex")
-                        .style("padding-left", "30px")
-                        .style("width", "1147px")
-                        .style("align-items", "center")
-                        .style("margin-bottom", "5px")
-
-                    var testeRow3 = row3.append("tr")
-                        .attr("class", "row-modulo-segundo")
-                        .style("padding-left", "5px")
-                        .style("width", "260px")
-                        .text(value.evento)
-
-                    var eventoBarDiv = row3.append("svg")
-                        .attr("transform", function (d, i) {
-                            if (dataFimTeste == "null") {
-                                return `translate(${dataInicio - 15}, 0)`;
-                            } else {
-                                return `translate(${dataInicio}, 0)`;
-                            }
-                        })
-                        .attr("height", 20)
-                        .attr("width", function () {
-                            if (dataFimTeste !== "null") {
-                                tipoEventoBar.push({
-                                    "posInin": dataInicio,
-                                    "width": tamanhoBarraEvento,
-                                })
-                                tipoCategoriaBar.push({
-                                    "posInin": dataInicio,
-                                    "width": tamanhoBarraEvento,
-                                })
-                                return tamanhoBarraEvento
-                            } else {
-                                tipoEventoBar.push({
-                                    "posInin": dataInicio,
-                                    "width": 0,
-                                })
-                                tipoCategoriaBar.push({
-                                    "posInin": dataInicio,
-                                    "width": 0,
-                                })
-                                return tamanhoBarraEvento + 20
-                            }
-                        })
-                        .attr("class", "eventoBarDiv")
-                        .style("display", "block")
-
-                    if (dataFimTeste == "null") {
-                        var iconeDiv = eventoBarDiv
-                            .attr("viewBox", [0, 0, 448, 512])
-                            .attr("height", 20)
-                            .attr("width", 30)
-                            .append("path")
-                            .attr("d", iconsBase.diamond)
-
-                    } else {
-
-                        var iconeDiv = eventoBarDiv.append("rect")
-                            .attr("fill", function () {
-                                return "rgb(0, 0153, 128)"
-                            }
-                            )
-                            .style("height", "20px")
-                            .attr("width", function (d) {
-                                if (dataFimTeste != "null") {
-                                    var dataFim = timeScale(value.dataFim)
-                                    tamanhoBarraEvento = dataFim - dataInicio
-                                    return tamanhoBarraEvento
-                                } else {
-                                    return tamanhoBarraEvento + 20
-                                }
-                            })
-                    }
-
-                    var eventoNomeDiv = row3.append("svg")
-                        .attr("transform", function () {
-                            return `translate(${posicaoTextoEvento}, 0)`;
-                        })
-                        .attr("height", 20)
-                        .attr("class", "evento-div")
-                        .style("display", "block")
-                        .append("g")
-                        .append("text")
-                        .attr("y", 15)
-                        .attr("font-size", 12)
-                        .text(function () {
-                            if ("rot" in value) {
-                                return value.rot
-                            } else {
-                                return value.evento
-                            }
-                        });
-                }
-                console.log("tipoEventoBar1: " + JSON.stringify(tipoEventoBar) + value.evento);
-            })
-            return "tipoEventoBar"
-            console.log("tipoEventoBar2: " + JSON.stringify(tipoEventoBar));
-            console.log("teste de retorno do callback else if (levelValues in d)");
-        }
-    })
-
-}
-*/
-
-
-
 //rgb(204,0,0)
 //TODO necessario fazer refatoração para que seja utilizado recursividade, tornando possivel o uso de N hierarquias
-function treeModulos(data, svg) {
+function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
     // console.log("treeModulos data: " + JSON.stringify(data));
 
     data.forEach((d) => {
         var tipoCategoriaBar = []
-        var tableModulos = svg.append("table")
+
+
+        // adiciona a estrutura inicial da parte de eventos (direita)
+        var tableModulosHierarquiaEventos = svgHierarquiaEventos.append("table")
+            .attr("class", "row-modulo-" + d.nome)
+            .style("height", "20px")
+        // .style("width", CHART_WIDTH +"px")
+
+        var rowEventos = tableModulosHierarquiaEventos.append("tr")
+            .style("display", "flex")
+            .style("height", "20px")
+            // .style("width", CHART_WIDTH + "px")
+            .style("margin-bottom", "5px")
+            // .text(d.nome)
+        // fim da adição da estrutura inicial da parte de eventos (direita)
+
+        // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
+
+
+        var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
             .attr("class", "row-modulo-" + d.nome)
             .attr("height", 20)
 
-        var row = tableModulos.append("tr")
+        var rowHierarquia = tableModulosHierarquiaNomes.append("tr")
             .style("display", "flex")
             .attr("height", 20)
             .style("margin-bottom", "5px")
 
-        var buttonPlus = row.append("button")
+        var buttonPlus = rowHierarquia.append("button")
             .attr("class", "iconPlus-div")
             .on("click", function () {
 
                 exibir.push("row-modulo-" + d.nome)
-                // console.log("exibir - buttonPlus: " + exibir);
 
-
-                var eventoDiv = row.select(".evento-div")
-                if (eventoDiv) {
-                    eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
-                }
-
-                var eventoHide = row.select(".iconPlus-div")
+                var eventoHide = rowHierarquia.select(".iconPlus-div")
                 if (eventoHide) {
                     eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
                 }
-                var eventoShow = row.select(".iconMinus-div")
+                var eventoShow = rowHierarquia.select(".iconMinus-div")
                 if (eventoShow) {
                     eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                 }
-                // var segundaHierarquia = tableModulos.selectAll(".tableModulos2")
-                var segundaHierarquia = tableModulos.selectAll('[class^="row-modulo2-"]')
+                var segundaHierarquia = tableModulosHierarquiaNomes.selectAll('[class^="row-modulo2-"]')
                 if (segundaHierarquia) {
                     segundaHierarquia.style("display", segundaHierarquia.style("display") === "none" ? "contents" : "none");
                 }
                 try {
-                    var segundaHierarquia2 = tableModulos.selectAll('[class^="ocultar"]')
+                    var segundaHierarquia2 = tableModulosHierarquiaNomes.selectAll('[class^="ocultar"]')
                     if (segundaHierarquia2) {
                         segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
                     }
 
-                    var terceiraHierarquia = tableModulos.selectAll('[class^="row-modulo3-"]')
+                    var terceiraHierarquia = tableModulosHierarquiaNomes.selectAll('[class^="row-modulo3-"]')
                     if (terceiraHierarquia) {
                         terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
                     }
                 } catch (error) {
                     // console.log("erro catch: " + error);
+                }
 
+
+                // altera a propriedade de exibição na parte de eventos
+                var eventoDiv = rowEventos.select(".evento-div")
+                if (eventoDiv) {
+                    eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
+                }
+
+                var segundaHierarquiaEventos = tableModulosHierarquiaEventos.selectAll('[class^="row-modulo2-"]')
+                if (segundaHierarquiaEventos) {
+                    segundaHierarquiaEventos.style("display", segundaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
+                }
+                try {
+                    var segundaHierarquia2Eventos = tableModulosHierarquiaEventos.selectAll('[class^="ocultar"]')
+                    if (segundaHierarquia2Eventos) {
+                        segundaHierarquia2Eventos.style("display", segundaHierarquia2Eventos.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    var terceiraHierarquiaEventos = tableModulosHierarquiaEventos.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquiaEventos) {
+                        terceiraHierarquiaEventos.style("display", terceiraHierarquiaEventos.style("display") === "none" ? "contents" : "none");
+                    }
+                } catch (error) {
+                    // console.log("erro catch: " + error);
                 }
             })
             .append("svg")
@@ -916,46 +597,64 @@ function treeModulos(data, svg) {
             .append("path")
             .attr("d", iconsBase.plus)
 
-        var buttonMinus = row.append("button")
+        var buttonMinus = rowHierarquia.append("button")
             .style("display", "none")
             .attr("class", "iconMinus-div")
             .on("click", function () {
                 exibir = exibir.filter(elemento => elemento !== "row-modulo-" + d.nome);
                 // console.log("exibir - buttonMinus: " + exibir);
 
-
-                var eventoDiv = row.select(".evento-div")
-                if (eventoDiv) {
-                    eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
-                }
-
-                var eventoHide = row.select(".iconPlus-div")
+                var eventoHide = rowHierarquia.select(".iconPlus-div")
                 if (eventoHide) {
                     eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
                 }
-                var eventoShow = row.select(".iconMinus-div")
+                var eventoShow = rowHierarquia.select(".iconMinus-div")
                 if (eventoShow) {
                     eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                 }
                 // var segundaHierarquia = tableModulos.selectAll(".tableModulos2")
-                var segundaHierarquia = tableModulos.selectAll('[class^="row-modulo2-"]')
+                var segundaHierarquia = tableModulosHierarquiaNomes.selectAll('[class^="row-modulo2-"]')
                 if (segundaHierarquia) {
                     segundaHierarquia.style("display", segundaHierarquia.style("display") === "none" ? "contents" : "none");
                 }
 
                 try {
-                    var segundaHierarquia2 = tableModulos.selectAll('[class^="ocultar"]')
+                    var segundaHierarquia2 = tableModulosHierarquiaNomes.selectAll('[class^="ocultar"]')
                     if (segundaHierarquia2) {
                         segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
                     }
 
-                    var terceiraHierarquia = tableModulos.selectAll('[class^="row-modulo3-"]')
+                    var terceiraHierarquia = tableModulosHierarquiaNomes.selectAll('[class^="row-modulo3-"]')
                     if (terceiraHierarquia) {
                         terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
                     }
                 } catch (error) {
                     // console.log("erro catch: " + error);
+                }
 
+                // altera a propriedade de exibição na parte de eventos
+                var eventoDiv = rowEventos.select(".evento-div")
+                if (eventoDiv) {
+                    eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
+                }
+
+                var segundaHierarquiaEventos = tableModulosHierarquiaEventos.selectAll('[class^="row-modulo2-"]')
+                if (segundaHierarquiaEventos) {
+                    segundaHierarquiaEventos.style("display", segundaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
+                }
+
+                try {
+                    var segundaHierarquia2Eventos = tableModulosHierarquiaEventos.selectAll('[class^="ocultar"]')
+                    if (segundaHierarquia2Eventos) {
+                        segundaHierarquia2Eventos.style("display", segundaHierarquia2Eventos.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    var terceiraHierarquiaEventos = tableModulosHierarquiaEventos.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquiaEventos) {
+                        terceiraHierarquiaEventos.style("display", terceiraHierarquiaEventos.style("display") === "none" ? "contents" : "none");
+                    }
+                } catch (error) {
+                    // console.log("erro catch: " + error);
                 }
 
             })
@@ -967,7 +666,7 @@ function treeModulos(data, svg) {
             .attr("d", iconsBase.minor)
 
 
-        row.append("div")
+        rowHierarquia.append("div")
             .style("width", "260px")
             .style("padding-left", "5px")
             .attr("class", "text-div")
@@ -977,25 +676,47 @@ function treeModulos(data, svg) {
             .attr("font-size", "12px")
             .text(d.nome)
 
+        // fim da estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
+
         //!
         //! Segundo nivel da hierarquia
         //!
 
 
         d.dados.forEach((h, i) => {
+            var tipoEventoBar = []
             // console.log("d.dados.forEach: " + JSON.stringify(h));
 
-            var tipoEventoBar = []
+            var tableModulos2HierarquiaEventos = tableModulosHierarquiaEventos.append("table")
+                .attr("class", "row-modulo2-" + h.nome)
+                .style("display", "none")
+                // .style("padding-left", "15px")
+                .style("margin-bottom", "5px")
+                .attr("height", 20)
 
-            var tableModulos2 = tableModulos.append("table")
-                // .attr("class", "tableModulos2")
+            var row2Eventos = tableModulos2HierarquiaEventos.append("tr")
+                .attr("class", function () {
+                    if (h.nome === null) {
+                        return "ocultar"
+                    } else {
+                        return "exibir"
+                    }
+                })
+                .style("display", "flex")
+                .attr("height", 20)
+                // .style("padding-left", "15px")
+                .style("margin-bottom", "5px")
+                // .text(h.nome)
+
+            // inicio da estrutura da sgunda hierarquia(esquerda), juntamente com os botoes e nomes
+            var tableModulos2HierarquiaNomes = tableModulosHierarquiaNomes.append("table")
                 .attr("class", "row-modulo2-" + h.nome)
                 .style("display", "none")
                 .style("padding-left", "15px")
                 .style("margin-bottom", "5px")
                 .attr("height", 20)
 
-            var row2 = tableModulos2.append("tr")
+            var row2Nomes = tableModulos2HierarquiaNomes.append("tr")
                 .attr("class", function () {
                     if (h.nome === null) {
                         return "ocultar"
@@ -1009,31 +730,42 @@ function treeModulos(data, svg) {
                 .style("margin-bottom", "5px")
 
 
-            var buttonPlus = row2.append("button")
+            var buttonPlus = row2Nomes.append("button")
                 .attr("class", "iconPlus-div2")
                 .on("click", function () {
 
                     // exibir.push("tableModulos2")
                     exibir.push("row-modulo2-" + h.nome)
-                    console.log("exibir - buttonPlus: " + exibir);
+                    // console.log("exibir - buttonPlus: " + exibir);
 
-                    var eventoDiv2 = row2.select(".evento-div2")
-                    if (eventoDiv2) {
-                        eventoDiv2.style("display", eventoDiv2.style("display") === "none" ? "block" : "none");
-                    }
+                    // var eventoDiv2 = row2Nomes.select(".evento-div2")
+                    // if (eventoDiv2) {
+                    //     eventoDiv2.style("display", eventoDiv2.style("display") === "none" ? "block" : "none");
+                    // }
 
-                    var eventoHide = row2.select(".iconPlus-div2")
+                    var eventoHide = row2Nomes.select(".iconPlus-div2")
                     if (eventoHide) {
                         eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
                     }
-                    var eventoShow = row2.select(".iconMinus-div2")
+                    var eventoShow = row2Nomes.select(".iconMinus-div2")
                     if (eventoShow) {
                         eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                     }
                     // var terceiraHierarquia = tableModulos2.selectAll(".tableModulos3")
-                    var terceiraHierarquia = tableModulos2.selectAll('[class^="row-modulo3-"]')
-                    if (terceiraHierarquia) {
-                        terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
+                    var terceiraHierarquiaHierarquiaNomes = tableModulos2HierarquiaNomes.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquiaHierarquiaNomes) {
+                        terceiraHierarquiaHierarquiaNomes.style("display", terceiraHierarquiaHierarquiaNomes.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    // altera a propriedade de exibição na parte de eventos
+                    var eventoDiv2 = row2Eventos.select(".evento-div2")
+                    if (eventoDiv2) {
+                        eventoDiv2.style("display", eventoDiv2.style("display") === "none" ? "block" : "none");
+                    }
+
+                    var terceiraHierarquiaHierarquiaEventos = tableModulos2HierarquiaEventos.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquiaHierarquiaEventos) {
+                        terceiraHierarquiaHierarquiaEventos.style("display", terceiraHierarquiaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
                     }
                 })
                 .append("svg")
@@ -1043,30 +775,36 @@ function treeModulos(data, svg) {
                 .append("path")
                 .attr("d", iconsBase.plus)
 
-            var buttonMinus = row2.append("button")
+            var buttonMinus = row2Nomes.append("button")
                 .style("display", "none")
                 .attr("class", "iconMinus-div2")
                 .on("click", function () {
                     exibir = exibir.filter(elemento => elemento !== "row-modulo2-" + h.nome);
-                    console.log("exibir - iconMinus-div2: " + exibir);
+                    // console.log("exibir - iconMinus-div2: " + exibir);
 
-                    var eventoDiv = row2.select(".evento-div2")
-                    if (eventoDiv) {
-                        eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
-                    }
-
-                    var eventoHide = row2.select(".iconPlus-div2")
+                    var eventoHide = row2Nomes.select(".iconPlus-div2")
                     if (eventoHide) {
                         eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
                     }
-                    var eventoShow = row2.select(".iconMinus-div2")
+                    var eventoShow = row2Nomes.select(".iconMinus-div2")
                     if (eventoShow) {
                         eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
                     }
                     // var terceiraHierarquia = tableModulos2.selectAll(".tableModulos3")
-                    var terceiraHierarquia = tableModulos2.selectAll('[class^="row-modulo3-"]')
-                    if (terceiraHierarquia) {
-                        terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
+                    var terceiraHierarquiaHierarquiaNomes = tableModulos2HierarquiaNomes.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquiaHierarquiaNomes) {
+                        terceiraHierarquiaHierarquiaNomes.style("display", terceiraHierarquiaHierarquiaNomes.style("display") === "none" ? "contents" : "none");
+                    }
+
+                    // altera a propriedade de exibição na parte de eventos
+                    var eventoDiv = row2Eventos.select(".evento-div2")
+                    if (eventoDiv) {
+                        eventoDiv.style("display", eventoDiv.style("display") === "none" ? "block" : "none");
+                    }
+
+                    var terceiraHierarquiaHierarquiaEventos = tableModulos2HierarquiaEventos.selectAll('[class^="row-modulo3-"]')
+                    if (terceiraHierarquiaHierarquiaEventos) {
+                        terceiraHierarquiaHierarquiaEventos.style("display", terceiraHierarquiaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
                     }
                 })
                 .append("svg")
@@ -1076,7 +814,7 @@ function treeModulos(data, svg) {
                 .append("path")
                 .attr("d", iconsBase.minor)
 
-            var testeRow = row2.append("tr")
+            var testeRow = row2Nomes.append("tr")
                 .attr("class", "row-modulo-segundo")
                 .attr("height", 20)
                 .style("padding-left", "5px")
@@ -1116,6 +854,7 @@ function treeModulos(data, svg) {
                                     posInin: dataInicio,
                                     width: tamanhoBarraEvento,
                                     group: false,
+                                    cor: l.levelValues[0].cor,
                                     rot: l.levelValues[0].rot
                                 },
                             ],
@@ -1128,6 +867,7 @@ function treeModulos(data, svg) {
                                     {
                                         posInin: dataInicio,
                                         width: tamanhoBarraEvento,
+                                        cor: l.levelValues[0].cor,
                                         group: true
                                     },
                                 ],
@@ -1136,22 +876,37 @@ function treeModulos(data, svg) {
                             existingSubTipo[l.levelValues[0].subTipo].push({
                                 posInin: dataInicio,
                                 width: tamanhoBarraEvento,
+                                cor: l.levelValues[0].cor,
                                 group: true
                             });
                         }
                     }
                 } else {
 
-
-                    var tableModulos3 = tableModulos2.append("table")
+                    //terceiro nivel dos eventos das hierarquias
+                    var tableModulos3HierarquiaEventos = tableModulos2HierarquiaEventos.append("table")
                         // .attr("class", "tableModulos3")
                         .attr("class", "row-modulo3-" + l.levelValues[0].evento)
                         .style("display", "none")
 
-                    var row3 = tableModulos3.append("tr")
+                    var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+                        .style("display", "flex")
+                        // .style("padding-left", "30px")
+                        // .style("width", "1147px")
+                        .style("width", CHART_WIDTH + "px")
+                        .style("align-items", "center")
+                        .style("margin-bottom", "5px")
+
+                    //terceiro nivel dos nomes das hierarquias
+                    var tableModulos3HierarquiaNomes = tableModulos2HierarquiaNomes.append("table")
+                        // .attr("class", "tableModulos3")
+                        .attr("class", "row-modulo3-" + l.levelValues[0].evento)
+                        .style("display", "none")
+
+                    var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
                         .style("display", "flex")
                         .style("padding-left", "30px")
-                        .style("width", "1147px")
+                        .style("width", "260px")
                         .style("align-items", "center")
                         .style("margin-bottom", "5px")
 
@@ -1167,14 +922,15 @@ function treeModulos(data, svg) {
                     }
 
 
-                    var testeRow3 = row3.append("tr")
+                    var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
                         .attr("class", "row-modulo-segundo")
                         .style("padding-left", "5px")
                         .style("width", "260px")
                         .text(textPrint)
 
 
-                    var eventoBarDiv = row3.append("svg")
+                    // var eventoBarDiv = row3HierarquiaNomes.append("svg")
+                    var eventoBarDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function (d, i) {
                             if (dataFimTeste == "null") {
                                 return `translate(${dataInicio - 15}, 0)`;
@@ -1188,20 +944,24 @@ function treeModulos(data, svg) {
                                 tipoEventoBar.push({
                                     "posInin": dataInicio,
                                     "width": tamanhoBarraEvento,
+                                    // "cor": l.levelValues[0].cor,
                                 })
                                 tipoCategoriaBar.push({
                                     "posInin": dataInicio,
                                     "width": tamanhoBarraEvento,
+                                    // "cor": l.levelValues[0].cor,
                                 })
                                 return tamanhoBarraEvento
                             } else {
                                 tipoEventoBar.push({
                                     "posInin": dataInicio,
                                     "width": 0,
+                                    // "cor": l.levelValues[0].cor,
                                 })
                                 tipoCategoriaBar.push({
                                     "posInin": dataInicio,
                                     "width": 0,
+                                    // "cor": l.levelValues[0].cor,
                                 })
                                 return tamanhoBarraEvento + 20
                             }
@@ -1217,7 +977,7 @@ function treeModulos(data, svg) {
                             .append("path")
                             .attr("fill", function () {
                                 if (l.levelValues[0].cor) {
-                                    return l.levelValues[0].cor
+                                    return "#" + l.levelValues[0].cor
                                 } else {
                                     return "rgb(0, 0153, 128)"
                                 }
@@ -1248,7 +1008,8 @@ function treeModulos(data, svg) {
                             })
                     }
 
-                    var eventoNomeDiv = row3.append("svg")
+                    // var eventoNomeDiv = row3HierarquiaNomes.append("svg")
+                    var dadosEventoDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function () {
                             return `translate(${posicaoTextoEvento}, 0)`;
                         })
@@ -1269,11 +1030,12 @@ function treeModulos(data, svg) {
                 }
             })
 
+            //caso exista algum subtipo associado entra no if abaixo
             if (dadosEventoSubTipo.length != 0) {
                 dadosEventoSubTipo.forEach((item, i) => {
                     // console.log("tableModulos3 = tableModulos2.append: " + JSON.stringify(item));
                     // console.log("tableModulos3 = tableModulos2.append item[0]: " + Object.keys(item)[0]);
-                    var tableModulos3 = tableModulos2.append("table")
+                    var tableModulos3 = tableModulos2HierarquiaNomes.append("table")
                         // .attr("class", "tableModulos3")
                         .attr("class", "row-modulo3-" + Object.keys(item)[0])
                         .style("display", "none")
@@ -1339,16 +1101,14 @@ function treeModulos(data, svg) {
                                 })
                             if (gov.width != 0) {
                                 barraGeralEventoAgrupado.append("rect")
-                                    // .attr("fill", "rgb(90, 3, 150)")
-                                    // .attr("fill", "rgb(128, 52, 52)")
                                     .attr("fill", function () {
-                                        // if (l.levelValues[0].cor) {
-                                        //     return l.levelValues[0].cor
-                                        // } else {
-                                        return "rgb(10, 0, 250)"
-                                        // }
+                                        // console.log("gov agrupado: " + JSON.stringify(gov));
+                                        if (gov.cor) {
+                                            return "#" + gov.cor
+                                        } else {
+                                            return "rgb(10, 0, 250)"
+                                        }
                                     }
-
                                     )
                                     .attr("width", gov.width)
                                     .attr("height", 20)
@@ -1359,11 +1119,11 @@ function treeModulos(data, svg) {
                                     .attr("width", 30)
                                     .append("path")
                                     .attr("fill", function () {
-                                        // if (l.levelValues[0].cor) {
-                                        //     return l.levelValues[0].cor
-                                        // } else {
-                                        return "rgb(10, 0, 250)"
-                                        // }
+                                        if (gov.cor) {
+                                            return "#" + gov.cor
+                                        } else {
+                                            return "rgb(10, 0, 250)"
+                                        }
                                     })
                                     .attr("d", iconsBase.diamond)
                             }
@@ -1399,7 +1159,8 @@ function treeModulos(data, svg) {
             }
 
             //Gera os marcos agrupados referentes ao tipo
-            var barraGeralTeste = row2.append("g")
+            // var barraGeralTeste = row2Nomes.append("g")
+            var barraGeralTeste = row2Eventos.append("g")
                 .attr("transform", `translate(0,0)`)
                 .attr("class", "evento-div2")
 
@@ -1444,14 +1205,19 @@ function treeModulos(data, svg) {
 
         })
 
+        // var barraGeralTeste = rowHierarquia.append("g")
+        var barraGeralTesteEvento = rowEventos.append("g")
+            .attr("transform", `translate(0,0)`)
+            .attr("class", "evento-div")
 
 
-        var barraGeralTeste = row.append("g")
+        var barraGeralTesteHierarquia = rowHierarquia.append("g")
             .attr("transform", `translate(0,0)`)
             .attr("class", "evento-div")
 
         tipoCategoriaBar.forEach((item, i) => {
-            var barraGeralTeste2 = barraGeralTeste.append("svg")
+            // var barraGeralTeste2 = barraGeralTeste.append("svg")
+            var barraGeralTeste2 = barraGeralTesteEvento.append("svg")
                 .style("display", "flex")
                 .style("position", "absolute")
                 .attr("transform", function (f) {

@@ -1,5 +1,3 @@
 //!
 
 //! Segundo nivel da hierarquia
-
-//! erro no hierarquiaTree ao remover um rotulo ou agrupamentoe fazer o reload 
