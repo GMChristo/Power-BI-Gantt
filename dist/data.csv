@@ -1,386 +1,707 @@
-﻿Categoria,Tipo,Evento,DataInicio,DataFim
-Sísmica,,FOZ DO AMAZONAS - PARAMETROS DE FATTI,,
-Sísmica,,R0302_BUZIOS,,
-Sísmica,,R0302_BUZIOS_AP,,
-Sísmica,,R0302_BUZIOS_AP (CONDICIONAMENTO STKS PARCIAIS),,
-Sísmica,,R0302_BUZIOS_AP (ITERDEC),,
-Sísmica,,R0302_BUZIOS_AP (POSPROC),,
-Sísmica,,R0302_BUZIOS_RASO_MOD2,,
-Sísmica,,R0302_FRANCO_TAMBUATA (BUZIOS) - PRE-CONDICIONAMENTO,,
-Sísmica,,R0302_FRANCO_TAMBUATA (BUZIOS) (FATTI),,
-Prazos Contratuais ANP,,Início,1998-08-06 00:00:00,
-Prazos Contratuais ANP,,Início,2002-12-12 00:00:00,
-Prazos Contratuais ANP,,Início,2004-08-13 00:00:00,
-Prazos Contratuais ANP,,Início,2004-11-24 00:00:00,
-Prazos Contratuais ANP,,Início,2009-03-09 00:00:00,
-Prazos Contratuais ANP,,Início,2009-06-01 00:00:00,
-Licenciamento Ambiental,, Emissão da 1ª LO,2011-09-30 00:00:00,
-Prazos Contratuais ANP,,Início,2011-11-25 00:00:00,
-Prazos Contratuais ANP,,Início,2012-07-16 00:00:00,
-Prazos Contratuais ANP,,Término,2012-11-21 00:00:00,
-Licenciamento Ambiental,, Requerimento da 2ª LO,2013-03-15 00:00:00,
-Prazos Contratuais ANP,,Início,2013-08-06 00:00:00,
-Prazos Contratuais ANP,,Início,2013-08-29 00:00:00,
-Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,
-Prazos Contratuais ANP,,Início,2013-12-19 00:00:00,
-Prazos Contratuais ANP,,Término,2014-02-17 00:00:00,
-Prazos Contratuais ANP,,Início,2014-05-08 00:00:00,
-Prazos Contratuais ANP,,Início,2014-05-28 00:00:00,
-Prazos Contratuais ANP,,Início,2014-07-23 00:00:00,
-Prazos Contratuais ANP,,Início,2014-08-08 00:00:00,
-Licenciamento Ambiental,, Emissão do Termo de Referência,2014-08-22 00:00:00,
-Prazos Contratuais ANP,,Início,2014-09-03 00:00:00,
-Prazos Contratuais ANP,,Início,2014-12-29 00:00:00,
-Prazos Contratuais ANP,,Início,2015-03-26 00:00:00,
-Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2015-03-31 00:00:00,
-Licenciamento Ambiental,, Solicitação de Anuência,2016-03-07 00:00:00,
-Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2016-04-20 00:00:00,
-Prazos Contratuais ANP,,Término,2016-07-08 00:00:00,
-Prazos Contratuais ANP,,Término,2017-06-19 00:00:00,
-Sísmica,,R0258_3D_MLL_MLS - PSDM,2017-08-15 00:00:00,2019-07-10 00:00:00
-Sísmica,,R0306_ALBACORA_FORNO_PSDM_FWI,2017-09-04 00:00:00,2021-06-07 00:00:00
-Licenciamento Ambiental,, Realização das APs/RPs,2017-11-13 00:00:00,
-Prazos Contratuais ANP,,Início,2018-01-29 00:00:00,
-Prazos Contratuais ANP,,Início,2018-01-31 00:00:00,
-Sísmica,,R0302_BUZIOS_AP (CONVERSAO P-T),2018-02-02 00:00:00,2018-02-22 00:00:00
-Prazos Contratuais ANP,,Início,2018-03-09 00:00:00,
-Sísmica,,BM_PAMA_8 - ITERDEC INTEGRADO,2018-03-16 00:00:00,2018-08-02 00:00:00
-Prazos Contratuais ANP,,Início,2018-07-05 00:00:00,
-Sísmica,,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),2018-07-13 00:00:00,2019-02-21 00:00:00
-Sísmica,,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,2018-07-30 00:00:00,2018-09-20 00:00:00
-Sísmica,,R0302_BUZIOS (POSPROC),2018-08-01 00:00:00,2019-01-28 00:00:00
-Sísmica,,Migração do 3D_BRC_MARLIM_SUL_MARLIM 2010,2018-08-22 00:00:00,2019-03-15 00:00:00
-Sísmica,,R0302_BUZIOS (ITERDEC),2018-09-02 00:00:00,2019-03-15 00:00:00
-Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,
-Sísmica,,R0258_UIRAPURU_ITERDEC_INTEGRADO,2018-09-11 00:00:00,2018-10-08 00:00:00
-Sísmica,,R0326_SPECOLHODEBOI_ITER_PARCI,2018-10-08 00:00:00,2018-12-20 00:00:00
-Sísmica,,R0302_BUZIOS - ITERDEC INTEGRADO COLORIDO,2018-10-10 00:00:00,2018-12-04 00:00:00
-Sísmica,,AG - Búzios Nodes,2018-10-29 00:00:00,2019-11-04 00:00:00
-Sísmica,,R0302_BUZIOS_RASO_MOD5,2018-11-05 00:00:00,2019-04-01 00:00:00
-Sísmica,,R0321_3D_ITERDEC_MERG_ALBACORA,2018-11-14 00:00:00,2019-05-23 00:00:00
-Sísmica,,R0306_MERGE_OBC_STREAMER_ALB,2018-11-16 00:00:00,2019-02-07 00:00:00
-Prazos Contratuais ANP,,Início,2018-12-17 00:00:00,
-Licenciamento Ambiental,, Protocolo de abertura do processo,2018-12-28 00:00:00,
-Sísmica,,R0258_3D_MLL_MLS_PSTM,2019-01-01 00:00:00,2019-09-25 00:00:00
-Sísmica,,AG - Uirapuru Nodes,2019-01-14 00:00:00,2025-08-08 00:00:00
-Sísmica,,AG - Jubarte Nodes,2019-02-06 00:00:00,2021-11-29 00:00:00
-Sísmica,,AG - Alto de Cabo Frio Central Nodes,2019-02-08 00:00:00,2025-03-20 00:00:00
-Sísmica,,R0326_0268_BIAZI_OLHBC400_PSDM,2019-02-11 00:00:00,2020-02-13 00:00:00
-Sísmica,,0372 3D NODES BUZIOS,2019-03-01 00:00:00,2021-04-30 00:00:00
-Licenciamento Ambiental,, Solicitação de Anuência,2019-03-15 00:00:00,
-Sísmica,,"R0014_SANTOS-III-PSDM (Vision - Uirapuru, BM-S-50, BM-S-51)",2019-03-21 00:00:00,2021-07-01 00:00:00
-Sísmica,,R0258_3D_MLL_MLS_2019,2019-04-04 00:00:00,2021-07-07 00:00:00
-Sísmica,,AG - Bloco PAR-T-175 Vibroseis,2019-04-08 00:00:00,2021-05-06 00:00:00
-Sísmica,,"PSDM Marlim Leste e Marlim Sul, Filtros, Iterdec e Pseudo-impedancia",2019-04-29 00:00:00,2019-05-30 00:00:00
-Sísmica,,AG - Sagitário Nodes,2019-05-01 00:00:00,2024-12-02 00:00:00
-Sísmica,,AG - Sépia - Nodes,2019-05-01 00:00:00,2024-03-05 00:00:00
-Sísmica,,"AG - Atapu, Berbigão, Sururu (ABS) Nodes",2019-05-17 00:00:00,2023-09-14 00:00:00
-Sísmica,,AG - Albacora Marlim Voador Streamer,2019-05-29 00:00:00,2022-05-03 00:00:00
-Sísmica,,"AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",2019-06-14 00:00:00,2024-11-25 00:00:00
-Licenciamento Ambiental,, Protocolo de abertura do processo,2019-07-17 00:00:00,
-Sísmica,,R0264_Santos _VII_CM789_Opal_Iterdec_Integrado,2019-07-24 00:00:00,2019-10-31 00:00:00
-Sísmica,,R0302_BUZIOS_ITERDEC,2019-09-06 00:00:00,2020-03-06 00:00:00
-Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2019-09-16 00:00:00,
-Sísmica,,Pré condicionamento para inversão de MLS,2019-10-16 00:00:00,2019-10-28 00:00:00
-Prazos Contratuais ANP,,Início,2019-10-24 00:00:00,
-Sísmica,,AG - Dois Irmãos Nodes,2019-10-30 00:00:00,2023-08-07 00:00:00
-Sísmica,,TAID-AG - Dois Irmãos Nodes,2019-10-31 00:00:00,2024-12-31 00:00:00
-Sísmica,,PSEUDOIMPEDÂNCIA - Olho de Boi (RTM),2019-11-01 00:00:00,2020-11-05 00:00:00
-Licenciamento Ambiental,, Emissão da 1ª LO,2019-11-18 00:00:00,
-Sísmica,,AG - Búzios Monitor Nodes,2019-12-10 00:00:00,2024-10-03 00:00:00
-Licenciamento Ambiental,, Autorização de distribuição dos EAs,2019-12-19 00:00:00,
-Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2020-01-13 00:00:00,
-Sísmica,,R0268_3D_UIRAPURU_PSDM - PETROBRAS (2021),2020-02-01 00:00:00,2021-04-18 00:00:00
-Sísmica,,R0282_PSDM_UIRAPURU_GEOHAZARD,2020-02-12 00:00:00,2020-11-11 00:00:00
-Prazos Contratuais ANP,,Início,2020-02-14 00:00:00,
-Sísmica,,R0306_3D_PSDM_OBC_ALBACORA,2020-02-20 00:00:00,2021-03-15 00:00:00
-Licenciamento Ambiental,, Protocolo de abertura do processo,2020-02-28 00:00:00,
-Sísmica,,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,2020-03-02 00:00:00,2020-07-30 00:00:00
-Licenciamento Ambiental,, Realização das APs/RPs,2020-03-03 00:00:00,
-Sísmica,,R01.0258_MERGE_MLL_MLS-MRL_MLL,2020-03-10 00:00:00,2020-09-22 00:00:00
-Sísmica,,R0258_3D_ITERDEC_MLL_MLS,2020-03-20 00:00:00,2020-05-25 00:00:00
-Prazos Contratuais ANP,,Início,2020-03-30 00:00:00,
-Licenciamento Ambiental,, Protocolo de abertura do processo,2020-04-23 00:00:00,
-Sísmica,,R0014_SANTOS_III_ARAM_PSIM,2020-05-12 00:00:00,2020-07-17 00:00:00
-Sísmica,,R0302_BUZIOS_RASO_CENTRAL,2020-05-19 00:00:00,2020-12-03 00:00:00
-Sísmica,,R0264_Naru_PSDM_FWI,2020-05-25 00:00:00,2022-03-04 00:00:00
-Sísmica,,R0264_PULSAR_OPAL_POS_STACK,2020-05-27 00:00:00,2020-08-14 00:00:00
-Licenciamento Ambiental,, Protocolo de abertura do processo,2020-06-01 00:00:00,
-Sísmica,,R0327_4D_ALBACORA_PSDM_2002_2022,2020-06-01 00:00:00,2023-12-12 00:00:00
-Licenciamento Ambiental,, Protocolo de abertura do processo,2020-06-08 00:00:00,
-Sísmica,,R0326_OLHODEBOI_RTM_ITER_INTEG,2020-06-23 00:00:00,2021-03-03 00:00:00
-Sísmica,,R0268_PSDM_ARAM_CENTRAL,2020-07-06 00:00:00,2021-05-14 00:00:00
-Sísmica,,R0264_YBA_PSDM_FWI,2020-07-08 00:00:00,2022-08-29 00:00:00
-Sísmica,,AG - Aram Nodes,2020-07-09 00:00:00,2023-08-21 00:00:00
-Sísmica,,R0264_NARU_YBA_POS_STACK,2020-07-19 00:00:00,2020-11-11 00:00:00
-Sísmica,,R0022_MERGE_3D_PICANHA_ALB_MRL,2020-07-20 00:00:00,2021-04-05 00:00:00
-Sísmica,,R0372_NODES_BUZIOS_PRE_CONDICIONAMENTO,2020-08-03 00:00:00,2020-11-06 00:00:00
-Sísmica,,R0326_Bullseye_Exxon,2020-08-18 00:00:00,2020-09-04 00:00:00
-Licenciamento Ambiental,, Protocolo de abertura do processo,2020-09-01 00:00:00,
-Sísmica,,R0268_PSDM_ARAM_CENT_GEOHAZARD,2020-09-01 00:00:00,2021-03-23 00:00:00
-Sísmica,,R0302_BUZIOS - SISMEC,2020-09-01 00:00:00,2020-10-19 00:00:00
-Sísmica,,Naru - Brisa,2020-09-02 00:00:00,2022-10-13 00:00:00
-Sísmica,,R0264_BULLSEYE_ITD_INTG,2020-09-14 00:00:00,2020-11-11 00:00:00
-Prazos Contratuais ANP,,Término,2020-11-05 00:00:00,
-Prazos Contratuais ANP,,Término,2020-12-09 00:00:00,
-Licenciamento Ambiental,, Solicitação de Anuência,2020-12-16 00:00:00,
-Sísmica,,AG - Yba Nodes,2020-12-17 00:00:00,2023-03-08 00:00:00
-Prazos Contratuais ANP,,Término,2020-12-30 00:00:00,
-Licenciamento Ambiental,, Emissão do Termo de Referência,2020-12-31 00:00:00,
-Prazos Contratuais ANP,,Término,2021-01-26 00:00:00,
-Sísmica,,R0257_3D_PSDM_MORPHO,2021-02-04 00:00:00,2021-09-15 00:00:00
-Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2021-03-01 00:00:00,
-Sísmica,,R0372_NODES_BUZIOS_RTM_PBR_PROFUNDO,2021-03-01 00:00:00,2021-03-30 00:00:00
-Sísmica,,Iterdec e PSIMAR das saídas finais do processamento do dado nodes de Búzios,2021-04-06 00:00:00,2022-02-08 00:00:00
-Sísmica,,R0264_POLARIS_RUBA_ITD,2021-04-09 00:00:00,2021-05-25 00:00:00
-Sísmica,,3D_NODES_BUZIOS _VEL_REGRID,2021-04-14 00:00:00,2021-04-30 00:00:00
-Sísmica,,R0258_CARCARA_MERGE_BM_S_50_10 - SISMEC ELÁSTICO UIRAPURU,2021-05-06 00:00:00,2021-11-05 00:00:00
-Sísmica,,TAID-AG - Búzios Nodes,2021-05-06 00:00:00,2025-12-31 00:00:00
-Sísmica,,TAID-AG - Foz do Amazonas Streamer,2021-05-21 00:00:00,2025-12-25 00:00:00
-Sísmica,,R0268_3D_ARAM_PSDM,2021-05-24 00:00:00,2023-01-16 00:00:00
-Sísmica,,R0268_PSDM_ARAM_CENTRAL_LSM,2021-05-24 00:00:00,2021-08-11 00:00:00
-Sísmica,,R0326_RUBA_BIAZIMUTE,2021-06-01 00:00:00,2023-07-06 00:00:00
-Sísmica,,Teste Imageamento PS para OBN Buzios,2021-06-07 00:00:00,2024-07-31 00:00:00
-Sísmica,,Foz - Trat. de CRP´s Pós-Migração DHI (Tucano-Batuque),2021-06-10 00:00:00,2022-02-04 00:00:00
-Sísmica,,TAID-AG - Sépia Nodes,2021-06-16 00:00:00,2025-07-31 00:00:00
-Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2023-09-21 00:00:00
-Sísmica,,R0327_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2022-12-26 00:00:00
-Prazos Contratuais ANP,,Término,2021-06-25 00:00:00,
-Sísmica,,R0302_BUZIOS_RASO_LESTE,2021-07-14 00:00:00,2021-11-23 00:00:00
-Poços,CURAÇAO,Perfuração,2021-08-16 00:00:00,2022-01-08 00:00:00
-Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2021-08-30 00:00:00,
-Sísmica,,R0264_NEBULA_A_ITERDEC,2021-09-22 00:00:00,2021-11-03 00:00:00
-Sísmica,,R0396_OPAL_PSDM_BIAZIMUTE,2021-09-23 00:00:00,2021-11-23 00:00:00
-Poços,TEMISTO-N,Perfuração,2021-09-28 00:00:00,2022-03-06 00:00:00
-Prazos Contratuais ANP,,Início,2021-10-15 00:00:00,
-Prazos Contratuais ANP,,Término,2021-10-15 00:00:00,
-Sísmica,,R0372_3D_NODES_BUZIOS_LSRTM_ITERDEC_INTEGRADO,2021-10-25 00:00:00,2021-11-30 00:00:00
-Licenciamento Ambiental,, Emissão do Termo de Referência,2021-10-26 00:00:00,
-Sísmica,,R0302_BUZIOS_RASO_MERGE,2021-11-18 00:00:00,2021-11-23 00:00:00
-Sísmica,,0372_3D_NODES_BUZIOS_LSRTM_pre_cond_angle_stacks,2021-11-23 00:00:00,2021-11-30 00:00:00
-Poços,ACFC-02,Perfuração,2022-01-09 00:00:00,2022-05-11 00:00:00
-Sísmica,,R0326_3D_TGS_CAMPOS_I_RUBA_GHZ,2022-02-03 00:00:00,2022-10-03 00:00:00
-Sísmica,,Difrac MLL MLS,2022-02-11 00:00:00,2022-08-17 00:00:00
-Poços,VAZ LOBO - NORTE,Perfuração,2022-03-07 00:00:00,2022-05-05 00:00:00
-Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2022-04-13 00:00:00,
-Prazos Contratuais ANP,,Início,2022-04-27 00:00:00,
-Licenciamento Ambiental,, Protocolo de abertura do processo,2022-04-28 00:00:00,
-Poços,ACFC-02,Avaliação,2022-05-12 00:00:00,2022-07-18 00:00:00
-Sísmica,,R01.0258_3D_MLL_MLS_2022,2022-05-17 00:00:00,2023-10-11 00:00:00
-Sísmica,,R0257_2D_FOZ,2022-05-24 00:00:00,2023-03-02 00:00:00
-Poços,NOVO ANDURÁ,Perfuração,2022-06-16 00:00:00,2022-08-21 00:00:00
-Sísmica,,Parametrização de levantamento OBN em Amapá Águas Profundas,2022-07-11 00:00:00,2022-11-24 00:00:00
-Poços,CURAÇAO,Avaliação,2022-07-19 00:00:00,2022-10-17 00:00:00
-Poços,LOC. PEDÚNCULO,Perfuração,2022-07-25 00:00:00,2022-11-14 00:00:00
-Licenciamento Ambiental,, Emissão do Termo de Referência,2022-07-29 00:00:00,
-Licenciamento Ambiental,, Protocolo de abertura do processo,2022-08-01 00:00:00,
-Sísmica,,Reprocessamento Campo de Marlim Sul (Eoceno - Arenito Enchova),2022-08-01 00:00:00,2022-12-20 00:00:00
-Sísmica,,R0327_3D_ALBACORA_PSDM_BIAZ,2022-08-08 00:00:00,2023-05-03 00:00:00
-Sísmica,,R0268_3D_ARAM_LSM,2022-08-15 00:00:00,2023-04-17 00:00:00
-Sísmica,,R0326_3D_TGS_CAMPOS_I_RUBA_GHZ_FATTI,2022-10-03 00:00:00,2022-11-03 00:00:00
-Licenciamento Ambiental,, Emissão do Termo de Referência,2022-10-31 00:00:00,
-Sísmica,,R0257_3D_FOZ_AM_2022,2022-10-31 00:00:00,2023-10-25 00:00:00
-Sísmica,,R0268_3D_ARAM_PSDM_-_ITERDEC_INTEGRADO,2022-11-16 00:00:00,2022-12-20 00:00:00
-Prazos Contratuais ANP,,Término,2022-11-27 00:00:00,
-Sísmica,,Buzios OBN Geohazard - área prioritária,2022-12-07 00:00:00,2023-06-27 00:00:00
-Prazos Contratuais ANP,,Início,2022-12-15 00:00:00,
-Sísmica,,Geração dos Volumes A e D de Fatti - R306_ALBACORA_FORNO_PSDM_FWI,2023-01-30 00:00:00,2023-06-12 00:00:00
-Sísmica,,R0257_3D_PBP1 Volume multiparamétrico,2023-02-13 00:00:00,2023-07-20 00:00:00
-Sísmica,,R0258_3D_MLS_FWI_2023,2023-03-08 00:00:00,2024-07-30 00:00:00
-Poços,CURAÇAO SUDESTE,Perfuração,2023-03-16 00:00:00,2023-07-25 00:00:00
-Prazos Contratuais ANP,,Término,2023-03-20 00:00:00,
-Sísmica,,R0326_RUBA_BIAZIMUTE_ITD_INTG,2023-04-06 00:00:00,2023-05-15 00:00:00
-Sísmica,,Geração dos Volumes A e D de Fatti - R0268_3D_ARAM_LSM,2023-04-17 00:00:00,2023-06-13 00:00:00
-Licenciamento Ambiental,, Emissão de Anuência,2023-05-03 00:00:00,
-Prazos Contratuais ANP,,Início,2023-05-31 00:00:00,
-Poços,EXTENSÃO W SAGITARIO,Perfuração,2023-06-05 00:00:00,2023-07-03 00:00:00
-Sísmica,,R0268_3D_ARAM_LSM_-_ITERDEC_INTEGRADO,2023-07-03 00:00:00,2023-08-09 00:00:00
-Poços,EXTENSÃO W SAGITARIO,Perfuração,2023-07-04 00:00:00,2023-11-16 00:00:00
-Poços,CURAÇAO SUDESTE,Avaliação,2023-07-26 00:00:00,2023-10-08 00:00:00
-Sísmica,,R0268_3D_ARAM_LSM_-_PRE-COND_INV,2023-08-01 00:00:00,2023-09-06 00:00:00
-Sísmica,,0372_3D_NODES_BUZIOS_K_ITD,2023-09-05 00:00:00,2023-09-08 00:00:00
-Sísmica,,REVISÃO PROCESSAMENTO PSDM 4D MLS 1999-8/2005,2023-10-16 00:00:00,2024-03-28 00:00:00
-Sísmica,,REVISÃO PROCESSAMENTO PSDM 4D MLS 2005/2010,2023-10-16 00:00:00,2024-03-28 00:00:00
-Poços,EXTENSÃO W SAGITARIO,Avaliação,2023-11-17 00:00:00,2024-02-01 00:00:00
-Prazos Contratuais ANP,,Término,2023-11-17 00:00:00,
-Prazos Contratuais ANP,,Término,2023-11-22 00:00:00,
-Sísmica,,0256_3D_ARAM,2023-12-01 00:00:00,2025-02-24 00:00:00
-Poços,RJS-683A,Abandono Definitivo,2023-12-13 00:00:00,2024-01-23 00:00:00
-Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR - PSIM_FATTI,2023-12-15 00:00:00,2024-02-19 00:00:00
-Poços,PITU OESTE,Perfuração,2023-12-18 00:00:00,2024-02-06 00:00:00
-Sísmica,,Pseudoimpedância de Alta Resolução - GF,2024-01-23 00:00:00,2024-05-10 00:00:00
-Poços,NOVO ANDURÁ,Perfuração,2024-02-02 00:00:00,2024-02-06 00:00:00
-Governança,,GRT,2024-02-06 00:00:00,
-Poços,ANHANGÁ,Perfuração,2024-02-07 00:00:00,2024-04-26 00:00:00
-Poços,NOVO ANDURÁ,Perfuração,2024-02-14 00:00:00,2024-04-22 00:00:00
-Prazos Contratuais ANP,,Término,2024-02-15 00:00:00,
-Parceria,,WS,2024-02-22 00:00:00,
-Parceria,,WS,2024-02-26 00:00:00,
-Parceria,,WS,2024-02-28 00:00:00,
-Governança,,GRBLOC,2024-02-29 00:00:00,
-Parceria,,WS,2024-02-29 00:00:00,
-Parceria,,OCM,2024-03-06 00:00:00,
-Parceria,,WS,2024-03-06 00:00:00,
-Parceria,,WS,2024-03-07 00:00:00,
-Parceria,,WS,2024-03-19 00:00:00,
-Parceria,,WS,2024-04-09 00:00:00,
-Parceria,,WS,2024-04-11 00:00:00,
-Governança,,GRT,2024-04-17 00:00:00,
-Governança,,GRLOC,2024-04-18 00:00:00,
-Poços,NOVO ANDURÁ,Perfuração,2024-04-23 00:00:00,2024-06-11 00:00:00
-Parceria,,WS,2024-04-24 00:00:00,
-Governança,,COMEXP,2024-04-25 00:00:00,
-Parceria,,WS,2024-04-25 00:00:00,
-Governança,,GRLOC,2024-05-02 00:00:00,
-Governança,,GRT,2024-05-07 00:00:00,
-Poços,PARAÍBA SUL,Perfuração,2024-05-15 00:00:00,2024-07-06 00:00:00
-Governança,,COMEXP,2024-05-29 00:00:00,
-Parceria,,WS,2024-05-29 00:00:00,
-Governança,,Ciclo GAP,2024-05-31 00:00:00,
-Governança,,GRT,2024-06-06 00:00:00,
-Governança,,GRT,2024-06-10 00:00:00,
-Parceria,,WS,2024-06-11 00:00:00,
-Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-06-13 00:00:00,
-Governança,,GRLOC,2024-06-14 00:00:00,
-Governança,,GRLOC,2024-06-26 00:00:00,
-Parceria,,WS,2024-06-28 00:00:00,
-Prazos Contratuais ANP,,Início,2024-06-28 00:00:00,
-Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-06-29 00:00:00,
-Governança,,GRLOC,2024-07-04 00:00:00,
-Poços,FUJI,Perfuração,2024-07-09 00:00:00,2024-09-24 00:00:00
-Governança,,GRLOC,2024-07-10 00:00:00,
-Governança,,COMEXP,2024-07-25 00:00:00,
-Parceria,,WS,2024-07-31 00:00:00,
-Parceria,,OCM,2024-08-07 00:00:00,
-Poços,UCHUVA-2 - SIDETRACK,Perfuração,2024-08-12 00:00:00,2024-10-31 00:00:00
-Governança,,COMEXP,2024-08-14 00:00:00,
-Parceria,,TCM,2024-08-20 00:00:00,
-Parceria,,OCM,2024-08-26 00:00:00,
-Parceria,,TCM,2024-09-06 00:00:00,
-Parceria,,TCM,2024-09-24 00:00:00,
-Parceria,,WS,2024-09-26 00:00:00,
-Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-09-27 00:00:00,
-Parceria,,TCM,2024-10-10 00:00:00,
-Poços,MIRANTE DE FORNO,Perfuração,2024-10-13 00:00:00,2024-12-30 00:00:00
-Prazos Contratuais ANP,,Término,2024-10-22 00:00:00,
-Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-10-28 00:00:00,
-Poços,CURAÇAO EXTREMO LESTE,Perfuração,2024-10-29 00:00:00,2025-03-14 00:00:00
-Prazos Contratuais ANP,,Término,2024-10-29 00:00:00,
-Poços,UCHUVA-2 - SIDETRACK,Avaliação,2024-11-01 00:00:00,2024-12-31 00:00:00
-Poços,PARAÍBA SUL,Avaliação,2024-11-03 00:00:00,2024-12-23 00:00:00
-Prazos Contratuais ANP,,Término,2024-11-14 00:00:00,
-Poços,TORTUGA LESTE,Perfuração,2024-11-15 00:00:00,2025-03-05 00:00:00
-Poços,ACFC-11,Perfuração,2024-11-16 00:00:00,2025-02-19 00:00:00
-Licenciamento Ambiental,, Autorização de distribuição dos EAs,2024-11-27 00:00:00,
-Parceria,,WS,2024-11-29 00:00:00,
-Licenciamento Ambiental,, Autorização de distribuição dos EAs,2024-12-25 00:00:00,
-Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2024-12-26 00:00:00,
-Poços,MIRANTE DE FORNO,Avaliação,2024-12-31 00:00:00,2025-03-06 00:00:00
-Poços,BUENA SUERTE-1,Perfuração,2025-01-01 00:00:00,2025-03-11 00:00:00
-Licenciamento Ambiental,, Emissão da 1ª LO,2025-01-22 00:00:00,
-Prazos Contratuais ANP,,Término,2025-01-31 00:00:00,
-Poços,BUZ W,Perfuração,2025-02-08 00:00:00,2025-04-10 00:00:00
-Poços,ACFC-11,Avaliação,2025-02-20 00:00:00,2025-04-10 00:00:00
-Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2025-02-28 00:00:00,
-Poços,CURAÇAO CENTRO,Perfuração,2025-03-06 00:00:00,2025-07-12 00:00:00
-Poços,LOC ANDORINHA_MAJUÍ,Perfuração,2025-03-07 00:00:00,2025-07-09 00:00:00
-Poços,BUENA SUERTE-1,Avaliação,2025-03-12 00:00:00,2025-05-02 00:00:00
-Poços,CURAÇAO EXTREMO LESTE,Avaliação,2025-03-15 00:00:00,2025-05-18 00:00:00
-Poços,SALMONETE-1,Perfuração,2025-04-03 00:00:00,2025-06-21 00:00:00
-Poços,ACFC-01,Perfuração,2025-04-11 00:00:00,2025-07-13 00:00:00
-Poços,BUZ W,Completação inferior,2025-04-11 00:00:00,2025-05-01 00:00:00
-Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2025-04-18 00:00:00,
-Poços,MANDI,Perfuração,2025-04-27 00:00:00,2025-07-06 00:00:00
-Poços,PAPAYUELA,Perfuração,2025-05-03 00:00:00,2025-09-12 00:00:00
-Poços,CURAÇAO EXTREMO NORTE,Perfuração,2025-05-19 00:00:00,2025-09-01 00:00:00
-Licenciamento Ambiental,, Realização das APs/RPs,2025-06-02 00:00:00,
-Poços,POTA-1,Perfuração,2025-06-22 00:00:00,2025-09-09 00:00:00
-Poços,MORPHO,Perfuração,2025-06-24 00:00:00,2025-11-03 00:00:00
-Licenciamento Ambiental,, Realização das APs/RPs,2025-06-30 00:00:00,
-Poços,MANDI,Avaliação,2025-07-07 00:00:00,2025-08-25 00:00:00
-Poços,LOC ANDORINHA_MAJUÍ,Avaliação,2025-07-10 00:00:00,2025-09-04 00:00:00
-Poços,CURAÇAO CENTRO,Avaliação,2025-07-13 00:00:00,2025-09-06 00:00:00
-Poços,ACFC-01,Avaliação,2025-07-14 00:00:00,2025-08-26 00:00:00
-Poços,BUZ N2,Perfuração,2025-08-09 00:00:00,2025-10-23 00:00:00
-Poços,RUBA MOUND 4 FASES,Perfuração,2025-08-27 00:00:00,2025-12-06 00:00:00
-Poços,CURAÇAO EXTREMO NORTE,Avaliação,2025-09-02 00:00:00,2025-10-27 00:00:00
-Prazos Contratuais ANP,,Término,2025-09-02 00:00:00,
-Poços,TORTUGA LESTE,Avaliação,2025-09-07 00:00:00,2025-11-15 00:00:00
-Prazos Contratuais ANP,,Término,2025-09-11 00:00:00,
-Poços,PAPAYUELA,Avaliação,2025-09-13 00:00:00,2025-11-13 00:00:00
-Poços,COPOAZU,Perfuração,2025-11-14 00:00:00,2026-03-14 00:00:00
-Prazos Contratuais ANP,,Término,2025-12-16 00:00:00,
-Poços,ACFC-06,Perfuração,2026-01-01 00:00:00,2026-03-29 00:00:00
-Poços,CURAÇAO OESTE,Perfuração,2026-01-02 00:00:00,2026-04-14 00:00:00
-Poços,MIRANTE DE BRAVA,Perfuração,2026-01-25 00:00:00,2026-05-09 00:00:00
-Poços,ATOLCHELYS,Perfuração,2026-01-28 00:00:00,2026-03-19 00:00:00
-Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-03-06 00:00:00,
-Poços,COPOAZU,Avaliação,2026-03-15 00:00:00,2026-05-07 00:00:00
-Poços,ATOLCHELYS,Avaliação,2026-03-20 00:00:00,2026-05-03 00:00:00
-Licenciamento Ambiental,, Realização das APs/RPs,2026-03-23 00:00:00,
-Poços,ACFC-06,Avaliação,2026-03-30 00:00:00,2026-05-23 00:00:00
-Poços,CURAÇAO OESTE,Avaliação,2026-04-15 00:00:00,2026-06-09 00:00:00
-Prazos Contratuais ANP,,Término,2026-04-23 00:00:00,
-Poços,SANDÍA-1,Perfuração,2026-05-08 00:00:00,2026-08-15 00:00:00
-Poços,ACFC-08,Perfuração,2026-05-10 00:00:00,2026-08-05 00:00:00
-Poços,ORION-N,Perfuração,2026-05-24 00:00:00,2026-10-06 00:00:00
-Poços,ARAM PROFUNDO,Perfuração,2026-06-10 00:00:00,2026-10-08 00:00:00
-Prazos Contratuais ANP,,Término,2026-06-11 00:00:00,
-Prazos Contratuais ANP,,Término,2026-07-18 00:00:00,
-Prazos Contratuais ANP,,Término,2026-07-22 00:00:00,
-Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-08-03 00:00:00,
-Poços,ACFC-08,Avaliação,2026-08-06 00:00:00,2026-09-19 00:00:00
-Poços,UCHUVA-3,Perfuração,2026-08-16 00:00:00,2026-11-23 00:00:00
-Licenciamento Ambiental,, Realização das APs/RPs,2026-08-17 00:00:00,
-Prazos Contratuais ANP,,Término,2026-09-17 00:00:00,
-Poços,ANDORINHA EXTENSÃO,Perfuração,2026-09-20 00:00:00,2027-01-28 00:00:00
-Poços,ORION-N,Avaliação,2026-10-07 00:00:00,2026-12-02 00:00:00
-Poços,ARAM PROFUNDO,Avaliação,2026-10-09 00:00:00,2026-11-27 00:00:00
-Poços,CAIPORA,Perfuração,2026-10-11 00:00:00,2026-12-31 00:00:00
-Licenciamento Ambiental,, Emissão da 1ª LO,2026-10-26 00:00:00,
-Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2026-10-27 00:00:00,
-Prazos Contratuais ANP,,Término,2026-11-12 00:00:00,
-Poços,CURAÇAO CENTRO OESTE,Perfuração,2026-11-28 00:00:00,2027-03-25 00:00:00
-Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2027-01-01 00:00:00,
-Licenciamento Ambiental,, Realização das APs/RPs,2027-01-18 00:00:00,
-Prazos Contratuais ANP,,Término,2027-02-14 00:00:00,
-Poços,CURAÇAO CENTRO OESTE,Avaliação,2027-03-26 00:00:00,2027-05-09 00:00:00
-Prazos Contratuais ANP,,Término,2027-03-29 00:00:00,
-Licenciamento Ambiental,, Emissão da 1ª LO,2027-05-11 00:00:00,
-Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2027-05-12 00:00:00,
-Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-14 00:00:00,
-Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-23 00:00:00,
-Licenciamento Ambiental,, Emissão da 1ª LO,2027-07-30 00:00:00,
-Poços,TUCANO-BATUQUE,Perfuração,2027-08-01 00:00:00,2027-12-01 00:00:00
-Licenciamento Ambiental,, Emissão da 1ª LO,2027-08-13 00:00:00,
-Prazos Contratuais ANP,,Término,2027-08-28 00:00:00,
-Poços,TUCANO-BATUQUE,Avaliação,2027-12-02 00:00:00,2028-01-17 00:00:00
-Prazos Contratuais ANP,,Término,2027-12-11 00:00:00,
-Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-12-27 00:00:00,
-Licenciamento Ambiental,, Emissão da 1ª LO,2028-01-11 00:00:00,
-Poços,1-MAS-37,Perfuração,2028-01-15 00:00:00,2028-05-22 00:00:00
-Poços,GRALHA AZUL,Perfuração,2028-01-18 00:00:00,2028-05-09 00:00:00
-Poços,COTINGA,Perfuração,2028-05-10 00:00:00,2028-09-11 00:00:00
-Poços,3-PAD_MAS36,Perfuração,2028-05-23 00:00:00,2028-09-10 00:00:00
-Poços,GUAJURU OESTE,Perfuração,2028-09-11 00:00:00,2029-02-03 00:00:00
-Poços,PAPAGAIO_LUNDU_SUP,Perfuração,2028-09-12 00:00:00,2029-01-21 00:00:00
-Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2028-11-22 00:00:00,
-Licenciamento Ambiental,, Emissão da 1ª LO,2028-12-06 00:00:00,
-Prazos Contratuais ANP,,Término,2029-01-17 00:00:00,
-Poços,TUCANO DISTAL,Perfuração,2029-01-22 00:00:00,2029-06-08 00:00:00
-Prazos Contratuais ANP,,1º ÓLEO,2029-01-31 00:00:00,
-Poços,GUAJURU OESTE,Avaliação,2029-02-04 00:00:00,2029-03-25 00:00:00
-Poços,EUROPA,Perfuração,2029-02-20 00:00:00,2029-08-01 00:00:00
-Poços,CALLIBAN,Perfuração,2029-03-26 00:00:00,2029-06-14 00:00:00
-Poços,SARACURA_SANHAÇU,Perfuração,2029-06-09 00:00:00,2029-11-05 00:00:00
-Poços,1-PAS-28-PA,Perfuração,2029-06-22 00:00:00,2029-10-25 00:00:00
-Poços,SUNEV,Perfuração,2029-08-02 00:00:00,2029-12-31 00:00:00
-Poços,ARARA,Perfuração,2029-11-06 00:00:00,2030-03-13 00:00:00
-Prazos Contratuais ANP,,Término,2030-05-30 00:00:00,
-Prazos Contratuais ANP,,1º ÓLEO,2030-07-31 00:00:00,
-Prazos Contratuais ANP,,Término,2047-12-31 00:00:00,
-Prazos Contratuais ANP,,Término,2050-09-03 00:00:00,
-Prazos Contratuais ANP,,Término,2052-08-05 00:00:00,
-Prazos Contratuais ANP,,Término,2055-03-30 00:00:00,
-Prazos Contratuais ANP,,Término,2056-12-11 00:00:00,
-Prazos Contratuais ANP,,Término,2057-04-27 00:00:00,
+﻿Trimestre,Categoria,Tipo,Evento,DataInicio,DataFim,Cor,Subtipo,Bloco-Contrato
+Trim 1,Governança,,GRBLOC,2024-02-29 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 1,Governança,,GRT,2024-02-06 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 1,Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2021-03-01 00:00:00,,666666,_PERFURAÇÃO POT-M-762,POT-M-762-POT-M-762_R15
+Trim 1,Licenciamento Ambiental,, Emissão da 1ª LO,2025-01-22 00:00:00,,666666,PERFURAÇÃO FZA-M-59,FZA-M-59-FZA-M-59_R11
+Trim 1,Licenciamento Ambiental,, Emissão da 1ª LO,2028-01-11 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,1-MAS-36-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Emissão da 1ª LO,2028-01-11 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,BM-BAR-1-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-02-28 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 1,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2010-02-24 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 1,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2010-02-24 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 1,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2010-02-24 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 1,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2010-02-24 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 1,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2010-02-24 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 1,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2015-03-31 00:00:00,,666666,PERFURAÇÃO FZA-M-59,FZA-M-59-FZA-M-59_R11
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2020-01-13 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,1-DEV-14A-MAS-BM-BAR-3
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2020-01-13 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BAR-M-175-BM-BAR-5
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2020-01-13 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BM-BAR-3-BM-BAR-3
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2025-02-28 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-03-06 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,1-MAS-36-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-03-06 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,BM-BAR-1-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2027-01-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,1-PAS-27-BM-PAMA-3
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2027-01-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,BM-PAMA-3-BM-PAMA-3
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2027-01-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 1,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2027-01-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 1,Licenciamento Ambiental,, Requerimento da 2ª LO,2013-03-15 00:00:00,,666666,_PERFURAÇÃO BM-BAR-1,1-MAS-36-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Requerimento da 2ª LO,2013-03-15 00:00:00,,666666,_PERFURAÇÃO BM-BAR-1,BM-BAR-1-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Solicitação de Anuência,2016-03-07 00:00:00,,666666,Anuência POT-M-764 e 3 poços,POT-M-764-POT-M-764_R11
+Trim 1,Licenciamento Ambiental,, Solicitação de Anuência,2019-03-15 00:00:00,,666666,Inclusão Poço Pitu Oeste,1-RNS-158-BM-POT-17
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2020-03-03 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,1-DEV-14A-MAS-BM-BAR-3
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2020-03-03 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BAR-M-175-BM-BAR-5
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2020-03-03 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BM-BAR-3-BM-BAR-3
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2026-03-23 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,1-MAS-36-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2026-03-23 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,BM-BAR-1-BM-BAR-1
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2027-01-18 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,1-PAS-27-BM-PAMA-3
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2027-01-18 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,BM-PAMA-3-BM-PAMA-3
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2027-01-18 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 1,Licenciamento Ambiental,, Realização das APs/RPs,2027-01-18 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 1,Parceria,,OCM,2024-03-06 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Parceria,,WS,2024-02-22 00:00:00,,666666,Parceria,ARAM-Aram_P6
+Trim 1,Parceria,,WS,2024-02-26 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Parceria,,WS,2024-02-28 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 1,Parceria,,WS,2024-02-29 00:00:00,,666666,Parceria,ARAM-Aram_P6
+Trim 1,Parceria,,WS,2024-03-06 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Parceria,,WS,2024-03-07 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Parceria,,WS,2024-03-19 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 1,Poços,1-MAS-37,Perfuração,2028-01-15 00:00:00,2028-05-22 00:00:00,FF0000,1-MAS-37,BAR-M-175-BM-BAR-5
+Trim 1,Poços,ACFC-02,Perfuração,2022-01-09 00:00:00,2022-05-11 00:00:00,FF0000,ACFC-02,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Poços,ACFC-06,Avaliação,2026-03-30 00:00:00,2026-05-23 00:00:00,FF0000,ACFC-06,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Poços,ACFC-06,Perfuração,2026-01-01 00:00:00,2026-03-29 00:00:00,FF0000,ACFC-06,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Poços,ACFC-11,Avaliação,2025-02-20 00:00:00,2025-04-10 00:00:00,FF0000,ACFC-11,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Poços,ANHANGÁ,Perfuração,2024-02-07 00:00:00,2024-04-26 00:00:00,FF0000,ANHANGÁ,POT-M-762-POT-M-762_R15
+Trim 1,Poços,ATOLCHELYS,Avaliação,2026-03-20 00:00:00,2026-05-03 00:00:00,FF0000,ATOLCHELYS,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 1,Poços,ATOLCHELYS,Perfuração,2026-01-28 00:00:00,2026-03-19 00:00:00,FF0000,ATOLCHELYS,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 1,Poços,BUENA SUERTE-1,Avaliação,2025-03-12 00:00:00,2025-05-02 00:00:00,FF0000,BUENA SUERTE-1,TAYRONA-Contrato E&E Tayrona
+Trim 1,Poços,BUENA SUERTE-1,Perfuração,2025-01-01 00:00:00,2025-03-11 00:00:00,FF0000,BUENA SUERTE-1,TAYRONA-Contrato E&E Tayrona
+Trim 1,Poços,BUZ W,Perfuração,2025-02-08 00:00:00,2025-04-10 00:00:00,FF0000,BUZ W,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 1,Poços,C3,Perfuração,2027-01-26 00:00:00,2027-02-05 00:00:00,FF0000,C3,LIBRA-LIBRA_P1
+Trim 1,Poços,C3,Perfuração,2027-02-06 00:00:00,2027-04-17 00:00:00,FF0000,C3,LIBRA-LIBRA_P1
+Trim 1,Poços,CALLIBAN,Perfuração,2029-03-26 00:00:00,2029-06-14 00:00:00,FF0000,CALLIBAN,1-MAS-36-BM-BAR-1
+Trim 1,Poços,COPOAZU,Avaliação,2026-03-15 00:00:00,2026-05-07 00:00:00,FF0000,COPOAZU,TAYRONA-Contrato E&E Tayrona
+Trim 1,Poços,CURAÇAO CENTRO,Perfuração,2025-03-06 00:00:00,2025-07-12 00:00:00,FF0000,CURAÇAO CENTRO,1-SPS-108-Aram_P6
+Trim 1,Poços,CURAÇAO CENTRO OESTE,Avaliação,2027-03-26 00:00:00,2027-05-09 00:00:00,FF0000,CURAÇAO CENTRO OESTE,1-SPS-108-Aram_P6
+Trim 1,Poços,CURAÇAO EXTREMO LESTE,Avaliação,2025-03-15 00:00:00,2025-05-18 00:00:00,FF0000,CURAÇAO EXTREMO LESTE,1-SPS-108-Aram_P6
+Trim 1,Poços,CURAÇAO OESTE,Perfuração,2026-01-02 00:00:00,2026-04-14 00:00:00,FF0000,CURAÇAO OESTE,1-SPS-108-Aram_P6
+Trim 1,Poços,CURAÇAO SUDESTE,Perfuração,2023-03-16 00:00:00,2023-07-25 00:00:00,FF0000,CURAÇAO SUDESTE,1-SPS-108-Aram_P6
+Trim 1,Poços,EUROPA,Perfuração,2029-02-20 00:00:00,2029-08-01 00:00:00,FF0000,EUROPA,BAR-M-342-BAR-M-342_R11
+Trim 1,Poços,GRALHA AZUL,Perfuração,2028-01-18 00:00:00,2028-05-09 00:00:00,FF0000,GRALHA AZUL,FZA-M-127-FZA-M-127_R11
+Trim 1,Poços,GUAJURU OESTE,Avaliação,2029-02-04 00:00:00,2029-03-25 00:00:00,FF0000,GUAJURU OESTE,1-DEV-14A-MAS-BM-BAR-3
+Trim 1,Poços,LOC ANDORINHA_MAJUÍ,Perfuração,2025-03-07 00:00:00,2025-07-09 00:00:00,FF0000,LOC ANDORINHA_MAJUÍ,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 1,Poços,MIRANTE DE BRAVA,Perfuração,2026-01-25 00:00:00,2026-05-09 00:00:00,FF0000,MIRANTE DE BRAVA,NORTE DE BRAVA-NORTE DE BRAVA_OPP1
+Trim 1,Poços,NOVO ANDURÁ,Perfuração,2024-02-02 00:00:00,2024-02-06 00:00:00,FF0000,NOVO ANDURÁ,ES-M-596-ES-M-596_R11
+Trim 1,Poços,NOVO ANDURÁ,Perfuração,2024-02-14 00:00:00,2024-04-22 00:00:00,FF0000,NOVO ANDURÁ,ES-M-596-ES-M-596_R11
+Trim 1,Poços,TUCANO DISTAL,Perfuração,2029-01-22 00:00:00,2029-06-08 00:00:00,FF0000,TUCANO DISTAL,FZA-M-57-FZA-M-57_R11
+Trim 1,Poços,VAZ LOBO - NORTE,Perfuração,2022-03-07 00:00:00,2022-05-05 00:00:00,FF0000,VAZ LOBO - NORTE,DOIS IRMÃOS-Dois Irmãos_P4
+Trim 1,Prazos Contratuais ANP,,1º ÓLEO,2029-01-31 00:00:00,,00FF00,Prazos Contratuais ANP,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 1,Prazos Contratuais ANP,,Início,2009-03-09 00:00:00,,00FF00,Prazos Contratuais ANP,1-RJS-652A-BM-S-24
+Trim 1,Prazos Contratuais ANP,,Início,2015-03-26 00:00:00,,00FF00,Prazos Contratuais ANP,ORCA-Contrato E&E Tayrona
+Trim 1,Prazos Contratuais ANP,,Início,2018-01-29 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-413-C-M-413_R14
+Trim 1,Prazos Contratuais ANP,,Início,2018-01-29 00:00:00,,00FF00,Prazos Contratuais ANP,PAR-T-175-PAR-T-175_R14
+Trim 1,Prazos Contratuais ANP,,Início,2018-01-31 00:00:00,,00FF00,Prazos Contratuais ANP,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Prazos Contratuais ANP,,Início,2018-01-31 00:00:00,,00FF00,Prazos Contratuais ANP,PEROBA-Peroba_P3
+Trim 1,Prazos Contratuais ANP,,Início,2018-03-09 00:00:00,,00FF00,Prazos Contratuais ANP,BLOCK 10-BLOCK 10
+Trim 1,Prazos Contratuais ANP,,Início,2018-03-09 00:00:00,,00FF00,Prazos Contratuais ANP,BLOCK 13-BLOCK 13
+Trim 1,Prazos Contratuais ANP,,Início,2020-02-14 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-477-C-M-477_R16
+Trim 1,Prazos Contratuais ANP,,Início,2020-03-30 00:00:00,,00FF00,Prazos Contratuais ANP,ARAM-Aram_P6
+Trim 1,Prazos Contratuais ANP,,Início,2020-03-30 00:00:00,,00FF00,Prazos Contratuais ANP,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 1,Prazos Contratuais ANP,,Término,2014-02-17 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-175-BM-BAR-5
+Trim 1,Prazos Contratuais ANP,,Término,2021-01-26 00:00:00,,00FF00,Prazos Contratuais ANP,PEROBA-Peroba_P3
+Trim 1,Prazos Contratuais ANP,,Término,2023-03-20 00:00:00,,00FF00,Prazos Contratuais ANP,DOIS IRMÃOS-Dois Irmãos_P4
+Trim 1,Prazos Contratuais ANP,,Término,2024-02-15 00:00:00,,00FF00,Prazos Contratuais ANP,1-ESS-227D-ES-M-669_R11
+Trim 1,Prazos Contratuais ANP,,Término,2025-01-31 00:00:00,,00FF00,Prazos Contratuais ANP,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Prazos Contratuais ANP,,Término,2027-02-14 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-477-C-M-477_R16
+Trim 1,Prazos Contratuais ANP,,Término,2027-03-29 00:00:00,,00FF00,Prazos Contratuais ANP,ARAM-Aram_P6
+Trim 1,Prazos Contratuais ANP,,Término,2029-01-17 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-125-FZA-M-125_R11
+Trim 1,Prazos Contratuais ANP,,Término,2029-01-17 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-127-FZA-M-127_R11
+Trim 1,Prazos Contratuais ANP,,Término,2029-01-17 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-57-FZA-M-57_R11
+Trim 1,Prazos Contratuais ANP,,Término,2029-01-17 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-86-FZA-M-86_R11
+Trim 1,Prazos Contratuais ANP,,Término,2029-01-17 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-88-FZA-M-88_R11
+Trim 1,Prazos Contratuais ANP,,Término,2055-03-30 00:00:00,,00FF00,Prazos Contratuais ANP,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 1,Sísmica,,0268_3D_CAMPOS_DW_GSX_C-M-277,2023-03-31 00:00:00,2023-04-26 00:00:00,0000FF,0268_3D_CAMPOS_DW_GSX_C-M-277,C-M-277-C-M-277_R14
+Trim 1,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,2020-03-02 00:00:00,2020-07-30 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,C-M-277-C-M-277_R14
+Trim 1,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,2020-03-02 00:00:00,2020-07-30 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,C-M-344-C-M-344_R14
+Trim 1,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,2020-03-02 00:00:00,2020-07-30 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,C-M-346-C-M-346_R14
+Trim 1,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,2020-03-02 00:00:00,2020-07-30 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,C-M-411-C-M-411_R14
+Trim 1,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,2020-03-02 00:00:00,2020-07-30 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI_GXT_FILT_POS,C-M-413-C-M-413_R14
+Trim 1,Sísmica,,0372 3D NODES BUZIOS,2019-03-01 00:00:00,2021-04-30 00:00:00,0000FF,0372 3D NODES BUZIOS,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 1,Sísmica,,0372 3D NODES BUZIOS,2019-03-01 00:00:00,2021-04-30 00:00:00,0000FF,0372 3D NODES BUZIOS,BÚZIOS-CESSÃO ONEROSA
+Trim 1,Sísmica,,AG - 4D - Tartaruga Verde - Streamer,2020-03-11 00:00:00,2023-01-25 00:00:00,0000FF,AG - 4D - Tartaruga Verde - Streamer,TARTARUGA VERDE-BM-C-36
+Trim 1,Sísmica,,AG - Alto de Cabo Frio Central Nodes,2019-02-08 00:00:00,2025-03-20 00:00:00,0000FF,AG - Alto de Cabo Frio Central Nodes,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 1,Sísmica,,AG - Golfinho Nodes,2019-02-06 00:00:00,2022-07-01 00:00:00,0000FF,AG - Golfinho Nodes,GOLFINHO-BES-100
+Trim 1,Sísmica,,AG - Jubarte Nodes,2019-02-06 00:00:00,2021-11-29 00:00:00,0000FF,AG - Jubarte Nodes,JUBARTE-BC-60
+Trim 1,Sísmica,,AG - Uirapuru Nodes,2019-01-14 00:00:00,2025-08-08 00:00:00,0000FF,AG - Uirapuru Nodes,UIRAPURU-Uirapuru_P4
+Trim 1,Sísmica,,Análise de Reprocessamento de Marlim Leste,2022-01-17 00:00:00,2022-02-07 00:00:00,0000FF,Análise de Reprocessamento de Marlim Leste,MARLIM LESTE-MARLIM LESTE
+Trim 1,Sísmica,,BM_PAMA_3 - ITERDEC INTEGRADO,2018-03-16 00:00:00,2018-08-02 00:00:00,0000FF,BM_PAMA_3 - ITERDEC INTEGRADO,BM-PAMA-3-BM-PAMA-3
+Trim 1,Sísmica,,BM_PAMA_8 - ITERDEC INTEGRADO,2018-03-16 00:00:00,2018-08-02 00:00:00,0000FF,BM_PAMA_8 - ITERDEC INTEGRADO,PAMA-M-192-BM-PAMA-8
+Trim 1,Sísmica,,BM_PAMA_8 - ITERDEC INTEGRADO,2018-03-16 00:00:00,2018-08-02 00:00:00,0000FF,BM_PAMA_8 - ITERDEC INTEGRADO,PAMA-M-194-BM-PAMA-8
+Trim 1,Sísmica,,Difrac MLL MLS,2022-02-11 00:00:00,2022-08-17 00:00:00,0000FF,Difrac MLL MLS,MARLIM LESTE-MARLIM LESTE
+Trim 1,Sísmica,,Difrac MLL MLS,2022-02-11 00:00:00,2022-08-17 00:00:00,0000FF,Difrac MLL MLS,MARLIM SUL-MARLIM SUL
+Trim 1,Sísmica,,Geração dos Volumes A e D de Fatti - R306_ALBACORA_FORNO_PSDM_FWI,2023-01-30 00:00:00,2023-06-12 00:00:00,0000FF,Geração dos Volumes A e D de Fatti - R306_ALBACORA_FORNO_PSDM_FWI,ALBACORA-ALBACORA
+Trim 1,Sísmica,,Pseudoimpedância de Alta Resolução - GF,2024-01-23 00:00:00,2024-05-10 00:00:00,0000FF,Pseudoimpedância de Alta Resolução - GF,FZA-M-59-FZA-M-59_R11
+Trim 1,Sísmica,,"R0014_SANTOS-III-PSDM (Vision - Uirapuru, BM-S-50, BM-S-51)",2019-03-21 00:00:00,2021-07-01 00:00:00,0000FF,"R0014_SANTOS-III-PSDM (Vision - Uirapuru, BM-S-50, BM-S-51)",1-SPS-98-BM-S-50
+Trim 1,Sísmica,,"R0014_SANTOS-III-PSDM (Vision - Uirapuru, BM-S-50, BM-S-51)",2019-03-21 00:00:00,2021-07-01 00:00:00,0000FF,"R0014_SANTOS-III-PSDM (Vision - Uirapuru, BM-S-50, BM-S-51)",S-M-619-BM-S-51
+Trim 1,Sísmica,,"R0014_SANTOS-III-PSDM (Vision - Uirapuru, BM-S-50, BM-S-51)",2019-03-21 00:00:00,2021-07-01 00:00:00,0000FF,"R0014_SANTOS-III-PSDM (Vision - Uirapuru, BM-S-50, BM-S-51)",UIRAPURU-Uirapuru_P4
+Trim 1,Sísmica,,R01.0258_MERGE_MLL_MLS-MRL_MLL,2020-03-10 00:00:00,2020-09-22 00:00:00,0000FF,R01.0258_MERGE_MLL_MLS-MRL_MLL,MARLIM LESTE-MARLIM LESTE
+Trim 1,Sísmica,,R01.0258_MERGE_MLL_MLS-MRL_MLL,2020-03-10 00:00:00,2020-09-22 00:00:00,0000FF,R01.0258_MERGE_MLL_MLS-MRL_MLL,MARLIM SUL-MARLIM SUL
+Trim 1,Sísmica,,R0257_3D_PBP1 Volume multiparamétrico,2023-02-13 00:00:00,2023-07-20 00:00:00,0000FF,R0257_3D_PBP1 Volume multiparamétrico,POT-M-952-POT-M-952_R15
+Trim 1,Sísmica,,R0257_3D_PSDM_MORPHO,2021-02-04 00:00:00,2021-09-15 00:00:00,0000FF,R0257_3D_PSDM_MORPHO,FZA-M-59-FZA-M-59_R11
+Trim 1,Sísmica,,R0258_3D_ITERDEC_MLL_MLS,2020-03-20 00:00:00,2020-05-25 00:00:00,0000FF,R0258_3D_ITERDEC_MLL_MLS,MARLIM LESTE-MARLIM LESTE
+Trim 1,Sísmica,,R0258_3D_ITERDEC_MLL_MLS,2020-03-20 00:00:00,2020-05-25 00:00:00,0000FF,R0258_3D_ITERDEC_MLL_MLS,MARLIM SUL-MARLIM SUL
+Trim 1,Sísmica,,R0258_3D_ITERDEC_MLL_MLS,2020-03-20 00:00:00,2020-05-25 00:00:00,0000FF,R0258_3D_ITERDEC_MLL_MLS,MARLIM-MARLIM
+Trim 1,Sísmica,,R0258_3D_MLL_MLS_PSTM,2019-01-01 00:00:00,2019-09-25 00:00:00,0000FF,R0258_3D_MLL_MLS_PSTM,MARLIM LESTE-MARLIM LESTE
+Trim 1,Sísmica,,R0258_3D_MLL_MLS_PSTM,2019-01-01 00:00:00,2019-09-25 00:00:00,0000FF,R0258_3D_MLL_MLS_PSTM,MARLIM SUL-MARLIM SUL
+Trim 1,Sísmica,,R0258_3D_MLS_FWI_2023,2023-03-08 00:00:00,2024-07-30 00:00:00,0000FF,R0258_3D_MLS_FWI_2023,MARLIM SUL-MARLIM SUL
+Trim 1,Sísmica,,R0264_TRES_MARIAS,2020-02-14 00:00:00,2021-08-16 00:00:00,0000FF,R0264_TRES_MARIAS,TRÊS MARIAS-TRÊS MARIAS
+Trim 1,Sísmica,,R0268_3D_UIRAPURU_PSDM - PETROBRAS (2021),2020-02-01 00:00:00,2021-04-18 00:00:00,0000FF,R0268_3D_UIRAPURU_PSDM - PETROBRAS (2021),UIRAPURU-Uirapuru_P4
+Trim 1,Sísmica,,R0282_PSDM_UIRAPURU_GEOHAZARD,2020-02-12 00:00:00,2020-11-11 00:00:00,0000FF,R0282_PSDM_UIRAPURU_GEOHAZARD,UIRAPURU-Uirapuru_P4
+Trim 1,Sísmica,,R0302_BUZIOS_AP (CONVERSAO P-T),2018-02-02 00:00:00,2018-02-22 00:00:00,0000FF,R0302_BUZIOS_AP (CONVERSAO P-T),BÚZIOS_ECO-BÚZIOS_ECO
+Trim 1,Sísmica,,R0302_BUZIOS_AP (CONVERSAO P-T),2018-02-02 00:00:00,2018-02-22 00:00:00,0000FF,R0302_BUZIOS_AP (CONVERSAO P-T),BÚZIOS-CESSÃO ONEROSA
+Trim 1,Sísmica,,R0306_3D_PSDM_OBC_ALBACORA,2020-02-20 00:00:00,2021-03-15 00:00:00,0000FF,R0306_3D_PSDM_OBC_ALBACORA,ALBACORA-ALBACORA
+Trim 1,Sísmica,,R0326_0268_BIAZI_OLHBC400_PSDM,2019-02-11 00:00:00,2020-02-13 00:00:00,0000FF,R0326_0268_BIAZI_OLHBC400_PSDM,C-M-210-C-M-210_R14
+Trim 1,Sísmica,,R0326_0268_BIAZI_OLHBC400_PSDM,2019-02-11 00:00:00,2020-02-13 00:00:00,0000FF,R0326_0268_BIAZI_OLHBC400_PSDM,C-M-277-C-M-277_R14
+Trim 1,Sísmica,,R0326_0268_BIAZI_OLHBC400_PSDM,2019-02-11 00:00:00,2020-02-13 00:00:00,0000FF,R0326_0268_BIAZI_OLHBC400_PSDM,C-M-344-C-M-344_R14
+Trim 1,Sísmica,,R0326_0268_BIAZI_OLHBC400_PSDM,2019-02-11 00:00:00,2020-02-13 00:00:00,0000FF,R0326_0268_BIAZI_OLHBC400_PSDM,C-M-346-C-M-346_R14
+Trim 1,Sísmica,,R0326_0268_BIAZI_OLHBC400_PSDM,2019-02-11 00:00:00,2020-02-13 00:00:00,0000FF,R0326_0268_BIAZI_OLHBC400_PSDM,C-M-411-C-M-411_R14
+Trim 1,Sísmica,,R0326_0268_BIAZI_OLHBC400_PSDM,2019-02-11 00:00:00,2020-02-13 00:00:00,0000FF,R0326_0268_BIAZI_OLHBC400_PSDM,C-M-413-C-M-413_R14
+Trim 1,Sísmica,,R0326_3D_TGS_CAMPOS_I_RUBA_GHZ,2022-02-03 00:00:00,2022-10-03 00:00:00,0000FF,R0326_3D_TGS_CAMPOS_I_RUBA_GHZ,C-M-477-C-M-477_R16
+Trim 1,Sísmica,,R0326_MAIRARE_BIAZIMUTE_PSDM,2021-03-15 00:00:00,2022-01-31 00:00:00,0000FF,R0326_MAIRARE_BIAZIMUTE_PSDM,C-M-346-C-M-346_R14
+Trim 1,Sísmica,,R0326_MAIRARE_BIAZIMUTE_PSDM_ITD,2022-03-29 00:00:00,2022-04-28 00:00:00,0000FF,R0326_MAIRARE_BIAZIMUTE_PSDM_ITD,C-M-346-C-M-346_R14
+Trim 1,Sísmica,,R0327_4D_MARLIM_PRIO_2005_2021,2021-03-10 00:00:00,2022-11-09 00:00:00,0000FF,R0327_4D_MARLIM_PRIO_2005_2021,MARLIM-MARLIM
+Trim 1,Sísmica,,R0372_NODES_BUZIOS_RTM_PBR_PROFUNDO,2021-03-01 00:00:00,2021-03-30 00:00:00,0000FF,R0372_NODES_BUZIOS_RTM_PBR_PROFUNDO,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 1,Sísmica,,R0372_NODES_BUZIOS_RTM_PBR_PROFUNDO,2021-03-01 00:00:00,2021-03-30 00:00:00,0000FF,R0372_NODES_BUZIOS_RTM_PBR_PROFUNDO,BÚZIOS-CESSÃO ONEROSA
+Trim 2,Governança,,Ciclo GAP,2024-05-31 00:00:00,,666666,Governança,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 2,Governança,,COMEXP,2024-04-25 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 2,Governança,,COMEXP,2024-05-29 00:00:00,,666666,Governança,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 2,Governança,,GRLOC,2024-04-18 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 2,Governança,,GRLOC,2024-05-02 00:00:00,,666666,Governança,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 2,Governança,,GRLOC,2024-06-14 00:00:00,,666666,Governança,1-SPS-108-Aram_P6
+Trim 2,Governança,,GRLOC,2024-06-14 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 2,Governança,,GRLOC,2024-06-26 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 2,Governança,,GRT,2024-04-17 00:00:00,,666666,Governança,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 2,Governança,,GRT,2024-05-07 00:00:00,,666666,Governança,1-SPS-108-Aram_P6
+Trim 2,Governança,,GRT,2024-05-07 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 2,Governança,,GRT,2024-06-06 00:00:00,,666666,Governança,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 2,Governança,,GRT,2024-06-10 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 2,Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2016-04-20 00:00:00,,666666,_PERFURAÇÃO BM-BAR-1,1-MAS-36-BM-BAR-1
+Trim 2,Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2016-04-20 00:00:00,,666666,_PERFURAÇÃO BM-BAR-1,BM-BAR-1-BM-BAR-1
+Trim 2,Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2022-04-13 00:00:00,,666666,_PERFURAÇÃO BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 2,Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2022-04-13 00:00:00,,666666,_PERFURAÇÃO BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 2,Licenciamento Ambiental,, Emissão da 1ª LO,2013-05-20 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 2,Licenciamento Ambiental,, Emissão da 1ª LO,2013-05-20 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Emissão da 1ª LO,2013-05-20 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 2,Licenciamento Ambiental,, Emissão da 1ª LO,2013-05-20 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Emissão da 1ª LO,2013-05-20 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Emissão da 1ª LO,2027-05-11 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 2,Licenciamento Ambiental,, Emissão da LP,2012-05-22 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 2,Licenciamento Ambiental,, Emissão da LP,2012-05-22 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Emissão da LP,2012-05-22 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 2,Licenciamento Ambiental,, Emissão da LP,2012-05-22 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Emissão da LP,2012-05-22 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Emissão de Anuência,2014-04-24 00:00:00,,666666,Inclusão Poço Umbu,POT-M-663-BM-POT-16
+Trim 2,Licenciamento Ambiental,, Emissão de Anuência,2023-05-03 00:00:00,,666666,Inclusão Poço Pitu Oeste,1-RNS-158-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2013-05-23 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 2,Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2013-05-23 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2013-05-23 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 2,Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2013-05-23 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2013-05-23 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 2,Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2027-05-12 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 2,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-04-23 00:00:00,,666666,_PERFURAÇÃO POT-M-762,POT-M-762-POT-M-762_R15
+Trim 2,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-06-01 00:00:00,,666666,PERFURAÇÃO FZA-M-59,FZA-M-59-FZA-M-59_R11
+Trim 2,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-06-08 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 2,Licenciamento Ambiental,, Protocolo de abertura do processo,2022-04-28 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,1-MAS-36-BM-BAR-1
+Trim 2,Licenciamento Ambiental,, Protocolo de abertura do processo,2022-04-28 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,BM-BAR-1-BM-BAR-1
+Trim 2,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-06-13 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 2,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-06-29 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 2,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2025-04-18 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 2,Licenciamento Ambiental,, Realização das APs/RPs,2025-06-02 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 2,Licenciamento Ambiental,, Realização das APs/RPs,2025-06-30 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 2,Parceria,,WS,2024-04-09 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 2,Parceria,,WS,2024-04-11 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 2,Parceria,,WS,2024-04-24 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 2,Parceria,,WS,2024-04-25 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 2,Parceria,,WS,2024-05-29 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 2,Parceria,,WS,2024-06-11 00:00:00,,666666,Parceria,1-SPS-108-Aram_P6
+Trim 2,Parceria,,WS,2024-06-28 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 2,Poços,1-PAS-28-PA,Perfuração,2029-06-22 00:00:00,2029-10-25 00:00:00,FF0000,1-PAS-28-PA,PAMA-M-192-BM-PAMA-8
+Trim 2,Poços,3-PAD_MAS36,Perfuração,2028-05-23 00:00:00,2028-09-10 00:00:00,FF0000,3-PAD_MAS36,1-MAS-36-BM-BAR-1
+Trim 2,Poços,ACFC-01,Perfuração,2025-04-11 00:00:00,2025-07-13 00:00:00,FF0000,ACFC-01,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 2,Poços,ACFC-02,Avaliação,2022-05-12 00:00:00,2022-07-18 00:00:00,FF0000,ACFC-02,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 2,Poços,ACFC-08,Perfuração,2026-05-10 00:00:00,2026-08-05 00:00:00,FF0000,ACFC-08,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 2,Poços,ARAM PROFUNDO,Perfuração,2026-06-10 00:00:00,2026-10-08 00:00:00,FF0000,ARAM PROFUNDO,1-SPS-108-Aram_P6
+Trim 2,Poços,BUZ W,Completação inferior,2025-04-11 00:00:00,2025-05-01 00:00:00,FF0000,BUZ W,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 2,Poços,C3,Avaliação,2027-04-18 00:00:00,2027-05-09 00:00:00,FF0000,C3,LIBRA-LIBRA_P1
+Trim 2,Poços,COTINGA,Perfuração,2028-05-10 00:00:00,2028-09-11 00:00:00,FF0000,COTINGA,FZA-M-88-FZA-M-88_R11
+Trim 2,Poços,CURAÇAO EXTREMO NORTE,Perfuração,2025-05-19 00:00:00,2025-09-01 00:00:00,FF0000,CURAÇAO EXTREMO NORTE,1-SPS-108-Aram_P6
+Trim 2,Poços,CURAÇAO OESTE,Avaliação,2026-04-15 00:00:00,2026-06-09 00:00:00,FF0000,CURAÇAO OESTE,1-SPS-108-Aram_P6
+Trim 2,Poços,EXTENSÃO W SAGITARIO,Perfuração,2023-06-05 00:00:00,2023-07-03 00:00:00,FF0000,EXTENSÃO W SAGITARIO,1-SPS-98-BM-S-50
+Trim 2,Poços,MANDI,Perfuração,2025-04-27 00:00:00,2025-07-06 00:00:00,FF0000,MANDI,MARLIM SUL-MARLIM SUL
+Trim 2,Poços,MORPHO,Perfuração,2025-06-24 00:00:00,2025-11-03 00:00:00,FF0000,MORPHO,FZA-M-59-FZA-M-59_R11
+Trim 2,Poços,NOVO ANDURÁ,Perfuração,2022-06-16 00:00:00,2022-08-21 00:00:00,FF0000,NOVO ANDURÁ,ES-M-596-ES-M-596_R11
+Trim 2,Poços,NOVO ANDURÁ,Perfuração,2024-04-23 00:00:00,2024-06-11 00:00:00,FF0000,NOVO ANDURÁ,ES-M-596-ES-M-596_R11
+Trim 2,Poços,ORION-N,Perfuração,2026-05-24 00:00:00,2026-10-06 00:00:00,FF0000,ORION-N,SUDOESTE DE SAGITÁRIO-SUDOESTE DE SAGITÁRIO_OPP1
+Trim 2,Poços,PAPAYUELA,Perfuração,2025-05-03 00:00:00,2025-09-12 00:00:00,FF0000,PAPAYUELA,TAYRONA-Contrato E&E Tayrona
+Trim 2,Poços,PARAÍBA SUL,Perfuração,2024-05-15 00:00:00,2024-07-06 00:00:00,FF0000,PARAÍBA SUL,JUBARTE-BC-60
+Trim 2,Poços,POTA-1,Perfuração,2025-06-22 00:00:00,2025-09-09 00:00:00,FF0000,POTA-1,BLOCK 11-BLOCK 11
+Trim 2,Poços,SALMONETE-1,Perfuração,2025-04-03 00:00:00,2025-06-21 00:00:00,FF0000,SALMONETE-1,BLOCK 11-BLOCK 11
+Trim 2,Poços,SANDÍA-1,Perfuração,2026-05-08 00:00:00,2026-08-15 00:00:00,FF0000,SANDÍA-1,TAYRONA-Contrato E&E Tayrona
+Trim 2,Poços,SARACURA_SANHAÇU,Perfuração,2029-06-09 00:00:00,2029-11-05 00:00:00,FF0000,SARACURA_SANHAÇU,FZA-M-88-FZA-M-88_R11
+Trim 2,Poços,UAPI,Perfuração,2029-04-29 00:00:00,2029-08-30 00:00:00,FF0000,UAPI,P-M-1443-P-M-1443_OP4
+Trim 2,Prazos Contratuais ANP,,Início,2009-06-01 00:00:00,,00FF00,Prazos Contratuais ANP,1-DEV-14A-MAS-BM-BAR-3
+Trim 2,Prazos Contratuais ANP,,Início,2014-05-08 00:00:00,,00FF00,Prazos Contratuais ANP,1-RNS-158-BM-POT-17
+Trim 2,Prazos Contratuais ANP,,Início,2014-05-28 00:00:00,,00FF00,Prazos Contratuais ANP,1-CES-157-BM-POT-16
+Trim 2,Prazos Contratuais ANP,,Início,2022-04-27 00:00:00,,00FF00,Prazos Contratuais ANP,ATAPU_ECO-ATAPU_ECO
+Trim 2,Prazos Contratuais ANP,,Início,2022-04-27 00:00:00,,00FF00,Prazos Contratuais ANP,SÉPIA_ECO-SÉPIA_ECO
+Trim 2,Prazos Contratuais ANP,,Início,2023-05-31 00:00:00,,00FF00,Prazos Contratuais ANP,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 2,Prazos Contratuais ANP,,Início,2023-05-31 00:00:00,,00FF00,Prazos Contratuais ANP,NORTE DE BRAVA-NORTE DE BRAVA_OPP1
+Trim 2,Prazos Contratuais ANP,,Início,2023-05-31 00:00:00,,00FF00,Prazos Contratuais ANP,SUDOESTE DE SAGITÁRIO-SUDOESTE DE SAGITÁRIO_OPP1
+Trim 2,Prazos Contratuais ANP,,Início,2024-06-28 00:00:00,,00FF00,Prazos Contratuais ANP,P-M-1277-P-M-1277_OP4
+Trim 2,Prazos Contratuais ANP,,Término,2017-06-19 00:00:00,,00FF00,Prazos Contratuais ANP,1-MAS-36-BM-BAR-1
+Trim 2,Prazos Contratuais ANP,,Término,2021-06-25 00:00:00,,00FF00,Prazos Contratuais ANP,1-CES-157-BM-POT-16
+Trim 2,Prazos Contratuais ANP,,Término,2026-04-23 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-596-ES-M-596_R11
+Trim 2,Prazos Contratuais ANP,,Término,2026-06-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-753-C-M-753_R15
+Trim 2,Prazos Contratuais ANP,,Término,2026-06-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-789-C-M-789_R15
+Trim 2,Prazos Contratuais ANP,,Término,2030-05-30 00:00:00,,00FF00,Prazos Contratuais ANP,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 2,Prazos Contratuais ANP,,Término,2030-05-30 00:00:00,,00FF00,Prazos Contratuais ANP,NORTE DE BRAVA-NORTE DE BRAVA_OPP1
+Trim 2,Prazos Contratuais ANP,,Término,2030-05-30 00:00:00,,00FF00,Prazos Contratuais ANP,SUDOESTE DE SAGITÁRIO-SUDOESTE DE SAGITÁRIO_OPP1
+Trim 2,Prazos Contratuais ANP,,Término,2057-04-27 00:00:00,,00FF00,Prazos Contratuais ANP,ATAPU_ECO-ATAPU_ECO
+Trim 2,Prazos Contratuais ANP,,Término,2057-04-27 00:00:00,,00FF00,Prazos Contratuais ANP,SÉPIA_ECO-SÉPIA_ECO
+Trim 2,Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2023-09-21 00:00:00,0000FF,0327_3D_4D_ALBACORA_MARLIM_VOADOR,ALBACORA-ALBACORA
+Trim 2,Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2023-09-21 00:00:00,0000FF,0327_3D_4D_ALBACORA_MARLIM_VOADOR,MARLIM-MARLIM
+Trim 2,Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2023-09-21 00:00:00,0000FF,0327_3D_4D_ALBACORA_MARLIM_VOADOR,VOADOR-VOADOR
+Trim 2,Sísmica,,3D_NODES_BUZIOS _VEL_REGRID,2021-04-14 00:00:00,2021-04-30 00:00:00,0000FF,3D_NODES_BUZIOS _VEL_REGRID,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 2,Sísmica,,3D_NODES_BUZIOS _VEL_REGRID,2021-04-14 00:00:00,2021-04-30 00:00:00,0000FF,3D_NODES_BUZIOS _VEL_REGRID,BÚZIOS-CESSÃO ONEROSA
+Trim 2,Sísmica,,AG - Albacora Marlim Voador Streamer,2019-05-29 00:00:00,2022-05-03 00:00:00,0000FF,AG - Albacora Marlim Voador Streamer,ALBACORA-ALBACORA
+Trim 2,Sísmica,,AG - Albacora Marlim Voador Streamer,2019-05-29 00:00:00,2022-05-03 00:00:00,0000FF,AG - Albacora Marlim Voador Streamer,MARLIM-MARLIM
+Trim 2,Sísmica,,AG - Albacora Marlim Voador Streamer,2019-05-29 00:00:00,2022-05-03 00:00:00,0000FF,AG - Albacora Marlim Voador Streamer,VOADOR-VOADOR
+Trim 2,Sísmica,,"AG - Atapu, Berbigão, Sururu (ABS) Nodes",2019-05-17 00:00:00,2023-09-14 00:00:00,0000FF,"AG - Atapu, Berbigão, Sururu (ABS) Nodes",ATAPU-CESSÃO ONEROSA
+Trim 2,Sísmica,,AG - Bloco PAR-T-175 Vibroseis,2019-04-08 00:00:00,2021-05-06 00:00:00,0000FF,AG - Bloco PAR-T-175 Vibroseis,PAR-T-175-PAR-T-175_R14
+Trim 2,Sísmica,,AG - Lula Full-Field Nodes,2019-04-04 00:00:00,2022-07-28 00:00:00,0000FF,AG - Lula Full-Field Nodes,TUPI-BM-S-11
+Trim 2,Sísmica,,"AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",2019-06-14 00:00:00,2024-11-25 00:00:00,0000FF,"AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",CARATINGA-CARATINGA
+Trim 2,Sísmica,,"AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",2019-06-14 00:00:00,2024-11-25 00:00:00,0000FF,"AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",MARLIM LESTE-MARLIM LESTE
+Trim 2,Sísmica,,"AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",2019-06-14 00:00:00,2024-11-25 00:00:00,0000FF,"AG - Marlim Leste, Marlim Sul, Barracuda, Caratinga Híbrida",MARLIM SUL-MARLIM SUL
+Trim 2,Sísmica,,AG - Sagitário Nodes,2019-05-01 00:00:00,2024-12-02 00:00:00,0000FF,AG - Sagitário Nodes,1-SPS-98-BM-S-50
+Trim 2,Sísmica,,AG - Sapinhoá Nodes,2019-05-31 00:00:00,2021-08-09 00:00:00,0000FF,AG - Sapinhoá Nodes,SAPINHOÁ-BM-S-9
+Trim 2,Sísmica,,AG - Sépia - Nodes,2019-05-01 00:00:00,2024-03-05 00:00:00,0000FF,AG - Sépia - Nodes,SÉPIA_ECO-SÉPIA_ECO
+Trim 2,Sísmica,,AG - Sépia - Nodes,2019-05-01 00:00:00,2024-03-05 00:00:00,0000FF,AG - Sépia - Nodes,SÉPIA-CESSÃO ONEROSA
+Trim 2,Sísmica,,Foz - Trat. de CRP´s Pós-Migração DHI (Tucano-Batuque),2021-06-10 00:00:00,2022-02-04 00:00:00,0000FF,Foz - Trat. de CRP´s Pós-Migração DHI (Tucano-Batuque),FZA-M-57-FZA-M-57_R11
+Trim 2,Sísmica,,Geração dos Volumes A e D de Fatti - R0268_3D_ARAM_LSM,2023-04-17 00:00:00,2023-06-13 00:00:00,0000FF,Geração dos Volumes A e D de Fatti - R0268_3D_ARAM_LSM,ARAM-Aram_P6
+Trim 2,Sísmica,,Iterdec e PSIMAR das saídas finais do processamento do dado nodes de Búzios,2021-04-06 00:00:00,2022-02-08 00:00:00,0000FF,Iterdec e PSIMAR das saídas finais do processamento do dado nodes de Búzios,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 2,Sísmica,,Iterdec e PSIMAR das saídas finais do processamento do dado nodes de Búzios,2021-04-06 00:00:00,2022-02-08 00:00:00,0000FF,Iterdec e PSIMAR das saídas finais do processamento do dado nodes de Búzios,BÚZIOS-CESSÃO ONEROSA
+Trim 2,Sísmica,,"PSDM Marlim Leste e Marlim Sul, Filtros, Iterdec e Pseudo-impedancia",2019-04-29 00:00:00,2019-05-30 00:00:00,0000FF,"PSDM Marlim Leste e Marlim Sul, Filtros, Iterdec e Pseudo-impedancia",MARLIM LESTE-MARLIM LESTE
+Trim 2,Sísmica,,"PSDM Marlim Leste e Marlim Sul, Filtros, Iterdec e Pseudo-impedancia",2019-04-29 00:00:00,2019-05-30 00:00:00,0000FF,"PSDM Marlim Leste e Marlim Sul, Filtros, Iterdec e Pseudo-impedancia",MARLIM SUL-MARLIM SUL
+Trim 2,Sísmica,,R0014_SANTOS_III_ARAM_PSIM,2020-05-12 00:00:00,2020-07-17 00:00:00,0000FF,R0014_SANTOS_III_ARAM_PSIM,ARAM-Aram_P6
+Trim 2,Sísmica,,R01.0258_3D_MLL_MLS_2022,2022-05-17 00:00:00,2023-10-11 00:00:00,0000FF,R01.0258_3D_MLL_MLS_2022,MARLIM LESTE-MARLIM LESTE
+Trim 2,Sísmica,,R01.0258_3D_MLL_MLS_2022,2022-05-17 00:00:00,2023-10-11 00:00:00,0000FF,R01.0258_3D_MLL_MLS_2022,MARLIM SUL-MARLIM SUL
+Trim 2,Sísmica,,R0257_2D_FOZ,2022-05-24 00:00:00,2023-03-02 00:00:00,0000FF,R0257_2D_FOZ,FZA-M-125-FZA-M-125_R11
+Trim 2,Sísmica,,R0257_2D_FOZ,2022-05-24 00:00:00,2023-03-02 00:00:00,0000FF,R0257_2D_FOZ,FZA-M-127-FZA-M-127_R11
+Trim 2,Sísmica,,R0257_2D_FOZ,2022-05-24 00:00:00,2023-03-02 00:00:00,0000FF,R0257_2D_FOZ,FZA-M-57-FZA-M-57_R11
+Trim 2,Sísmica,,R0257_2D_FOZ,2022-05-24 00:00:00,2023-03-02 00:00:00,0000FF,R0257_2D_FOZ,FZA-M-59-FZA-M-59_R11
+Trim 2,Sísmica,,R0257_2D_FOZ,2022-05-24 00:00:00,2023-03-02 00:00:00,0000FF,R0257_2D_FOZ,FZA-M-86-FZA-M-86_R11
+Trim 2,Sísmica,,R0257_2D_FOZ,2022-05-24 00:00:00,2023-03-02 00:00:00,0000FF,R0257_2D_FOZ,FZA-M-88-FZA-M-88_R11
+Trim 2,Sísmica,,R0258_3D_MLL_MLS_2019,2019-04-04 00:00:00,2021-07-07 00:00:00,0000FF,R0258_3D_MLL_MLS_2019,MARLIM LESTE-MARLIM LESTE
+Trim 2,Sísmica,,R0258_3D_MLL_MLS_2019,2019-04-04 00:00:00,2021-07-07 00:00:00,0000FF,R0258_3D_MLL_MLS_2019,MARLIM SUL-MARLIM SUL
+Trim 2,Sísmica,,R0258_CARCARA_MERGE_BM_S_50_10 - SISMEC ELÁSTICO UIRAPURU,2021-05-06 00:00:00,2021-11-05 00:00:00,0000FF,R0258_CARCARA_MERGE_BM_S_50_10 - SISMEC ELÁSTICO UIRAPURU,1-SPS-98-BM-S-50
+Trim 2,Sísmica,,R0258_CARCARA_MERGE_BM_S_50_10 - SISMEC ELÁSTICO UIRAPURU,2021-05-06 00:00:00,2021-11-05 00:00:00,0000FF,R0258_CARCARA_MERGE_BM_S_50_10 - SISMEC ELÁSTICO UIRAPURU,UIRAPURU-Uirapuru_P4
+Trim 2,Sísmica,,R0264_Naru_PSDM_FWI,2020-05-25 00:00:00,2022-03-04 00:00:00,0000FF,R0264_Naru_PSDM_FWI,C-M-657-C-M-657_R15
+Trim 2,Sísmica,,R0264_POLARIS_RUBA_ITD,2021-04-09 00:00:00,2021-05-25 00:00:00,0000FF,R0264_POLARIS_RUBA_ITD,C-M-477-C-M-477_R16
+Trim 2,Sísmica,,R0264_PULSAR_OPAL_POS_STACK,2020-05-27 00:00:00,2020-08-14 00:00:00,0000FF,R0264_PULSAR_OPAL_POS_STACK,C-M-789-C-M-789_R15
+Trim 2,Sísmica,,R0264_TRES_MARIAS_CONVERSAO_PT,2021-05-24 00:00:00,2021-06-23 00:00:00,0000FF,R0264_TRES_MARIAS_CONVERSAO_PT,TRÊS MARIAS-TRÊS MARIAS
+Trim 2,Sísmica,,R0268_3D_ARAM_PSDM,2021-05-24 00:00:00,2023-01-16 00:00:00,0000FF,R0268_3D_ARAM_PSDM,ARAM-Aram_P6
+Trim 2,Sísmica,,R0268_PSDM_ARAM_CENTRAL_LSM,2021-05-24 00:00:00,2021-08-11 00:00:00,0000FF,R0268_PSDM_ARAM_CENTRAL_LSM,ARAM-Aram_P6
+Trim 2,Sísmica,,R0302_BUZIOS_RASO_CENTRAL,2020-05-19 00:00:00,2020-12-03 00:00:00,0000FF,R0302_BUZIOS_RASO_CENTRAL,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 2,Sísmica,,R0302_BUZIOS_RASO_CENTRAL,2020-05-19 00:00:00,2020-12-03 00:00:00,0000FF,R0302_BUZIOS_RASO_CENTRAL,BÚZIOS-CESSÃO ONEROSA
+Trim 2,Sísmica,,R0326_OLHODEBOI_RTM_ITER_INTEG,2020-06-23 00:00:00,2021-03-03 00:00:00,0000FF,R0326_OLHODEBOI_RTM_ITER_INTEG,C-M-277-C-M-277_R14
+Trim 2,Sísmica,,R0326_OLHODEBOI_RTM_ITER_INTEG,2020-06-23 00:00:00,2021-03-03 00:00:00,0000FF,R0326_OLHODEBOI_RTM_ITER_INTEG,C-M-344-C-M-344_R14
+Trim 2,Sísmica,,R0326_OLHODEBOI_RTM_ITER_INTEG,2020-06-23 00:00:00,2021-03-03 00:00:00,0000FF,R0326_OLHODEBOI_RTM_ITER_INTEG,C-M-346-C-M-346_R14
+Trim 2,Sísmica,,R0326_OLHODEBOI_RTM_ITER_INTEG,2020-06-23 00:00:00,2021-03-03 00:00:00,0000FF,R0326_OLHODEBOI_RTM_ITER_INTEG,C-M-411-C-M-411_R14
+Trim 2,Sísmica,,R0326_OLHODEBOI_RTM_ITER_INTEG,2020-06-23 00:00:00,2021-03-03 00:00:00,0000FF,R0326_OLHODEBOI_RTM_ITER_INTEG,C-M-413-C-M-413_R14
+Trim 2,Sísmica,,R0326_RUBA_BIAZIMUTE,2021-06-01 00:00:00,2023-07-06 00:00:00,0000FF,R0326_RUBA_BIAZIMUTE,C-M-477-C-M-477_R16
+Trim 2,Sísmica,,R0326_RUBA_BIAZIMUTE_ITD_INTG,2023-04-06 00:00:00,2023-05-15 00:00:00,0000FF,R0326_RUBA_BIAZIMUTE_ITD_INTG,C-M-477-C-M-477_R16
+Trim 2,Sísmica,,R0327_4D_ALBACORA_PSDM_2002_2022,2020-06-01 00:00:00,2023-12-12 00:00:00,0000FF,R0327_4D_ALBACORA_PSDM_2002_2022,ALBACORA-ALBACORA
+Trim 2,Sísmica,,R0327_4D_MARLIM_VOADOR_BRAVA,2022-05-30 00:00:00,2023-11-01 00:00:00,0000FF,R0327_4D_MARLIM_VOADOR_BRAVA,MARLIM-MARLIM
+Trim 2,Sísmica,,R0327_4D_MARLIM_VOADOR_BRAVA,2022-05-30 00:00:00,2023-11-01 00:00:00,0000FF,R0327_4D_MARLIM_VOADOR_BRAVA,VOADOR-VOADOR
+Trim 2,Sísmica,,R0327_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2022-12-26 00:00:00,0000FF,R0327_ALBACORA_MARLIM_VOADOR,ALBACORA-ALBACORA
+Trim 2,Sísmica,,R0327_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2022-12-26 00:00:00,0000FF,R0327_ALBACORA_MARLIM_VOADOR,MARLIM-MARLIM
+Trim 2,Sísmica,,R0327_ALBACORA_MARLIM_VOADOR,2021-06-17 00:00:00,2022-12-26 00:00:00,0000FF,R0327_ALBACORA_MARLIM_VOADOR,VOADOR-VOADOR
+Trim 2,Sísmica,,R04.0306_MRL_MLL_OBC_PS_PSDM,2020-06-22 00:00:00,2022-12-09 00:00:00,0000FF,R04.0306_MRL_MLL_OBC_PS_PSDM,MARLIM LESTE-MARLIM LESTE
+Trim 2,Sísmica,,R04.0306_MRL_MLL_OBC_PS_PSDM,2020-06-22 00:00:00,2022-12-09 00:00:00,0000FF,R04.0306_MRL_MLL_OBC_PS_PSDM,MARLIM-MARLIM
+Trim 2,Sísmica,,TAID-AG - Búzios Nodes,2021-05-06 00:00:00,2025-12-31 00:00:00,0000FF,TAID-AG - Búzios Nodes,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 2,Sísmica,,TAID-AG - Búzios Nodes,2021-05-06 00:00:00,2025-12-31 00:00:00,0000FF,TAID-AG - Búzios Nodes,BÚZIOS-CESSÃO ONEROSA
+Trim 2,Sísmica,,TAID-AG - Foz do Amazonas Streamer,2021-05-21 00:00:00,2025-12-25 00:00:00,0000FF,TAID-AG - Foz do Amazonas Streamer,FZA-M-125-FZA-M-125_R11
+Trim 2,Sísmica,,TAID-AG - Foz do Amazonas Streamer,2021-05-21 00:00:00,2025-12-25 00:00:00,0000FF,TAID-AG - Foz do Amazonas Streamer,FZA-M-127-FZA-M-127_R11
+Trim 2,Sísmica,,TAID-AG - Foz do Amazonas Streamer,2021-05-21 00:00:00,2025-12-25 00:00:00,0000FF,TAID-AG - Foz do Amazonas Streamer,FZA-M-57-FZA-M-57_R11
+Trim 2,Sísmica,,TAID-AG - Foz do Amazonas Streamer,2021-05-21 00:00:00,2025-12-25 00:00:00,0000FF,TAID-AG - Foz do Amazonas Streamer,FZA-M-59-FZA-M-59_R11
+Trim 2,Sísmica,,TAID-AG - Foz do Amazonas Streamer,2021-05-21 00:00:00,2025-12-25 00:00:00,0000FF,TAID-AG - Foz do Amazonas Streamer,FZA-M-86-FZA-M-86_R11
+Trim 2,Sísmica,,TAID-AG - Foz do Amazonas Streamer,2021-05-21 00:00:00,2025-12-25 00:00:00,0000FF,TAID-AG - Foz do Amazonas Streamer,FZA-M-88-FZA-M-88_R11
+Trim 2,Sísmica,,TAID-AG - Sépia Nodes,2021-06-16 00:00:00,2025-07-31 00:00:00,0000FF,TAID-AG - Sépia Nodes,SÉPIA_ECO-SÉPIA_ECO
+Trim 2,Sísmica,,TAID-AG - Sépia Nodes,2021-06-16 00:00:00,2025-07-31 00:00:00,0000FF,TAID-AG - Sépia Nodes,SÉPIA-CESSÃO ONEROSA
+Trim 2,Sísmica,,Teste Imageamento PS para OBN Buzios,2021-06-07 00:00:00,2024-07-31 00:00:00,0000FF,Teste Imageamento PS para OBN Buzios,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 2,Sísmica,,Teste Imageamento PS para OBN Buzios,2021-06-07 00:00:00,2024-07-31 00:00:00,0000FF,Teste Imageamento PS para OBN Buzios,BÚZIOS-CESSÃO ONEROSA
+Trim 2,Sísmica,,VOLUME MULTIPARAMÉTRICO - UCHUVA,2023-06-12 00:00:00,2023-12-18 00:00:00,0000FF,VOLUME MULTIPARAMÉTRICO - UCHUVA,TAYRONA-TAYRONA
+Trim 3,Governança,,COMEXP,2024-07-25 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 3,Governança,,COMEXP,2024-08-14 00:00:00,,666666,Governança,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 3,Governança,,GRLOC,2024-07-04 00:00:00,,666666,Governança,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 3,Governança,,GRLOC,2024-07-10 00:00:00,,666666,Governança,ARAM-Aram_P6
+Trim 3,Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2024-08-28 00:00:00,,666666,PERFURAÇÃO FZA-4,FZA-M-217-BM-FZA-4
+Trim 3,Licenciamento Ambiental,, Arquivamento/Indeferimento de Processo,2024-08-28 00:00:00,,666666,PERFURAÇÃO FZA-4,FZA-M-252-BM-FZA-4
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2023-09-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2023-09-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2023-09-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2023-09-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2023-09-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-14 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-125-FZA-M-125_R11
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-14 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-127-FZA-M-127_R11
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-14 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-57-FZA-M-57_R11
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-14 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-86-FZA-M-86_R11
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-14 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-88-FZA-M-88_R11
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-23 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,1-DEV-14A-MAS-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-23 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BAR-M-175-BM-BAR-5
+Trim 3,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-07-23 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BM-BAR-3-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2011-09-30 00:00:00,,666666,_PERFURAÇÃO BM-BAR-1,1-MAS-36-BM-BAR-1
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2011-09-30 00:00:00,,666666,_PERFURAÇÃO BM-BAR-1,BM-BAR-1-BM-BAR-1
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-07-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-125-FZA-M-125_R11
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-07-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-127-FZA-M-127_R11
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-07-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-57-FZA-M-57_R11
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-07-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-86-FZA-M-86_R11
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-07-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-88-FZA-M-88_R11
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-08-13 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,1-DEV-14A-MAS-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-08-13 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BAR-M-175-BM-BAR-5
+Trim 3,Licenciamento Ambiental,, Emissão da 1ª LO,2027-08-13 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BM-BAR-3-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2019-07-17 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,1-DEV-14A-MAS-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2019-07-17 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BAR-M-175-BM-BAR-5
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2019-07-17 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BM-BAR-3-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-09-01 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-125-FZA-M-125_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-09-01 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-127-FZA-M-127_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-09-01 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-57-FZA-M-57_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-09-01 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-86-FZA-M-86_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2020-09-01 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-88-FZA-M-88_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2022-08-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,1-PAS-27-BM-PAMA-3
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2022-08-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,BM-PAMA-3-BM-PAMA-3
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2022-08-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 3,Licenciamento Ambiental,, Protocolo de abertura do processo,2022-08-01 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2019-09-16 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,1-DEV-14A-MAS-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2019-09-16 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BAR-M-175-BM-BAR-5
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2019-09-16 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BM-BAR-3-BM-BAR-3
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2021-08-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-125-FZA-M-125_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2021-08-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-127-FZA-M-127_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2021-08-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-57-FZA-M-57_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2021-08-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-86-FZA-M-86_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2021-08-30 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-88-FZA-M-88_R11
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-09-27 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,1-MAS-36-BM-BAR-1
+Trim 3,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-09-27 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,BM-BAR-1-BM-BAR-1
+Trim 3,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-08-03 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-125-FZA-M-125_R11
+Trim 3,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-08-03 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-127-FZA-M-127_R11
+Trim 3,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-08-03 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-57-FZA-M-57_R11
+Trim 3,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-08-03 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-86-FZA-M-86_R11
+Trim 3,Licenciamento Ambiental,, Publicação do edital de convocações das APs/RPs,2026-08-03 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-88-FZA-M-88_R11
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2008-08-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2008-08-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2008-08-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2008-08-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2008-08-18 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2014-08-22 00:00:00,,666666,PERFURAÇÃO FZA-M-59,FZA-M-59-FZA-M-59_R11
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2022-07-29 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,1-MAS-36-BM-BAR-1
+Trim 3,Licenciamento Ambiental,, Emissão do Termo de Referência,2022-07-29 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,BM-BAR-1-BM-BAR-1
+Trim 3,Licenciamento Ambiental,, Realização das APs/RPs,2026-08-17 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-125-FZA-M-125_R11
+Trim 3,Licenciamento Ambiental,, Realização das APs/RPs,2026-08-17 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-127-FZA-M-127_R11
+Trim 3,Licenciamento Ambiental,, Realização das APs/RPs,2026-08-17 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-57-FZA-M-57_R11
+Trim 3,Licenciamento Ambiental,, Realização das APs/RPs,2026-08-17 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-86-FZA-M-86_R11
+Trim 3,Licenciamento Ambiental,, Realização das APs/RPs,2026-08-17 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-88-FZA-M-88_R11
+Trim 3,Parceria,,OCM,2024-08-07 00:00:00,,666666,Parceria,ARAM-Aram_P6
+Trim 3,Parceria,,OCM,2024-08-26 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 3,Parceria,,TCM,2024-08-20 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 3,Parceria,,TCM,2024-09-06 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 3,Parceria,,TCM,2024-09-24 00:00:00,,666666,Parceria,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 3,Parceria,,WS,2024-07-31 00:00:00,,666666,Parceria,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 3,Parceria,,WS,2024-09-26 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 3,Poços,ACFC-01,Avaliação,2025-07-14 00:00:00,2025-08-26 00:00:00,FF0000,ACFC-01,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 3,Poços,ACFC-08,Avaliação,2026-08-06 00:00:00,2026-09-19 00:00:00,FF0000,ACFC-08,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 3,Poços,ANDORINHA EXTENSÃO,Perfuração,2026-09-20 00:00:00,2027-01-28 00:00:00,FF0000,ANDORINHA EXTENSÃO,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 3,Poços,BUZ N2,Perfuração,2025-08-09 00:00:00,2025-10-23 00:00:00,FF0000,BUZ N2,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Poços,CURAÇAO,Avaliação,2022-07-19 00:00:00,2022-10-17 00:00:00,FF0000,CURAÇAO,ARAM-Aram_P6
+Trim 3,Poços,CURAÇAO,Perfuração,2021-08-16 00:00:00,2022-01-08 00:00:00,FF0000,CURAÇAO,ARAM-Aram_P6
+Trim 3,Poços,CURAÇAO CENTRO,Avaliação,2025-07-13 00:00:00,2025-09-06 00:00:00,FF0000,CURAÇAO CENTRO,1-SPS-108-Aram_P6
+Trim 3,Poços,CURAÇAO EXTREMO NORTE,Avaliação,2025-09-02 00:00:00,2025-10-27 00:00:00,FF0000,CURAÇAO EXTREMO NORTE,1-SPS-108-Aram_P6
+Trim 3,Poços,CURAÇAO SUDESTE,Avaliação,2023-07-26 00:00:00,2023-10-08 00:00:00,FF0000,CURAÇAO SUDESTE,1-SPS-108-Aram_P6
+Trim 3,Poços,EXTENSÃO W SAGITARIO,Perfuração,2023-07-04 00:00:00,2023-11-16 00:00:00,FF0000,EXTENSÃO W SAGITARIO,1-SPS-98-BM-S-50
+Trim 3,Poços,FUJI,Perfuração,2024-07-09 00:00:00,2024-09-24 00:00:00,FF0000,FUJI,ES-M-673-ES-M-673_R11
+Trim 3,Poços,GUAJURU OESTE,Perfuração,2028-09-11 00:00:00,2029-02-03 00:00:00,FF0000,GUAJURU OESTE,1-DEV-14A-MAS-BM-BAR-3
+Trim 3,Poços,KORUBO,Perfuração,2029-08-31 00:00:00,2030-01-01 00:00:00,FF0000,KORUBO,P-M-1520-P-M-1520_OP4
+Trim 3,Poços,LOC ANDORINHA_MAJUÍ,Avaliação,2025-07-10 00:00:00,2025-09-04 00:00:00,FF0000,LOC ANDORINHA_MAJUÍ,ÁGUA-MARINHA-ÁGUA-MARINHA_OPP1
+Trim 3,Poços,LOC. PEDÚNCULO,Perfuração,2022-07-25 00:00:00,2022-11-14 00:00:00,FF0000,LOC. PEDÚNCULO,SÉPIA_ECO-SÉPIA_ECO
+Trim 3,Poços,MANDI,Avaliação,2025-07-07 00:00:00,2025-08-25 00:00:00,FF0000,MANDI,MARLIM SUL-MARLIM SUL
+Trim 3,Poços,PAPAGAIO_LUNDU_SUP,Perfuração,2028-09-12 00:00:00,2029-01-21 00:00:00,FF0000,PAPAGAIO_LUNDU_SUP,FZA-M-88-FZA-M-88_R11
+Trim 3,Poços,PAPAYUELA,Avaliação,2025-09-13 00:00:00,2025-11-13 00:00:00,FF0000,PAPAYUELA,TAYRONA-Contrato E&E Tayrona
+Trim 3,Poços,RUBA MOUND 4 FASES,Perfuração,2025-08-27 00:00:00,2025-12-06 00:00:00,FF0000,RUBA MOUND 4 FASES,C-M-477-C-M-477_R16
+Trim 3,Poços,SUNEV,Perfuração,2029-08-02 00:00:00,2029-12-31 00:00:00,FF0000,SUNEV,BAR-M-344-BAR-M-344_R11
+Trim 3,Poços,TEMISTO-N,Perfuração,2021-09-28 00:00:00,2022-03-06 00:00:00,FF0000,TEMISTO-N,TRÊS MARIAS-Três Marias_P4
+Trim 3,Poços,TORTUGA LESTE,Avaliação,2025-09-07 00:00:00,2025-11-15 00:00:00,FF0000,TORTUGA LESTE,1-SPS-108-Aram_P6
+Trim 3,Poços,TUCANO-BATUQUE,Perfuração,2027-08-01 00:00:00,2027-12-01 00:00:00,FF0000,TUCANO-BATUQUE,FZA-M-57-FZA-M-57_R11
+Trim 3,Poços,UCHUVA-2 - SIDETRACK,Perfuração,2024-08-12 00:00:00,2024-10-31 00:00:00,FF0000,UCHUVA-2 - SIDETRACK,TAYRONA-Contrato E&E Tayrona
+Trim 3,Poços,UCHUVA-3,Perfuração,2026-08-16 00:00:00,2026-11-23 00:00:00,FF0000,UCHUVA-3,TAYRONA-Contrato E&E Tayrona
+Trim 3,Prazos Contratuais ANP,,1º ÓLEO,2030-07-31 00:00:00,,00FF00,Prazos Contratuais ANP,NORTE DE BRAVA-NORTE DE BRAVA_OPP1
+Trim 3,Prazos Contratuais ANP,,Início,1998-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,ALBACORA-ALBACORA
+Trim 3,Prazos Contratuais ANP,,Início,1998-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,MARLIM SUL-MARLIM SUL
+Trim 3,Prazos Contratuais ANP,,Início,2004-08-13 00:00:00,,00FF00,Prazos Contratuais ANP,TAYRONA-Contrato E&E Tayrona
+Trim 3,Prazos Contratuais ANP,,Início,2012-07-16 00:00:00,,00FF00,Prazos Contratuais ANP,1-MAS-36-BM-BAR-1
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-125-FZA-M-125_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-127-FZA-M-127_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-57-FZA-M-57_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-59-FZA-M-59_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-86-FZA-M-86_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-06 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-88-FZA-M-88_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-29 00:00:00,,00FF00,Prazos Contratuais ANP,1-SPS-98-BM-S-50
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-300-BAR-M-300_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-342-BAR-M-342_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-344-BAR-M-344_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-388-BAR-M-388_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-596-ES-M-596_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-598-ES-M-598_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-669-ES-M-669_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-671-ES-M-671_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-673-ES-M-673_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-743-ES-M-743_R11
+Trim 3,Prazos Contratuais ANP,,Início,2013-08-30 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-764-POT-M-764_R11
+Trim 3,Prazos Contratuais ANP,,Início,2014-07-23 00:00:00,,00FF00,Prazos Contratuais ANP,BLOCK 11-BLOCK 11
+Trim 3,Prazos Contratuais ANP,,Início,2014-08-08 00:00:00,,00FF00,Prazos Contratuais ANP,1-CES-161-BM-POT-17
+Trim 3,Prazos Contratuais ANP,,Início,2014-09-03 00:00:00,,00FF00,Prazos Contratuais ANP,SÉPIA-CESSÃO ONEROSA
+Trim 3,Prazos Contratuais ANP,,Início,2018-07-05 00:00:00,,00FF00,Prazos Contratuais ANP,ASTILLERO-ASTILLERO
+Trim 3,Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-657-C-M-657_R15
+Trim 3,Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-709-C-M-709_R15
+Trim 3,Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-753-C-M-753_R15
+Trim 3,Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-789-C-M-789_R15
+Trim 3,Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-762-POT-M-762_R15
+Trim 3,Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-859-POT-M-859_R15
+Trim 3,Prazos Contratuais ANP,,Início,2018-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-952-POT-M-952_R15
+Trim 3,Prazos Contratuais ANP,,Término,2016-07-08 00:00:00,,00FF00,Prazos Contratuais ANP,PAMA-M-192-BM-PAMA-8
+Trim 3,Prazos Contratuais ANP,,Término,2016-07-08 00:00:00,,00FF00,Prazos Contratuais ANP,PAMA-M-194-BM-PAMA-8
+Trim 3,Prazos Contratuais ANP,,Término,2025-09-02 00:00:00,,00FF00,Prazos Contratuais ANP,1-SPS-98-BM-S-50
+Trim 3,Prazos Contratuais ANP,,Término,2025-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-657-C-M-657_R15
+Trim 3,Prazos Contratuais ANP,,Término,2025-09-11 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-709-C-M-709_R15
+Trim 3,Prazos Contratuais ANP,,Término,2026-07-18 00:00:00,,00FF00,Prazos Contratuais ANP,1-RJS-652A-BM-S-24
+Trim 3,Prazos Contratuais ANP,,Término,2026-07-22 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-598-ES-M-598_R11
+Trim 3,Prazos Contratuais ANP,,Término,2026-07-22 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-671-ES-M-671_R11
+Trim 3,Prazos Contratuais ANP,,Término,2026-07-22 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-673-ES-M-673_R11
+Trim 3,Prazos Contratuais ANP,,Término,2026-07-22 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-743-ES-M-743_R11
+Trim 3,Prazos Contratuais ANP,,Término,2026-09-17 00:00:00,,00FF00,Prazos Contratuais ANP,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 3,Prazos Contratuais ANP,,Término,2027-08-28 00:00:00,,00FF00,Prazos Contratuais ANP,FZA-M-59-FZA-M-59_R11
+Trim 3,Prazos Contratuais ANP,,Término,2050-09-03 00:00:00,,00FF00,Prazos Contratuais ANP,ATAPU-CESSÃO ONEROSA
+Trim 3,Prazos Contratuais ANP,,Término,2050-09-03 00:00:00,,00FF00,Prazos Contratuais ANP,BÚZIOS-CESSÃO ONEROSA
+Trim 3,Prazos Contratuais ANP,,Término,2050-09-03 00:00:00,,00FF00,Prazos Contratuais ANP,SÉPIA-CESSÃO ONEROSA
+Trim 3,Prazos Contratuais ANP,,Término,2052-08-05 00:00:00,,00FF00,Prazos Contratuais ANP,MARLIM SUL-MARLIM SUL
+Trim 3,Sísmica,,0256_3D_Albacora_Leste_2022,2022-07-04 00:00:00,2023-07-13 00:00:00,0000FF,0256_3D_Albacora_Leste_2022,ALBACORA LESTE-ALBACORA LESTE
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,2018-07-30 00:00:00,2018-09-20 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,C-M-277-C-M-277_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,2018-07-30 00:00:00,2018-09-20 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,C-M-344-C-M-344_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,2018-07-30 00:00:00,2018-09-20 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,C-M-346-C-M-346_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,2018-07-30 00:00:00,2018-09-20 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,C-M-411-C-M-411_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,2018-07-30 00:00:00,2018-09-20 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI ITERDEC INTEGRADO,C-M-413-C-M-413_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),2018-07-13 00:00:00,2019-02-21 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),C-M-277-C-M-277_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),2018-07-13 00:00:00,2019-02-21 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),C-M-344-C-M-344_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),2018-07-13 00:00:00,2019-02-21 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),C-M-346-C-M-346_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),2018-07-13 00:00:00,2019-02-21 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),C-M-411-C-M-411_R14
+Trim 3,Sísmica,,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),2018-07-13 00:00:00,2019-02-21 00:00:00,0000FF,0326_3D_SPEC_OLHO_DE_BOI TGS (2018),C-M-413-C-M-413_R14
+Trim 3,Sísmica,,0372_3D_NODES_BUZIOS_K_ITD,2023-09-05 00:00:00,2023-09-08 00:00:00,0000FF,0372_3D_NODES_BUZIOS_K_ITD,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Sísmica,,0372_3D_NODES_BUZIOS_K_ITD,2023-09-05 00:00:00,2023-09-08 00:00:00,0000FF,0372_3D_NODES_BUZIOS_K_ITD,BÚZIOS-CESSÃO ONEROSA
+Trim 3,Sísmica,,AG - Albacora Leste Roncador - Streamer,2018-08-29 00:00:00,2023-01-10 00:00:00,0000FF,AG - Albacora Leste Roncador - Streamer,ALBACORA LESTE-ALBACORA LESTE
+Trim 3,Sísmica,,AG - Albacora Leste Roncador - Streamer,2018-08-29 00:00:00,2023-01-10 00:00:00,0000FF,AG - Albacora Leste Roncador - Streamer,RONCADOR-RONCADOR
+Trim 3,Sísmica,,AG - Aram Nodes,2020-07-09 00:00:00,2023-08-21 00:00:00,0000FF,AG - Aram Nodes,ARAM-Aram_P6
+Trim 3,Sísmica,,AG - Roncador Nodes,2019-09-20 00:00:00,2023-03-06 00:00:00,0000FF,AG - Roncador Nodes,RONCADOR-RONCADOR
+Trim 3,Sísmica,,Estudo de Parametrização para Cálculo de Time-Shifts,2020-07-02 00:00:00,2021-11-12 00:00:00,0000FF,Estudo de Parametrização para Cálculo de Time-Shifts,LIBRA-LIBRA_P1
+Trim 3,Sísmica,,Migração do 3D_BRC_MARLIM_SUL_MARLIM 2010,2018-08-22 00:00:00,2019-03-15 00:00:00,0000FF,Migração do 3D_BRC_MARLIM_SUL_MARLIM 2010,MARLIM SUL-MARLIM SUL
+Trim 3,Sísmica,,Migração do 3D_BRC_MARLIM_SUL_MARLIM 2010,2018-08-22 00:00:00,2019-03-15 00:00:00,0000FF,Migração do 3D_BRC_MARLIM_SUL_MARLIM 2010,MARLIM-MARLIM
+Trim 3,Sísmica,,Naru - Brisa,2020-09-02 00:00:00,2022-10-13 00:00:00,0000FF,Naru - Brisa,C-M-657-C-M-657_R15
+Trim 3,Sísmica,,Parametrização de levantamento OBN em Amapá Águas Profundas,2022-07-11 00:00:00,2022-11-24 00:00:00,0000FF,Parametrização de levantamento OBN em Amapá Águas Profundas,FZA-M-125-FZA-M-125_R11
+Trim 3,Sísmica,,Parametrização de levantamento OBN em Amapá Águas Profundas,2022-07-11 00:00:00,2022-11-24 00:00:00,0000FF,Parametrização de levantamento OBN em Amapá Águas Profundas,FZA-M-127-FZA-M-127_R11
+Trim 3,Sísmica,,Parametrização de levantamento OBN em Amapá Águas Profundas,2022-07-11 00:00:00,2022-11-24 00:00:00,0000FF,Parametrização de levantamento OBN em Amapá Águas Profundas,FZA-M-57-FZA-M-57_R11
+Trim 3,Sísmica,,Parametrização de levantamento OBN em Amapá Águas Profundas,2022-07-11 00:00:00,2022-11-24 00:00:00,0000FF,Parametrização de levantamento OBN em Amapá Águas Profundas,FZA-M-59-FZA-M-59_R11
+Trim 3,Sísmica,,Parametrização de levantamento OBN em Amapá Águas Profundas,2022-07-11 00:00:00,2022-11-24 00:00:00,0000FF,Parametrização de levantamento OBN em Amapá Águas Profundas,FZA-M-86-FZA-M-86_R11
+Trim 3,Sísmica,,Parametrização de levantamento OBN em Amapá Águas Profundas,2022-07-11 00:00:00,2022-11-24 00:00:00,0000FF,Parametrização de levantamento OBN em Amapá Águas Profundas,FZA-M-88-FZA-M-88_R11
+Trim 3,Sísmica,,Parametrização de Monitoramento Sísmico em Mero,2022-08-22 00:00:00,2023-06-02 00:00:00,0000FF,Parametrização de Monitoramento Sísmico em Mero,MERO-LIBRA_P1
+Trim 3,Sísmica,,Pós Processamento do Dado  3D_BRC_MARLIM_SUL_MARLIM 2010,2018-08-24 00:00:00,2018-11-08 00:00:00,0000FF,Pós Processamento do Dado  3D_BRC_MARLIM_SUL_MARLIM 2010,MARLIM LESTE-MARLIM LESTE
+Trim 3,Sísmica,,R0022_MERGE_3D_PICANHA_ALB_MRL,2020-07-20 00:00:00,2021-04-05 00:00:00,0000FF,R0022_MERGE_3D_PICANHA_ALB_MRL,ALBACORA-ALBACORA
+Trim 3,Sísmica,,R0022_MERGE_3D_PICANHA_ALB_MRL,2020-07-20 00:00:00,2021-04-05 00:00:00,0000FF,R0022_MERGE_3D_PICANHA_ALB_MRL,MARLIM-MARLIM
+Trim 3,Sísmica,,R01.0255_MARLIM_ALTA_RES_PSDM,2018-08-03 00:00:00,2021-07-05 00:00:00,0000FF,R01.0255_MARLIM_ALTA_RES_PSDM,MARLIM-MARLIM
+Trim 3,Sísmica,,R0258_3D_MLL_MLS - PSDM,2017-08-15 00:00:00,2019-07-10 00:00:00,0000FF,R0258_3D_MLL_MLS - PSDM,MARLIM LESTE-MARLIM LESTE
+Trim 3,Sísmica,,R0258_3D_MLL_MLS - PSDM,2017-08-15 00:00:00,2019-07-10 00:00:00,0000FF,R0258_3D_MLL_MLS - PSDM,MARLIM SUL-MARLIM SUL
+Trim 3,Sísmica,,R0258_UIRAPURU_ITERDEC_INTEGRADO,2018-09-11 00:00:00,2018-10-08 00:00:00,0000FF,R0258_UIRAPURU_ITERDEC_INTEGRADO,UIRAPURU-Uirapuru_P4
+Trim 3,Sísmica,,R0264_BULLSEYE_ITD_INTG,2020-09-14 00:00:00,2020-11-11 00:00:00,0000FF,R0264_BULLSEYE_ITD_INTG,C-M-344-C-M-344_R14
+Trim 3,Sísmica,,R0264_BULLSEYE_ITD_INTG,2020-09-14 00:00:00,2020-11-11 00:00:00,0000FF,R0264_BULLSEYE_ITD_INTG,C-M-346-C-M-346_R14
+Trim 3,Sísmica,,R0264_BULLSEYE_ITD_INTG,2020-09-14 00:00:00,2020-11-11 00:00:00,0000FF,R0264_BULLSEYE_ITD_INTG,C-M-411-C-M-411_R14
+Trim 3,Sísmica,,R0264_BULLSEYE_ITD_INTG,2020-09-14 00:00:00,2020-11-11 00:00:00,0000FF,R0264_BULLSEYE_ITD_INTG,C-M-413-C-M-413_R14
+Trim 3,Sísmica,,R0264_NARU_YBA_POS_STACK,2020-07-19 00:00:00,2020-11-11 00:00:00,0000FF,R0264_NARU_YBA_POS_STACK,C-M-657-C-M-657_R15
+Trim 3,Sísmica,,R0264_NARU_YBA_POS_STACK,2020-07-19 00:00:00,2020-11-11 00:00:00,0000FF,R0264_NARU_YBA_POS_STACK,C-M-709-C-M-709_R15
+Trim 3,Sísmica,,R0264_NEBULA_A_ITERDEC,2021-09-22 00:00:00,2021-11-03 00:00:00,0000FF,R0264_NEBULA_A_ITERDEC,C-M-789-C-M-789_R15
+Trim 3,Sísmica,,R0264_Santos _VII_CM789_Opal_Iterdec_Integrado,2019-07-24 00:00:00,2019-10-31 00:00:00,0000FF,R0264_Santos _VII_CM789_Opal_Iterdec_Integrado,C-M-789-C-M-789_R15
+Trim 3,Sísmica,,R0264_SANTOS7_3MARIAS_N_POS,2019-07-30 00:00:00,2019-09-11 00:00:00,0000FF,R0264_SANTOS7_3MARIAS_N_POS,TRÊS MARIAS-TRÊS MARIAS
+Trim 3,Sísmica,,R0264_SANTOS7_3MARIAS_POS,2019-09-05 00:00:00,2019-10-11 00:00:00,0000FF,R0264_SANTOS7_3MARIAS_POS,TRÊS MARIAS-TRÊS MARIAS
+Trim 3,Sísmica,,R0264_YBA_PSDM_FWI,2020-07-08 00:00:00,2022-08-29 00:00:00,0000FF,R0264_YBA_PSDM_FWI,C-M-709-C-M-709_R15
+Trim 3,Sísmica,,R0268_3D_ARAM_LSM,2022-08-15 00:00:00,2023-04-17 00:00:00,0000FF,R0268_3D_ARAM_LSM,ARAM-Aram_P6
+Trim 3,Sísmica,,R0268_3D_ARAM_LSM_-_ITERDEC_INTEGRADO,2023-07-03 00:00:00,2023-08-09 00:00:00,0000FF,R0268_3D_ARAM_LSM_-_ITERDEC_INTEGRADO,ARAM-Aram_P6
+Trim 3,Sísmica,,R0268_3D_ARAM_LSM_-_PRE-COND_INV,2023-08-01 00:00:00,2023-09-06 00:00:00,0000FF,R0268_3D_ARAM_LSM_-_PRE-COND_INV,ARAM-Aram_P6
+Trim 3,Sísmica,,R0268_PSDM_ARAM_CENT_GEOHAZARD,2020-09-01 00:00:00,2021-03-23 00:00:00,0000FF,R0268_PSDM_ARAM_CENT_GEOHAZARD,ARAM-Aram_P6
+Trim 3,Sísmica,,R0268_PSDM_ARAM_CENTRAL,2020-07-06 00:00:00,2021-05-14 00:00:00,0000FF,R0268_PSDM_ARAM_CENTRAL,ARAM-Aram_P6
+Trim 3,Sísmica,,R0302_BUZIOS - SISMEC,2020-09-01 00:00:00,2020-10-19 00:00:00,0000FF,R0302_BUZIOS - SISMEC,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Sísmica,,R0302_BUZIOS - SISMEC,2020-09-01 00:00:00,2020-10-19 00:00:00,0000FF,R0302_BUZIOS - SISMEC,BÚZIOS-CESSÃO ONEROSA
+Trim 3,Sísmica,,R0302_BUZIOS (ITERDEC),2018-09-02 00:00:00,2019-03-15 00:00:00,0000FF,R0302_BUZIOS (ITERDEC),BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Sísmica,,R0302_BUZIOS (ITERDEC),2018-09-02 00:00:00,2019-03-15 00:00:00,0000FF,R0302_BUZIOS (ITERDEC),BÚZIOS-CESSÃO ONEROSA
+Trim 3,Sísmica,,R0302_BUZIOS (POSPROC),2018-08-01 00:00:00,2019-01-28 00:00:00,0000FF,R0302_BUZIOS (POSPROC),BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Sísmica,,R0302_BUZIOS (POSPROC),2018-08-01 00:00:00,2019-01-28 00:00:00,0000FF,R0302_BUZIOS (POSPROC),BÚZIOS-CESSÃO ONEROSA
+Trim 3,Sísmica,,R0302_BUZIOS_ITERDEC,2019-09-06 00:00:00,2020-03-06 00:00:00,0000FF,R0302_BUZIOS_ITERDEC,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Sísmica,,R0302_BUZIOS_ITERDEC,2019-09-06 00:00:00,2020-03-06 00:00:00,0000FF,R0302_BUZIOS_ITERDEC,BÚZIOS-CESSÃO ONEROSA
+Trim 3,Sísmica,,R0302_BUZIOS_RASO_LESTE,2021-07-14 00:00:00,2021-11-23 00:00:00,0000FF,R0302_BUZIOS_RASO_LESTE,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Sísmica,,R0302_BUZIOS_RASO_LESTE,2021-07-14 00:00:00,2021-11-23 00:00:00,0000FF,R0302_BUZIOS_RASO_LESTE,BÚZIOS-CESSÃO ONEROSA
+Trim 3,Sísmica,,R0306_ALBACORA_FORNO_PSDM_FWI,2017-09-04 00:00:00,2021-06-07 00:00:00,0000FF,R0306_ALBACORA_FORNO_PSDM_FWI,ALBACORA-ALBACORA
+Trim 3,Sísmica,,R0326_Bullseye_Exxon,2020-08-18 00:00:00,2020-09-04 00:00:00,0000FF,R0326_Bullseye_Exxon,C-M-344-C-M-344_R14
+Trim 3,Sísmica,,R0326_Bullseye_Exxon,2020-08-18 00:00:00,2020-09-04 00:00:00,0000FF,R0326_Bullseye_Exxon,C-M-346-C-M-346_R14
+Trim 3,Sísmica,,R0326_Bullseye_Exxon,2020-08-18 00:00:00,2020-09-04 00:00:00,0000FF,R0326_Bullseye_Exxon,C-M-411-C-M-411_R14
+Trim 3,Sísmica,,R0326_Bullseye_Exxon,2020-08-18 00:00:00,2020-09-04 00:00:00,0000FF,R0326_Bullseye_Exxon,C-M-413-C-M-413_R14
+Trim 3,Sísmica,,R0326_URISSANE_BIAZIMUTE_PSDM,2020-08-03 00:00:00,2021-06-11 00:00:00,0000FF,R0326_URISSANE_BIAZIMUTE_PSDM,C-M-411-C-M-411_R14
+Trim 3,Sísmica,,R0327_3D_ALBACORA_PSDM_BIAZ,2022-08-08 00:00:00,2023-05-03 00:00:00,0000FF,R0327_3D_ALBACORA_PSDM_BIAZ,ALBACORA-ALBACORA
+Trim 3,Sísmica,,R0372_NODES_BUZIOS_PRE_CONDICIONAMENTO,2020-08-03 00:00:00,2020-11-06 00:00:00,0000FF,R0372_NODES_BUZIOS_PRE_CONDICIONAMENTO,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 3,Sísmica,,R0372_NODES_BUZIOS_PRE_CONDICIONAMENTO,2020-08-03 00:00:00,2020-11-06 00:00:00,0000FF,R0372_NODES_BUZIOS_PRE_CONDICIONAMENTO,BÚZIOS-CESSÃO ONEROSA
+Trim 3,Sísmica,,R0396_OPAL_PSDM_BIAZIMUTE,2021-09-23 00:00:00,2021-11-23 00:00:00,0000FF,R0396_OPAL_PSDM_BIAZIMUTE,C-M-789-C-M-789_R15
+Trim 3,Sísmica,,Reprocessamento Campo de Marlim Sul (Eoceno - Arenito Enchova),2022-08-01 00:00:00,2022-12-20 00:00:00,0000FF,Reprocessamento Campo de Marlim Sul (Eoceno - Arenito Enchova),MARLIM SUL-MARLIM SUL
+Trim 4,Licenciamento Ambiental,, Autorização de distribuição dos EAs,2019-12-19 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,1-DEV-14A-MAS-BM-BAR-3
+Trim 4,Licenciamento Ambiental,, Autorização de distribuição dos EAs,2019-12-19 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BAR-M-175-BM-BAR-5
+Trim 4,Licenciamento Ambiental,, Autorização de distribuição dos EAs,2019-12-19 00:00:00,,666666,PERFURAÇÃO BM-BAR-3 E BM-BAR-5,BM-BAR-3-BM-BAR-3
+Trim 4,Licenciamento Ambiental,, Autorização de distribuição dos EAs,2024-11-27 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 4,Licenciamento Ambiental,, Autorização de distribuição dos EAs,2024-12-25 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 4,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2024-12-26 00:00:00,,666666,PERFURAÇÃO FZA-M-59,FZA-M-59-FZA-M-59_R11
+Trim 4,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-12-27 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,1-MAS-36-BM-BAR-1
+Trim 4,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2027-12-27 00:00:00,,666666,PERFURAÇÃO BM-BAR-1 2022,BM-BAR-1-BM-BAR-1
+Trim 4,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2028-11-22 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,1-PAS-27-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2028-11-22 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,BM-PAMA-3-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2028-11-22 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Avaliação Pré Operacional (APO),2028-11-22 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Emissão da 1ª LO,2019-11-18 00:00:00,,666666,"ALTO DE CABO FRIO CENTRAL, DOIS IRMÃOS E SC-AP-5 (EXTENSÃO AGBC)",ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 4,Licenciamento Ambiental,, Emissão da 1ª LO,2019-11-18 00:00:00,,666666,"ALTO DE CABO FRIO CENTRAL, DOIS IRMÃOS E SC-AP-5 (EXTENSÃO AGBC)",DOIS IRMÃOS-Dois Irmãos_P4
+Trim 4,Licenciamento Ambiental,, Emissão da 1ª LO,2026-10-26 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 4,Licenciamento Ambiental,, Emissão da 1ª LO,2028-12-06 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,1-PAS-27-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Emissão da 1ª LO,2028-12-06 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,BM-PAMA-3-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Emissão da 1ª LO,2028-12-06 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Emissão da 1ª LO,2028-12-06 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Emissão da 2ª LO,2023-10-02 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 4,Licenciamento Ambiental,, Emissão da 2ª LO,2023-10-02 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Emissão da 2ª LO,2023-10-02 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 4,Licenciamento Ambiental,, Emissão da 2ª LO,2023-10-02 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Emissão da 2ª LO,2023-10-02 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Entrada em Operação da 1ª UEP (determinístico),2026-10-27 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 4,Licenciamento Ambiental,, Protocolo de abertura do processo,2006-11-10 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 4,Licenciamento Ambiental,, Protocolo de abertura do processo,2006-11-10 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Protocolo de abertura do processo,2006-11-10 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 4,Licenciamento Ambiental,, Protocolo de abertura do processo,2006-11-10 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Protocolo de abertura do processo,2006-11-10 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Protocolo de abertura do processo,2018-12-28 00:00:00,,666666,"ALTO DE CABO FRIO CENTRAL, DOIS IRMÃOS E SC-AP-5 (EXTENSÃO AGBC)",ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 4,Licenciamento Ambiental,, Protocolo de abertura do processo,2018-12-28 00:00:00,,666666,"ALTO DE CABO FRIO CENTRAL, DOIS IRMÃOS E SC-AP-5 (EXTENSÃO AGBC)",DOIS IRMÃOS-Dois Irmãos_P4
+Trim 4,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-10-28 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,1-PAS-27-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-10-28 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,BM-PAMA-3-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-10-28 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Protocolo de Estudo Ambiental,2024-10-28 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Solicitação de Anuência,2013-12-23 00:00:00,,666666,Inclusão Poço Umbu,POT-M-663-BM-POT-16
+Trim 4,Licenciamento Ambiental,, Solicitação de Anuência,2020-12-16 00:00:00,,666666,Inclusão Poços do Bloco C-M-477,C-M-477-C-M-477_R16
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2020-12-31 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-125-FZA-M-125_R11
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2020-12-31 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-127-FZA-M-127_R11
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2020-12-31 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-57-FZA-M-57_R11
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2020-12-31 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-86-FZA-M-86_R11
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2020-12-31 00:00:00,,666666,PERFURAÇÃO FZA-M-57_86_88_125_127,FZA-M-88-FZA-M-88_R11
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2021-10-26 00:00:00,,666666,PERFURAÇÃO POT-M-859,POT-M-859-POT-M-859_R15
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2021-10-26 00:00:00,,666666,PERFURAÇÃO POT-M-952,POT-M-952-POT-M-952_R15
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2022-10-31 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,1-PAS-27-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2022-10-31 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,BM-PAMA-3-BM-PAMA-3
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2022-10-31 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-192-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Emissão do Termo de Referência,2022-10-31 00:00:00,,666666,PERFURAÇÃO BM-PAMA-3 e BM-PAMA-8,PAMA-M-194-BM-PAMA-8
+Trim 4,Licenciamento Ambiental,, Realização das APs/RPs,2011-12-19 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-663-BM-POT-16
+Trim 4,Licenciamento Ambiental,, Realização das APs/RPs,2011-12-19 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-665-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Realização das APs/RPs,2011-12-19 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-760-BM-POT-16
+Trim 4,Licenciamento Ambiental,, Realização das APs/RPs,2011-12-19 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-853-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Realização das APs/RPs,2011-12-19 00:00:00,,666666,PERFURAÇÃO BM-POT-16 e 17,POT-M-855-BM-POT-17
+Trim 4,Licenciamento Ambiental,, Realização das APs/RPs,2017-11-13 00:00:00,,666666,PERFURAÇÃO FZA-M-59,FZA-M-59-FZA-M-59_R11
+Trim 4,Parceria,,TCM,2024-10-10 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 4,Parceria,,WS,2024-11-29 00:00:00,,666666,Parceria,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 4,Poços,ACFC-11,Perfuração,2024-11-16 00:00:00,2025-02-19 00:00:00,FF0000,ACFC-11,ALTO DE CABO FRIO CENTRAL-Alto de Cabo Frio Central_P3
+Trim 4,Poços,ARAM PROFUNDO,Avaliação,2026-10-09 00:00:00,2026-11-27 00:00:00,FF0000,ARAM PROFUNDO,1-SPS-108-Aram_P6
+Trim 4,Poços,ARARA,Perfuração,2029-11-06 00:00:00,2030-03-13 00:00:00,FF0000,ARARA,FZA-M-88-FZA-M-88_R11
+Trim 4,Poços,CAIPORA,Perfuração,2026-10-11 00:00:00,2026-12-31 00:00:00,FF0000,CAIPORA,POT-M-952-POT-M-952_R15
+Trim 4,Poços,COPOAZU,Perfuração,2025-11-14 00:00:00,2026-03-14 00:00:00,FF0000,COPOAZU,TAYRONA-Contrato E&E Tayrona
+Trim 4,Poços,CURAÇAO CENTRO OESTE,Perfuração,2026-11-28 00:00:00,2027-03-25 00:00:00,FF0000,CURAÇAO CENTRO OESTE,1-SPS-108-Aram_P6
+Trim 4,Poços,CURAÇAO EXTREMO LESTE,Perfuração,2024-10-29 00:00:00,2025-03-14 00:00:00,FF0000,CURAÇAO EXTREMO LESTE,1-SPS-108-Aram_P6
+Trim 4,Poços,EXTENSÃO W SAGITARIO,Avaliação,2023-11-17 00:00:00,2024-02-01 00:00:00,FF0000,EXTENSÃO W SAGITARIO,1-SPS-98-BM-S-50
+Trim 4,Poços,MIRANTE DE FORNO,Avaliação,2024-12-31 00:00:00,2025-03-06 00:00:00,FF0000,MIRANTE DE FORNO,NORTE DE BRAVA-NORTE DE BRAVA_OPP1
+Trim 4,Poços,MIRANTE DE FORNO,Perfuração,2024-10-13 00:00:00,2024-12-30 00:00:00,FF0000,MIRANTE DE FORNO,NORTE DE BRAVA-NORTE DE BRAVA_OPP1
+Trim 4,Poços,ORION-N,Avaliação,2026-10-07 00:00:00,2026-12-02 00:00:00,FF0000,ORION-N,SUDOESTE DE SAGITÁRIO-SUDOESTE DE SAGITÁRIO_OPP1
+Trim 4,Poços,PARAÍBA SUL,Avaliação,2024-11-03 00:00:00,2024-12-23 00:00:00,FF0000,PARAÍBA SUL,JUBARTE-BC-60
+Trim 4,Poços,PITU OESTE,Perfuração,2023-12-18 00:00:00,2024-02-06 00:00:00,FF0000,PITU OESTE,1-RNS-158-BM-POT-17
+Trim 4,Poços,RJS-683A,Abandono Definitivo,2023-12-13 00:00:00,2024-01-23 00:00:00,FF0000,RJS-683A,1-RJS-652A-BM-S-24
+Trim 4,Poços,TACAPU,Perfuração,2028-12-16 00:00:00,2029-04-28 00:00:00,FF0000,TACAPU,P-M-1797-P-M-1797_OP4
+Trim 4,Poços,TORTUGA LESTE,Perfuração,2024-11-15 00:00:00,2025-03-05 00:00:00,FF0000,TORTUGA LESTE,1-SPS-108-Aram_P6
+Trim 4,Poços,TUCANO-BATUQUE,Avaliação,2027-12-02 00:00:00,2028-01-17 00:00:00,FF0000,TUCANO-BATUQUE,FZA-M-57-FZA-M-57_R11
+Trim 4,Poços,UCHUVA-2 - SIDETRACK,Avaliação,2024-11-01 00:00:00,2024-12-31 00:00:00,FF0000,UCHUVA-2 - SIDETRACK,TAYRONA-Contrato E&E Tayrona
+Trim 4,Prazos Contratuais ANP,,Início,2002-12-12 00:00:00,,00FF00,Prazos Contratuais ANP,JUBARTE-BC-60
+Trim 4,Prazos Contratuais ANP,,Início,2004-11-24 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-175-BM-BAR-5
+Trim 4,Prazos Contratuais ANP,,Início,2004-11-24 00:00:00,,00FF00,Prazos Contratuais ANP,PAMA-M-192-BM-PAMA-8
+Trim 4,Prazos Contratuais ANP,,Início,2004-11-24 00:00:00,,00FF00,Prazos Contratuais ANP,PAMA-M-194-BM-PAMA-8
+Trim 4,Prazos Contratuais ANP,,Início,2011-11-25 00:00:00,,00FF00,Prazos Contratuais ANP,1-PAS-27-BM-PAMA-3
+Trim 4,Prazos Contratuais ANP,,Início,2013-12-19 00:00:00,,00FF00,Prazos Contratuais ANP,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Prazos Contratuais ANP,,Início,2014-12-29 00:00:00,,00FF00,Prazos Contratuais ANP,ATAPU-CESSÃO ONEROSA
+Trim 4,Prazos Contratuais ANP,,Início,2018-12-17 00:00:00,,00FF00,Prazos Contratuais ANP,DOIS IRMÃOS-Dois Irmãos_P4
+Trim 4,Prazos Contratuais ANP,,Início,2018-12-17 00:00:00,,00FF00,Prazos Contratuais ANP,SUDOESTE DE TARTARUGA VERDE-Tartaruga Verde_P5
+Trim 4,Prazos Contratuais ANP,,Início,2018-12-17 00:00:00,,00FF00,Prazos Contratuais ANP,TRÊS MARIAS-Três Marias_P4
+Trim 4,Prazos Contratuais ANP,,Início,2018-12-17 00:00:00,,00FF00,Prazos Contratuais ANP,UIRAPURU-Uirapuru_P4
+Trim 4,Prazos Contratuais ANP,,Início,2019-10-24 00:00:00,,00FF00,Prazos Contratuais ANP,3-RJS-735-LIBRA_P1
+Trim 4,Prazos Contratuais ANP,,Início,2021-10-15 00:00:00,,00FF00,Prazos Contratuais ANP,1-ESS-227D-ES-M-669_R11
+Trim 4,Prazos Contratuais ANP,,Início,2022-12-15 00:00:00,,00FF00,Prazos Contratuais ANP,1-SPS-108-Aram_P6
+Trim 4,Prazos Contratuais ANP,,Término,2012-11-21 00:00:00,,00FF00,Prazos Contratuais ANP,1-DEV-14A-MAS-BM-BAR-3
+Trim 4,Prazos Contratuais ANP,,Término,2020-11-05 00:00:00,,00FF00,Prazos Contratuais ANP,1-CES-161-BM-POT-17
+Trim 4,Prazos Contratuais ANP,,Término,2020-12-09 00:00:00,,00FF00,Prazos Contratuais ANP,1-PAS-27-BM-PAMA-3
+Trim 4,Prazos Contratuais ANP,,Término,2020-12-30 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-764-POT-M-764_R11
+Trim 4,Prazos Contratuais ANP,,Término,2021-10-15 00:00:00,,00FF00,Prazos Contratuais ANP,ES-M-669-ES-M-669_R11
+Trim 4,Prazos Contratuais ANP,,Término,2022-11-27 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-300-BAR-M-300_R11
+Trim 4,Prazos Contratuais ANP,,Término,2022-11-27 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-342-BAR-M-342_R11
+Trim 4,Prazos Contratuais ANP,,Término,2022-11-27 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-344-BAR-M-344_R11
+Trim 4,Prazos Contratuais ANP,,Término,2022-11-27 00:00:00,,00FF00,Prazos Contratuais ANP,BAR-M-388-BAR-M-388_R11
+Trim 4,Prazos Contratuais ANP,,Término,2023-11-17 00:00:00,,00FF00,Prazos Contratuais ANP,C-M-413-C-M-413_R14
+Trim 4,Prazos Contratuais ANP,,Término,2023-11-22 00:00:00,,00FF00,Prazos Contratuais ANP,TRÊS MARIAS-Três Marias_P4
+Trim 4,Prazos Contratuais ANP,,Término,2024-10-22 00:00:00,,00FF00,Prazos Contratuais ANP,3-RJS-735-LIBRA_P1
+Trim 4,Prazos Contratuais ANP,,Término,2024-10-29 00:00:00,,00FF00,Prazos Contratuais ANP,PAR-T-175-PAR-T-175_R14
+Trim 4,Prazos Contratuais ANP,,Término,2024-11-14 00:00:00,,00FF00,Prazos Contratuais ANP,1-RNS-158-BM-POT-17
+Trim 4,Prazos Contratuais ANP,,Término,2025-12-16 00:00:00,,00FF00,Prazos Contratuais ANP,UIRAPURU-Uirapuru_P4
+Trim 4,Prazos Contratuais ANP,,Término,2026-11-12 00:00:00,,00FF00,Prazos Contratuais ANP,1-SPS-108-Aram_P6
+Trim 4,Prazos Contratuais ANP,,Término,2027-12-11 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-762-POT-M-762_R15
+Trim 4,Prazos Contratuais ANP,,Término,2027-12-11 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-859-POT-M-859_R15
+Trim 4,Prazos Contratuais ANP,,Término,2027-12-11 00:00:00,,00FF00,Prazos Contratuais ANP,POT-M-952-POT-M-952_R15
+Trim 4,Prazos Contratuais ANP,,Término,2047-12-31 00:00:00,,00FF00,Prazos Contratuais ANP,ALBACORA-ALBACORA
+Trim 4,Prazos Contratuais ANP,,Término,2056-12-11 00:00:00,,00FF00,Prazos Contratuais ANP,JUBARTE-BC-60
+Trim 4,Sísmica,,0256_3D_ARAM,2023-12-01 00:00:00,2025-02-24 00:00:00,0000FF,0256_3D_ARAM,ARAM-Aram_P6
+Trim 4,Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR - PSIM_FATTI,2023-12-15 00:00:00,2024-02-19 00:00:00,0000FF,0327_3D_4D_ALBACORA_MARLIM_VOADOR - PSIM_FATTI,ALBACORA-ALBACORA
+Trim 4,Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR - PSIM_FATTI,2023-12-15 00:00:00,2024-02-19 00:00:00,0000FF,0327_3D_4D_ALBACORA_MARLIM_VOADOR - PSIM_FATTI,MARLIM-MARLIM
+Trim 4,Sísmica,,0327_3D_4D_ALBACORA_MARLIM_VOADOR - PSIM_FATTI,2023-12-15 00:00:00,2024-02-19 00:00:00,0000FF,0327_3D_4D_ALBACORA_MARLIM_VOADOR - PSIM_FATTI,VOADOR-VOADOR
+Trim 4,Sísmica,,0372_3D_NODES_BUZIOS_LSRTM_pre_cond_angle_stacks,2021-11-23 00:00:00,2021-11-30 00:00:00,0000FF,0372_3D_NODES_BUZIOS_LSRTM_pre_cond_angle_stacks,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,0372_3D_NODES_BUZIOS_LSRTM_pre_cond_angle_stacks,2021-11-23 00:00:00,2021-11-30 00:00:00,0000FF,0372_3D_NODES_BUZIOS_LSRTM_pre_cond_angle_stacks,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,AG - Búzios Monitor Nodes,2019-12-10 00:00:00,2024-10-03 00:00:00,0000FF,AG - Búzios Monitor Nodes,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,AG - Búzios Monitor Nodes,2019-12-10 00:00:00,2024-10-03 00:00:00,0000FF,AG - Búzios Monitor Nodes,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,AG - Búzios Nodes,2018-10-29 00:00:00,2019-11-04 00:00:00,0000FF,AG - Búzios Nodes,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,AG - Búzios Nodes,2018-10-29 00:00:00,2019-11-04 00:00:00,0000FF,AG - Búzios Nodes,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,AG - Dois Irmãos Nodes,2019-10-30 00:00:00,2023-08-07 00:00:00,0000FF,AG - Dois Irmãos Nodes,DOIS IRMÃOS-Dois Irmãos_P4
+Trim 4,Sísmica,,AG - Itapu Nodes,2018-12-27 00:00:00,2022-12-19 00:00:00,0000FF,AG - Itapu Nodes,ITAPU-CESSÃO ONEROSA
+Trim 4,Sísmica,,AG - Três Marias Nodes,2022-11-16 00:00:00,2026-02-02 00:00:00,0000FF,AG - Três Marias Nodes,TRÊS MARIAS-TRÊS MARIAS
+Trim 4,Sísmica,,AG - Urissanê Nodes,2020-12-10 00:00:00,2023-02-07 00:00:00,0000FF,AG - Urissanê Nodes,C-M-411-C-M-411_R14
+Trim 4,Sísmica,,AG - Yba Nodes,2020-12-17 00:00:00,2023-03-08 00:00:00,0000FF,AG - Yba Nodes,C-M-709-C-M-709_R15
+Trim 4,Sísmica,,Buzios OBN Geohazard - área prioritária,2022-12-07 00:00:00,2023-06-27 00:00:00,0000FF,Buzios OBN Geohazard - área prioritária,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,Buzios OBN Geohazard - área prioritária,2022-12-07 00:00:00,2023-06-27 00:00:00,0000FF,Buzios OBN Geohazard - área prioritária,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,Parametrização do OBN Monitor 1 em Tupi,2022-12-07 00:00:00,2023-06-30 00:00:00,0000FF,Parametrização do OBN Monitor 1 em Tupi,TUPI-BM-S-11
+Trim 4,Sísmica,,Pré condicionamento para inversão de MLS,2019-10-16 00:00:00,2019-10-28 00:00:00,0000FF,Pré condicionamento para inversão de MLS,MARLIM SUL-MARLIM SUL
+Trim 4,Sísmica,,PSEUDOIMPEDÂNCIA - Olho de Boi (RTM),2019-11-01 00:00:00,2020-11-05 00:00:00,0000FF,PSEUDOIMPEDÂNCIA - Olho de Boi (RTM),C-M-344-C-M-344_R14
+Trim 4,Sísmica,,PSEUDOIMPEDÂNCIA - Olho de Boi (RTM),2019-11-01 00:00:00,2020-11-05 00:00:00,0000FF,PSEUDOIMPEDÂNCIA - Olho de Boi (RTM),C-M-346-C-M-346_R14
+Trim 4,Sísmica,,PSEUDOIMPEDÂNCIA - Olho de Boi (RTM),2019-11-01 00:00:00,2020-11-05 00:00:00,0000FF,PSEUDOIMPEDÂNCIA - Olho de Boi (RTM),C-M-413-C-M-413_R14
+Trim 4,Sísmica,,R0257_3D_FOZ_AM_2022,2022-10-31 00:00:00,2023-10-25 00:00:00,0000FF,R0257_3D_FOZ_AM_2022,FZA-M-125-FZA-M-125_R11
+Trim 4,Sísmica,,R0257_3D_FOZ_AM_2022,2022-10-31 00:00:00,2023-10-25 00:00:00,0000FF,R0257_3D_FOZ_AM_2022,FZA-M-127-FZA-M-127_R11
+Trim 4,Sísmica,,R0257_3D_FOZ_AM_2022,2022-10-31 00:00:00,2023-10-25 00:00:00,0000FF,R0257_3D_FOZ_AM_2022,FZA-M-57-FZA-M-57_R11
+Trim 4,Sísmica,,R0257_3D_FOZ_AM_2022,2022-10-31 00:00:00,2023-10-25 00:00:00,0000FF,R0257_3D_FOZ_AM_2022,FZA-M-59-FZA-M-59_R11
+Trim 4,Sísmica,,R0257_3D_FOZ_AM_2022,2022-10-31 00:00:00,2023-10-25 00:00:00,0000FF,R0257_3D_FOZ_AM_2022,FZA-M-86-FZA-M-86_R11
+Trim 4,Sísmica,,R0257_3D_FOZ_AM_2022,2022-10-31 00:00:00,2023-10-25 00:00:00,0000FF,R0257_3D_FOZ_AM_2022,FZA-M-88-FZA-M-88_R11
+Trim 4,Sísmica,,R0264_BM_SANTOS_VII_B_3MARIAS (GHZ),2019-11-18 00:00:00,2020-04-06 00:00:00,0000FF,R0264_BM_SANTOS_VII_B_3MARIAS (GHZ),TRÊS MARIAS-TRÊS MARIAS
+Trim 4,Sísmica,,R0264_TRES_MARIAS - MACHINE LEARNING_CHEVRON (2020),2020-11-12 00:00:00,2021-05-03 00:00:00,0000FF,R0264_TRES_MARIAS - MACHINE LEARNING_CHEVRON (2020),TRÊS MARIAS-TRÊS MARIAS
+Trim 4,Sísmica,,R0268_3D_ARAM_PSDM_-_ITERDEC_INTEGRADO,2022-11-16 00:00:00,2022-12-20 00:00:00,0000FF,R0268_3D_ARAM_PSDM_-_ITERDEC_INTEGRADO,ARAM-Aram_P6
+Trim 4,Sísmica,,R0302_BUZIOS - ITERDEC INTEGRADO COLORIDO,2018-10-10 00:00:00,2018-12-04 00:00:00,0000FF,R0302_BUZIOS - ITERDEC INTEGRADO COLORIDO,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,R0302_BUZIOS - ITERDEC INTEGRADO COLORIDO,2018-10-10 00:00:00,2018-12-04 00:00:00,0000FF,R0302_BUZIOS - ITERDEC INTEGRADO COLORIDO,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,R0302_BUZIOS_RASO_MERGE,2021-11-18 00:00:00,2021-11-23 00:00:00,0000FF,R0302_BUZIOS_RASO_MERGE,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,R0302_BUZIOS_RASO_MERGE,2021-11-18 00:00:00,2021-11-23 00:00:00,0000FF,R0302_BUZIOS_RASO_MERGE,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,R0302_BUZIOS_RASO_MOD5,2018-11-05 00:00:00,2019-04-01 00:00:00,0000FF,R0302_BUZIOS_RASO_MOD5,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,R0302_BUZIOS_RASO_MOD5,2018-11-05 00:00:00,2019-04-01 00:00:00,0000FF,R0302_BUZIOS_RASO_MOD5,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,R0306_MERGE_OBC_STREAMER_ALB,2018-11-16 00:00:00,2019-02-07 00:00:00,0000FF,R0306_MERGE_OBC_STREAMER_ALB,ALBACORA-ALBACORA
+Trim 4,Sísmica,,R0321_3D_ITERDEC_MERG_ALBACORA,2018-11-14 00:00:00,2019-05-23 00:00:00,0000FF,R0321_3D_ITERDEC_MERG_ALBACORA,ALBACORA-ALBACORA
+Trim 4,Sísmica,,R0326_3D_TGS_CAMPOS_I_RUBA_GHZ_FATTI,2022-10-03 00:00:00,2022-11-03 00:00:00,0000FF,R0326_3D_TGS_CAMPOS_I_RUBA_GHZ_FATTI,C-M-477-C-M-477_R16
+Trim 4,Sísmica,,R0326_SPECOLHODEBOI_ITER_PARCI,2018-10-08 00:00:00,2018-12-20 00:00:00,0000FF,R0326_SPECOLHODEBOI_ITER_PARCI,C-M-277-C-M-277_R14
+Trim 4,Sísmica,,R0326_SPECOLHODEBOI_ITER_PARCI,2018-10-08 00:00:00,2018-12-20 00:00:00,0000FF,R0326_SPECOLHODEBOI_ITER_PARCI,C-M-344-C-M-344_R14
+Trim 4,Sísmica,,R0326_SPECOLHODEBOI_ITER_PARCI,2018-10-08 00:00:00,2018-12-20 00:00:00,0000FF,R0326_SPECOLHODEBOI_ITER_PARCI,C-M-346-C-M-346_R14
+Trim 4,Sísmica,,R0326_SPECOLHODEBOI_ITER_PARCI,2018-10-08 00:00:00,2018-12-20 00:00:00,0000FF,R0326_SPECOLHODEBOI_ITER_PARCI,C-M-411-C-M-411_R14
+Trim 4,Sísmica,,R0326_SPECOLHODEBOI_ITER_PARCI,2018-10-08 00:00:00,2018-12-20 00:00:00,0000FF,R0326_SPECOLHODEBOI_ITER_PARCI,C-M-413-C-M-413_R14
+Trim 4,Sísmica,,R0326_URISSANE_BIAZIMUTE_ITD_INTG,2021-10-01 00:00:00,2021-11-08 00:00:00,0000FF,R0326_URISSANE_BIAZIMUTE_ITD_INTG,C-M-411-C-M-411_R14
+Trim 4,Sísmica,,R0327_4D_MARLIM_PRIO_2010_2021,2020-10-16 00:00:00,2021-07-14 00:00:00,0000FF,R0327_4D_MARLIM_PRIO_2010_2021,MARLIM-MARLIM
+Trim 4,Sísmica,,R0327_4D_MARLIM_R1_2010_2021,2021-11-16 00:00:00,2022-07-04 00:00:00,0000FF,R0327_4D_MARLIM_R1_2010_2021,MARLIM-MARLIM
+Trim 4,Sísmica,,R0372_3D_NODES_BUZIOS_LSRTM_ITERDEC_INTEGRADO,2021-10-25 00:00:00,2021-11-30 00:00:00,0000FF,R0372_3D_NODES_BUZIOS_LSRTM_ITERDEC_INTEGRADO,BÚZIOS_ECO-BÚZIOS_ECO
+Trim 4,Sísmica,,R0372_3D_NODES_BUZIOS_LSRTM_ITERDEC_INTEGRADO,2021-10-25 00:00:00,2021-11-30 00:00:00,0000FF,R0372_3D_NODES_BUZIOS_LSRTM_ITERDEC_INTEGRADO,BÚZIOS-CESSÃO ONEROSA
+Trim 4,Sísmica,,REVISÃO PROCESSAMENTO PSDM 4D MLS 1999-8/2005,2023-10-16 00:00:00,2024-03-28 00:00:00,0000FF,REVISÃO PROCESSAMENTO PSDM 4D MLS 1999-8/2005,MARLIM SUL-MARLIM SUL
+Trim 4,Sísmica,,REVISÃO PROCESSAMENTO PSDM 4D MLS 2005/2010,2023-10-16 00:00:00,2024-03-28 00:00:00,0000FF,REVISÃO PROCESSAMENTO PSDM 4D MLS 2005/2010,MARLIM SUL-MARLIM SUL
+Trim 4,Sísmica,,RO264_TRES_MARIAS - ITERDEC/INTEGRADO,2020-12-07 00:00:00,2021-01-22 00:00:00,0000FF,RO264_TRES_MARIAS - ITERDEC/INTEGRADO,TRÊS MARIAS-TRÊS MARIAS
+Trim 4,Sísmica,,TAID-AG - Dois Irmãos Nodes,2019-10-31 00:00:00,2024-12-31 00:00:00,0000FF,TAID-AG - Dois Irmãos Nodes,DOIS IRMÃOS-Dois Irmãos_P4

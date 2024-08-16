@@ -28,9 +28,11 @@ var exibir = [];
 var dadosEstruturais = [];
 var svgRoot;
 var svgBase;
-var nomesEventoHTML;
-var dadosEventoHTML;
+var nomesEventoTdHTML;
+var dadosEventoTdHTML;
 var tamanhoScalaExib;
+var tipoEscalaGrafico;
+
 
 export class Visual implements IVisual {
     private svgRootHTML: Selection<any>;
@@ -52,10 +54,14 @@ export class Visual implements IVisual {
         CHART_HEIGHT = options.viewport.height
         CHART_WIDTH = options.viewport.width
         tamanhoScalaExib = CHART_WIDTH * 2.2
+        // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
+
         const matrixDataView: DataViewMatrix = dataView.matrix;
         const categorias = matrixDataView.rows.root.children;
         const estrutura = matrixDataView.rows.levels;
         const dadoEstrutura = estrutura[estrutura.length - 1].sources;
+        const tipoDeEscala = options.dataViews[0].metadata.columns;
+        // console.log("tipoDeEscala: " + JSON.stringify(tipoDeEscala));
         // console.log("dados iniciais: " + JSON.stringify(categorias));
 
         const tagMainDiv = d3.selectAll(".main-div");
@@ -66,13 +72,12 @@ export class Visual implements IVisual {
 
         var mainDivTable = svgBase.append("div")
             .attr("class", "main-div")
-            // .style("margin-top", "40px")
             .style("position", "absolute")
             .style("height", CHART_HEIGHT + "px")
+            .style("min-height", CHART_HEIGHT + "px")
             .style("width", CHART_WIDTH + "px")
             .style("overflow-y", "auto")
             .style("overflow-x", "hidden")
-            // .style("overflow-x", "auto")
             .append("table")
             .attr("class", "main-table")
 
@@ -80,31 +85,55 @@ export class Visual implements IVisual {
 
         var tamanhoExibicaoHeight = CHART_HEIGHT - MARGIN_TOP - MARGIN_TOP
 
-        nomesEventoHTML = mainTableTr.append("td")
+        nomesEventoTdHTML = mainTableTr.append("td")
+            .attr("class", "mainTdNomes")
             .style("width", "300px")
-            .style("height", tamanhoExibicaoHeight + "px")
-            .style("background-color", "bisque")
+            .style("height", tamanhoExibicaoHeight - MARGIN_BOTTOM * 1.5 + "px")
+            // .style("background-color", "bisque")
             .style("min-width", "300px")
             .style("padding-top", MARGIN_TOP * 2 + "px")
             .style("padding-bottom", MARGIN_TOP + "px")
             .style("vertical-align", "top")
+            .style("position", "fixed")
+            .style("overflow-y", "auto")
+            .style("overflow-x", "hidden")
 
-        dadosEventoHTML = mainTableTr.append("td")
-            .style("height", tamanhoExibicaoHeight + "px")
-            .style("width", CHART_WIDTH + "px")
-            .style("background-color", "darkgrey")
+        dadosEventoTdHTML = mainTableTr.append("td")
+            .attr("class", "mainTdEventos")
+            .style("height", tamanhoExibicaoHeight + MARGIN_TOP + 4 + "px")
+            .style("width", tamanhoScalaExib + "px")
+            // .style("width", CHART_WIDTH + "px")
             .style("vertical-align", "top")
-            .style("padding-top", MARGIN_TOP * 2 + "px")
+            .style("overflow-y", "auto")
+            .style("position", "fixed")
+            .style("max-width", "fit-content")
+            .style("left", "300px")
             .append("div")
+            .attr("class", "divMainTdEventos")
             .style("max-width", CHART_WIDTH - 300 + "px")
-            .style("overflow", "auto")
+        // .style("height", tamanhoExibicaoHeight + "px")
+        // .style("position", "relative")
 
         //necessario para criar as escalas
-        svgRoot = dadosEventoHTML.append("svg")
+        svgRoot = dadosEventoTdHTML
+            // svgRoot = dadosEventoTdHTML
+            .append("svg")
             .attr("class", "main-svg")
-            .style("width", tamanhoScalaExib + MARGIN_RIGHT + "px")
+            .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            // .style("width", tamanhoScalaExib + MARGIN_RIGHT + "px")
             .style("height", tamanhoExibicaoHeight + "px")
+            .style("position", "absolute")
+            .style("top", "0px")
+            .style("left", "0px")
+            .style("z-index", "-1")
 
+        var dadosEventoHTML = dadosEventoTdHTML.append("div")
+            .style("padding-top", MARGIN_TOP * 2 + "px")
+            .style("width", tamanhoScalaExib + "px")
+        // .style("overflow", "auto")
+
+        estruturaEscala(tipoDeEscala) //retorna quais campos no visual foram preenchidos
+        console.log("tipoEscalaGrafico: " + tipoEscalaGrafico);
 
         estruturaHierarquia(dadoEstrutura, estruturaDados) //retorna quais campos no visual foram preenchidos
         dadosEstruturais = estruturaDados;
@@ -122,11 +151,40 @@ export class Visual implements IVisual {
         const tagtreeModulos = d3.selectAll('[class^="row-modulo-"]');
         tagtreeModulos.remove();
 
-        setupScales(svgRoot, CHART_WIDTH, 600);
+        // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
+        setupScales(svgRoot, tamanhoScalaExib, 600);
         milestone(svgRoot);
-        // setupScales(svgRoot, 1200, 600);
-        treeModulos(dataMap, nomesEventoHTML, dadosEventoHTML);
-        dadosExpandidos(nomesEventoHTML, dadosEventoHTML) // mantem as linhas em exibição apos atualizar o visual
+        treeModulos(dataMap, nomesEventoTdHTML, dadosEventoHTML);
+        dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML) // mantem as linhas em exibição apos atualizar o visual
+
+        //seleciona as td que tem os nomes e os eventos e cria um listener para caso seja feita a rolagem em uma o evento tb ser executada na outra
+        const mainTdNomes = document.querySelector(".mainTdNomes")
+        const mainTdEventos = document.querySelector(".mainTdEventos")
+        mainTdNomes.addEventListener('scroll', function () {
+            // Define a posição de rolagem da segunda tabela para a posição de rolagem da primeira
+            mainTdEventos.scrollTop = mainTdNomes.scrollTop;
+        });
+
+        // Adiciona um listener de evento para o evento de rolagem na segunda tabela
+        mainTdEventos.addEventListener('scroll', function () {
+            // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
+            mainTdNomes.scrollTop = mainTdEventos.scrollTop;
+        });
+    }
+}
+
+function defineEscala() {
+    if (tipoEscalaGrafico == "Ano") {
+        return d3.utcYear.every(1)
+    }
+    if (tipoEscalaGrafico == "Trimestre") {
+        return d3.utcMonth.every(3)
+    }
+    if (tipoEscalaGrafico == "Mês") {
+        return d3.utcMonth.every(1)
+    }
+    if (tipoEscalaGrafico == "Dia") {
+        return d3.utcDay.every(1)
     }
 }
 
@@ -199,14 +257,14 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
         }
 
         console.log("dados expandios evento");
-        
+
         var categoriaExibirEventos = svgHierarquiaEventos.selectAll('[class^="' + e + '"]')
         if (categoriaExibirEventos.nodes().length > 0) {
             var eventoDivEvento = categoriaExibirEventos.select('[class^="evento-div"]')
             if (eventoDivEvento) {
                 eventoDivEvento.style("display", eventoDivEvento.style("display") === "none" ? "block" : "none");
             }
-            
+
 
             //!TODO rgb(204,0,0) verificar a logica abaixo pois pode ser otimizada para uso parecido do else .querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) 
             var segundaHierarquiaEvento = categoriaExibirEventos.selectAll('[class^="row-modulo2-"]')
@@ -281,6 +339,16 @@ function agrupamentoHierarquia(dataMap, dataAgrupado) {
             })
         }
     })
+}
+
+function estruturaEscala(element) {
+    var key = "escala"
+
+    for (var i = 0; i < element.length; i++) {
+        if (key in element[i].roles) {
+            tipoEscalaGrafico = element[i].displayName
+        }
+    }
 }
 
 function estruturaHierarquia(element, estruturaDados) {
@@ -400,10 +468,20 @@ function preencheDataFim(jsonData) {
             }
         }
     }
+
+    const year = DATA_FINAL.getFullYear();
+    const month = DATA_FINAL.getMonth() + 1; // +1 because getMonth() is zero-based
+    const lastDayOfMonth = new Date(year, month, 0).getDate();
+    const lastDayOfMonthString = `${year}-${month.toString().padStart(2, "0")}-${lastDayOfMonth.toString().padStart(2, "0")}`;
+    //faz com que a data final seja o ultimo dia do mes
+    DATA_FINAL = new Date(lastDayOfMonthString)
+    console.log("DATA_FINAL: " + DATA_FINAL);
+    // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
 }
 
 function timeScaleAxis() {
     console.log("timeScaleAxis() CHART_WIDTH: " + CHART_WIDTH);
+    console.log("timeScaleAxis() DATA_FINAL: " + DATA_FINAL);
 
     var tamanhoData = (d3.scaleTime()
         .domain([
@@ -416,6 +494,10 @@ function timeScaleAxis() {
     // .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
     return tamanhoData;
 }
+
+const xScale = d3.scaleTime()
+    .domain([DATA_INICIAL, DATA_FINAL])
+    .range([0, tamanhoScalaExib]);
 
 
 function timeScale(data) {
@@ -438,45 +520,40 @@ function timeScale(data) {
     }
 }
 
-function tipoEscala() {
-    var start = new Date(DATA_INICIAL);
-    var end = new Date(DATA_FINAL);
-    var diff = end.getTime() - start.getTime();
 
-    if (diff < 3 * 365.25 * 24 * 60 * 60 * 1000) { // 2 anos em milissegundos
-        const months = Math.floor(diff / (30 * 24 * 60 * 60 * 1000)); // aproximadamente 30 dias por mês
-        console.log("months: " + months);
-        return d3.utcMonth.every(3);
-    } else {
-        const years = Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000)); // aproximadamente 365.25 dias por ano
-        console.log("years: " + years);
-        return d3.utcYear.every(1);
-    }
-}
+const xAxis = d3.axisTop(xScale)
+    // .ticks(d3.utcMonth.every(3))
+    // .tickValues(d3.utcMonth.range(DATA_INICIAL, DATA_FINAL, 3))
+    .tickSize(-CHART_HEIGHT)
+    .tickFormat(d3.timeFormat("%b %Y"));
 
 // Set up scales
 /// calcular tamanho das escalas
-function setupScales(svg, width, height) {
-    // var tempo = tipoEscala()
-    // console.log("tempo: " + tempo);
-    // var tempoEscala = d3.utcMonth.every(6)
-    // var tempoEscala = d3.utcYear.every(1)
+// function setupScales(svg, width, height) {
+//     var grid = svg.append("g")
+//         .attr("class", "grid")
+//         .attr("transform", `translate(${MARGIN_SCALE_LEFT}, ${MARGIN_TOP})`)
+//         .call(xAxis)
+//         // .selectAll("text")
+//         // .style("text-anchor", "middle")
+//         // .attr("y", "-15")
+//         // .attr("fill", "black")
+//         // .attr("stroke", "none")
+//         // .attr("font-size", 10)
+//         // .attr("dy", "1em")
+// }
 
+function setupScales(svg, width, height) {
     var grid = svg.append("g")
         .attr("class", "grid")
-        // .style("width", 200 + "px")
-        // .attr("transform", `translate(${MARGIN_LEFT}, ${MARGIN_TOP})`)
         .attr("transform", `translate(${MARGIN_SCALE_LEFT}, ${MARGIN_TOP})`)
         .call(d3.axisTop(timeScaleAxis())
-            // .ticks(12)
-            // .ticks(tempoEscala)
-            .ticks(d3.utcMonth.every(1))
-            // .ticks(d3.utcMonth.every(8))
+            .ticks(defineEscala())
+            // .ticks(d3.utcMonth.every(3))
             // .ticks(d3.utcYear.every(1))
-            // .ticks(tempo)
             .tickSize(-CHART_HEIGHT)
-            // .tickSizeOuter(-CHART_HEIGHT)
-            .tickFormat(d3.timeFormat("%b %Y")))
+            .tickFormat(d3.timeFormat("%b %Y"))
+        )
         .selectAll("text")
         .style("text-anchor", "middle")
         .attr("y", "-15")
@@ -489,12 +566,14 @@ function setupScales(svg, width, height) {
 function milestone(svg) {
     var mile = svg.append("g")
         .attr("transform", function () {
+            // var hoje = timeScale(d3.timeDay(new Date()));
             var hoje = timeScale(d3.timeDay(new Date()));
+            // var hoje = xScale(d3.timeDay(new Date()));
             return `translate(${hoje + MARGIN_SCALE_LEFT})`;
         })
         .attr("class", "milestone")
         .append("line")
-        .attr("y2", CHART_HEIGHT + 20)
+        .attr("y2", 995 + 20)
         .attr("stroke", "red")
 }
 
@@ -518,7 +597,20 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .style("height", "20px")
             // .style("width", CHART_WIDTH + "px")
             .style("margin-bottom", "5px")
-            // .text(d.nome)
+        // .text(d.nome)
+
+        // rowEventos.append("div")
+        //     .style("width", "260px")
+        //     .style("padding-left", "5px")
+        //     .attr("class", "text-div")
+        //     .append("text")
+        //     .attr("x", 10)
+        //     .attr("height", 20)
+        //     .attr("font-size", "12px")
+        //     .text(d.nome)
+
+
+
         // fim da adição da estrutura inicial da parte de eventos (direita)
 
         // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
@@ -706,7 +798,14 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 .attr("height", 20)
                 // .style("padding-left", "15px")
                 .style("margin-bottom", "5px")
-                // .text(h.nome)
+            // .text(h.nome)
+
+            // var testeRowEventos = row2Eventos.append("tr")
+            //     .attr("class", "row-modulo-segundo")
+            //     .attr("height", 20)
+            //     .style("padding-left", "5px")
+            //     .style("width", "245px")
+            //     .text(h.nome)
 
             // inicio da estrutura da sgunda hierarquia(esquerda), juntamente com os botoes e nomes
             var tableModulos2HierarquiaNomes = tableModulosHierarquiaNomes.append("table")
@@ -838,7 +937,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 if (dataFimTeste != "null") {
 
                     var dataFim = timeScale(l.levelValues[0].dataFim)
+                    // console.log("dataFim: " + dataFim);
+                    // console.log("l.levelValues[0].dataFim: " + l.levelValues[0].dataFim);
+                    // console.log("new Date(l.levelValues[0].dataFim): " + new Date(l.levelValues[0].dataFim));
+                    // console.log("DATA_FINAL: " + DATA_FINAL);
+                    
+                    // if (new Date(l.levelValues[0].dataFim).getTime() > DATA_FINAL.getTime()) {
+                    //     l.levelValues[0].dataFim = DATA_FINAL.toISOString()
+                    //     console.log("l.levelValues[0].dataFim: " + l.levelValues[0].dataFim);
+                    //   }
                     tamanhoBarraEvento = dataFim - dataInicio
+                    // console.log("tamanhoBarraEvento: " + tamanhoBarraEvento);
                     posicaoTextoEvento = dataInicio + 15
                 }
                 else {
@@ -913,14 +1022,20 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
                     var textPrint = l.levelValues[0].evento
                     var indiceEspaco = textPrint.indexOf(' ');
-                    if (indiceEspaco === -1 || indiceEspaco > 27) {
+                    if (indiceEspaco === -1 || indiceEspaco > 25) {
                         var textSplit
-                        textSplit = textPrint.substring(0, 25) + ' ' + textPrint.substring(25);
+                        textSplit = textPrint.substring(0, 23) + ' ' + textPrint.substring(23);
                         textPrint = textSplit
                     } else {
                         textPrint;
                     }
 
+
+                    // var testeRow3HierarquiaEventos = row3HierarquiaEventos.append("tr")
+                    //     .attr("class", "row-modulo-segundo")
+                    //     .style("padding-left", "5px")
+                    //     .style("width", "260px")
+                    //     .text(textPrint)
 
                     var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
                         .attr("class", "row-modulo-segundo")
@@ -972,7 +1087,16 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     if (dataFimTeste == "null") {
                         var iconeDiv = eventoBarDiv
                             .attr("viewBox", [0, 0, 448, 512])
-                            .attr("height", 20)
+                            // .attr("height", 20)
+                            .style("height", function (d) {
+                                //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                                if (l.levelValues[0].evento.length > 36) {
+                                    return "42px";
+                                } else {
+                                    return "21px";
+                                }
+
+                            })
                             .attr("width", 30)
                             .append("path")
                             .attr("fill", function () {
@@ -1035,27 +1159,70 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 dadosEventoSubTipo.forEach((item, i) => {
                     // console.log("tableModulos3 = tableModulos2.append: " + JSON.stringify(item));
                     // console.log("tableModulos3 = tableModulos2.append item[0]: " + Object.keys(item)[0]);
-                    var tableModulos3 = tableModulos2HierarquiaNomes.append("table")
+                    var tableModulos3Eventos = tableModulos2HierarquiaEventos.append("table")
                         // .attr("class", "tableModulos3")
                         .attr("class", "row-modulo3-" + Object.keys(item)[0])
                         .style("display", "none")
 
-                    var row3 = tableModulos3.append("tr")
+                    var row3Eventos = tableModulos3Eventos.append("tr")
+                        .style("display", "flex")
+                        // .style("padding-left", "30px")
+                        .style("width", "1147px")
+                        // .style("align-items", "center")
+                        // .style("height", "21px")
+                        .style("height", function (d) {
+                            console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
+
+                            //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                            if (Object.keys(item)[0].length > 31) {
+                                return "42px";
+                            } else {
+                                return "21px";
+                            }
+                        })
+                        .style("margin-bottom", "5px")
+
+                    var testeRowEventos = row3Eventos.append("tr")
+                        .attr("class", "row-modulo-evento")
+                        // .attr("height", 20)
+                        .style("height", function (d) {
+                            //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                            if (Object.keys(item)[0].toString.length > 31) {
+                                return "42px";
+                            } else {
+                                return "21px";
+                            }
+                        })
+                    // .style("padding-left", "5px")
+                    // .style("width", "260px")
+                    // .text(Object.keys(dadosEventoSubTipo[i])[0])
+
+                    var barraGeralEvento = row3Eventos.append("g")
+                        .attr("transform", `translate(0,0)`)
+                        .attr("class", "evento-div3")
+
+                    //parte referente ao nome dos eventos
+                    var tableModulos3Nomes = tableModulos2HierarquiaNomes.append("table")
+                        // .attr("class", "tableModulos3")
+                        .attr("class", "row-modulo3-" + Object.keys(item)[0])
+                        .style("display", "none")
+
+                    var row3Nomes = tableModulos3Nomes.append("tr")
                         .style("display", "flex")
                         .style("padding-left", "30px")
                         .style("width", "1147px")
                         .style("margin-bottom", "5px")
 
-                    var testeRow = row3.append("tr")
+                    var testeRowNomes = row3Nomes.append("tr")
                         .attr("class", "row-modulo-evento")
                         // .attr("height", 20)
                         .style("padding-left", "5px")
                         .style("width", "260px")
                         .text(Object.keys(dadosEventoSubTipo[i])[0])
 
-                    var barraGeralEvento = row3.append("g")
-                        .attr("transform", `translate(0,0)`)
-                        .attr("class", "evento-div3")
+                    // var barraGeralEvento = row3Nomes.append("g")
+                    //     .attr("transform", `translate(0,0)`)
+                    //     .attr("class", "evento-div3")
 
                     Object.keys(item).forEach((key, j) => {
 
@@ -1071,7 +1238,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                         return `translate(${gov.posInin - 15},0)`
                                     }
                                 })
-                                .attr("height", 20)
+                                // .attr("height", 20)
+                                .style("height", function (d) {
+                                    console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
+
+                                    //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                                    if (Object.keys(item)[0].length > 31) {
+                                        return "42px";
+                                    } else {
+                                        return "21px";
+                                    }
+                                })
                                 .attr("width", function (f) {
                                     if (gov.width != 0) {
                                         tipoEventoBar.push({

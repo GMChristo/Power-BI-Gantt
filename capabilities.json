@@ -30,6 +30,11 @@
             "name": "cor",
             "displayName": "Cor",
             "kind": "Grouping"
+        },
+        {
+            "name": "escala",
+            "displayName": "Escala",
+            "kind": "Grouping"
         }
     ],
     "objects": {},
@@ -67,6 +72,11 @@
                             "for": {
                                 "in": "cor"
                             }
+                        },
+                        {
+                            "for": {
+                                "in": "escala"
+                            }
                         }
                     ]
                 }
@@ -83,6 +93,10 @@
                         "max": 1
                     },
                     "dataFim": {
+                        "max": 1
+                    },
+                    "escala": {
+                        "min": 1,
                         "max": 1
                     }
                 }
