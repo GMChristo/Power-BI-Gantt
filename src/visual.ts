@@ -142,6 +142,7 @@ export class Visual implements IVisual {
         hierarquiaTree(categorias, 0, dataMap)
         preencheDataInicio(dataMap)
         preencheDataFim(dataMap)
+        tamanhoEscala()
         agrupamentoHierarquia(dataMap, dataAgrupado)
 
         const tagsetupScales = d3.selectAll(".grid");
@@ -477,6 +478,32 @@ function preencheDataFim(jsonData) {
     DATA_FINAL = new Date(lastDayOfMonthString)
     console.log("DATA_FINAL: " + DATA_FINAL);
     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
+}
+
+function tamanhoEscala() {
+    console.log("tamanhoEscala dataInicio: " + DATA_INICIAL);
+    console.log("tamanhoEscala dataFim: " + DATA_FINAL);
+    
+    const inicio = new Date(DATA_INICIAL)
+    const fim = new Date(DATA_FINAL)
+    var resultadoTamanhoEscala
+    if (tipoEscalaGrafico == "Ano") {
+        resultadoTamanhoEscala = fim.getFullYear() - inicio.getFullYear();
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
+        
+    }
+    if (tipoEscalaGrafico == "Trimestre") {
+        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala/3);
+    }
+    if (tipoEscalaGrafico == "Mês") {
+        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
+    }
+    if (tipoEscalaGrafico == "Dia") {
+        resultadoTamanhoEscala = Math.floor((fim.getTime() - inicio.getTime()) / (1000 * 3600 * 24));
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
+    }
 }
 
 function timeScaleAxis() {

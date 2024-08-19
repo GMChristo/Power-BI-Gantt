@@ -3,7 +3,7 @@ var ganttChart_DEBUG;
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3737:
+/***/ 9987:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -28,13 +28,13 @@ const square = "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-2
 
 /***/ }),
 
-/***/ 4283:
+/***/ 9233:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   b: () => (/* binding */ Visual)
 /* harmony export */ });
-/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3737);
+/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9987);
 /* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(756);
 
 
@@ -152,6 +152,7 @@ class Visual {
         hierarquiaTree(categorias, 0, dataMap);
         preencheDataInicio(dataMap);
         preencheDataFim(dataMap);
+        tamanhoEscala();
         agrupamentoHierarquia(dataMap, dataAgrupado);
         const tagsetupScales = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".grid");
         tagsetupScales.remove();
@@ -456,6 +457,29 @@ function preencheDataFim(jsonData) {
     DATA_FINAL = new Date(lastDayOfMonthString);
     console.log("DATA_FINAL: " + DATA_FINAL);
     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
+}
+function tamanhoEscala() {
+    console.log("tamanhoEscala dataInicio: " + DATA_INICIAL);
+    console.log("tamanhoEscala dataFim: " + DATA_FINAL);
+    const inicio = new Date(DATA_INICIAL);
+    const fim = new Date(DATA_FINAL);
+    var resultadoTamanhoEscala;
+    if (tipoEscalaGrafico == "Ano") {
+        resultadoTamanhoEscala = fim.getFullYear() - inicio.getFullYear();
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
+    }
+    if (tipoEscalaGrafico == "Trimestre") {
+        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala / 3);
+    }
+    if (tipoEscalaGrafico == "Mês") {
+        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
+    }
+    if (tipoEscalaGrafico == "Dia") {
+        resultadoTamanhoEscala = Math.floor((fim.getTime() - inicio.getTime()) / (1000 * 3600 * 24));
+        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
+    }
 }
 function timeScaleAxis() {
     console.log("timeScaleAxis() CHART_WIDTH: " + CHART_WIDTH);
@@ -8846,13 +8870,13 @@ function defaultConstrain(transform, extent, translateExtent) {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it declares 'ganttChart_DEBUG' on top-level, which conflicts with the current library output.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _src_visual__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4283);
+/* harmony import */ var _src_visual__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9233);
 
 var powerbiKey = "powerbi";
 var powerbi = window[powerbiKey];
