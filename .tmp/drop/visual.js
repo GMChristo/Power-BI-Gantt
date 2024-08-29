@@ -58,8 +58,12 @@ var svgRoot;
 var svgBase;
 var nomesEventoTdHTML;
 var dadosEventoTdHTML;
-var tamanhoScalaExib;
-var tipoEscalaGrafico;
+var tipoEscalaGrafico = "Mês";
+var escalaTickSize;
+var tickEspacamento = 0;
+var quebraLinha1 = 36;
+var formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .timeFormat */ .DCK("%b %Y");
+var tamanhoScalaExib = 100;
 class Visual {
     svgRootHTML;
     constructor(options) {
@@ -76,15 +80,24 @@ class Visual {
         // console.log("dados iniciais dataView: " + JSON.stringify(options));
         CHART_HEIGHT = options.viewport.height;
         CHART_WIDTH = options.viewport.width;
-        tamanhoScalaExib = CHART_WIDTH * 2.2;
+        // tamanhoScalaExib = CHART_WIDTH * 2.2
         // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
         const matrixDataView = dataView.matrix;
+        // console.log("matrixDataView: " + matrixDataView);
         const categorias = matrixDataView.rows.root.children;
+        // console.log("dados iniciais dataView: " + JSON.stringify(categorias));
         const estrutura = matrixDataView.rows.levels;
         const dadoEstrutura = estrutura[estrutura.length - 1].sources;
         const tipoDeEscala = options.dataViews[0].metadata.columns;
-        // console.log("tipoDeEscala: " + JSON.stringify(tipoDeEscala));
-        // console.log("dados iniciais: " + JSON.stringify(categorias));
+        estruturaEscala(tipoDeEscala);
+        console.log("estruturaEscala tipoEscalaGrafico: " + tipoEscalaGrafico);
+        estruturaHierarquia(dadoEstrutura, estruturaDados); //retorna quais campos no visual foram preenchidos
+        dadosEstruturais = estruturaDados;
+        hierarquiaTree(categorias, 0, dataMap);
+        preencheDataInicio(dataMap);
+        preencheDataFim(dataMap);
+        defineEscala();
+        agrupamentoHierarquia(dataMap, dataAgrupado);
         const tagMainDiv = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".main-div");
         tagMainDiv.remove();
         const tagMainSvg = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".main-svg");
@@ -105,54 +118,55 @@ class Visual {
             .attr("class", "mainTdNomes")
             .style("width", "300px")
             .style("height", tamanhoExibicaoHeight - MARGIN_BOTTOM * 1.5 + "px")
-            // .style("background-color", "bisque")
             .style("min-width", "300px")
             .style("padding-top", MARGIN_TOP * 2 + "px")
             .style("padding-bottom", MARGIN_TOP + "px")
             .style("vertical-align", "top")
             .style("position", "fixed")
             .style("overflow-y", "auto")
-            .style("overflow-x", "hidden");
+            .style("overflow-x", "hidden")
+            .style("border", "1px solid")
+            .style("background-color", "lightgrey");
         dadosEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdEventos")
             .style("height", tamanhoExibicaoHeight + MARGIN_TOP + 4 + "px")
+            // .style("height", tamanhoExibicaoHeight + MARGIN_TOP + 4 + "2000px")
             .style("width", tamanhoScalaExib + "px")
-            // .style("width", CHART_WIDTH + "px")
             .style("vertical-align", "top")
-            .style("overflow-y", "auto")
+            // .style("overflow-y", "auto")
+            .style("overflow-y", "hidden")
             .style("position", "fixed")
             .style("max-width", "fit-content")
-            .style("left", "300px")
-            .append("div")
+            .style("border", "1px solid")
+            .style("left", "310px");
+        var testeRegulagemAltura = dadosEventoTdHTML.append("div")
             .attr("class", "divMainTdEventos")
+            // .style("height", tamanhoExibicaoHeight + "px")
             .style("max-width", CHART_WIDTH - 300 + "px");
         // .style("height", tamanhoExibicaoHeight + "px")
         // .style("position", "relative")
         //necessario para criar as escalas
-        svgRoot = dadosEventoTdHTML
+        svgRoot = testeRegulagemAltura
+            // svgRoot = dadosEventoTdHTML
             // svgRoot = dadosEventoTdHTML
             .append("svg")
             .attr("class", "main-svg")
             .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            // .style("width", tamanhoScalaExib + "px")
             // .style("width", tamanhoScalaExib + MARGIN_RIGHT + "px")
-            .style("height", tamanhoExibicaoHeight + "px")
+            .style("height", "10000px")
+            // .style("height", "100%")
             .style("position", "absolute")
             .style("top", "0px")
             .style("left", "0px")
             .style("z-index", "-1");
-        var dadosEventoHTML = dadosEventoTdHTML.append("div")
+        var dadosEventoHTML = testeRegulagemAltura.append("div")
+            // var dadosEventoHTML = dadosEventoTdHTML.append("div")
+            .attr("class", "main-eventos")
             .style("padding-top", MARGIN_TOP * 2 + "px")
+            // .style("padding-left", 15 + "px")
             .style("width", tamanhoScalaExib + "px");
         // .style("overflow", "auto")
-        estruturaEscala(tipoDeEscala); //retorna quais campos no visual foram preenchidos
-        console.log("tipoEscalaGrafico: " + tipoEscalaGrafico);
-        estruturaHierarquia(dadoEstrutura, estruturaDados); //retorna quais campos no visual foram preenchidos
-        dadosEstruturais = estruturaDados;
-        // console.log("dadosEstruturais: " + JSON.stringify(dadosEstruturais));
-        hierarquiaTree(categorias, 0, dataMap);
-        preencheDataInicio(dataMap);
-        preencheDataFim(dataMap);
-        agrupamentoHierarquia(dataMap, dataAgrupado);
         const tagsetupScales = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".grid");
         tagsetupScales.remove();
         const tagmilestone = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".milestone");
@@ -162,6 +176,7 @@ class Visual {
         // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
         setupScales(svgRoot, tamanhoScalaExib, 600);
         milestone(svgRoot);
+        // milestoneTeste(svgRoot);
         treeModulos(dataMap, nomesEventoTdHTML, dadosEventoHTML);
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML); // mantem as linhas em exibição apos atualizar o visual
         //seleciona as td que tem os nomes e os eventos e cria um listener para caso seja feita a rolagem em uma o evento tb ser executada na outra
@@ -179,17 +194,53 @@ class Visual {
     }
 }
 function defineEscala() {
+    const inicio = new Date(DATA_INICIAL);
+    const fim = new Date(DATA_FINAL);
+    var resultadoTamanhoEscala;
     if (tipoEscalaGrafico == "Ano") {
-        return d3__WEBPACK_IMPORTED_MODULE_0__/* .utcYear */ .MbY.every(1);
+        resultadoTamanhoEscala = fim.getFullYear() - inicio.getFullYear();
+        if (resultadoTamanhoEscala > 12) {
+            tamanhoScalaExib = resultadoTamanhoEscala * (CHART_WIDTH / 12);
+        }
+        else {
+            tamanhoScalaExib = CHART_WIDTH - 304;
+        }
+        escalaTickSize = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcYear */ .MbY.every(1);
     }
     if (tipoEscalaGrafico == "Trimestre") {
-        return d3__WEBPACK_IMPORTED_MODULE_0__/* .utcMonth */ .R6t.every(3);
+        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
+        if (resultadoTamanhoEscala > 12) {
+            tamanhoScalaExib = resultadoTamanhoEscala * ((CHART_WIDTH / 12) / 3);
+        }
+        else {
+            tamanhoScalaExib = CHART_WIDTH - 304;
+        }
+        escalaTickSize = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcMonth */ .R6t.every(3);
+        // tickEspacamento = -(tamanhoScalaExib / resultadoTamanhoEscala) / 10
     }
     if (tipoEscalaGrafico == "Mês") {
-        return d3__WEBPACK_IMPORTED_MODULE_0__/* .utcMonth */ .R6t.every(1);
+        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
+        if (resultadoTamanhoEscala > 12) {
+            tamanhoScalaExib = resultadoTamanhoEscala * (CHART_WIDTH / 12);
+        }
+        else {
+            tamanhoScalaExib = CHART_WIDTH - 304;
+        }
+        escalaTickSize = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcMonth */ .R6t.every(1);
+        // tickEspacamento = -(tamanhoScalaExib / resultadoTamanhoEscala) / 10
     }
     if (tipoEscalaGrafico == "Dia") {
-        return d3__WEBPACK_IMPORTED_MODULE_0__/* .utcDay */ .dAM.every(1);
+        resultadoTamanhoEscala = Math.floor((fim.getTime() - inicio.getTime()) / (1000 * 3600 * 24));
+        // console.log("resultadoTamanhoEscala: " + resultadoTamanhoEscala);
+        if (resultadoTamanhoEscala > 12) {
+            tamanhoScalaExib = resultadoTamanhoEscala * 80;
+        }
+        else {
+            tamanhoScalaExib = CHART_WIDTH - 304;
+        }
+        formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .timeFormat */ .DCK("%d %b %Y");
+        escalaTickSize = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcDay */ .dAM.every(1);
+        // tickEspacamento = 55
     }
 }
 function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
@@ -251,7 +302,7 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
                 }
             }
         }
-        console.log("dados expandios evento");
+        // console.log("dados expandios evento");
         var categoriaExibirEventos = svgHierarquiaEventos.selectAll('[class^="' + e + '"]');
         if (categoriaExibirEventos.nodes().length > 0) {
             var eventoDivEvento = categoriaExibirEventos.select('[class^="evento-div"]');
@@ -434,6 +485,29 @@ function preencheDataInicio(jsonData) {
         }
     }
 }
+// function preencheDataFim(jsonData) {
+//     DATA_FINAL = new Date("1500-01-01");
+//     for (let i = 0; i < jsonData.length; i++) {
+//         let currentObj = jsonData[i];
+//         for (let j = 0; j < currentObj.dados[0].dados.length; j++) {
+//             let currentLevel2Obj = currentObj.dados[0].dados[j];
+//             if (currentLevel2Obj.levelValues[0].dataInicio) {
+//                 let currentDate = new Date(currentLevel2Obj.levelValues[0].dataInicio);
+//                 if (currentDate > DATA_FINAL) {
+//                     DATA_FINAL = currentDate;
+//                 }
+//             }
+//         }
+//     }
+//     const year = DATA_FINAL.getFullYear();
+//     const month = DATA_FINAL.getMonth() + 1; // +1 because getMonth() is zero-based
+//     const lastDayOfMonth = new Date(year, month, 0).getDate();
+//     const lastDayOfMonthString = `${year}-${month.toString().padStart(2, "0")}-${lastDayOfMonth.toString().padStart(2, "0")}`;
+//     //faz com que a data final seja o ultimo dia do mes
+//     DATA_FINAL = new Date(lastDayOfMonthString)
+//     console.log("DATA_FINAL: " + DATA_FINAL);
+//     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
+// }
 function preencheDataFim(jsonData) {
     DATA_FINAL = new Date("1500-01-01");
     for (let i = 0; i < jsonData.length; i++) {
@@ -454,21 +528,18 @@ function preencheDataFim(jsonData) {
     const lastDayOfMonthString = `${year}-${month.toString().padStart(2, "0")}-${lastDayOfMonth.toString().padStart(2, "0")}`;
     //faz com que a data final seja o ultimo dia do mes
     DATA_FINAL = new Date(lastDayOfMonthString);
-    console.log("DATA_FINAL: " + DATA_FINAL);
     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
 }
 function timeScaleAxis() {
-    console.log("timeScaleAxis() CHART_WIDTH: " + CHART_WIDTH);
-    console.log("timeScaleAxis() DATA_FINAL: " + DATA_FINAL);
-    var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleTime */ .w7C()
+    console.log("DATA_INICIAL: " + DATA_INICIAL);
+    console.log("DATA_FINAL: " + DATA_FINAL);
+    var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleUtc */ .Pps()
         .domain([
         DATA_INICIAL,
         DATA_FINAL,
     ])
-        // .nice()
+        .nice()
         .range([0, tamanhoScalaExib]));
-    // .range([0, CHART_WIDTH*2.5]));
-    // .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
     return tamanhoData;
 }
 const xScale = d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleTime */ .w7C()
@@ -477,7 +548,8 @@ const xScale = d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleTime */ .w7C()
 function timeScale(data) {
     var parser = d3__WEBPACK_IMPORTED_MODULE_0__/* .timeParse */ .T6w("%d/%m/%Y");
     var parsedData = parser(data);
-    var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleTime */ .w7C()
+    // var tamanhoData = (d3.scaleTime()
+    var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleUtc */ .Pps()
         .domain([
         DATA_INICIAL,
         DATA_FINAL,
@@ -485,6 +557,7 @@ function timeScale(data) {
         .nice()
         // .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
         .range([0, tamanhoScalaExib]));
+    // console.log("timeScale(data) tamanhoData(DATA_INICIAL): " + tamanhoData(DATA_INICIAL));
     if (!parsedData) {
         return tamanhoData(new Date(data));
     }
@@ -492,51 +565,38 @@ function timeScale(data) {
         return tamanhoData(parsedData);
     }
 }
-const xAxis = d3__WEBPACK_IMPORTED_MODULE_0__/* .axisTop */ .tlR(xScale)
-    // .ticks(d3.utcMonth.every(3))
-    // .tickValues(d3.utcMonth.range(DATA_INICIAL, DATA_FINAL, 3))
-    .tickSize(-CHART_HEIGHT)
-    .tickFormat(d3__WEBPACK_IMPORTED_MODULE_0__/* .timeFormat */ .DCK("%b %Y"));
-// Set up scales
-/// calcular tamanho das escalas
-// function setupScales(svg, width, height) {
-//     var grid = svg.append("g")
-//         .attr("class", "grid")
-//         .attr("transform", `translate(${MARGIN_SCALE_LEFT}, ${MARGIN_TOP})`)
-//         .call(xAxis)
-//         // .selectAll("text")
-//         // .style("text-anchor", "middle")
-//         // .attr("y", "-15")
-//         // .attr("fill", "black")
-//         // .attr("stroke", "none")
-//         // .attr("font-size", 10)
-//         // .attr("dy", "1em")
-// }
 function setupScales(svg, width, height) {
     var grid = svg.append("g")
         .attr("class", "grid")
-        .attr("transform", `translate(${MARGIN_SCALE_LEFT}, ${MARGIN_TOP})`)
+        .style("height", "1200px")
+        .attr("transform", `translate(0, ${MARGIN_TOP})`)
         .call(d3__WEBPACK_IMPORTED_MODULE_0__/* .axisTop */ .tlR(timeScaleAxis())
-        .ticks(defineEscala())
-        // .ticks(d3.utcMonth.every(3))
-        // .ticks(d3.utcYear.every(1))
-        .tickSize(-CHART_HEIGHT)
-        .tickFormat(d3__WEBPACK_IMPORTED_MODULE_0__/* .timeFormat */ .DCK("%b %Y")))
+        .ticks(escalaTickSize)
+        .tickFormat(formatoEscala)
+        .tickSize(-12000))
+        //rgb(204,0,0)
+        //TODO o bloco abaixo faz com que a linha de divisão de data mude de cor e fique tracejada (item 11)
+        /*
+        .selectAll("line") // Seleciona os elementos <line> gerados pelo axis
+        .attr("stroke-dasharray", "5,5") // Define a linha como tracejada
+        .attr("stroke", "blue")
+        */
         .selectAll("text")
         .style("text-anchor", "middle")
         .attr("y", "-15")
         .attr("fill", "black")
-        .attr("stroke", "none") // cria as linhas ao redor
+        .attr("stroke", "none")
         .attr("font-size", 10)
         .attr("dy", "1em");
 }
 function milestone(svg) {
+    // var data = "2024-06-06T03:00:00.000Z"
+    // console.log("milestone data: " + data);
     var mile = svg.append("g")
         .attr("transform", function () {
-        // var hoje = timeScale(d3.timeDay(new Date()));
-        var hoje = timeScale(d3__WEBPACK_IMPORTED_MODULE_0__/* .timeDay */ .UAC(new Date()));
-        // var hoje = xScale(d3.timeDay(new Date()));
-        return `translate(${hoje + MARGIN_SCALE_LEFT})`;
+        var hoje = timeScale(d3__WEBPACK_IMPORTED_MODULE_0__/* .timeMinute */ .wXd(new Date()));
+        // var hoje = timeScale(new Date(data));
+        return `translate(${hoje})`;
     })
         .attr("class", "milestone")
         .append("line")
@@ -581,6 +641,14 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         var buttonPlus = rowHierarquia.append("button")
             .attr("class", "iconPlus-div")
             .on("click", function () {
+            // var divAltura = tableModulosHierarquiaEventos.select(".divMainTdEventos")
+            // var alturaDiv = divAltura.node().getBoundingClientRect().height;
+            // console.log('Altura da div alterada para: ' + alturaDiv + 'px');
+            // const divMainTdEventos = tableModulosHierarquiaEventos.querySelector('.divMainTdEventos')
+            // const divMainTdEventos = tableModulosHierarquiaEventos.select(".divMainTdEventos")
+            // const divMainTdEventos = document.querySelector(".divMainTdEventos")
+            // console.log("divMainTdEventos: " + divMainTdEventos)
+            // console.log("divMainTdEventos: " + JSON.stringify(divMainTdEventos))
             exibir.push("row-modulo-" + d.nome);
             var eventoHide = rowHierarquia.select(".iconPlus-div");
             if (eventoHide) {
@@ -843,7 +911,11 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             var dadosEventoSubTipo = [];
             h.dados.forEach((l, i) => {
                 var tamanhoBarraEvento = timeScale(l.levelValues[0].dataInicio);
-                var dataInicio = timeScale(l.levelValues[0].dataInicio);
+                // console.log("l.levelValues[0].dataInicio: " + l.levelValues[0].evento + " - " + l.levelValues[0].dataInicio);
+                // console.log("l.levelValues[0].dataInicio: " + l.levelValues[0].evento + " - " + l.levelValues[0].dataInicio);
+                // console.log("timeScale(l.levelValues[0].dataInicio): " + timeScale(l.levelValues[0].dataInicio));
+                // var dataInicio = timeScale(l.levelValues[0].dataInicio);
+                var dataInicio = timeScale(l.levelValues[0].dataInicio) + tickEspacamento;
                 var posicaoTextoEvento;
                 var dataFimTeste = "null";
                 if (l.levelValues[0].dataFim != "null" && l.levelValues[0].dataFim != null) {
@@ -861,7 +933,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     //   }
                     tamanhoBarraEvento = dataFim - dataInicio;
                     // console.log("tamanhoBarraEvento: " + tamanhoBarraEvento);
-                    posicaoTextoEvento = dataInicio + 15;
+                    posicaoTextoEvento = dataInicio;
+                    // posicaoTextoEvento = dataInicio + 15
                 }
                 else {
                     posicaoTextoEvento = dataInicio;
@@ -912,10 +985,24 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("class", "row-modulo3-" + l.levelValues[0].evento)
                         .style("display", "none");
                     var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+                        .attr("class", "esseMermo")
                         .style("display", "flex")
                         // .style("padding-left", "30px")
                         // .style("width", "1147px")
-                        .style("width", CHART_WIDTH + "px")
+                        // .style("width", CHART_WIDTH + "px")
+                        .style("width", tamanhoScalaExib + "px")
+                        .style("height", function (d) {
+                        //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                        if (l.levelValues[0].evento.length > quebraLinha1) {
+                            if (l.levelValues[0].evento.length > 59) {
+                                return "63.75px";
+                            }
+                            return "42.5px";
+                        }
+                        else {
+                            return "21.25px";
+                        }
+                    })
                         .style("align-items", "center")
                         .style("margin-bottom", "5px");
                     //terceiro nivel dos nomes das hierarquias
@@ -953,10 +1040,13 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     var eventoBarDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function (d, i) {
                         if (dataFimTeste == "null") {
-                            return `translate(${dataInicio - 15}, 0)`;
+                            return `translate(${dataInicio}, 0)`;
+                            // return `translate(${dataInicio + tickEspacamento}, 0)`;
+                            // return `translate(${dataInicio - 15}, 0)`;
+                            // return `translate(${dataInicio - 18}, 0)`;
                         }
                         else {
-                            return `translate(${dataInicio}, 0)`;
+                            return `translate(${dataInicio + tickEspacamento}, 0)`;
                         }
                     })
                         .attr("height", 20)
@@ -996,14 +1086,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             // .attr("height", 20)
                             .style("height", function (d) {
                             //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                            if (l.levelValues[0].evento.length > 36) {
-                                return "42px";
+                            if (l.levelValues[0].evento.length > quebraLinha1) {
+                                return "42.5px";
                             }
                             else {
-                                return "21px";
+                                return "21.25px";
                             }
                         })
-                            .attr("width", 30)
+                            // .attr("width", 30)
+                            .attr("width", 20)
                             .append("path")
                             .attr("fill", function () {
                             if (l.levelValues[0].cor) {
@@ -1025,8 +1116,23 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                 return "rgb(0, 0153, 128)";
                             }
                         })
-                            .style("height", "20px")
+                            // .style("height", "20px")
+                            .style("height", function (d) {
+                            //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                            if (l.levelValues[0].evento.length > 26) {
+                                return "42.5px";
+                            }
+                            else {
+                                return "21.25px";
+                            }
+                        })
                             .attr("width", function (d) {
+                            /*
+                            console.log("eventoBarDiv.append - l.levelValues[0]evento" + l.levelValues[0].evento);
+                            console.log("eventoBarDiv.append - l.levelValues[0].dataFim" + l.levelValues[0].dataFim + " - " + timeScale(l.levelValues[0].dataFim));
+                            console.log("eventoBarDiv.append - CHART_WIDTH: " + CHART_WIDTH);
+                            console.log("eventoBarDiv.append - DATA_FINAL" + DATA_FINAL + " - " + timeScale(DATA_FINAL));
+*/
                             if (dataFimTeste != "null") {
                                 var dataFim = timeScale(l.levelValues[0].dataFim);
                                 tamanhoBarraEvento = dataFim - dataInicio;
@@ -1072,16 +1178,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("display", "flex")
                         // .style("padding-left", "30px")
                         .style("width", "1147px")
+                        // .style("width", tamanhoScalaExib + "px")
                         // .style("align-items", "center")
                         // .style("height", "21px")
                         .style("height", function (d) {
                         console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
                         //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                        if (Object.keys(item)[0].length > 31) {
-                            return "42px";
+                        if (Object.keys(item)[0].length > quebraLinha1) {
+                            return "42.5px";
                         }
                         else {
-                            return "21px";
+                            return "21.25px";
                         }
                     })
                         .style("margin-bottom", "5px");
@@ -1090,11 +1197,11 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         // .attr("height", 20)
                         .style("height", function (d) {
                         //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                        if (Object.keys(item)[0].toString.length > 31) {
-                            return "42px";
+                        if (Object.keys(item)[0].toString.length > quebraLinha1) {
+                            return "42.5px";
                         }
                         else {
-                            return "21px";
+                            return "21.25px";
                         }
                     });
                     // .style("padding-left", "5px")
@@ -1132,18 +1239,20 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     return `translate(${gov.posInin},0)`;
                                 }
                                 else {
-                                    return `translate(${gov.posInin - 15},0)`;
+                                    // return `translate(${gov.posInin - 15},0)`
+                                    // return `translate(${gov.posInin - 18},0)`
+                                    return `translate(${gov.posInin},0)`;
                                 }
                             })
                                 // .attr("height", 20)
                                 .style("height", function (d) {
                                 console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
                                 //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                                if (Object.keys(item)[0].length > 31) {
-                                    return "42px";
+                                if (Object.keys(item)[0].length > quebraLinha1) {
+                                    return "42.5px";
                                 }
                                 else {
-                                    return "21px";
+                                    return "21.25px";
                                 }
                             })
                                 .attr("width", function (f) {
@@ -1192,7 +1301,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                 barraGeralEventoAgrupado
                                     .attr("viewBox", [0, 0, 448, 512])
                                     .attr("height", 20)
-                                    .attr("width", 30)
+                                    // .attr("width", 30)
+                                    .attr("width", 20)
                                     .append("path")
                                     .attr("fill", function () {
                                     if (gov.cor) {
@@ -1248,7 +1358,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         return `translate(${item.posInin},0)`;
                     }
                     else {
-                        return `translate(${item.posInin - 15},0)`;
+                        // return `translate(${item.posInin - 15},0)`
+                        // return `translate(${item.posInin - 18},0)`
+                        return `translate(${item.posInin},0)`;
                     }
                 })
                     .attr("height", 20)
@@ -1270,10 +1382,11 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     barraGeralTeste2.append("svg")
                         .attr("transform", `translate(${item.posInin},0)`)
                         .attr("height", 20)
-                        .attr("width", 30)
+                        // .attr("width", 30)
+                        .attr("width", 20)
                         .attr("viewBox", [0, 0, 448, 512])
                         .attr("height", 20)
-                        .attr("width", 30)
+                        .attr("width", 20)
                         .append("path")
                         .attr("fill", "rgb(128, 52, 52)")
                         .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .diamond */ .zk);
@@ -1297,7 +1410,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     return `translate(${item.posInin},0)`;
                 }
                 else {
-                    return `translate(${item.posInin - 15},0)`;
+                    // return `translate(${item.posInin - 15},0)`
+                    // return `translate(${item.posInin - 18},0)`
+                    return `translate(${item.posInin},0)`;
                 }
             })
                 .attr("height", 20)
@@ -1319,10 +1434,12 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 barraGeralTeste2.append("svg")
                     .attr("transform", `translate(${item.posInin},0)`)
                     .attr("height", 20)
-                    .attr("width", 30)
+                    // .attr("width", 30)
+                    .attr("width", 20)
                     .attr("viewBox", [0, 0, 448, 512])
                     .attr("height", 20)
-                    .attr("width", 30)
+                    // .attr("width", 30)
+                    .attr("width", 20)
                     .append("path")
                     .attr("fill", "rgb(128, 52, 52)")
                     .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .diamond */ .zk);
@@ -3684,9 +3801,11 @@ function continuous() {
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Pp: () => (/* reexport safe */ _utcTime_js__WEBPACK_IMPORTED_MODULE_1__.A),
 /* harmony export */   w7: () => (/* reexport safe */ _time_js__WEBPACK_IMPORTED_MODULE_0__.A)
 /* harmony export */ });
 /* harmony import */ var _time_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7910);
+/* harmony import */ var _utcTime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1232);
 
 
 
@@ -3806,9 +3925,9 @@ function number(x) {
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (/* binding */ time)
+/* harmony export */   A: () => (/* binding */ time),
+/* harmony export */   B: () => (/* binding */ calendar)
 /* harmony export */ });
-/* unused harmony export calendar */
 /* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(526);
 /* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4355);
 /* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5878);
@@ -3891,6 +4010,35 @@ function calendar(ticks, tickInterval, year, month, week, day, hour, minute, sec
 
 function time() {
   return _init_js__WEBPACK_IMPORTED_MODULE_2__/* .initRange */ .C.apply(calendar(d3_time__WEBPACK_IMPORTED_MODULE_3__/* .timeTicks */ .Cf, d3_time__WEBPACK_IMPORTED_MODULE_3__/* .timeTickInterval */ .yE, d3_time__WEBPACK_IMPORTED_MODULE_4__/* .timeYear */ .he, d3_time__WEBPACK_IMPORTED_MODULE_5__/* .timeMonth */ .Ui, d3_time__WEBPACK_IMPORTED_MODULE_6__/* .timeSunday */ .YP, d3_time__WEBPACK_IMPORTED_MODULE_7__/* .timeDay */ .UA, d3_time__WEBPACK_IMPORTED_MODULE_8__/* .timeHour */ .Ag, d3_time__WEBPACK_IMPORTED_MODULE_9__/* .timeMinute */ .wX, d3_time__WEBPACK_IMPORTED_MODULE_10__/* .second */ .R, d3_time_format__WEBPACK_IMPORTED_MODULE_11__/* .timeFormat */ .DC).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]), arguments);
+}
+
+
+/***/ }),
+
+/***/ 1232:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (/* binding */ utcTime)
+/* harmony export */ });
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(526);
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4355);
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5878);
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8926);
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5334);
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4612);
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(3298);
+/* harmony import */ var d3_time__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(5030);
+/* harmony import */ var d3_time_format__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3705);
+/* harmony import */ var _time_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7910);
+/* harmony import */ var _init_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9065);
+
+
+
+
+
+function utcTime() {
+  return _init_js__WEBPACK_IMPORTED_MODULE_0__/* .initRange */ .C.apply((0,_time_js__WEBPACK_IMPORTED_MODULE_1__/* .calendar */ .B)(d3_time__WEBPACK_IMPORTED_MODULE_2__/* .utcTicks */ .$Z, d3_time__WEBPACK_IMPORTED_MODULE_2__/* .utcTickInterval */ .lk, d3_time__WEBPACK_IMPORTED_MODULE_3__/* .utcYear */ .Mb, d3_time__WEBPACK_IMPORTED_MODULE_4__/* .utcMonth */ .R6, d3_time__WEBPACK_IMPORTED_MODULE_5__/* .utcSunday */ .Hl, d3_time__WEBPACK_IMPORTED_MODULE_6__/* .utcDay */ .dA, d3_time__WEBPACK_IMPORTED_MODULE_7__/* .utcHour */ .pz, d3_time__WEBPACK_IMPORTED_MODULE_8__/* .utcMinute */ .vD, d3_time__WEBPACK_IMPORTED_MODULE_9__/* .second */ .R, d3_time_format__WEBPACK_IMPORTED_MODULE_10__/* .utcFormat */ .aL).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]), arguments);
 }
 
 
@@ -5439,9 +5587,10 @@ function empty() {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   DC: () => (/* binding */ timeFormat),
-/* harmony export */   T6: () => (/* binding */ timeParse)
+/* harmony export */   T6: () => (/* binding */ timeParse),
+/* harmony export */   aL: () => (/* binding */ utcFormat)
 /* harmony export */ });
-/* unused harmony exports utcFormat, utcParse, default */
+/* unused harmony exports utcParse, default */
 /* harmony import */ var _locale_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4398);
 
 
@@ -6306,14 +6455,15 @@ const utcHours = utcHour.range;
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Mb: () => (/* reexport safe */ _year_js__WEBPACK_IMPORTED_MODULE_2__.Mb),
-/* harmony export */   R6: () => (/* reexport safe */ _month_js__WEBPACK_IMPORTED_MODULE_1__.R6),
-/* harmony export */   UA: () => (/* reexport safe */ _day_js__WEBPACK_IMPORTED_MODULE_0__.UA),
-/* harmony export */   dA: () => (/* reexport safe */ _day_js__WEBPACK_IMPORTED_MODULE_0__.dA)
+/* harmony export */   Mb: () => (/* reexport safe */ _year_js__WEBPACK_IMPORTED_MODULE_3__.Mb),
+/* harmony export */   R6: () => (/* reexport safe */ _month_js__WEBPACK_IMPORTED_MODULE_2__.R6),
+/* harmony export */   dA: () => (/* reexport safe */ _day_js__WEBPACK_IMPORTED_MODULE_1__.dA),
+/* harmony export */   wX: () => (/* reexport safe */ _minute_js__WEBPACK_IMPORTED_MODULE_0__.wX)
 /* harmony export */ });
-/* harmony import */ var _day_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5334);
-/* harmony import */ var _month_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5878);
-/* harmony import */ var _year_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4355);
+/* harmony import */ var _minute_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3298);
+/* harmony import */ var _day_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5334);
+/* harmony import */ var _month_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5878);
+/* harmony import */ var _year_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4355);
 
 
 
@@ -6564,10 +6714,11 @@ const seconds = second.range;
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   $Z: () => (/* binding */ utcTicks),
 /* harmony export */   Cf: () => (/* binding */ timeTicks),
+/* harmony export */   lk: () => (/* binding */ utcTickInterval),
 /* harmony export */   yE: () => (/* binding */ timeTickInterval)
 /* harmony export */ });
-/* unused harmony exports utcTicks, utcTickInterval */
 /* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6037);
 /* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6946);
 /* harmony import */ var _duration_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1134);
@@ -8739,13 +8890,14 @@ function defaultConstrain(transform, extent, translateExtent) {
 /* harmony export */   DCK: () => (/* reexport safe */ d3_time_format__WEBPACK_IMPORTED_MODULE_5__.DC),
 /* harmony export */   Ltv: () => (/* reexport safe */ d3_selection__WEBPACK_IMPORTED_MODULE_3__.Lt),
 /* harmony export */   MbY: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.Mb),
+/* harmony export */   Pps: () => (/* reexport safe */ d3_scale__WEBPACK_IMPORTED_MODULE_2__.Pp),
 /* harmony export */   R6t: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.R6),
 /* harmony export */   T6w: () => (/* reexport safe */ d3_time_format__WEBPACK_IMPORTED_MODULE_5__.T6),
-/* harmony export */   UAC: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.UA),
 /* harmony export */   Ubm: () => (/* reexport safe */ d3_selection__WEBPACK_IMPORTED_MODULE_3__.Ub),
 /* harmony export */   dAM: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.dA),
 /* harmony export */   tlR: () => (/* reexport safe */ d3_axis__WEBPACK_IMPORTED_MODULE_0__.tl),
-/* harmony export */   w7C: () => (/* reexport safe */ d3_scale__WEBPACK_IMPORTED_MODULE_2__.w7)
+/* harmony export */   w7C: () => (/* reexport safe */ d3_scale__WEBPACK_IMPORTED_MODULE_2__.w7),
+/* harmony export */   wXd: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.wX)
 /* harmony export */ });
 /* harmony import */ var d3_axis__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(312);
 /* harmony import */ var d3_brush__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3537);
