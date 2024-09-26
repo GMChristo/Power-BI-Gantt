@@ -27,16 +27,23 @@ var estruturaDados = [];
 var exibir = [];
 var dadosEstruturais = [];
 var svgRoot;
+var fixedScale;
 var svgBase;
 var nomesEventoTdHTML;
 var dadosEventoTdHTML;
+var dadosEventoScaleTdHTML;
 var tipoEscalaGrafico = "Mês";
 var escalaTickSize;
 var tickEspacamento = 0;
-var quebraLinha1 = 36
+var posDataFinal;
+// var quebraLinha1 = 36
 var formatoEscala = d3.timeFormat("%b %Y")
 
 var tamanhoScalaExib = 100
+// var corPrimaria = [{"1" : "006432"}, {"2" : "93A100"}, {"3" : "00867F"}]
+var corPrimaria = { "1": "006432", "2": "93A100", "3": "00867F" }
+
+var tooltip
 
 export class Visual implements IVisual {
     private svgRootHTML: Selection<any>;
@@ -58,10 +65,9 @@ export class Visual implements IVisual {
         CHART_HEIGHT = options.viewport.height
         CHART_WIDTH = options.viewport.width
         // tamanhoScalaExib = CHART_WIDTH * 2.2
-        // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
-
+        
         const matrixDataView: DataViewMatrix = dataView.matrix;
-        // console.log("matrixDataView: " + matrixDataView);
+        // console.log("matrixDataView: " + JSON.stringify(matrixDataView));
 
         const categorias = matrixDataView.rows.root.children;
         // console.log("dados iniciais dataView: " + JSON.stringify(categorias));
@@ -70,7 +76,7 @@ export class Visual implements IVisual {
         const tipoDeEscala = options.dataViews[0].metadata.columns;
 
         estruturaEscala(tipoDeEscala)
-        console.log("estruturaEscala tipoEscalaGrafico: " + tipoEscalaGrafico);
+        // console.log("estruturaEscala tipoEscalaGrafico: " + tipoEscalaGrafico);
 
 
         estruturaHierarquia(dadoEstrutura, estruturaDados) //retorna quais campos no visual foram preenchidos
@@ -79,8 +85,9 @@ export class Visual implements IVisual {
         hierarquiaTree(categorias, 0, dataMap)
         preencheDataInicio(dataMap)
         preencheDataFim(dataMap)
-
+        
         defineEscala()
+        console.log("tamanhoScalaExib: " + tamanhoScalaExib);
 
         agrupamentoHierarquia(dataMap, dataAgrupado)
 
@@ -107,63 +114,96 @@ export class Visual implements IVisual {
 
         nomesEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdNomes")
-            .style("width", "300px")
+            .style("width", "600px")
+            .style("background-color", "white")
+            .style("max-width", "300px")
             .style("height", tamanhoExibicaoHeight - MARGIN_BOTTOM * 1.5 + "px")
-            .style("min-width", "300px")
             .style("padding-top", MARGIN_TOP * 2 + "px")
             .style("padding-bottom", MARGIN_TOP + "px")
             .style("vertical-align", "top")
             .style("position", "fixed")
             .style("overflow-y", "auto")
-            .style("overflow-x", "hidden")
+            .style("overflow-x", "auto")
             .style("border", "1px solid")
-            .style("background-color", "lightgrey")
 
 
         dadosEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdEventos")
             .style("height", tamanhoExibicaoHeight + MARGIN_TOP + 4 + "px")
-            // .style("height", tamanhoExibicaoHeight + MARGIN_TOP + 4 + "2000px")
             .style("width", tamanhoScalaExib + "px")
             .style("vertical-align", "top")
-            // .style("overflow-y", "auto")
             .style("overflow-y", "hidden")
             .style("position", "fixed")
-            .style("max-width", "fit-content")
+            // .style("max-width", "fit-content")
+            .style("max-width", "-webkit-fill-available")
             .style("border", "1px solid")
             .style("left", "310px")
 
-
         var testeRegulagemAltura = dadosEventoTdHTML.append("div")
             .attr("class", "divMainTdEventos")
-            // .style("height", tamanhoExibicaoHeight + "px")
             .style("max-width", CHART_WIDTH - 300 + "px")
-        // .style("height", tamanhoExibicaoHeight + "px")
-        // .style("position", "relative")
 
         //necessario para criar as escalas
         svgRoot = testeRegulagemAltura
-            // svgRoot = dadosEventoTdHTML
-            // svgRoot = dadosEventoTdHTML
             .append("svg")
             .attr("class", "main-svg")
             .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
-            // .style("width", tamanhoScalaExib + "px")
-            // .style("width", tamanhoScalaExib + MARGIN_RIGHT + "px")
             .style("height", "10000px")
-            // .style("height", "100%")
             .style("position", "absolute")
             .style("top", "0px")
             .style("left", "0px")
             .style("z-index", "-1")
 
+// /*
+        dadosEventoScaleTdHTML = mainTableTr.append("td")
+            .attr("class", "mainTdScale")
+            .style("height", "30px")
+            // .style("width", 30 + "px")
+            .style("width", tamanhoScalaExib + "px")
+            .style("vertical-align", "top")
+            // .style("overflow-y", "hidden")
+            .style("overflow-x", "hidden")
+            .style("max-width", "fit-content")
+            .style("left", "310px")
+            .style("padding-left", "7px")
+
+        var testeRegulagemScala = dadosEventoScaleTdHTML.append("div")
+            .attr("class", "divMainTdScala")
+            .style("max-width", CHART_WIDTH - 300 + "px")
+
+        //necessario para criar as escalas
+        fixedScale = testeRegulagemScala
+            .append("svg")
+            .attr("class", "fixed-scale")
+            // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            .style("height", "30px")
+            .style("margin-left", "300px")
+            .style("top", "0px")
+            .style("left", "0px")
+            // .style("z-index", "-1")
+
+            // */
+
         var dadosEventoHTML = testeRegulagemAltura.append("div")
-            // var dadosEventoHTML = dadosEventoTdHTML.append("div")
             .attr("class", "main-eventos")
             .style("padding-top", MARGIN_TOP * 2 + "px")
-            // .style("padding-left", 15 + "px")
             .style("width", tamanhoScalaExib + "px")
-        // .style("overflow", "auto")
+
+
+        // Adiciona o tooltip ao corpo do documento
+        // tooltip = dadosEventoHTML.append("div")
+        //     .attr("class", "tooltip")
+        //     .style("position", "absolute")
+        //     // .style("visibility", "hidden")
+        //     .style("background-color", "#f9f9f9")
+        //     .style("border", "1px solid #d3d3d3")
+        //     .style("padding", "5px")
+        //     .style("border-radius", "5px")
+        //     .style("box-shadow", "0px 0px 5px 0px #000000");
+
+
+
 
         const tagsetupScales = d3.selectAll(".grid");
         tagsetupScales.remove();
@@ -172,16 +212,22 @@ export class Visual implements IVisual {
         const tagtreeModulos = d3.selectAll('[class^="row-modulo-"]');
         tagtreeModulos.remove();
 
+        const tagfixedScales = d3.selectAll(".grid2");
+        tagfixedScales.remove();
+
+        posDataFinal = timeScale(DATA_FINAL)
+
         // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
         setupScales(svgRoot, tamanhoScalaExib, 600);
+        fixedScales(fixedScale, tamanhoScalaExib, 600);
         milestone(svgRoot);
-        // milestoneTeste(svgRoot);
         treeModulos(dataMap, nomesEventoTdHTML, dadosEventoHTML);
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML) // mantem as linhas em exibição apos atualizar o visual
 
         //seleciona as td que tem os nomes e os eventos e cria um listener para caso seja feita a rolagem em uma o evento tb ser executada na outra
         const mainTdNomes = document.querySelector(".mainTdNomes")
         const mainTdEventos = document.querySelector(".mainTdEventos")
+        const mainTdScale = document.querySelector(".mainTdScale")
         mainTdNomes.addEventListener('scroll', function () {
             // Define a posição de rolagem da segunda tabela para a posição de rolagem da primeira
             mainTdEventos.scrollTop = mainTdNomes.scrollTop;
@@ -191,6 +237,33 @@ export class Visual implements IVisual {
         mainTdEventos.addEventListener('scroll', function () {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdNomes.scrollTop = mainTdEventos.scrollTop;
+        });
+
+
+        
+        // // Adiciona um listener de evento para o evento de rolagem na segunda tabela
+        // mainTdNomes.addEventListener('scroll', function () {
+        //     // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
+        //     mainTdEventos.scrollLeft = mainTdNomes.scrollLeft;
+        // });
+
+        // // Adiciona um listener de evento para o evento de rolagem na segunda tabela
+        // mainTdEventos.addEventListener('scroll', function () {
+        //     // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
+        //     mainTdNomes.scrollLeft = mainTdEventos.scrollLeft;
+        // });
+
+
+        // Adiciona um listener de evento para o evento de rolagem na segunda tabela
+        mainTdScale.addEventListener('scroll', function () {
+            // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
+            mainTdEventos.scrollLeft = mainTdScale.scrollLeft;
+        });
+
+        // Adiciona um listener de evento para o evento de rolagem na segunda tabela
+        mainTdEventos.addEventListener('scroll', function () {
+            // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
+            mainTdScale.scrollLeft = mainTdEventos.scrollLeft;
         });
     }
 }
@@ -615,13 +688,12 @@ function setupScales(svg, width, height) {
             .tickFormat(formatoEscala)
             .tickSize(-12000)
         )
-        //rgb(204,0,0)
-        //TODO o bloco abaixo faz com que a linha de divisão de data mude de cor e fique tracejada (item 11)
-        /*
+
+        /// O bloco abaixo faz com que a linha de divisão de data mude de cor e fique tracejada (item 11)
         .selectAll("line") // Seleciona os elementos <line> gerados pelo axis
         .attr("stroke-dasharray", "5,5") // Define a linha como tracejada
-        .attr("stroke", "blue")
-        */
+        .attr("stroke", "#CED4DA")
+
         .selectAll("text")
         .style("text-anchor", "middle")
         .attr("y", "-15")
@@ -629,6 +701,18 @@ function setupScales(svg, width, height) {
         .attr("stroke", "none")
         .attr("font-size", 10)
         .attr("dy", "1em")
+}
+
+function fixedScales(svg, width, height) {
+    var grid = svg.append("g")
+        .attr("class", "grid2")
+        .style("height", "30px")
+        .attr("transform", `translate(0, ${MARGIN_TOP})`)
+        .call(d3.axisTop(timeScaleAxis())
+            .ticks(escalaTickSize)
+            .tickFormat(formatoEscala)
+            // .tickSize(-12000)
+        )
 }
 
 function milestone(svg) {
@@ -645,7 +729,7 @@ function milestone(svg) {
         .attr("class", "milestone")
         .append("line")
         .attr("y2", 995 + 20)
-        .attr("stroke", "red")
+        .attr("stroke", "#ED1D29")
 }
 
 //rgb(204,0,0)
@@ -653,9 +737,21 @@ function milestone(svg) {
 function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
     // console.log("treeModulos data: " + JSON.stringify(data));
 
-    data.forEach((d) => {
+    data.forEach((d, index) => {
         var tipoCategoriaBar = []
 
+        //rgb(204,0,0) comentario abaixo é para efetuar o item 14 adicionar uma linha de divisão entre as hierarquias
+        /*
+        console.log("d.index: " + d.nome + " - " + index)
+        if (index != 0) {
+            var espacamentoNomes = svgHierarquiaNomes.append("table")
+                .attr("class", "row-modulo-espacamentoNomes")
+                .style("height", "10px")
+
+            var espacamentoEventos = svgHierarquiaEventos.append("table")
+                .attr("class", "row-modulo-espacamentoEventos")
+                .style("height", "10px")
+        }*/
 
         // adiciona a estrutura inicial da parte de eventos (direita)
         var tableModulosHierarquiaEventos = svgHierarquiaEventos.append("table")
@@ -690,11 +786,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
             .attr("class", "row-modulo-" + d.nome)
             .attr("height", 20)
+            .style("background-color", "azure")
+            .style("background-color", "#" + Object.values(corPrimaria)[index % Object.keys(corPrimaria).length])
 
         var rowHierarquia = tableModulosHierarquiaNomes.append("tr")
             .style("display", "flex")
             .attr("height", 20)
+            .style("width", "290px")
             .style("margin-bottom", "5px")
+
 
         var buttonPlus = rowHierarquia.append("button")
             .attr("class", "iconPlus-div")
@@ -770,7 +870,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .attr("height", 16)
             .attr("width", 14)
             .append("path")
-            .attr("d", iconsBase.plus)
+            .attr("d", iconsBase.arrow_down)
 
         var buttonMinus = rowHierarquia.append("button")
             .style("display", "none")
@@ -838,11 +938,11 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .attr("height", 16)
             .attr("width", 14)
             .append("path")
-            .attr("d", iconsBase.minor)
+            .attr("d", iconsBase.arrow_right)
 
 
         rowHierarquia.append("div")
-            .style("width", "260px")
+            // .style("width", "260px")
             .style("padding-left", "5px")
             .attr("class", "text-div")
             .append("text")
@@ -850,6 +950,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .attr("height", 20)
             .attr("font-size", "12px")
             .text(d.nome)
+            .style("color", "#FFFFFF")
 
         // fim da estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
 
@@ -955,7 +1056,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 .attr("height", 16)
                 .attr("width", 14)
                 .append("path")
-                .attr("d", iconsBase.plus)
+                .attr("d", iconsBase.arrow_down)
 
             var buttonMinus = row2Nomes.append("button")
                 .style("display", "none")
@@ -994,14 +1095,16 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 .attr("height", 16)
                 .attr("width", 14)
                 .append("path")
-                .attr("d", iconsBase.minor)
+                .attr("d", iconsBase.arrow_right)
 
             var testeRow = row2Nomes.append("tr")
                 .attr("class", "row-modulo-segundo")
                 .attr("height", 20)
                 .style("padding-left", "5px")
-                .style("width", "245px")
+                // .style("width", "245px")
                 .text(h.nome)
+                .style("color", "#FFFFFF")
+
 
 
 
@@ -1021,8 +1124,13 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 if (l.levelValues[0].dataFim != "null" && l.levelValues[0].dataFim != null) {
                     dataFimTeste = l.levelValues[0].dataFim
                 }
-
+//rgb(204,0,0) AquiMermo
+//rgb(204,0,0) fazer com que se entrar no if nao seja arredondada a borda
+//rgb(204,0,0) border-radius: 10px 0 0 10px
                 if (dataFimTeste != "null") {
+                    if(new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()){
+                        l.levelValues[0].dataFim = DATA_FINAL
+                    }
 
                     var dataFim = timeScale(l.levelValues[0].dataFim)
                     // console.log("dataFim: " + dataFim);
@@ -1094,18 +1202,20 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         // .style("width", "1147px")
                         // .style("width", CHART_WIDTH + "px")
                         .style("width", tamanhoScalaExib + "px")
-                        .style("height", function (d) {
-                            //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                            if (l.levelValues[0].evento.length > quebraLinha1) {
-                                if (l.levelValues[0].evento.length > 59) {
-                                    return "63.75px"
-                                }
-                                return "42.5px";
-                            } else {
-                                return "21.25px";
-                            }
+                        //! quebra de linha
+                        .style("height", "21px")
+                        // .style("height", function (d) {
+                        //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                        //     if (l.levelValues[0].evento.length > quebraLinha1) {
+                        //         if (l.levelValues[0].evento.length > 59) {
+                        //             return "63.75px"
+                        //         }
+                        //         return "42.5px";
+                        //     } else {
+                        //         return "21.25px";
+                        //     }
 
-                        })
+                        // })
                         .style("align-items", "center")
                         .style("margin-bottom", "5px")
 
@@ -1118,7 +1228,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
                         .style("display", "flex")
                         .style("padding-left", "30px")
-                        .style("width", "260px")
+                        // .style("width", "260px")
                         .style("align-items", "center")
                         .style("margin-bottom", "5px")
 
@@ -1143,8 +1253,12 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
                         .attr("class", "row-modulo-segundo")
                         .style("padding-left", "5px")
-                        .style("width", "260px")
+                        .style("heigth", "260px")
+                        .style("width", "max-content")
+                        // .style("width", "260px")
                         .text(textPrint)
+                        .style("color", "#FFFFFF")
+
 
 
                     // var eventoBarDiv = row3HierarquiaNomes.append("svg")
@@ -1194,15 +1308,16 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         var iconeDiv = eventoBarDiv
                             .attr("viewBox", [0, 0, 448, 512])
                             // .attr("height", 20)
-                            .style("height", function (d) {
-                                //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                                if (l.levelValues[0].evento.length > quebraLinha1) {
-                                    return "42.5px";
-                                } else {
-                                    return "21.25px";
-                                }
+                            //! quebra de linha
+                            // .style("height", function (d) {
+                            //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                            //     if (l.levelValues[0].evento.length > quebraLinha1) {
+                            //         return "42.5px";
+                            //     } else {
+                            //         return "21.25px";
+                            //     }
 
-                            })
+                            // })
                             // .attr("width", 30)
                             .attr("width", 20)
                             .append("path")
@@ -1214,10 +1329,26 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                 }
                             }
                             )
-                            .attr("d", iconsBase.diamond)
-
+                            // .attr("d", iconsBase.diamond)
+                            .attr("d", function () {
+                                if (l.levelValues[0].icon) {
+                                    return l.levelValues[0].icon
+                                } else {
+                                    return iconsBase.diamond
+                                }
+                            }
+                            )
                     } else {
 
+                        // eventoBarDiv.style("border-radius", "10px")
+                        eventoBarDiv.style("border-radius", function(f) {
+                            var soma = dataInicio + tamanhoBarraEvento
+                            if (soma >= posDataFinal) {
+                                return "10px 0 0 10px"
+                            } else {
+                                return "10px"
+                            }
+                        })
                         var iconeDiv = eventoBarDiv.append("rect")
                             .attr("fill", function () {
                                 if (l.levelValues[0].cor) {
@@ -1238,14 +1369,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
                             })
                             .attr("width", function (d) {
+//rgb(204,0,0)
+//rgb(204,0,0)
+//rgb(204,0,0)
 
-                                /*
-                                console.log("eventoBarDiv.append - l.levelValues[0]evento" + l.levelValues[0].evento);
-                                console.log("eventoBarDiv.append - l.levelValues[0].dataFim" + l.levelValues[0].dataFim + " - " + timeScale(l.levelValues[0].dataFim));
-                                console.log("eventoBarDiv.append - CHART_WIDTH: " + CHART_WIDTH);
-                                console.log("eventoBarDiv.append - DATA_FINAL" + DATA_FINAL + " - " + timeScale(DATA_FINAL));
-*/
                                 if (dataFimTeste != "null") {
+                                    // var dataFim = timeScale(l.levelValues[0].dataFim)
+                                    
+                                    // console.log("DATA_FINAL evento: " + l.levelValues[0].evento + " - " + new Date(DATA_FINAL))
+                                    // console.log("dataFim evento: " + l.levelValues[0].evento + " - " + new Date(l.levelValues[0].dataFim))
+                                    // console.log("dataFim evento: " + l.levelValues[0].evento + " - " + dataFim)
+                                    if(new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()){
+                                        l.levelValues[0].dataFim = DATA_FINAL
+                                   }
                                     var dataFim = timeScale(l.levelValues[0].dataFim)
                                     tamanhoBarraEvento = dataFim - dataInicio
                                     return tamanhoBarraEvento
@@ -1255,6 +1391,37 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             })
                     }
 
+                    //todo tooltip
+                    tooltip = row3HierarquiaEventos.append("div")
+                        .attr("class", "tooltip")
+                        .style("position", "absolute")
+                        .style("visibility", "hidden")
+                        .style("background-color", "#f9f9f9")
+                        .style("border", "1px solid #d3d3d3")
+                        .style("padding", "5px")
+                        .style("border-radius", "5px")
+                        .style("box-shadow", "0px 0px 5px 0px #000000")
+                    // console.log("tooltip: " + tooltip);
+
+                    eventoBarDiv.on("mouseover", function (event, d) {
+                        console.log("mouseover");
+                        console.log("eventoBarDiv: " + eventoBarDiv);
+                        // console.log("${l.levelValues[0].dataInicio}:" + l.levelValues[0].dataInicio);
+
+                        tooltip
+                            // .style("visibility", "visible")
+                            //     .style("left", (event.clientX + 10) + "px")
+                            //     .style("top", (event.clientY + 10) + "px")
+                            .html(`Data inicio: ${l.levelValues[0].dataInicio};<BR>
+                            Data Fim: ${l.levelValues[0].dataFim};<BR>
+                            Evento: ${l.levelValues[0].evento};`)
+                        console.log(tooltip.html());
+                    })
+                        .on("mouseout", function () {
+                            tooltip.style("visibility", "hidden");
+                        })
+
+
                     // var eventoNomeDiv = row3HierarquiaNomes.append("svg")
                     var dadosEventoDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function () {
@@ -1263,6 +1430,14 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("height", 20)
                         .attr("class", "evento-div")
                         .style("display", "block")
+                        //! rgb(204, 0, 0)
+                        // .style("width", "30px")
+                        .style("width", function(f) {
+                            var soma = dataInicio + tamanhoBarraEvento
+                            if (soma >= posDataFinal) {
+                                return "30px"
+                            }
+                        })
                         .append("g")
                         .append("text")
                         .attr("y", 15)
@@ -1294,29 +1469,31 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         // .style("width", tamanhoScalaExib + "px")
                         // .style("align-items", "center")
                         // .style("height", "21px")
-                        .style("height", function (d) {
-                            console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
+                        //! quebra de linha
+                        // .style("height", function (d) {
+                        //     console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
 
-                            //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                            if (Object.keys(item)[0].length > quebraLinha1) {
-                                return "42.5px";
-                            } else {
-                                return "21.25px";
-                            }
-                        })
+                        //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                        //     if (Object.keys(item)[0].length > quebraLinha1) {
+                        //         return "42.5px";
+                        //     } else {
+                        //         return "21.25px";
+                        //     }
+                        // })
                         .style("margin-bottom", "5px")
 
                     var testeRowEventos = row3Eventos.append("tr")
                         .attr("class", "row-modulo-evento")
-                        // .attr("height", 20)
-                        .style("height", function (d) {
-                            //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                            if (Object.keys(item)[0].toString.length > quebraLinha1) {
-                                return "42.5px";
-                            } else {
-                                return "21.25px";
-                            }
-                        })
+                    // .attr("height", 20)
+                    //! quebra de linha
+                    // .style("height", function (d) {
+                    //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                    //     if (Object.keys(item)[0].toString.length > quebraLinha1) {
+                    //         return "42.5px";
+                    //     } else {
+                    //         return "21.25px";
+                    //     }
+                    // })
                     // .style("padding-left", "5px")
                     // .style("width", "260px")
                     // .text(Object.keys(dadosEventoSubTipo[i])[0])
@@ -1365,16 +1542,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     }
                                 })
                                 // .attr("height", 20)
-                                .style("height", function (d) {
-                                    console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
+                                //! quebra de linha
+                                // .style("height", function (d) {
+                                //     console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
 
-                                    //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                                    if (Object.keys(item)[0].length > quebraLinha1) {
-                                        return "42.5px";
-                                    } else {
-                                        return "21.25px";
-                                    }
-                                })
+                                //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
+                                //     if (Object.keys(item)[0].length > quebraLinha1) {
+                                //         return "42.5px";
+                                //     } else {
+                                //         return "21.25px";
+                                //     }
+                                // })
                                 .attr("width", function (f) {
                                     if (gov.width != 0) {
                                         tipoEventoBar.push({
@@ -1403,6 +1581,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     }
                                 })
                             if (gov.width != 0) {
+                                barraGeralEventoAgrupado.style("border-radius", "10px")
                                 barraGeralEventoAgrupado.append("rect")
                                     .attr("fill", function () {
                                         // console.log("gov agrupado: " + JSON.stringify(gov));
@@ -1429,7 +1608,16 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                             return "rgb(10, 0, 250)"
                                         }
                                     })
-                                    .attr("d", iconsBase.diamond)
+                                    // .attr("d", iconsBase.diamond)
+                                    .attr("d",
+                                        function () {
+                                            if (gov.icon) {
+                                                return gov.icon
+                                            } else {
+                                                return iconsBase.diamond
+                                            }
+                                        }
+                                    )
                             }
 
                             if (!gov.group) {
@@ -1491,6 +1679,14 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         }
                     })
                 if (item.width != 0) {
+                    barraGeralTeste2.style("border-radius", function(f) {
+                        var soma = item.posInin + item.width
+                        if (soma >= posDataFinal) {
+                            return "10px 0 0 10px"
+                        } else {
+                            return "10px"
+                        }
+                    })
                     barraGeralTeste2.append("rect")
                         .attr("fill", "rgb(128, 52, 52)")
                         .attr("width", item.width)
@@ -1545,6 +1741,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     }
                 })
             if (item.width != 0) {
+                barraGeralTeste2.style("border-radius", "10px")
                 barraGeralTeste2.append("rect")
                     .attr("fill", "rgb(128, 52, 52)")
                     .attr("width", item.width)
