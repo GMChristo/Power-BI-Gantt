@@ -8,25 +8,44 @@ var ganttChart_DEBUG;
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   B7: () => (/* binding */ arrow_right),
-/* harmony export */   rE: () => (/* binding */ arrow_down),
-/* harmony export */   zk: () => (/* binding */ diamond)
+/* harmony export */   E3: () => (/* binding */ base),
+/* harmony export */   Pt: () => (/* binding */ icons),
+/* harmony export */   rE: () => (/* binding */ arrow_down)
 /* harmony export */ });
-/* unused harmony exports plus, minor, arrow_, play, star, ban, star2, aprove, circle, thunder, square */
+/* unused harmony exports plus, minor */
 const plus = "M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z";
 const minor = "M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z";
-const arrow_down = "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z";
-const arrow_right = "M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z";
-const arrow_ = "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z";
-const play = "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z";
-const star = "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z";
-const ban = "M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z";
-const diamond = "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z";
-const star2 = "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z";
-const aprove = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z";
-const circle = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z";
-const thunder = "M18.86,11.27l-3.23-8A2,2,0,0,0,13.72,2H9.38a2.06,2.06,0,0,0-1.71.9,2,2,0,0,0-.19,1.84L8.81,8H7.05A2,2,0,0,0,5.18,9.18a2,2,0,0,0,.29,2.1l8.8,10.37A1,1,0,0,0,15,22a1.12,1.12,0,0,0,.47-.11,1,1,0,0,0,.5-1.15L14.19,14H17a2.06,2.06,0,0,0,1.71-.9A2,2,0,0,0,18.86,11.27Z";
-const square = "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z";
-// flag: 
+const arrow_down = "M 53.832031 239.640625 L 383.988281 569.800781 L 714.148438 239.640625 L 672.730469 198.222656 L 383.988281 486.964844 L 95.25 198.226562 Z M 53.832031 239.640625";
+const arrow_right = "M 259.28125 714.15625 L 589.4375 384 L 259.277344 53.84375 L 217.863281 95.257812 L 506.605469 384 L 217.863281 672.738281 Z M 259.28125 714.15625 ";
+// export const arrow_down = "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
+// export const arrow_right = "M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
+const base = "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z";
+const icons = [
+    "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z",
+    "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z",
+    "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z",
+    "M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z",
+    "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z",
+    "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z",
+    "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z",
+    "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z",
+    "M18.86,11.27l-3.23-8A2,2,0,0,0,13.72,2H9.38a2.06,2.06,0,0,0-1.71.9,2,2,0,0,0-.19,1.84L8.81,8H7.05A2,2,0,0,0,5.18,9.18a2,2,0,0,0,.29,2.1l8.8,10.37A1,1,0,0,0,15,22a1.12,1.12,0,0,0,.47-.11,1,1,0,0,0,.5-1.15L14.19,14H17a2.06,2.06,0,0,0,1.71-.9A2,2,0,0,0,18.86,11.27Z",
+    "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z",
+];
+/*
+//arrow_
+0 arrow_ = "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
+1 play = "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
+2 star = "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+3 ban = "M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
+4 diamond = "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z"
+5 star2 = "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z"
+6 aprove = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+7 circle = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"
+8 thunder = "M18.86,11.27l-3.23-8A2,2,0,0,0,13.72,2H9.38a2.06,2.06,0,0,0-1.71.9,2,2,0,0,0-.19,1.84L8.81,8H7.05A2,2,0,0,0,5.18,9.18a2,2,0,0,0,.29,2.1l8.8,10.37A1,1,0,0,0,15,22a1.12,1.12,0,0,0,.47-.11,1,1,0,0,0,.5-1.15L14.19,14H17a2.06,2.06,0,0,0,1.71-.9A2,2,0,0,0,18.86,11.27Z"
+9 square = "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z":
+10 flag =
+*/
 
 
 /***/ }),
@@ -67,6 +86,7 @@ var tipoEscalaGrafico = "Mês";
 var escalaTickSize;
 var tickEspacamento = 0;
 var posDataFinal;
+var alturaRolagem;
 // var quebraLinha1 = 36
 var formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .timeFormat */ .DCK("%b %Y");
 var tamanhoScalaExib = 100;
@@ -105,7 +125,7 @@ class Visual {
         preencheDataInicio(dataMap);
         preencheDataFim(dataMap);
         defineEscala();
-        console.log("tamanhoScalaExib: " + tamanhoScalaExib);
+        // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
         agrupamentoHierarquia(dataMap, dataAgrupado);
         const tagMainDiv = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".main-div");
         tagMainDiv.remove();
@@ -128,20 +148,26 @@ class Visual {
             .style("width", "600px")
             .style("background-color", "white")
             .style("max-width", "300px")
-            .style("height", tamanhoExibicaoHeight - MARGIN_BOTTOM * 1.5 + "px")
-            .style("padding-top", MARGIN_TOP * 2 + "px")
+            .style("height", "-webkit-fill-available")
+            .style("margin-top", "21px")
             .style("padding-bottom", MARGIN_TOP + "px")
             .style("vertical-align", "top")
             .style("position", "fixed")
-            .style("overflow-y", "auto")
             .style("overflow-x", "auto")
+            .style("overflow-y", "hidden")
             .style("border", "1px solid");
+        // .style("::-webkit-scrollbar:vertical", "display: none")
+        // .style("::-webkit-scrollbar:horizontal", "display: block")
+        // .style("scrollbar-width", "none")
         dadosEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdEventos")
-            .style("height", tamanhoExibicaoHeight + MARGIN_TOP + 4 + "px")
+            // .style("height", tamanhoExibicaoHeight + "px")
             .style("width", tamanhoScalaExib + "px")
+            .style("height", "-webkit-fill-available")
+            .style("margin-top", "21px")
             .style("vertical-align", "top")
-            .style("overflow-y", "hidden")
+            // .style("overflow-y", "hidden")
+            .style("overflow-y", "auto")
             .style("position", "fixed")
             // .style("max-width", "fit-content")
             .style("max-width", "-webkit-fill-available")
@@ -155,12 +181,12 @@ class Visual {
             .append("svg")
             .attr("class", "main-svg")
             .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
-            .style("height", "10000px")
+            .style("height", "-webkit-fill-available")
+            // .style("height", "10000px")
             .style("position", "absolute")
-            .style("top", "0px")
+            .style("top", "-40px")
             .style("left", "0px")
             .style("z-index", "-1");
-        // /*
         dadosEventoScaleTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdScale")
             .style("height", "30px")
@@ -183,14 +209,22 @@ class Visual {
             .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
             .style("height", "30px")
             .style("margin-left", "300px")
+            .style("padding-right", "50px")
             .style("top", "0px")
             .style("left", "0px");
-        // .style("z-index", "-1")
-        // */
         var dadosEventoHTML = testeRegulagemAltura.append("div")
             .attr("class", "main-eventos")
-            .style("padding-top", MARGIN_TOP * 2 + "px")
+            // .style("padding-top", MARGIN_TOP * 2 + "px")
+            .style("padding-top", "3px")
             .style("width", tamanhoScalaExib + "px");
+        // // .style("width", 30 + "px")
+        // .style("width", tamanhoScalaExib + "px")
+        // .style("vertical-align", "top")
+        // // .style("overflow-y", "hidden")
+        // .style("overflow-x", "hidden")
+        // .style("max-width", "fit-content")
+        // .style("left", "310px")
+        // .style("padding-left", "7px")
         // Adiciona o tooltip ao corpo do documento
         // tooltip = dadosEventoHTML.append("div")
         //     .attr("class", "tooltip")
@@ -214,6 +248,7 @@ class Visual {
         setupScales(svgRoot, tamanhoScalaExib, 600);
         fixedScales(fixedScale, tamanhoScalaExib, 600);
         milestone(svgRoot);
+        // console.log("dataMap: " + JSON.stringify(dataMap));
         treeModulos(dataMap, nomesEventoTdHTML, dadosEventoHTML);
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML); // mantem as linhas em exibição apos atualizar o visual
         //seleciona as td que tem os nomes e os eventos e cria um listener para caso seja feita a rolagem em uma o evento tb ser executada na outra
@@ -229,6 +264,8 @@ class Visual {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdNomes.scrollTop = mainTdEventos.scrollTop;
         });
+        const td = document.querySelector('.mainTdNomes');
+        alturaRolagem = td.scrollWidth;
         // // Adiciona um listener de evento para o evento de rolagem na segunda tabela
         // mainTdNomes.addEventListener('scroll', function () {
         //     // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
@@ -543,29 +580,6 @@ function preencheDataInicio(jsonData) {
         }
     }
 }
-// function preencheDataFim(jsonData) {
-//     DATA_FINAL = new Date("1500-01-01");
-//     for (let i = 0; i < jsonData.length; i++) {
-//         let currentObj = jsonData[i];
-//         for (let j = 0; j < currentObj.dados[0].dados.length; j++) {
-//             let currentLevel2Obj = currentObj.dados[0].dados[j];
-//             if (currentLevel2Obj.levelValues[0].dataInicio) {
-//                 let currentDate = new Date(currentLevel2Obj.levelValues[0].dataInicio);
-//                 if (currentDate > DATA_FINAL) {
-//                     DATA_FINAL = currentDate;
-//                 }
-//             }
-//         }
-//     }
-//     const year = DATA_FINAL.getFullYear();
-//     const month = DATA_FINAL.getMonth() + 1; // +1 because getMonth() is zero-based
-//     const lastDayOfMonth = new Date(year, month, 0).getDate();
-//     const lastDayOfMonthString = `${year}-${month.toString().padStart(2, "0")}-${lastDayOfMonth.toString().padStart(2, "0")}`;
-//     //faz com que a data final seja o ultimo dia do mes
-//     DATA_FINAL = new Date(lastDayOfMonthString)
-//     console.log("DATA_FINAL: " + DATA_FINAL);
-//     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
-// }
 function preencheDataFim(jsonData) {
     DATA_FINAL = new Date("1500-01-01");
     for (let i = 0; i < jsonData.length; i++) {
@@ -589,8 +603,8 @@ function preencheDataFim(jsonData) {
     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
 }
 function timeScaleAxis() {
-    console.log("DATA_INICIAL: " + DATA_INICIAL);
-    console.log("DATA_FINAL: " + DATA_FINAL);
+    // console.log("DATA_INICIAL: " + DATA_INICIAL);
+    // console.log("DATA_FINAL: " + DATA_FINAL);
     var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleUtc */ .Pps()
         .domain([
         DATA_INICIAL,
@@ -666,7 +680,7 @@ function milestone(svg) {
     })
         .attr("class", "milestone")
         .append("line")
-        .attr("y2", 995 + 20)
+        .attr("y2", 9995 + 20)
         .attr("stroke", "#ED1D29");
 }
 //rgb(204,0,0)
@@ -711,6 +725,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
         var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
             .attr("class", "row-modulo-" + d.nome)
+            .style("width", "-webkit-fill-available")
             .attr("height", 20)
             .style("background-color", "azure")
             .style("background-color", "#" + Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]);
@@ -721,6 +736,10 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .style("margin-bottom", "5px");
         var buttonPlus = rowHierarquia.append("button")
             .attr("class", "iconPlus-div")
+            .style("padding-left", "0px")
+            .style("width", "36px")
+            .style("background-color", "transparent")
+            .style("border", "none")
             .on("click", function () {
             // var divAltura = tableModulosHierarquiaEventos.select(".divMainTdEventos")
             // var alturaDiv = divAltura.node().getBoundingClientRect().height;
@@ -778,15 +797,24 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             catch (error) {
                 // console.log("erro catch: " + error);
             }
+            atualizaAlturaMainTdNomes();
         })
             .append("svg")
-            .attr("viewBox", [0, 0, 448, 512])
-            .attr("height", 16)
-            .attr("width", 14)
+            // .attr("viewBox", [0, 0, 448, 512])
+            .attr("viewBox", [0, 0, 590, 670])
+            .attr("height", 11)
+            .attr("width", 25)
+            // .attr("height", 16)
+            // .attr("width", 14)
             .append("path")
-            .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_down */ .rE);
+            .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_down */ .rE)
+            .style("fill", "white");
         var buttonMinus = rowHierarquia.append("button")
             .style("display", "none")
+            .style("padding-left", "0px")
+            .style("width", "36px")
+            .style("background-color", "transparent")
+            .style("border", "none")
             .attr("class", "iconMinus-div")
             .on("click", function () {
             exibir = exibir.filter(elemento => elemento !== "row-modulo-" + d.nome);
@@ -839,13 +867,18 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             catch (error) {
                 // console.log("erro catch: " + error);
             }
+            atualizaAlturaMainTdNomes();
         })
             .append("svg")
-            .attr("viewBox", [0, 0, 448, 512])
-            .attr("height", 16)
-            .attr("width", 14)
+            // .attr("viewBox", [0, 0, 448, 512])
+            .attr("viewBox", [0, 0, 590, 670])
+            .attr("height", 11)
+            .attr("width", 25)
+            // .attr("height", 16)
+            // .attr("width", 14)
             .append("path")
-            .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_right */ .B7);
+            .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_right */ .B7)
+            .style("fill", "white");
         rowHierarquia.append("div")
             // .style("width", "260px")
             .style("padding-left", "5px")
@@ -854,8 +887,12 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .attr("x", 10)
             .attr("height", 20)
             .attr("font-size", "12px")
-            .text(d.nome)
-            .style("color", "#FFFFFF");
+            .text(d.nome.toUpperCase())
+            // .text(function (d) {
+            //     return d.nome.toUpperCase(); // converte para maiúsculas
+            // })
+            .style("color", "#FFFFFF")
+            .style("font-weight", "bold");
         // fim da estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
         //!
         //! Segundo nivel da hierarquia
@@ -880,15 +917,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             })
                 .style("display", "flex")
                 .attr("height", 20)
-                // .style("padding-left", "15px")
                 .style("margin-bottom", "5px");
-            // .text(h.nome)
-            // var testeRowEventos = row2Eventos.append("tr")
-            //     .attr("class", "row-modulo-segundo")
-            //     .attr("height", 20)
-            //     .style("padding-left", "5px")
-            //     .style("width", "245px")
-            //     .text(h.nome)
             // inicio da estrutura da sgunda hierarquia(esquerda), juntamente com os botoes e nomes
             var tableModulos2HierarquiaNomes = tableModulosHierarquiaNomes.append("table")
                 .attr("class", "row-modulo2-" + h.nome)
@@ -911,6 +940,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 .style("margin-bottom", "5px");
             var buttonPlus = row2Nomes.append("button")
                 .attr("class", "iconPlus-div2")
+                .style("background-color", "transparent")
+                .style("border", "none")
                 .on("click", function () {
                 // exibir.push("tableModulos2")
                 exibir.push("row-modulo2-" + h.nome);
@@ -941,15 +972,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 if (terceiraHierarquiaHierarquiaEventos) {
                     terceiraHierarquiaHierarquiaEventos.style("display", terceiraHierarquiaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
                 }
+                atualizaAlturaMainTdNomes();
             })
                 .append("svg")
-                .attr("viewBox", [0, 0, 448, 512])
-                .attr("height", 16)
-                .attr("width", 14)
+                .attr("viewBox", [0, 0, 590, 670])
+                .attr("height", 11)
+                .attr("width", 25)
                 .append("path")
-                .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_down */ .rE);
+                .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_down */ .rE)
+                .style("fill", "white");
             var buttonMinus = row2Nomes.append("button")
                 .style("display", "none")
+                .style("background-color", "transparent")
+                .style("border", "none")
                 .attr("class", "iconMinus-div2")
                 .on("click", function () {
                 exibir = exibir.filter(elemento => elemento !== "row-modulo2-" + h.nome);
@@ -976,18 +1011,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 if (terceiraHierarquiaHierarquiaEventos) {
                     terceiraHierarquiaHierarquiaEventos.style("display", terceiraHierarquiaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
                 }
+                atualizaAlturaMainTdNomes();
             })
                 .append("svg")
-                .attr("viewBox", [0, 0, 448, 512])
-                .attr("height", 16)
-                .attr("width", 14)
+                .attr("viewBox", [0, 0, 590, 670])
+                .attr("height", 11)
+                .attr("width", 25)
                 .append("path")
-                .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_right */ .B7);
+                .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_right */ .B7)
+                .style("fill", "white");
             var testeRow = row2Nomes.append("tr")
                 .attr("class", "row-modulo-segundo")
                 .attr("height", 20)
                 .style("padding-left", "5px")
-                // .style("width", "245px")
                 .text(h.nome)
                 .style("color", "#FFFFFF");
             //! bloco abaixo é usado para a parte de evento da hierarquia
@@ -997,6 +1033,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 // console.log("l.levelValues[0].dataInicio: " + l.levelValues[0].evento + " - " + l.levelValues[0].dataInicio);
                 // console.log("l.levelValues[0].dataInicio: " + l.levelValues[0].evento + " - " + l.levelValues[0].dataInicio);
                 // console.log("timeScale(l.levelValues[0].dataInicio): " + timeScale(l.levelValues[0].dataInicio));
+                // console.log("l.levelValues[0]: " + JSON.stringify(l.levelValues[0]));
                 // var dataInicio = timeScale(l.levelValues[0].dataInicio);
                 var dataInicio = timeScale(l.levelValues[0].dataInicio) + tickEspacamento;
                 var posicaoTextoEvento;
@@ -1004,26 +1041,13 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 if (l.levelValues[0].dataFim != "null" && l.levelValues[0].dataFim != null) {
                     dataFimTeste = l.levelValues[0].dataFim;
                 }
-                //rgb(204,0,0) AquiMermo
-                //rgb(204,0,0) fazer com que se entrar no if nao seja arredondada a borda
-                //rgb(204,0,0) border-radius: 10px 0 0 10px
                 if (dataFimTeste != "null") {
                     if (new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()) {
                         l.levelValues[0].dataFim = DATA_FINAL;
                     }
                     var dataFim = timeScale(l.levelValues[0].dataFim);
-                    // console.log("dataFim: " + dataFim);
-                    // console.log("l.levelValues[0].dataFim: " + l.levelValues[0].dataFim);
-                    // console.log("new Date(l.levelValues[0].dataFim): " + new Date(l.levelValues[0].dataFim));
-                    // console.log("DATA_FINAL: " + DATA_FINAL);
-                    // if (new Date(l.levelValues[0].dataFim).getTime() > DATA_FINAL.getTime()) {
-                    //     l.levelValues[0].dataFim = DATA_FINAL.toISOString()
-                    //     console.log("l.levelValues[0].dataFim: " + l.levelValues[0].dataFim);
-                    //   }
                     tamanhoBarraEvento = dataFim - dataInicio;
-                    // console.log("tamanhoBarraEvento: " + tamanhoBarraEvento);
                     posicaoTextoEvento = dataInicio;
-                    // posicaoTextoEvento = dataInicio + 15
                 }
                 else {
                     posicaoTextoEvento = dataInicio;
@@ -1039,6 +1063,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     group: false,
                                     cor: l.levelValues[0].cor,
                                     rot: l.levelValues[0].rot
+                                    // icon: l.levelValues[0].icon
                                 },
                             ],
                         });
@@ -1074,25 +1099,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("class", "row-modulo3-" + l.levelValues[0].evento)
                         .style("display", "none");
                     var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
-                        .attr("class", "esseMermo")
                         .style("display", "flex")
-                        // .style("padding-left", "30px")
-                        // .style("width", "1147px")
-                        // .style("width", CHART_WIDTH + "px")
                         .style("width", tamanhoScalaExib + "px")
-                        //! quebra de linha
                         .style("height", "21px")
-                        // .style("height", function (d) {
-                        //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                        //     if (l.levelValues[0].evento.length > quebraLinha1) {
-                        //         if (l.levelValues[0].evento.length > 59) {
-                        //             return "63.75px"
-                        //         }
-                        //         return "42.5px";
-                        //     } else {
-                        //         return "21.25px";
-                        //     }
-                        // })
                         .style("align-items", "center")
                         .style("margin-bottom", "5px");
                     //terceiro nivel dos nomes das hierarquias
@@ -1128,15 +1137,13 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("width", "max-content")
                         // .style("width", "260px")
                         .text(textPrint)
+                        .style("padding-left", "25px")
                         .style("color", "#FFFFFF");
                     // var eventoBarDiv = row3HierarquiaNomes.append("svg")
                     var eventoBarDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function (d, i) {
                         if (dataFimTeste == "null") {
                             return `translate(${dataInicio}, 0)`;
-                            // return `translate(${dataInicio + tickEspacamento}, 0)`;
-                            // return `translate(${dataInicio - 15}, 0)`;
-                            // return `translate(${dataInicio - 18}, 0)`;
                         }
                         else {
                             return `translate(${dataInicio + tickEspacamento}, 0)`;
@@ -1145,28 +1152,31 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("height", 20)
                         .attr("width", function () {
                         if (dataFimTeste !== "null") {
+                            // console.log("sera aqui? barra" + JSON.stringify(l.levelValues[0]))
                             tipoEventoBar.push({
                                 "posInin": dataInicio,
                                 "width": tamanhoBarraEvento,
-                                // "cor": l.levelValues[0].cor,
+                                // "cor": l.levelValues[0].cor ? l.levelValues[0].cor : "#b1b1ff",
+                                "cor": l.levelValues[0].cor,
                             });
                             tipoCategoriaBar.push({
                                 "posInin": dataInicio,
                                 "width": tamanhoBarraEvento,
-                                // "cor": l.levelValues[0].cor,
+                                "cor": l.levelValues[0].cor,
                             });
                             return tamanhoBarraEvento;
                         }
                         else {
+                            // console.log("sera aqui? evento" + JSON.stringify(l.levelValues[0]))
                             tipoEventoBar.push({
                                 "posInin": dataInicio,
                                 "width": 0,
-                                // "cor": l.levelValues[0].cor,
+                                "cor": l.levelValues[0].cor,
                             });
                             tipoCategoriaBar.push({
                                 "posInin": dataInicio,
                                 "width": 0,
-                                // "cor": l.levelValues[0].cor,
+                                "cor": l.levelValues[0].cor,
                             });
                             return tamanhoBarraEvento + 20;
                         }
@@ -1176,17 +1186,6 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     if (dataFimTeste == "null") {
                         var iconeDiv = eventoBarDiv
                             .attr("viewBox", [0, 0, 448, 512])
-                            // .attr("height", 20)
-                            //! quebra de linha
-                            // .style("height", function (d) {
-                            //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                            //     if (l.levelValues[0].evento.length > quebraLinha1) {
-                            //         return "42.5px";
-                            //     } else {
-                            //         return "21.25px";
-                            //     }
-                            // })
-                            // .attr("width", 30)
                             .attr("width", 20)
                             .append("path")
                             .attr("fill", function () {
@@ -1200,10 +1199,12 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             // .attr("d", iconsBase.diamond)
                             .attr("d", function () {
                             if (l.levelValues[0].icon) {
-                                return l.levelValues[0].icon;
+                                // return l.levelValues[0].icon
+                                return _icons__WEBPACK_IMPORTED_MODULE_1__/* .icons */ .Pt[l.levelValues[0].icon];
                             }
                             else {
-                                return _icons__WEBPACK_IMPORTED_MODULE_1__/* .diamond */ .zk;
+                                // return iconsBase.diamond
+                                return _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3;
                             }
                         });
                     }
@@ -1221,7 +1222,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         var iconeDiv = eventoBarDiv.append("rect")
                             .attr("fill", function () {
                             if (l.levelValues[0].cor) {
-                                return l.levelValues[0].cor;
+                                // return l.levelValues[0].cor
+                                return "#" + l.levelValues[0].cor;
                             }
                             else {
                                 return "rgb(0, 0153, 128)";
@@ -1238,14 +1240,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             }
                         })
                             .attr("width", function (d) {
-                            //rgb(204,0,0)
-                            //rgb(204,0,0)
-                            //rgb(204,0,0)
                             if (dataFimTeste != "null") {
-                                // var dataFim = timeScale(l.levelValues[0].dataFim)
-                                // console.log("DATA_FINAL evento: " + l.levelValues[0].evento + " - " + new Date(DATA_FINAL))
-                                // console.log("dataFim evento: " + l.levelValues[0].evento + " - " + new Date(l.levelValues[0].dataFim))
-                                // console.log("dataFim evento: " + l.levelValues[0].evento + " - " + dataFim)
                                 if (new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()) {
                                     l.levelValues[0].dataFim = DATA_FINAL;
                                 }
@@ -1291,7 +1286,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         return `translate(${posicaoTextoEvento}, 0)`;
                     })
                         .attr("height", 20)
-                        .attr("class", "evento-div")
+                        .attr("class", "evento-div-nome")
                         .style("display", "block")
                         //! rgb(204, 0, 0)
                         // .style("width", "30px")
@@ -1299,6 +1294,12 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         var soma = dataInicio + tamanhoBarraEvento;
                         if (soma >= posDataFinal) {
                             return "30px";
+                        }
+                        if (soma + 300 >= posDataFinal) {
+                            return posDataFinal - soma + "px";
+                        }
+                        else if (dataInicio + 300 >= posDataFinal) {
+                            return posDataFinal - posicaoTextoEvento + "px";
                         }
                     })
                         .append("g")
@@ -1326,64 +1327,40 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("display", "none");
                     var row3Eventos = tableModulos3Eventos.append("tr")
                         .style("display", "flex")
-                        // .style("padding-left", "30px")
                         .style("width", "1147px")
-                        // .style("width", tamanhoScalaExib + "px")
-                        // .style("align-items", "center")
-                        // .style("height", "21px")
-                        //! quebra de linha
-                        // .style("height", function (d) {
-                        //     console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
-                        //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                        //     if (Object.keys(item)[0].length > quebraLinha1) {
-                        //         return "42.5px";
-                        //     } else {
-                        //         return "21.25px";
-                        //     }
-                        // })
-                        .style("margin-bottom", "5px");
+                        .style("height", "21px")
+                        .style("margin-bottom", "5px")
+                        .attr("class", "alterarEsse");
                     var testeRowEventos = row3Eventos.append("tr")
                         .attr("class", "row-modulo-evento");
-                    // .attr("height", 20)
-                    //! quebra de linha
-                    // .style("height", function (d) {
-                    //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                    //     if (Object.keys(item)[0].toString.length > quebraLinha1) {
-                    //         return "42.5px";
-                    //     } else {
-                    //         return "21.25px";
-                    //     }
-                    // })
-                    // .style("padding-left", "5px")
-                    // .style("width", "260px")
-                    // .text(Object.keys(dadosEventoSubTipo[i])[0])
                     var barraGeralEvento = row3Eventos.append("g")
                         .attr("transform", `translate(0,0)`)
                         .attr("class", "evento-div3");
                     //parte referente ao nome dos eventos
                     var tableModulos3Nomes = tableModulos2HierarquiaNomes.append("table")
-                        // .attr("class", "tableModulos3")
                         .attr("class", "row-modulo3-" + Object.keys(item)[0])
                         .style("display", "none");
                     var row3Nomes = tableModulos3Nomes.append("tr")
                         .style("display", "flex")
                         .style("padding-left", "30px")
-                        .style("width", "1147px")
+                        // .style("width", "1147px")
                         .style("margin-bottom", "5px");
                     var testeRowNomes = row3Nomes.append("tr")
                         .attr("class", "row-modulo-evento")
                         // .attr("height", 20)
                         .style("padding-left", "5px")
-                        .style("width", "260px")
-                        .text(Object.keys(dadosEventoSubTipo[i])[0]);
-                    // var barraGeralEvento = row3Nomes.append("g")
-                    //     .attr("transform", `translate(0,0)`)
-                    //     .attr("class", "evento-div3")
+                        // .style("width", "260px")
+                        .style("width", "max-content")
+                        .text(Object.keys(dadosEventoSubTipo[i])[0])
+                        .style("color", "#FFFFFF");
                     Object.keys(item).forEach((key, j) => {
                         item[key].forEach((gov, k) => {
+                            // console.log("gov: " + JSON.stringify(gov))
                             var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
                                 .style("display", "flex")
                                 .style("position", "absolute")
+                                .attr("height", 20)
+                                .attr("class", "essaClass")
                                 .attr("transform", function (f) {
                                 if (gov.width != 0) {
                                     return `translate(${gov.posInin},0)`;
@@ -1394,17 +1371,6 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     return `translate(${gov.posInin},0)`;
                                 }
                             })
-                                // .attr("height", 20)
-                                //! quebra de linha
-                                // .style("height", function (d) {
-                                //     console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
-                                //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                                //     if (Object.keys(item)[0].length > quebraLinha1) {
-                                //         return "42.5px";
-                                //     } else {
-                                //         return "21.25px";
-                                //     }
-                                // })
                                 .attr("width", function (f) {
                                 if (gov.width != 0) {
                                     tipoEventoBar.push({
@@ -1469,7 +1435,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                         return gov.icon;
                                     }
                                     else {
-                                        return _icons__WEBPACK_IMPORTED_MODULE_1__/* .diamond */ .zk;
+                                        // return iconsBase.diamond
+                                        return _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3;
                                     }
                                 });
                             }
@@ -1542,7 +1509,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         }
                     });
                     barraGeralTeste2.append("rect")
-                        .attr("fill", "rgb(128, 52, 52)")
+                        // .attr("fill", "rgb(128, 52, 52)")
+                        .attr("fill", function (f) {
+                        if (item.cor) {
+                            return "#" + item.cor;
+                        }
+                        else {
+                            return "rgb(200, 153, 128)";
+                        }
+                    })
                         .attr("width", item.width)
                         .attr("height", 20);
                 }
@@ -1556,8 +1531,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("height", 20)
                         .attr("width", 20)
                         .append("path")
-                        .attr("fill", "rgb(128, 52, 52)")
-                        .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .diamond */ .zk);
+                        // .attr("fill", "rgb(128, 52, 52)")
+                        .attr("fill", function (f) {
+                        if (item.cor) {
+                            return "#" + item.cor;
+                        }
+                        else {
+                            return "rgb(200, 153, 128)";
+                        }
+                    })
+                        // .attr("d", iconsBase.diamond)
+                        .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3);
                 }
             });
         });
@@ -1578,8 +1562,6 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     return `translate(${item.posInin},0)`;
                 }
                 else {
-                    // return `translate(${item.posInin - 15},0)`
-                    // return `translate(${item.posInin - 18},0)`
                     return `translate(${item.posInin},0)`;
                 }
             })
@@ -1593,9 +1575,29 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 }
             });
             if (item.width != 0) {
-                barraGeralTeste2.style("border-radius", "10px");
+                // console.log("testando: " + JSON.stringify(item))
+                // barraGeralTeste2.style("border-radius", "10px")
+                barraGeralTeste2.style("border-radius", function (f) {
+                    var soma = item.posInin + item.width;
+                    if (soma >= posDataFinal) {
+                        return "10px 0 0 10px";
+                    }
+                    else {
+                        return "10px";
+                    }
+                });
                 barraGeralTeste2.append("rect")
-                    .attr("fill", "rgb(128, 52, 52)")
+                    // .attr("fill", "rgb(128, 52, 52)")
+                    // .attr("fill", "rgb(128, 252, 52)")
+                    .attr("fill", function (f) {
+                    if (item.cor) {
+                        // console.log("testando: " + JSON.stringify(item.cor))
+                        return "#" + item.cor;
+                    }
+                    else {
+                        return "rgb(0, 0153, 128)";
+                    }
+                })
                     .attr("width", item.width)
                     .attr("height", 20);
             }
@@ -1610,11 +1612,26 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     // .attr("width", 30)
                     .attr("width", 20)
                     .append("path")
-                    .attr("fill", "rgb(128, 52, 52)")
-                    .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .diamond */ .zk);
+                    // .attr("fill", "rgb(128, 52, 52)")
+                    .attr("fill", function (f) {
+                    if (item.cor) {
+                        return "#" + item.cor;
+                    }
+                    else {
+                        return "rgb(200, 153, 128)";
+                    }
+                })
+                    // .attr("d", iconsBase.diamond)
+                    .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3);
+                // .attr("d", iconsBase.icons[1])
             }
         });
     });
+}
+function atualizaAlturaMainTdNomes() {
+    const td = document.querySelector('.mainTdNomes');
+    alturaRolagem = td.scrollHeight;
+    svgRoot.style("height", alturaRolagem + "px");
 }
 
 

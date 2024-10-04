@@ -36,6 +36,7 @@ var tipoEscalaGrafico = "Mês";
 var escalaTickSize;
 var tickEspacamento = 0;
 var posDataFinal;
+var alturaRolagem;
 // var quebraLinha1 = 36
 var formatoEscala = d3.timeFormat("%b %Y")
 
@@ -65,7 +66,7 @@ export class Visual implements IVisual {
         CHART_HEIGHT = options.viewport.height
         CHART_WIDTH = options.viewport.width
         // tamanhoScalaExib = CHART_WIDTH * 2.2
-        
+
         const matrixDataView: DataViewMatrix = dataView.matrix;
         // console.log("matrixDataView: " + JSON.stringify(matrixDataView));
 
@@ -85,9 +86,9 @@ export class Visual implements IVisual {
         hierarquiaTree(categorias, 0, dataMap)
         preencheDataInicio(dataMap)
         preencheDataFim(dataMap)
-        
+
         defineEscala()
-        console.log("tamanhoScalaExib: " + tamanhoScalaExib);
+        // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
 
         agrupamentoHierarquia(dataMap, dataAgrupado)
 
@@ -117,22 +118,29 @@ export class Visual implements IVisual {
             .style("width", "600px")
             .style("background-color", "white")
             .style("max-width", "300px")
-            .style("height", tamanhoExibicaoHeight - MARGIN_BOTTOM * 1.5 + "px")
-            .style("padding-top", MARGIN_TOP * 2 + "px")
+            .style("height", "-webkit-fill-available")
+            .style("margin-top", "21px")
             .style("padding-bottom", MARGIN_TOP + "px")
             .style("vertical-align", "top")
             .style("position", "fixed")
-            .style("overflow-y", "auto")
             .style("overflow-x", "auto")
+            .style("overflow-y", "hidden")
             .style("border", "1px solid")
+        // .style("::-webkit-scrollbar:vertical", "display: none")
+        // .style("::-webkit-scrollbar:horizontal", "display: block")
+        // .style("scrollbar-width", "none")
 
 
         dadosEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdEventos")
-            .style("height", tamanhoExibicaoHeight + MARGIN_TOP + 4 + "px")
+            // .style("height", tamanhoExibicaoHeight + "px")
             .style("width", tamanhoScalaExib + "px")
+            .style("height", "-webkit-fill-available")
+
+            .style("margin-top", "21px")
             .style("vertical-align", "top")
-            .style("overflow-y", "hidden")
+            // .style("overflow-y", "hidden")
+            .style("overflow-y", "auto")
             .style("position", "fixed")
             // .style("max-width", "fit-content")
             .style("max-width", "-webkit-fill-available")
@@ -148,13 +156,14 @@ export class Visual implements IVisual {
             .append("svg")
             .attr("class", "main-svg")
             .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
-            .style("height", "10000px")
+            .style("height", "-webkit-fill-available")
+            // .style("height", "10000px")
             .style("position", "absolute")
-            .style("top", "0px")
+            .style("top", "-40px")
             .style("left", "0px")
             .style("z-index", "-1")
 
-// /*
+
         dadosEventoScaleTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdScale")
             .style("height", "30px")
@@ -179,16 +188,26 @@ export class Visual implements IVisual {
             .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
             .style("height", "30px")
             .style("margin-left", "300px")
+            .style("padding-right", "50px")
             .style("top", "0px")
             .style("left", "0px")
-            // .style("z-index", "-1")
 
-            // */
 
         var dadosEventoHTML = testeRegulagemAltura.append("div")
             .attr("class", "main-eventos")
-            .style("padding-top", MARGIN_TOP * 2 + "px")
+            // .style("padding-top", MARGIN_TOP * 2 + "px")
+            .style("padding-top", "3px")
             .style("width", tamanhoScalaExib + "px")
+
+
+        // // .style("width", 30 + "px")
+        // .style("width", tamanhoScalaExib + "px")
+        // .style("vertical-align", "top")
+        // // .style("overflow-y", "hidden")
+        // .style("overflow-x", "hidden")
+        // .style("max-width", "fit-content")
+        // .style("left", "310px")
+        // .style("padding-left", "7px")
 
 
         // Adiciona o tooltip ao corpo do documento
@@ -221,6 +240,8 @@ export class Visual implements IVisual {
         setupScales(svgRoot, tamanhoScalaExib, 600);
         fixedScales(fixedScale, tamanhoScalaExib, 600);
         milestone(svgRoot);
+
+        // console.log("dataMap: " + JSON.stringify(dataMap));
         treeModulos(dataMap, nomesEventoTdHTML, dadosEventoHTML);
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML) // mantem as linhas em exibição apos atualizar o visual
 
@@ -239,8 +260,10 @@ export class Visual implements IVisual {
             mainTdNomes.scrollTop = mainTdEventos.scrollTop;
         });
 
+        const td = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
+        alturaRolagem = td.scrollWidth;
 
-        
+
         // // Adiciona um listener de evento para o evento de rolagem na segunda tabela
         // mainTdNomes.addEventListener('scroll', function () {
         //     // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
@@ -587,30 +610,6 @@ function preencheDataInicio(jsonData) {
     }
 }
 
-// function preencheDataFim(jsonData) {
-//     DATA_FINAL = new Date("1500-01-01");
-//     for (let i = 0; i < jsonData.length; i++) {
-//         let currentObj = jsonData[i];
-//         for (let j = 0; j < currentObj.dados[0].dados.length; j++) {
-//             let currentLevel2Obj = currentObj.dados[0].dados[j];
-//             if (currentLevel2Obj.levelValues[0].dataInicio) {
-//                 let currentDate = new Date(currentLevel2Obj.levelValues[0].dataInicio);
-//                 if (currentDate > DATA_FINAL) {
-//                     DATA_FINAL = currentDate;
-//                 }
-//             }
-//         }
-//     }
-
-//     const year = DATA_FINAL.getFullYear();
-//     const month = DATA_FINAL.getMonth() + 1; // +1 because getMonth() is zero-based
-//     const lastDayOfMonth = new Date(year, month, 0).getDate();
-//     const lastDayOfMonthString = `${year}-${month.toString().padStart(2, "0")}-${lastDayOfMonth.toString().padStart(2, "0")}`;
-//     //faz com que a data final seja o ultimo dia do mes
-//     DATA_FINAL = new Date(lastDayOfMonthString)
-//     console.log("DATA_FINAL: " + DATA_FINAL);
-//     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
-// }
 
 function preencheDataFim(jsonData) {
     DATA_FINAL = new Date("1500-01-01");
@@ -637,8 +636,8 @@ function preencheDataFim(jsonData) {
 }
 
 function timeScaleAxis() {
-    console.log("DATA_INICIAL: " + DATA_INICIAL);
-    console.log("DATA_FINAL: " + DATA_FINAL);
+    // console.log("DATA_INICIAL: " + DATA_INICIAL);
+    // console.log("DATA_FINAL: " + DATA_FINAL);
 
     var tamanhoData = (d3.scaleUtc()
         .domain([
@@ -728,7 +727,7 @@ function milestone(svg) {
         })
         .attr("class", "milestone")
         .append("line")
-        .attr("y2", 995 + 20)
+        .attr("y2", 9995 + 20)
         .attr("stroke", "#ED1D29")
 }
 
@@ -785,6 +784,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
         var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
             .attr("class", "row-modulo-" + d.nome)
+            .style("width", "-webkit-fill-available")
             .attr("height", 20)
             .style("background-color", "azure")
             .style("background-color", "#" + Object.values(corPrimaria)[index % Object.keys(corPrimaria).length])
@@ -798,6 +798,10 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
         var buttonPlus = rowHierarquia.append("button")
             .attr("class", "iconPlus-div")
+            .style("padding-left", "0px")
+            .style("width", "36px")
+            .style("background-color", "transparent")
+            .style("border", "none")
             .on("click", function () {
                 // var divAltura = tableModulosHierarquiaEventos.select(".divMainTdEventos")
 
@@ -864,16 +868,27 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 } catch (error) {
                     // console.log("erro catch: " + error);
                 }
+
+                atualizaAlturaMainTdNomes()
+
             })
             .append("svg")
-            .attr("viewBox", [0, 0, 448, 512])
-            .attr("height", 16)
-            .attr("width", 14)
+            // .attr("viewBox", [0, 0, 448, 512])
+            .attr("viewBox", [0, 0, 590, 670])
+            .attr("height", 11)
+            .attr("width", 25)
+            // .attr("height", 16)
+            // .attr("width", 14)
             .append("path")
             .attr("d", iconsBase.arrow_down)
+            .style("fill", "white")
 
         var buttonMinus = rowHierarquia.append("button")
             .style("display", "none")
+            .style("padding-left", "0px")
+            .style("width", "36px")
+            .style("background-color", "transparent")
+            .style("border", "none")
             .attr("class", "iconMinus-div")
             .on("click", function () {
                 exibir = exibir.filter(elemento => elemento !== "row-modulo-" + d.nome);
@@ -932,13 +947,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     // console.log("erro catch: " + error);
                 }
 
+                atualizaAlturaMainTdNomes()
+
             })
             .append("svg")
-            .attr("viewBox", [0, 0, 448, 512])
-            .attr("height", 16)
-            .attr("width", 14)
+            // .attr("viewBox", [0, 0, 448, 512])
+            .attr("viewBox", [0, 0, 590, 670])
+            .attr("height", 11)
+            .attr("width", 25)
+            // .attr("height", 16)
+            // .attr("width", 14)
             .append("path")
             .attr("d", iconsBase.arrow_right)
+            .style("fill", "white")
 
 
         rowHierarquia.append("div")
@@ -949,8 +970,12 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .attr("x", 10)
             .attr("height", 20)
             .attr("font-size", "12px")
-            .text(d.nome)
+            .text(d.nome.toUpperCase())
+            // .text(function (d) {
+            //     return d.nome.toUpperCase(); // converte para maiúsculas
+            // })
             .style("color", "#FFFFFF")
+            .style("font-weight", "bold")
 
         // fim da estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
 
@@ -980,16 +1005,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 })
                 .style("display", "flex")
                 .attr("height", 20)
-                // .style("padding-left", "15px")
                 .style("margin-bottom", "5px")
-            // .text(h.nome)
 
-            // var testeRowEventos = row2Eventos.append("tr")
-            //     .attr("class", "row-modulo-segundo")
-            //     .attr("height", 20)
-            //     .style("padding-left", "5px")
-            //     .style("width", "245px")
-            //     .text(h.nome)
 
             // inicio da estrutura da sgunda hierarquia(esquerda), juntamente com os botoes e nomes
             var tableModulos2HierarquiaNomes = tableModulosHierarquiaNomes.append("table")
@@ -1015,6 +1032,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
             var buttonPlus = row2Nomes.append("button")
                 .attr("class", "iconPlus-div2")
+                .style("background-color", "transparent")
+                .style("border", "none")
                 .on("click", function () {
 
                     // exibir.push("tableModulos2")
@@ -1050,16 +1069,20 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     if (terceiraHierarquiaHierarquiaEventos) {
                         terceiraHierarquiaHierarquiaEventos.style("display", terceiraHierarquiaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
                     }
+                    atualizaAlturaMainTdNomes()
                 })
                 .append("svg")
-                .attr("viewBox", [0, 0, 448, 512])
-                .attr("height", 16)
-                .attr("width", 14)
+                .attr("viewBox", [0, 0, 590, 670])
+                .attr("height", 11)
+                .attr("width", 25)
                 .append("path")
                 .attr("d", iconsBase.arrow_down)
+                .style("fill", "white")
 
             var buttonMinus = row2Nomes.append("button")
                 .style("display", "none")
+                .style("background-color", "transparent")
+                .style("border", "none")
                 .attr("class", "iconMinus-div2")
                 .on("click", function () {
                     exibir = exibir.filter(elemento => elemento !== "row-modulo2-" + h.nome);
@@ -1089,22 +1112,22 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     if (terceiraHierarquiaHierarquiaEventos) {
                         terceiraHierarquiaHierarquiaEventos.style("display", terceiraHierarquiaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
                     }
+                    atualizaAlturaMainTdNomes()
                 })
                 .append("svg")
-                .attr("viewBox", [0, 0, 448, 512])
-                .attr("height", 16)
-                .attr("width", 14)
+                .attr("viewBox", [0, 0, 590, 670])
+                .attr("height", 11)
+                .attr("width", 25)
                 .append("path")
                 .attr("d", iconsBase.arrow_right)
+                .style("fill", "white")
 
             var testeRow = row2Nomes.append("tr")
                 .attr("class", "row-modulo-segundo")
                 .attr("height", 20)
                 .style("padding-left", "5px")
-                // .style("width", "245px")
                 .text(h.nome)
                 .style("color", "#FFFFFF")
-
 
 
 
@@ -1117,35 +1140,25 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 // console.log("l.levelValues[0].dataInicio: " + l.levelValues[0].evento + " - " + l.levelValues[0].dataInicio);
                 // console.log("timeScale(l.levelValues[0].dataInicio): " + timeScale(l.levelValues[0].dataInicio));
 
+                // console.log("l.levelValues[0]: " + JSON.stringify(l.levelValues[0]));
+
                 // var dataInicio = timeScale(l.levelValues[0].dataInicio);
                 var dataInicio = timeScale(l.levelValues[0].dataInicio) + tickEspacamento;
                 var posicaoTextoEvento;
                 var dataFimTeste = "null";
+
                 if (l.levelValues[0].dataFim != "null" && l.levelValues[0].dataFim != null) {
                     dataFimTeste = l.levelValues[0].dataFim
                 }
-//rgb(204,0,0) AquiMermo
-//rgb(204,0,0) fazer com que se entrar no if nao seja arredondada a borda
-//rgb(204,0,0) border-radius: 10px 0 0 10px
+
                 if (dataFimTeste != "null") {
-                    if(new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()){
+                    if (new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()) {
                         l.levelValues[0].dataFim = DATA_FINAL
                     }
 
                     var dataFim = timeScale(l.levelValues[0].dataFim)
-                    // console.log("dataFim: " + dataFim);
-                    // console.log("l.levelValues[0].dataFim: " + l.levelValues[0].dataFim);
-                    // console.log("new Date(l.levelValues[0].dataFim): " + new Date(l.levelValues[0].dataFim));
-                    // console.log("DATA_FINAL: " + DATA_FINAL);
-
-                    // if (new Date(l.levelValues[0].dataFim).getTime() > DATA_FINAL.getTime()) {
-                    //     l.levelValues[0].dataFim = DATA_FINAL.toISOString()
-                    //     console.log("l.levelValues[0].dataFim: " + l.levelValues[0].dataFim);
-                    //   }
                     tamanhoBarraEvento = dataFim - dataInicio
-                    // console.log("tamanhoBarraEvento: " + tamanhoBarraEvento);
                     posicaoTextoEvento = dataInicio
-                    // posicaoTextoEvento = dataInicio + 15
                 }
                 else {
                     posicaoTextoEvento = dataInicio
@@ -1162,6 +1175,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     group: false,
                                     cor: l.levelValues[0].cor,
                                     rot: l.levelValues[0].rot
+                                    // icon: l.levelValues[0].icon
                                 },
                             ],
                         });
@@ -1196,26 +1210,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("display", "none")
 
                     var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
-                        .attr("class", "esseMermo")
                         .style("display", "flex")
-                        // .style("padding-left", "30px")
-                        // .style("width", "1147px")
-                        // .style("width", CHART_WIDTH + "px")
                         .style("width", tamanhoScalaExib + "px")
-                        //! quebra de linha
                         .style("height", "21px")
-                        // .style("height", function (d) {
-                        //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                        //     if (l.levelValues[0].evento.length > quebraLinha1) {
-                        //         if (l.levelValues[0].evento.length > 59) {
-                        //             return "63.75px"
-                        //         }
-                        //         return "42.5px";
-                        //     } else {
-                        //         return "21.25px";
-                        //     }
-
-                        // })
                         .style("align-items", "center")
                         .style("margin-bottom", "5px")
 
@@ -1257,6 +1254,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("width", "max-content")
                         // .style("width", "260px")
                         .text(textPrint)
+                        .style("padding-left", "25px")
                         .style("color", "#FFFFFF")
 
 
@@ -1266,9 +1264,6 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("transform", function (d, i) {
                             if (dataFimTeste == "null") {
                                 return `translate(${dataInicio}, 0)`;
-                                // return `translate(${dataInicio + tickEspacamento}, 0)`;
-                                // return `translate(${dataInicio - 15}, 0)`;
-                                // return `translate(${dataInicio - 18}, 0)`;
                             } else {
                                 return `translate(${dataInicio + tickEspacamento}, 0)`;
                             }
@@ -1276,27 +1271,31 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("height", 20)
                         .attr("width", function () {
                             if (dataFimTeste !== "null") {
+                                // console.log("sera aqui? barra" + JSON.stringify(l.levelValues[0]))
                                 tipoEventoBar.push({
                                     "posInin": dataInicio,
                                     "width": tamanhoBarraEvento,
-                                    // "cor": l.levelValues[0].cor,
+                                    // "cor": l.levelValues[0].cor ? l.levelValues[0].cor : "#b1b1ff",
+                                    "cor": l.levelValues[0].cor,
                                 })
                                 tipoCategoriaBar.push({
                                     "posInin": dataInicio,
                                     "width": tamanhoBarraEvento,
-                                    // "cor": l.levelValues[0].cor,
+                                    "cor": l.levelValues[0].cor,
                                 })
                                 return tamanhoBarraEvento
                             } else {
+                                // console.log("sera aqui? evento" + JSON.stringify(l.levelValues[0]))
+
                                 tipoEventoBar.push({
                                     "posInin": dataInicio,
                                     "width": 0,
-                                    // "cor": l.levelValues[0].cor,
+                                    "cor": l.levelValues[0].cor,
                                 })
                                 tipoCategoriaBar.push({
                                     "posInin": dataInicio,
                                     "width": 0,
-                                    // "cor": l.levelValues[0].cor,
+                                    "cor": l.levelValues[0].cor,
                                 })
                                 return tamanhoBarraEvento + 20
                             }
@@ -1307,18 +1306,6 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     if (dataFimTeste == "null") {
                         var iconeDiv = eventoBarDiv
                             .attr("viewBox", [0, 0, 448, 512])
-                            // .attr("height", 20)
-                            //! quebra de linha
-                            // .style("height", function (d) {
-                            //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                            //     if (l.levelValues[0].evento.length > quebraLinha1) {
-                            //         return "42.5px";
-                            //     } else {
-                            //         return "21.25px";
-                            //     }
-
-                            // })
-                            // .attr("width", 30)
                             .attr("width", 20)
                             .append("path")
                             .attr("fill", function () {
@@ -1332,16 +1319,18 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             // .attr("d", iconsBase.diamond)
                             .attr("d", function () {
                                 if (l.levelValues[0].icon) {
-                                    return l.levelValues[0].icon
+                                    // return l.levelValues[0].icon
+                                    return iconsBase.icons[l.levelValues[0].icon]
                                 } else {
-                                    return iconsBase.diamond
+                                    // return iconsBase.diamond
+                                    return iconsBase.base
                                 }
                             }
                             )
                     } else {
 
                         // eventoBarDiv.style("border-radius", "10px")
-                        eventoBarDiv.style("border-radius", function(f) {
+                        eventoBarDiv.style("border-radius", function (f) {
                             var soma = dataInicio + tamanhoBarraEvento
                             if (soma >= posDataFinal) {
                                 return "10px 0 0 10px"
@@ -1352,7 +1341,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         var iconeDiv = eventoBarDiv.append("rect")
                             .attr("fill", function () {
                                 if (l.levelValues[0].cor) {
-                                    return l.levelValues[0].cor
+                                    // return l.levelValues[0].cor
+                                    return "#" + l.levelValues[0].cor
                                 } else {
                                     return "rgb(0, 0153, 128)"
                                 }
@@ -1369,19 +1359,10 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
                             })
                             .attr("width", function (d) {
-//rgb(204,0,0)
-//rgb(204,0,0)
-//rgb(204,0,0)
-
                                 if (dataFimTeste != "null") {
-                                    // var dataFim = timeScale(l.levelValues[0].dataFim)
-                                    
-                                    // console.log("DATA_FINAL evento: " + l.levelValues[0].evento + " - " + new Date(DATA_FINAL))
-                                    // console.log("dataFim evento: " + l.levelValues[0].evento + " - " + new Date(l.levelValues[0].dataFim))
-                                    // console.log("dataFim evento: " + l.levelValues[0].evento + " - " + dataFim)
-                                    if(new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()){
+                                    if (new Date(DATA_FINAL).getTime() < new Date(l.levelValues[0].dataFim).getTime()) {
                                         l.levelValues[0].dataFim = DATA_FINAL
-                                   }
+                                    }
                                     var dataFim = timeScale(l.levelValues[0].dataFim)
                                     tamanhoBarraEvento = dataFim - dataInicio
                                     return tamanhoBarraEvento
@@ -1428,14 +1409,20 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             return `translate(${posicaoTextoEvento}, 0)`;
                         })
                         .attr("height", 20)
-                        .attr("class", "evento-div")
+                        .attr("class", "evento-div-nome")
                         .style("display", "block")
                         //! rgb(204, 0, 0)
                         // .style("width", "30px")
-                        .style("width", function(f) {
+                        .style("width", function (f) {
                             var soma = dataInicio + tamanhoBarraEvento
                             if (soma >= posDataFinal) {
                                 return "30px"
+                            }
+                            if (soma + 300 >= posDataFinal) {
+                                return posDataFinal - soma + "px"
+                            }
+                            else if (dataInicio + 300 >= posDataFinal) {
+                                return posDataFinal - posicaoTextoEvento + "px"
                             }
                         })
                         .append("g")
@@ -1464,39 +1451,13 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
                     var row3Eventos = tableModulos3Eventos.append("tr")
                         .style("display", "flex")
-                        // .style("padding-left", "30px")
                         .style("width", "1147px")
-                        // .style("width", tamanhoScalaExib + "px")
-                        // .style("align-items", "center")
-                        // .style("height", "21px")
-                        //! quebra de linha
-                        // .style("height", function (d) {
-                        //     console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
-
-                        //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                        //     if (Object.keys(item)[0].length > quebraLinha1) {
-                        //         return "42.5px";
-                        //     } else {
-                        //         return "21.25px";
-                        //     }
-                        // })
+                        .style("height", "21px")
                         .style("margin-bottom", "5px")
+                        .attr("class", "alterarEsse")
 
                     var testeRowEventos = row3Eventos.append("tr")
                         .attr("class", "row-modulo-evento")
-                    // .attr("height", 20)
-                    //! quebra de linha
-                    // .style("height", function (d) {
-                    //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                    //     if (Object.keys(item)[0].toString.length > quebraLinha1) {
-                    //         return "42.5px";
-                    //     } else {
-                    //         return "21.25px";
-                    //     }
-                    // })
-                    // .style("padding-left", "5px")
-                    // .style("width", "260px")
-                    // .text(Object.keys(dadosEventoSubTipo[i])[0])
 
                     var barraGeralEvento = row3Eventos.append("g")
                         .attr("transform", `translate(0,0)`)
@@ -1504,34 +1465,35 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
                     //parte referente ao nome dos eventos
                     var tableModulos3Nomes = tableModulos2HierarquiaNomes.append("table")
-                        // .attr("class", "tableModulos3")
                         .attr("class", "row-modulo3-" + Object.keys(item)[0])
                         .style("display", "none")
 
                     var row3Nomes = tableModulos3Nomes.append("tr")
                         .style("display", "flex")
                         .style("padding-left", "30px")
-                        .style("width", "1147px")
+                        // .style("width", "1147px")
                         .style("margin-bottom", "5px")
 
                     var testeRowNomes = row3Nomes.append("tr")
                         .attr("class", "row-modulo-evento")
                         // .attr("height", 20)
                         .style("padding-left", "5px")
-                        .style("width", "260px")
+                        // .style("width", "260px")
+                        .style("width", "max-content")
                         .text(Object.keys(dadosEventoSubTipo[i])[0])
+                        .style("color", "#FFFFFF")
 
-                    // var barraGeralEvento = row3Nomes.append("g")
-                    //     .attr("transform", `translate(0,0)`)
-                    //     .attr("class", "evento-div3")
 
                     Object.keys(item).forEach((key, j) => {
 
                         item[key].forEach((gov, k) => {
+                            // console.log("gov: " + JSON.stringify(gov))
 
                             var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
                                 .style("display", "flex")
                                 .style("position", "absolute")
+                                .attr("height", 20)
+                                .attr("class", "essaClass")
                                 .attr("transform", function (f) {
                                     if (gov.width != 0) {
                                         return `translate(${gov.posInin},0)`
@@ -1541,18 +1503,6 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                         return `translate(${gov.posInin},0)`
                                     }
                                 })
-                                // .attr("height", 20)
-                                //! quebra de linha
-                                // .style("height", function (d) {
-                                //     console.log("Object.keys(item)[0]: " + Object.keys(item)[0] + " - " + Object.keys(item)[0].length);
-
-                                //     //verifica a quantidade de carcteres do nome, se tiver mais de 27 caracteres aumenta o tamanho do icone
-                                //     if (Object.keys(item)[0].length > quebraLinha1) {
-                                //         return "42.5px";
-                                //     } else {
-                                //         return "21.25px";
-                                //     }
-                                // })
                                 .attr("width", function (f) {
                                     if (gov.width != 0) {
                                         tipoEventoBar.push({
@@ -1614,7 +1564,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                             if (gov.icon) {
                                                 return gov.icon
                                             } else {
-                                                return iconsBase.diamond
+                                                // return iconsBase.diamond
+                                                return iconsBase.base
                                             }
                                         }
                                     )
@@ -1679,7 +1630,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         }
                     })
                 if (item.width != 0) {
-                    barraGeralTeste2.style("border-radius", function(f) {
+                    barraGeralTeste2.style("border-radius", function (f) {
                         var soma = item.posInin + item.width
                         if (soma >= posDataFinal) {
                             return "10px 0 0 10px"
@@ -1688,7 +1639,14 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         }
                     })
                     barraGeralTeste2.append("rect")
-                        .attr("fill", "rgb(128, 52, 52)")
+                        // .attr("fill", "rgb(128, 52, 52)")
+                        .attr("fill", function (f) {
+                            if (item.cor) {
+                                return "#" + item.cor
+                            } else {
+                                return "rgb(200, 153, 128)"
+                            }
+                        })
                         .attr("width", item.width)
                         .attr("height", 20)
                 } else {
@@ -1701,8 +1659,16 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("height", 20)
                         .attr("width", 20)
                         .append("path")
-                        .attr("fill", "rgb(128, 52, 52)")
-                        .attr("d", iconsBase.diamond)
+                        // .attr("fill", "rgb(128, 52, 52)")
+                        .attr("fill", function (f) {
+                            if (item.cor) {
+                                return "#" + item.cor
+                            } else {
+                                return "rgb(200, 153, 128)"
+                            }
+                        })
+                        // .attr("d", iconsBase.diamond)
+                        .attr("d", iconsBase.base)
                 }
             })
 
@@ -1727,8 +1693,6 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     if (item.width != 0) {
                         return `translate(${item.posInin},0)`
                     } else {
-                        // return `translate(${item.posInin - 15},0)`
-                        // return `translate(${item.posInin - 18},0)`
                         return `translate(${item.posInin},0)`
                     }
                 })
@@ -1741,9 +1705,28 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     }
                 })
             if (item.width != 0) {
-                barraGeralTeste2.style("border-radius", "10px")
+                // console.log("testando: " + JSON.stringify(item))
+                // barraGeralTeste2.style("border-radius", "10px")
+                barraGeralTeste2.style("border-radius", function (f) {
+                    var soma = item.posInin + item.width
+                    if (soma >= posDataFinal) {
+                        return "10px 0 0 10px"
+                    } else {
+                        return "10px"
+                    }
+                })
                 barraGeralTeste2.append("rect")
-                    .attr("fill", "rgb(128, 52, 52)")
+                    // .attr("fill", "rgb(128, 52, 52)")
+                    // .attr("fill", "rgb(128, 252, 52)")
+                    .attr("fill", function (f) {
+                        if (item.cor) {
+                            // console.log("testando: " + JSON.stringify(item.cor))
+
+                            return "#" + item.cor
+                        } else {
+                            return "rgb(0, 0153, 128)"
+                        }
+                    })
                     .attr("width", item.width)
                     .attr("height", 20)
             } else {
@@ -1757,9 +1740,25 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     // .attr("width", 30)
                     .attr("width", 20)
                     .append("path")
-                    .attr("fill", "rgb(128, 52, 52)")
-                    .attr("d", iconsBase.diamond)
+                    // .attr("fill", "rgb(128, 52, 52)")
+                    .attr("fill", function (f) {
+                        if (item.cor) {
+                            return "#" + item.cor
+                        } else {
+                            return "rgb(200, 153, 128)"
+                        }
+                    })
+                    // .attr("d", iconsBase.diamond)
+                    .attr("d", iconsBase.base)
+                // .attr("d", iconsBase.icons[1])
             }
         })
     });
+}
+
+
+function atualizaAlturaMainTdNomes() {
+    const td = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
+    alturaRolagem = td.scrollHeight;
+    svgRoot.style("height", alturaRolagem + "px");
 }
