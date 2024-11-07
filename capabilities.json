@@ -32,6 +32,11 @@
             "kind": "Grouping"
         },
         {
+            "name": "icone",
+            "displayName": "Icone",
+            "kind": "Grouping"
+        },
+        {
             "name": "escala",
             "displayName": "Escala",
             "kind": "Grouping"
@@ -71,6 +76,11 @@
                         {
                             "for": {
                                 "in": "cor"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "icone"
                             }
                         },
                         {

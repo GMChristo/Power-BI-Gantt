@@ -10,7 +10,8 @@ var ganttChart_DEBUG;
 /* harmony export */   B7: () => (/* binding */ arrow_right),
 /* harmony export */   E3: () => (/* binding */ base),
 /* harmony export */   Pt: () => (/* binding */ icons),
-/* harmony export */   rE: () => (/* binding */ arrow_down)
+/* harmony export */   rE: () => (/* binding */ arrow_down),
+/* harmony export */   vb: () => (/* binding */ vb)
 /* harmony export */ });
 /* unused harmony exports plus, minor */
 const plus = "M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z";
@@ -20,31 +21,74 @@ const arrow_right = "M 259.28125 714.15625 L 589.4375 384 L 259.277344 53.84375 
 // export const arrow_down = "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
 // export const arrow_right = "M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
 const base = "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z";
+const vb = [
+    [0, 0, 448, 512],
+    [0, 0, 448, 512],
+    [0, 0, 448, 512],
+    [0, 0, 448, 512],
+    [300, 0, 810, 860],
+    [0, 0, 448, 512],
+    [0, 0, 448, 512],
+    [0, 0, 448, 512],
+    [0, 0, 448, 512],
+    [300, 0, 810, 860],
+];
+/*
+"M
+6112,
+93 L
+6281,
+766
+6101,
+766
+6397,
+1403
+6212,
+1416
+6500,
+2402
+5733,
+1429
+5954,
+1425
+5483,
+809
+5749,
+784
+5251,
+137
+6112,
+93
+z"
+*/
 const icons = [
-    "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z",
     "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z",
     "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z",
     "M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z",
     "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z",
-    "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z",
+    "M681 890 c-86 -114 -80 -110 -186 -110 -52 0 -95 -2 -95 -5 0 -3 9 -46 20 -96 11 -50 17 -96 13 -102 -4 -7 -31 -42 -60 -78 -29 -36 -53 -68 -53 -71 0 -2 40 -23 89 -47 l88 -44 22 -98 c12 -55 24 -99 27 -99 2 0 40 18 84 40 44 22 87 40 95 40 8 0 51 -18 95 -40 44 -22 82 -40 84 -40 3 0 15 44 27 99 l22 98 88 44 c49 24 89 45 89 47 0 3 -24 35 -53 71 -29 36 -56 71 -60 78 -4 6 2 52 13 102 11 50 20 93 20 96 0 3 -42 5 -92 5 -51 0 -98 4 -104 8 -6 4 -37 41 -70 82 l-60 76 -43 -56z",
     "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z",
     "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z",
-    "M18.86,11.27l-3.23-8A2,2,0,0,0,13.72,2H9.38a2.06,2.06,0,0,0-1.71.9,2,2,0,0,0-.19,1.84L8.81,8H7.05A2,2,0,0,0,5.18,9.18a2,2,0,0,0,.29,2.1l8.8,10.37A1,1,0,0,0,15,22a1.12,1.12,0,0,0,.47-.11,1,1,0,0,0,.5-1.15L14.19,14H17a2.06,2.06,0,0,0,1.71-.9A2,2,0,0,0,18.86,11.27Z",
+    "M 6112,93 L 6281,766 6101,766 6397,1403 6212,1416 6500,2402 5733,1429 5954,1425 5483,809 5749,784 5251,137 6112, 93z",
     "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z",
+    "M250 495 l0 -405 203 0 202 0 203 203 202 202 -203 203 -202 202 -203 0 -202 0 0 -405z"
 ];
 /*
+4 "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z",
+7 "M18.86 11.27l-3.23-8A2 2 0 0 0 13.72 2H9.38a2.06 2.06 0 0 0-1.71.9 2 2 0 0 0-.19 1.84L8.81 8H7.05A2 2 0 0 0 5.18 9.18a2 2 0 0 0 .29 2.1l8.8 10.37A1 1 0 0 0 15 22a1.12 1.12 0 0 0 .47-.11 1 1 0 0 0 .5-1.15L14.19 14H17a2.06 2.06 0 0 0 1.71-.9A2 2 0 0 0 18.86 11.27Z",
+7 "M576 1139 c-82 -5 -151 -11 -153 -13 -2 -2 39 -60 91 -127 l96 -124 -38 -3 c-68 -5 -68 -6 27 -129 l90 -118 -41 -5 -40 -5 163 -207 c89 -114 164 -206 167 -204 2 2 -22 89 -52 192 -31 103 -56 194 -56 200 0 7 15 14 34 16 l34 3 -48 103 c-68 143 -68 142 -31 142 17 0 31 3 31 6 0 3 -11 51 -26 107 -47 191 -42 177 -72 176 -15 -1 -94 -6 -176 -10z",
+7 "M 16412,10393 L 16581,11066 16401,11066 16697,11703 16512,11716 16800,12702 16033,11729 16254,11725 15783,11109 16049,11084 15551,10437 16412,10393z",
 //arrow_
-0 arrow_ = "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
-1 play = "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
-2 star = "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
-3 ban = "M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
-4 diamond = "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z"
-5 star2 = "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z"
-6 aprove = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
-7 circle = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"
-8 thunder = "M18.86,11.27l-3.23-8A2,2,0,0,0,13.72,2H9.38a2.06,2.06,0,0,0-1.71.9,2,2,0,0,0-.19,1.84L8.81,8H7.05A2,2,0,0,0,5.18,9.18a2,2,0,0,0,.29,2.1l8.8,10.37A1,1,0,0,0,15,22a1.12,1.12,0,0,0,.47-.11,1,1,0,0,0,.5-1.15L14.19,14H17a2.06,2.06,0,0,0,1.71-.9A2,2,0,0,0,18.86,11.27Z"
-9 square = "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z":
-10 flag =
+0 play = "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
+1 star = "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+2 ban = "M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
+3 diamond = "M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z"
+4 star2 = "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z"
+5 aprove = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+6 circle = "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"
+7 thunder = "M18.86,11.27l-3.23-8A2,2,0,0,0,13.72,2H9.38a2.06,2.06,0,0,0-1.71.9,2,2,0,0,0-.19,1.84L8.81,8H7.05A2,2,0,0,0,5.18,9.18a2,2,0,0,0,.29,2.1l8.8,10.37A1,1,0,0,0,15,22a1.12,1.12,0,0,0,.47-.11,1,1,0,0,0,.5-1.15L14.19,14H17a2.06,2.06,0,0,0,1.71-.9A2,2,0,0,0,18.86,11.27Z"
+8 square = "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z":
+9 flag = "M250 495 l0 -405 203 0 202 0 203 203 202 202 -203 203 -202 202 -203 0 -202 0 0 -405z"
 */
 
 
@@ -72,6 +116,8 @@ var CHART_WIDTH = 1200;
 var CHART_HEIGHT = 640;
 var DATA_INICIAL = new Date("3000-01-01");
 var DATA_FINAL = new Date("1500-01-01");
+var DATA_INICIAL_SF = new Date("3000-01-01");
+var DATA_FINAL_SF = new Date("1500-01-01");
 var dataMap = [];
 var estruturaDados = [];
 var exibir = [];
@@ -87,12 +133,31 @@ var escalaTickSize;
 var tickEspacamento = 0;
 var posDataFinal;
 var alturaRolagem;
-// var quebraLinha1 = 36
-var formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .timeFormat */ .DCK("%b %Y");
+var larguraRolagem = [];
+var formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcFormat */ .aLc("%b %Y");
+var corLinha = ["#F1F3F5", "#DEE2E6"];
+// #F1F3F5
+// #DEE2E6
 var tamanhoScalaExib = 100;
 // var corPrimaria = [{"1" : "006432"}, {"2" : "93A100"}, {"3" : "00867F"}]
 var corPrimaria = { "1": "006432", "2": "93A100", "3": "00867F" };
-var tooltip;
+// var tooltip
+// var tooltip = svgBase.append("div")
+var tooltip = d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ltv("body").append("div")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("background-color", "#f9f9f9")
+    .style("border", "1px solid #d3d3d3")
+    .style("padding", "5px")
+    .style("border-radius", "5px")
+    .style("box-shadow", "0px 0px 5px 0px #000000")
+    // .style("right", "0px")
+    .style("top", "0px")
+    .style("left", "0px")
+    .style("width", "fit-content");
+// .style("height", "50px")
+// .style("z-index", "-1");
 class Visual {
     svgRootHTML;
     constructor(options) {
@@ -104,6 +169,8 @@ class Visual {
         dataMap = [];
         estruturaDados = [];
         dadosEstruturais = [];
+        DATA_INICIAL = new Date("3000-01-01");
+        DATA_FINAL = new Date("1500-01-01");
         // console.log("dataMap1: " + dataMap);
         const dataView = options.dataViews[0];
         // console.log("dados iniciais dataView: " + JSON.stringify(options));
@@ -122,8 +189,12 @@ class Visual {
         estruturaHierarquia(dadoEstrutura, estruturaDados); //retorna quais campos no visual foram preenchidos
         dadosEstruturais = estruturaDados;
         hierarquiaTree(categorias, 0, dataMap);
+        // console.log("DATA_INICIAL antes: " + DATA_INICIAL);
+        // console.log("DATA_FINAL antes: " + DATA_FINAL);
         preencheDataInicio(dataMap);
         preencheDataFim(dataMap);
+        // console.log("DATA_INICIAL depois: " + DATA_INICIAL);
+        // console.log("DATA_FINAL depois: " + DATA_FINAL);
         defineEscala();
         // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
         agrupamentoHierarquia(dataMap, dataAgrupado);
@@ -154,7 +225,7 @@ class Visual {
             .style("vertical-align", "top")
             .style("position", "fixed")
             .style("overflow-x", "auto")
-            .style("overflow-y", "hidden")
+            // .style("overflow-y", "hidden")
             .style("border", "1px solid");
         // .style("::-webkit-scrollbar:vertical", "display: none")
         // .style("::-webkit-scrollbar:horizontal", "display: block")
@@ -186,7 +257,8 @@ class Visual {
             .style("position", "absolute")
             .style("top", "-40px")
             .style("left", "0px")
-            .style("z-index", "-1");
+            // .style("z-index", "-1")
+            .style("z-index", "0");
         dadosEventoScaleTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdScale")
             .style("height", "30px")
@@ -198,9 +270,26 @@ class Visual {
             .style("max-width", "fit-content")
             .style("left", "310px")
             .style("padding-left", "7px");
+        var testeRegulagemScala2 = dadosEventoScaleTdHTML.append("div")
+            .style("width", "310px")
+            .style("height", "20px")
+            .style("left", "00px")
+            .style("position", "absolute")
+            .style("background-color", "white");
         var testeRegulagemScala = dadosEventoScaleTdHTML.append("div")
             .attr("class", "divMainTdScala")
+            // .style("display", "flex")
             .style("max-width", CHART_WIDTH - 300 + "px");
+        // var ocultaFixedScale = testeRegulagemScala
+        //     .append("td")
+        //     .attr("class", "fixed")
+        //     // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+        //     .style("width", "302px")
+        //     .style("height", "30px")
+        //     // .style("margin-left", "302px")
+        //     // .style("padding-right", "50px")
+        //     .style("top", "0px")
+        //     .style("left", "0px")
         //necessario para criar as escalas
         fixedScale = testeRegulagemScala
             .append("svg")
@@ -208,7 +297,7 @@ class Visual {
             // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
             .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
             .style("height", "30px")
-            .style("margin-left", "300px")
+            .style("margin-left", "302px")
             .style("padding-right", "50px")
             .style("top", "0px")
             .style("left", "0px");
@@ -217,29 +306,11 @@ class Visual {
             // .style("padding-top", MARGIN_TOP * 2 + "px")
             .style("padding-top", "3px")
             .style("width", tamanhoScalaExib + "px");
-        // // .style("width", 30 + "px")
-        // .style("width", tamanhoScalaExib + "px")
-        // .style("vertical-align", "top")
-        // // .style("overflow-y", "hidden")
-        // .style("overflow-x", "hidden")
-        // .style("max-width", "fit-content")
-        // .style("left", "310px")
-        // .style("padding-left", "7px")
-        // Adiciona o tooltip ao corpo do documento
-        // tooltip = dadosEventoHTML.append("div")
-        //     .attr("class", "tooltip")
-        //     .style("position", "absolute")
-        //     // .style("visibility", "hidden")
-        //     .style("background-color", "#f9f9f9")
-        //     .style("border", "1px solid #d3d3d3")
-        //     .style("padding", "5px")
-        //     .style("border-radius", "5px")
-        //     .style("box-shadow", "0px 0px 5px 0px #000000");
         const tagsetupScales = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".grid");
         tagsetupScales.remove();
         const tagmilestone = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".milestone");
         tagmilestone.remove();
-        const tagtreeModulos = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm('[class^="row-modulo-"]');
+        const tagtreeModulos = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm('[class^="row-modulo-nome-"]');
         tagtreeModulos.remove();
         const tagfixedScales = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".grid2");
         tagfixedScales.remove();
@@ -288,6 +359,13 @@ class Visual {
         });
     }
 }
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
 function defineEscala() {
     const inicio = new Date(DATA_INICIAL);
     const fim = new Date(DATA_FINAL);
@@ -333,7 +411,8 @@ function defineEscala() {
         else {
             tamanhoScalaExib = CHART_WIDTH - 304;
         }
-        formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .timeFormat */ .DCK("%d %b %Y");
+        // formatoEscala = d3.timeFormat("%d %b %Y")
+        formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcFormat */ .aLc("%d %b %Y");
         escalaTickSize = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcDay */ .dAM.every(1);
         // tickEspacamento = 55
     }
@@ -579,20 +658,38 @@ function preencheDataInicio(jsonData) {
             }
         }
     }
+    // var nextMonthInicio = DATA_INICIAL.getMonth() + 1;
+    var nextMonthInicio = DATA_INICIAL.getMonth();
+    var nextYearInicio = DATA_INICIAL.getFullYear();
+    if (nextMonthInicio > 11) {
+        nextMonthInicio = 0;
+        nextYearInicio++;
+    }
+    const lastDayOfNextMonthInicio = new Date(nextYearInicio, nextMonthInicio + 1, 0).getDate();
+    // DATA_INICIAL_SF = new Date(nextYearInicio, nextMonthInicio, lastDayOfNextMonthInicio);
+    DATA_INICIAL_SF = new Date(nextYearInicio, nextMonthInicio, 1);
+    DATA_INICIAL = DATA_INICIAL_SF;
+    // console.log("preencheDataFim DATA_INICIAL_SF: " + DATA_INICIAL_SF);
+    //timeScaleAxis DATA_INICIAL: Mon Aug 30 2021 00:00:00 GMT-0300 (Horário Padrão de Brasília)
 }
 function preencheDataFim(jsonData) {
     DATA_FINAL = new Date("1500-01-01");
+    // console.log("preencheDataFim jsonData: " + JSON.stringify(jsonData));
     for (let i = 0; i < jsonData.length; i++) {
         let currentObj = jsonData[i];
-        for (let j = 0; j < currentObj.dados[0].dados.length; j++) {
-            let currentLevel2Obj = currentObj.dados[0].dados[j];
-            if (currentLevel2Obj.levelValues[0].dataInicio) {
-                let currentDate = new Date(currentLevel2Obj.levelValues[0].dataInicio);
-                if (currentDate > DATA_FINAL) {
-                    DATA_FINAL = currentDate;
+        // console.log("currentObj.dados[0].length: " + currentObj.dados.length);
+        for (let k = 0; k < currentObj.dados.length; k++) {
+            for (let j = 0; j < currentObj.dados[k].dados.length; j++) {
+                let currentLevel2Obj = currentObj.dados[k].dados[j];
+                if (currentLevel2Obj.levelValues[0].dataInicio) {
+                    let currentDate = new Date(currentLevel2Obj.levelValues[0].dataInicio);
+                    if (currentDate > DATA_FINAL) {
+                        DATA_FINAL = currentDate;
+                    }
                 }
             }
         }
+        // console.log("preencheDataFim: " + DATA_FINAL)
     }
     const year = DATA_FINAL.getFullYear();
     const month = DATA_FINAL.getMonth() + 1; // +1 because getMonth() is zero-based
@@ -600,18 +697,39 @@ function preencheDataFim(jsonData) {
     const lastDayOfMonthString = `${year}-${month.toString().padStart(2, "0")}-${lastDayOfMonth.toString().padStart(2, "0")}`;
     //faz com que a data final seja o ultimo dia do mes
     DATA_FINAL = new Date(lastDayOfMonthString);
+    // console.log("preencheDataFim DATA_FINAL: " + DATA_FINAL);
+    var nextMonthFinal = DATA_FINAL.getMonth() + 1;
+    var nextYearFinal = DATA_FINAL.getFullYear();
+    if (nextMonthFinal > 11) {
+        nextMonthFinal = 0;
+        nextYearFinal++;
+    }
+    const lastDayOfNextMonthFinal = new Date(nextYearFinal, nextMonthFinal + 1, 0).getDate();
+    // DATA_FINAL_SF = new Date(nextYearFinal, nextMonthFinal, lastDayOfNextMonthFinal);
+    DATA_FINAL_SF = new Date(nextYearFinal, nextMonthFinal, 1);
+    DATA_FINAL = DATA_FINAL_SF;
+    console.log("preencheDataFim DATA_FINAL_SF: " + DATA_FINAL_SF);
     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
+    //timeScaleAxis DATA_FINAL: Fri Jan 30 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)
 }
 function timeScaleAxis() {
-    // console.log("DATA_INICIAL: " + DATA_INICIAL);
-    // console.log("DATA_FINAL: " + DATA_FINAL);
+    // console.log("timeScaleAxis DATA_INICIAL: " + DATA_INICIAL.toUTCString());
+    // console.log("timeScaleAxis new Date(DATA_INICIAL): " + new Date(Date.UTC(2024, 0, 1, 0, 0)));
+    // console.log("timeScaleAxis DATA_FINAL: " + DATA_FINAL.toUTCString());
+    // console.log("timeScaleAxis new Date (DATA_FINAL): " + new Date(Date.UTC(2025, 9, 1, 0, 0)));
     var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleUtc */ .Pps()
+        // var tamanhoData = (d3.scaleTime()
         .domain([
+        // dataInicialCom3h,
+        // dataFinalCom3h,
         DATA_INICIAL,
-        DATA_FINAL,
+        DATA_FINAL
     ])
-        .nice()
-        .range([0, tamanhoScalaExib]));
+        // .nice()
+        .clamp(true)
+        .range([0, tamanhoScalaExib])
+    // .invert(0.5)
+    );
     return tamanhoData;
 }
 const xScale = d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleTime */ .w7C()
@@ -626,7 +744,8 @@ function timeScale(data) {
         DATA_INICIAL,
         DATA_FINAL,
     ])
-        .nice()
+        // .nice()
+        .clamp(true)
         // .range([0, CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT]));
         .range([0, tamanhoScalaExib]));
     // console.log("timeScale(data) tamanhoData(DATA_INICIAL): " + tamanhoData(DATA_INICIAL));
@@ -670,8 +789,6 @@ function fixedScales(svg, width, height) {
     );
 }
 function milestone(svg) {
-    // var data = "2024-06-06T03:00:00.000Z"
-    // console.log("milestone data: " + data);
     var mile = svg.append("g")
         .attr("transform", function () {
         var hoje = timeScale(d3__WEBPACK_IMPORTED_MODULE_0__/* .timeMinute */ .wXd(new Date()));
@@ -689,6 +806,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
     // console.log("treeModulos data: " + JSON.stringify(data));
     data.forEach((d, index) => {
         var tipoCategoriaBar = [];
+        var corBackgroundSegundoNivel = index;
         //rgb(204,0,0) comentario abaixo é para efetuar o item 14 adicionar uma linha de divisão entre as hierarquias
         /*
         console.log("d.index: " + d.nome + " - " + index)
@@ -703,12 +821,18 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         }*/
         // adiciona a estrutura inicial da parte de eventos (direita)
         var tableModulosHierarquiaEventos = svgHierarquiaEventos.append("table")
-            .attr("class", "row-modulo-" + d.nome)
+            // .attr("class", "row-modulo-" + d.nome)
+            .attr("class", "row-modulo-nome-" + d.nome)
             .style("height", "20px");
         // .style("width", CHART_WIDTH +"px")
         var rowEventos = tableModulosHierarquiaEventos.append("tr")
             .style("display", "flex")
             .style("height", "20px")
+            .style("width", tamanhoScalaExib + "px")
+            .style("background-color", function () {
+            // console.log("i: " +index + " - " + corLinha[index % 2])
+            return corLinha[index % 2];
+        })
             // .style("width", CHART_WIDTH + "px")
             .style("margin-bottom", "5px");
         // .text(d.nome)
@@ -724,7 +848,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         // fim da adição da estrutura inicial da parte de eventos (direita)
         // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
         var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
-            .attr("class", "row-modulo-" + d.nome)
+            // .attr("class", "row-modulo-" + d.nome)
+            .attr("class", "row-modulo-nome-" + d.nome)
             .style("width", "-webkit-fill-available")
             .attr("height", 20)
             .style("background-color", "azure")
@@ -744,12 +869,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             // var divAltura = tableModulosHierarquiaEventos.select(".divMainTdEventos")
             // var alturaDiv = divAltura.node().getBoundingClientRect().height;
             // console.log('Altura da div alterada para: ' + alturaDiv + 'px');
+            // var divLargura = tableModulosHierarquiaEventos.select(".divMainTdEventos")
+            // var larguraDiv = divLargura.node().getBoundingClientRect().height;
+            // console.log('Largura da div alterada para: ' + larguraDiv + 'px');
+            const td = document.querySelector('.mainTdNomes');
+            var larguraRolagem = td.scrollWidth;
+            // console.log('Largura da div antes: ' + larguraRolagem + 'px');
             // const divMainTdEventos = tableModulosHierarquiaEventos.querySelector('.divMainTdEventos')
             // const divMainTdEventos = tableModulosHierarquiaEventos.select(".divMainTdEventos")
             // const divMainTdEventos = document.querySelector(".divMainTdEventos")
             // console.log("divMainTdEventos: " + divMainTdEventos)
             // console.log("divMainTdEventos: " + JSON.stringify(divMainTdEventos))
-            exibir.push("row-modulo-" + d.nome);
+            // exibir.push("row-modulo-" + d.nome)
+            exibir.push("row-modulo-nome-" + d.nome);
             var eventoHide = rowHierarquia.select(".iconPlus-div");
             if (eventoHide) {
                 eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
@@ -798,6 +930,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 // console.log("erro catch: " + error);
             }
             atualizaAlturaMainTdNomes();
+            atualizaLarguraMainTdNomes("expande", d.nome);
         })
             .append("svg")
             // .attr("viewBox", [0, 0, 448, 512])
@@ -817,8 +950,10 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .style("border", "none")
             .attr("class", "iconMinus-div")
             .on("click", function () {
-            exibir = exibir.filter(elemento => elemento !== "row-modulo-" + d.nome);
+            // exibir = exibir.filter(elemento => elemento !== "row-modulo-" + d.nome);
+            exibir = exibir.filter(elemento => elemento !== "row-modulo-nome-" + d.nome);
             // console.log("exibir - buttonMinus: " + exibir);
+            atualizaLarguraMainTdNomes("comprime", d.nome);
             var eventoHide = rowHierarquia.select(".iconPlus-div");
             if (eventoHide) {
                 eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
@@ -899,7 +1034,11 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         //!
         d.dados.forEach((h, i) => {
             var tipoEventoBar = [];
+            // var corBackgroundSegundoNivel = index
             // console.log("d.dados.forEach: " + JSON.stringify(h));
+            // console.log("index: " + index);
+            // corBackgroundLinha++
+            // console.log("corBackgroundLinha: " + corBackgroundSegundoNivel);
             var tableModulos2HierarquiaEventos = tableModulosHierarquiaEventos.append("table")
                 .attr("class", "row-modulo2-" + h.nome)
                 .style("display", "none")
@@ -909,11 +1048,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             var row2Eventos = tableModulos2HierarquiaEventos.append("tr")
                 .attr("class", function () {
                 if (h.nome === null) {
+                    // corBackgroundLinha +1
                     return "ocultar";
                 }
                 else {
+                    corBackgroundSegundoNivel++;
+                    // console.log("corBackgroundLinha: " + corBackgroundSegundoNivel);
                     return "exibir";
                 }
+            })
+                // .style("background-color", "aqua")
+                .style("background-color", function () {
+                // console.log("i: " +corBackgroundSegundoNivel + " - " + corLinha[corBackgroundSegundoNivel % 2])
+                return corLinha[corBackgroundSegundoNivel % 2];
             })
                 .style("display", "flex")
                 .attr("height", 20)
@@ -1038,6 +1185,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 var dataInicio = timeScale(l.levelValues[0].dataInicio) + tickEspacamento;
                 var posicaoTextoEvento;
                 var dataFimTeste = "null";
+                // var corBackgroundNivelEvento = corBackgroundSegundoNivel
+                // console.log("i: " + i)
+                // corBackgroundNivelEvento + i
                 if (l.levelValues[0].dataFim != "null" && l.levelValues[0].dataFim != null) {
                     dataFimTeste = l.levelValues[0].dataFim;
                 }
@@ -1099,6 +1249,14 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .attr("class", "row-modulo3-" + l.levelValues[0].evento)
                         .style("display", "none");
                     var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+                        .attr("class", "linha-evento")
+                        .style("background-color", function () {
+                        // console.log("i: " +i + " - " + corLinha[i % 2])
+                        // return corLinha[corBackgroundNivelEvento % 2]
+                        // console.log("corBackgroundSegundoNivel: " +corBackgroundSegundoNivel)
+                        // console.log("corBackgroundNivelEvento: " + corBackgroundNivelEvento)
+                        return corLinha[i % 2];
+                    })
                         .style("display", "flex")
                         .style("width", tamanhoScalaExib + "px")
                         .style("height", "21px")
@@ -1151,6 +1309,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     })
                         .attr("height", 20)
                         .attr("width", function () {
+                        if (tamanhoBarraEvento < 0) {
+                            // console.log("sera aqui? barra" + JSON.stringify(l.levelValues[0]) + " - " + tamanhoBarraEvento)
+                        }
                         if (dataFimTeste !== "null") {
                             // console.log("sera aqui? barra" + JSON.stringify(l.levelValues[0]))
                             tipoEventoBar.push({
@@ -1185,7 +1346,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("display", "block");
                     if (dataFimTeste == "null") {
                         var iconeDiv = eventoBarDiv
-                            .attr("viewBox", [0, 0, 448, 512])
+                            // .attr("viewBox", [0, 0, 448, 512])
+                            .attr("viewBox", function () {
+                            if (l.levelValues[0].icon) {
+                                return _icons__WEBPACK_IMPORTED_MODULE_1__.vb[l.levelValues[0].icon];
+                            }
+                            else {
+                                return "0, 0, 448, 512";
+                            }
+                        })
+                            // .attr("viewBox", function(){
+                            //     // return iconsBase.vb[7]
+                            //     return iconsBase.vb[l.levelValues[0].icon]
+                            // })
                             .attr("width", 20)
                             .append("path")
                             .attr("fill", function () {
@@ -1205,6 +1378,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             else {
                                 // return iconsBase.diamond
                                 return _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3;
+                                // return iconsBase.icons[7]
                             }
                         });
                     }
@@ -1254,33 +1428,36 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         });
                     }
                     //todo tooltip
-                    tooltip = row3HierarquiaEventos.append("div")
-                        .attr("class", "tooltip")
-                        .style("position", "absolute")
-                        .style("visibility", "hidden")
-                        .style("background-color", "#f9f9f9")
-                        .style("border", "1px solid #d3d3d3")
-                        .style("padding", "5px")
-                        .style("border-radius", "5px")
-                        .style("box-shadow", "0px 0px 5px 0px #000000");
-                    // console.log("tooltip: " + tooltip);
+                    // tooltip = row3HierarquiaEventos.append("div")
+                    //     .attr("class", "tooltip")
+                    //     .style("position", "absolute")
+                    //     .style("visibility", "hidden")
+                    //     .style("background-color", "#f9f9f9")
+                    //     .style("border", "1px solid #d3d3d3")
+                    //     .style("padding", "5px")
+                    //     .style("border-radius", "5px")
+                    //     .style("box-shadow", "0px 0px 5px 0px #000000")
+                    // // console.log("tooltip: " + tooltip);
                     eventoBarDiv.on("mouseover", function (event, d) {
                         console.log("mouseover");
-                        console.log("eventoBarDiv: " + eventoBarDiv);
-                        // console.log("${l.levelValues[0].dataInicio}:" + l.levelValues[0].dataInicio);
+                        // console.log("eventoBarDiv: " + eventoBarDiv);
+                        var posX = event.pageX;
+                        var posY = event.pageY;
+                        // console.log("eventoBarDiv: " + "x: " + posX + "; y: " + posY);
                         tooltip
-                            // .style("visibility", "visible")
-                            //     .style("left", (event.clientX + 10) + "px")
-                            //     .style("top", (event.clientY + 10) + "px")
-                            .html(`Data inicio: ${l.levelValues[0].dataInicio};<BR>
-                            Data Fim: ${l.levelValues[0].dataFim};<BR>
+                            .style("visibility", "visible")
+                            .style("left", (posX + 10) + "px")
+                            .style("top", (posY + 10) + "px")
+                            // Data Fim: ${l.levelValues[0].dataFim};<BR>
+                            .html(`
+                            Data inicio: ${formatDate(l.levelValues[0].dataInicio)};<BR>
+                            ${l.levelValues[0].dataFim !== null ? `Data Fim: ${formatDate(l.levelValues[0].dataFim)};<BR>` : ''}
                             Evento: ${l.levelValues[0].evento};`);
-                        console.log(tooltip.html());
+                        console.log("aaa: " + tooltip.html());
                     })
                         .on("mouseout", function () {
                         tooltip.style("visibility", "hidden");
                     });
-                    // var eventoNomeDiv = row3HierarquiaNomes.append("svg")
                     var dadosEventoDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function () {
                         return `translate(${posicaoTextoEvento}, 0)`;
@@ -1632,6 +1809,37 @@ function atualizaAlturaMainTdNomes() {
     const td = document.querySelector('.mainTdNomes');
     alturaRolagem = td.scrollHeight;
     svgRoot.style("height", alturaRolagem + "px");
+}
+function atualizaLarguraMainTdNomes(tipo, hierarquia) {
+    if (tipo == "expande") {
+        const queryMainTdNomes = document.querySelector('.mainTdNomes');
+        var valorAdd = queryMainTdNomes.scrollWidth;
+        larguraRolagem.push({
+            nomeHierarquia: hierarquia,
+            tamanho: valorAdd
+        });
+        const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+        const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]');
+        tds.forEach((td) => {
+            td.style.width = maior + 'px';
+        });
+    }
+    else if (tipo == "comprime") {
+        const queryMainTdNomes = document.querySelector('.mainTdNomes');
+        const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]');
+        larguraRolagem = larguraRolagem.filter(item => item.nomeHierarquia !== hierarquia);
+        if (larguraRolagem.length === 0) {
+            tds.forEach((td) => {
+                td.style.width = "-webkit-fill-available";
+            });
+        }
+        else {
+            const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+            tds.forEach((td) => {
+                td.style.width = maior + 'px';
+            });
+        }
+    }
 }
 
 
@@ -5813,8 +6021,8 @@ function defaultLocale(definition) {
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DC: () => (/* reexport safe */ _defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__.DC),
-/* harmony export */   T6: () => (/* reexport safe */ _defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__.T6)
+/* harmony export */   T6: () => (/* reexport safe */ _defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__.T6),
+/* harmony export */   aL: () => (/* reexport safe */ _defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__.aL)
 /* harmony export */ });
 /* harmony import */ var _defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3705);
 
@@ -9073,13 +9281,13 @@ function defaultConstrain(transform, extent, translateExtent) {
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DCK: () => (/* reexport safe */ d3_time_format__WEBPACK_IMPORTED_MODULE_5__.DC),
 /* harmony export */   Ltv: () => (/* reexport safe */ d3_selection__WEBPACK_IMPORTED_MODULE_3__.Lt),
 /* harmony export */   MbY: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.Mb),
 /* harmony export */   Pps: () => (/* reexport safe */ d3_scale__WEBPACK_IMPORTED_MODULE_2__.Pp),
 /* harmony export */   R6t: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.R6),
 /* harmony export */   T6w: () => (/* reexport safe */ d3_time_format__WEBPACK_IMPORTED_MODULE_5__.T6),
 /* harmony export */   Ubm: () => (/* reexport safe */ d3_selection__WEBPACK_IMPORTED_MODULE_3__.Ub),
+/* harmony export */   aLc: () => (/* reexport safe */ d3_time_format__WEBPACK_IMPORTED_MODULE_5__.aL),
 /* harmony export */   dAM: () => (/* reexport safe */ d3_time__WEBPACK_IMPORTED_MODULE_4__.dA),
 /* harmony export */   tlR: () => (/* reexport safe */ d3_axis__WEBPACK_IMPORTED_MODULE_0__.tl),
 /* harmony export */   w7C: () => (/* reexport safe */ d3_scale__WEBPACK_IMPORTED_MODULE_2__.w7),
