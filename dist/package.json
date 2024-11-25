@@ -1,5 +1,5 @@
 {
-		"version": "1.3.1.1",
+		"version": "1.4.1.3",
 		"author": {"name":"GabrielChristo","email":"gabrielchristo@hotmail.com"},
 		"resources": [
 			{
@@ -8,7 +8,7 @@
 				"file": "resources/ganttChart.pbiviz.json"
 			}
 		],
-		"visual": {"name":"ganttChart","displayName":"Gantt Chart","guid":"ganttChart","visualClassName":"Visual","version":"1.3.1.1","description":"Gantt visual personalizado","supportUrl":"https://github.com/gmchristo","gitHubUrl":"https://github.com/gmchristo"},
+		"visual": {"name":"ganttChart","displayName":"Gantt Chart","guid":"ganttChart","visualClassName":"Visual","version":"1.4.1.3","description":"Gantt visual personalizado","supportUrl":"https://github.com/gmchristo","gitHubUrl":"https://github.com/gmchristo"},
 		"metadata": {
 			"pbivizjson": {
 				"resourceId": "rId0"

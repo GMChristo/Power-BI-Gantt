@@ -40,6 +40,7 @@ var tickEspacamento = 0;
 var posDataFinal;
 var alturaRolagem;
 var larguraRolagem = [];
+var dataHoje;
 var formatoEscala = d3.utcFormat("%b %Y")
 
 var corLinha = ["#F1F3F5", "#DEE2E6"]
@@ -48,17 +49,18 @@ var tamanhoScalaExib = 100
 var corPrimaria = { "1": "006432", "2": "93A100", "3": "00867F" }
 
 var tooltip = d3.select("body").append("div")
-.attr("class", "tooltip")
-.style("position", "absolute")
-.style("visibility", "hidden")
-.style("background-color", "#f9f9f9")
-.style("border", "1px solid #d3d3d3")
-.style("padding", "5px")
-.style("border-radius", "5px")
-.style("box-shadow", "0px 0px 5px 0px #000000")
-.style("top", "0px")
-.style("left", "0px")
-.style("width", "fit-content")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("background-color", "#f9f9f9")
+    .style("border", "1px solid #d3d3d3")
+    .style("padding", "5px")
+    .style("border-radius", "5px")
+    .style("box-shadow", "0px 0px 5px 0px #000000")
+    // .style("top", "0px")
+    // .style("left", "0px")
+    .style("width", "fit-content")
+    .html(`tooltip inicial do visual de gantt`)
 
 export class Visual implements IVisual {
     private svgRootHTML: Selection<any>;
@@ -66,6 +68,7 @@ export class Visual implements IVisual {
     constructor(options: VisualConstructorOptions) {
         this.svgRootHTML = d3.select(options.element).append("div").classed("card", true);
         svgBase = this.svgRootHTML
+        console.log("version: " + "1.4.1.3")
     }
 
     public update(options: VisualUpdateOptions) {
@@ -73,6 +76,7 @@ export class Visual implements IVisual {
         dataMap = [];
         estruturaDados = [];
         dadosEstruturais = [];
+        dataHoje = d3.timeMinute(new Date());
         DATA_INICIAL = new Date("3000-01-01");
         DATA_FINAL = new Date("1500-01-01");
         // console.log("dataMap1: " + dataMap);
@@ -137,26 +141,25 @@ export class Visual implements IVisual {
             .attr("class", "mainTdNomes")
             .style("width", "600px")
             .style("background-color", "white")
-            .style("max-width", "300px")
+            .style("max-width", "325px")
             .style("height", "-webkit-fill-available")
             .style("margin-top", "21px")
-            .style("padding-bottom", MARGIN_TOP + "px")
+            // .style("padding-bottom", MARGIN_TOP + "px")
             .style("vertical-align", "top")
             .style("position", "fixed")
-            .style("overflow-x", "auto")
-            // .style("overflow-y", "hidden")
+            .style("overflow-x", "overlay")
+            .style("overflow-y", "auto")
             .style("border", "1px solid")
-        // .style("::-webkit-scrollbar:vertical", "display: none")
-        // .style("::-webkit-scrollbar:horizontal", "display: block")
-        // .style("scrollbar-width", "none")
+            .style("padding-right", "25px")
 
 
+        // console.log("tamanhoScalaExib mainTdEventos: " + tamanhoScalaExib)
         dadosEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdEventos")
             // .style("height", tamanhoExibicaoHeight + "px")
             .style("width", tamanhoScalaExib + "px")
             .style("height", "-webkit-fill-available")
-
+            .style("background-color", "white")
             .style("margin-top", "21px")
             .style("vertical-align", "top")
             // .style("overflow-y", "hidden")
@@ -172,10 +175,13 @@ export class Visual implements IVisual {
             .style("max-width", CHART_WIDTH - 300 + "px")
 
         //necessario para criar as escalas
+
+        // console.log("tamanhoScalaExib main-svg: " + tamanhoScalaExib)
         svgRoot = testeRegulagemAltura
             .append("svg")
             .attr("class", "main-svg")
-            .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            .style("width", tamanhoScalaExib + "px")
             .style("height", "-webkit-fill-available")
             // .style("height", "10000px")
             .style("position", "absolute")
@@ -188,16 +194,16 @@ export class Visual implements IVisual {
         dadosEventoScaleTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdScale")
             .style("height", "30px")
-            // .style("width", 30 + "px")
-            .style("width", tamanhoScalaExib + "px")
+            // .style("width", tamanhoScalaExib + "px")
+            // .style("max-width", "fit-content")
+            .style("width", CHART_WIDTH + "px")
+            .style("max-width", CHART_WIDTH + "px")
             .style("vertical-align", "top")
-            // .style("overflow-y", "hidden")
             .style("overflow-x", "hidden")
-            .style("max-width", "fit-content")
             .style("left", "310px")
             .style("padding-left", "7px")
 
-            var testeRegulagemScala2 = dadosEventoScaleTdHTML.append("div")
+        var testeRegulagemScala2 = dadosEventoScaleTdHTML.append("div")
             .style("width", "310px")
             .style("height", "20px")
             .style("left", "00px")
@@ -211,23 +217,25 @@ export class Visual implements IVisual {
             // .style("display", "flex")
             .style("max-width", CHART_WIDTH - 300 + "px")
 
-            // var ocultaFixedScale = testeRegulagemScala
-            //     .append("td")
-            //     .attr("class", "fixed")
-            //     // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
-            //     .style("width", "302px")
-            //     .style("height", "30px")
-            //     // .style("margin-left", "302px")
-            //     // .style("padding-right", "50px")
-            //     .style("top", "0px")
-            //     .style("left", "0px")
+        // var ocultaFixedScale = testeRegulagemScala
+        //     .append("td")
+        //     .attr("class", "fixed")
+        //     // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+        //     .style("width", "302px")
+        //     .style("height", "30px")
+        //     // .style("margin-left", "302px")
+        //     // .style("padding-right", "50px")
+        //     .style("top", "0px")
+        //     .style("left", "0px")
 
         //necessario para criar as escalas
+        // console.log("tamanhoScalaExib fixed-scale: " + tamanhoScalaExib)
         fixedScale = testeRegulagemScala
             .append("svg")
             .attr("class", "fixed-scale")
             // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
-            .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            .style("width", tamanhoScalaExib + "px")
             .style("height", "30px")
             .style("margin-left", "302px")
             .style("padding-right", "50px")
@@ -235,10 +243,11 @@ export class Visual implements IVisual {
             .style("left", "0px")
 
 
+        // console.log("tamanhoScalaExib main-eventos: " + tamanhoScalaExib)
         var dadosEventoHTML = testeRegulagemAltura.append("div")
             .attr("class", "main-eventos")
             // .style("padding-top", MARGIN_TOP * 2 + "px")
-            .style("padding-top", "3px")
+            // .style("padding-top", "3px")
             .style("width", tamanhoScalaExib + "px")
 
         const tagsetupScales = d3.selectAll(".grid");
@@ -256,7 +265,10 @@ export class Visual implements IVisual {
         // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
         setupScales(svgRoot, tamanhoScalaExib, 600);
         fixedScales(fixedScale, tamanhoScalaExib, 600);
-        milestone(svgRoot);
+        //verificar se a data hoje esta entre DATA_INICIAL e DATA_FINAL 
+        if (dataHoje >= DATA_INICIAL && dataHoje <= DATA_FINAL) {
+            milestone(svgRoot);
+        }
 
         // console.log("dataMap: " + JSON.stringify(dataMap));
         treeModulos(dataMap, nomesEventoTdHTML, dadosEventoHTML);
@@ -305,6 +317,7 @@ export class Visual implements IVisual {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdScale.scrollLeft = mainTdEventos.scrollLeft;
         });
+        atualizaLarguraMainTdNomes("comprime", "")
     }
 }
 
@@ -684,7 +697,7 @@ function preencheDataFim(jsonData) {
     // DATA_FINAL_SF = new Date(nextYearFinal, nextMonthFinal, lastDayOfNextMonthFinal);
     DATA_FINAL_SF = new Date(nextYearFinal, nextMonthFinal, 1);
     DATA_FINAL = DATA_FINAL_SF
-    console.log("preencheDataFim DATA_FINAL_SF: " + DATA_FINAL_SF);
+    // console.log("preencheDataFim DATA_FINAL_SF: " + DATA_FINAL_SF);
     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
     //timeScaleAxis DATA_FINAL: Fri Jan 30 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)
 }
@@ -696,6 +709,20 @@ function timeScaleAxis() {
             DATA_FINAL
         ])
         // .nice()
+        .clamp(true)
+        .range([0, tamanhoScalaExib])
+        // .invert(0.5)
+    );
+    return tamanhoData;
+}
+
+function timeScaleAxisNice() {
+    var tamanhoData = (d3.scaleUtc()
+        .domain([
+            DATA_INICIAL,
+            DATA_FINAL
+        ])
+        .nice()
         .clamp(true)
         .range([0, tamanhoScalaExib])
         // .invert(0.5)
@@ -731,6 +758,11 @@ function timeScale(data) {
         return tamanhoData(parsedData);
     }
 }
+/*
+if mesDataInicio = mesDataFim{
+usa nice
+}
+*/
 
 function setupScales(svg, width, height) {
     var grid = svg.append("g")
@@ -758,6 +790,39 @@ function setupScales(svg, width, height) {
 }
 
 function fixedScales(svg, width, height) {
+
+    const anoInicial = DATA_INICIAL.getFullYear();
+    const mesInicial = DATA_INICIAL.getMonth(); // Lembre-se que os meses começam em 0 (Janeiro)
+    
+    const anoFinal = DATA_FINAL.getFullYear();
+    const mesFinal = DATA_FINAL.getMonth();
+
+    // Verifica se o ano é o mesmo e se o mês é o seguinte
+    if (anoFinal === anoInicial && mesFinal === mesInicial + 1) {
+        // console.log("anoFinal === anoInicial && mesFinal === mesInicial + 1")
+        var grid = svg.append("g")
+        .attr("class", "grid2")
+        .style("height", "30px")
+        .attr("transform", `translate(0, ${MARGIN_TOP})`)
+        .call(d3.axisTop(timeScaleAxisNice())
+            .ticks(escalaTickSize)
+            .tickFormat(formatoEscala) 
+            // .tickSize(-12000)
+        )
+    } else if (anoFinal === anoInicial + 1 && mesFinal === 0 && mesInicial === 11) {
+        // console.log("anoFinal === anoInicial + 1 && mesFinal === 0 && mesInicial === 11")
+        var grid = svg.append("g")
+        .attr("class", "grid2")
+        .style("height", "30px")
+        .attr("transform", `translate(0, ${MARGIN_TOP})`)
+        .call(d3.axisTop(timeScaleAxisNice())
+            .ticks(escalaTickSize)
+            .tickFormat(formatoEscala)
+            // .tickSize(-12000)
+        )
+    }
+    else{
+        // console.log("else")
     var grid = svg.append("g")
         .attr("class", "grid2")
         .style("height", "30px")
@@ -766,14 +831,28 @@ function fixedScales(svg, width, height) {
             .ticks(escalaTickSize)
             .tickFormat(formatoEscala)
             // .tickSize(-12000)
-        )
+        )}
+
+
+
+    // var grid = svg.append("g")
+    //     .attr("class", "grid2")
+    //     .style("height", "30px")
+    //     .attr("transform", `translate(0, ${MARGIN_TOP})`)
+    //     .call(d3.axisTop(timeScaleAxis())
+    //         .ticks(escalaTickSize)
+    //         .tickFormat(formatoEscala)
+    //         // .tickSize(-12000)
+    //     )
 }
 
 function milestone(svg) {
     var mile = svg.append("g")
         .attr("transform", function () {
-            var hoje = timeScale(d3.timeMinute(new Date()));
+            // var hoje = timeScale(d3.timeMinute(new Date()));
+            var hoje = timeScale(dataHoje);
             // var hoje = timeScale(new Date(data));
+            // return `translate(${hoje})`;
             return `translate(${hoje})`;
         })
         .attr("class", "milestone")
@@ -815,42 +894,28 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             .style("display", "flex")
             .style("height", "20px")
             .style("width", tamanhoScalaExib + "px")
-            .style("background-color", function(){
+            .style("background-color", function () {
                 // console.log("i: " +index + " - " + corLinha[index % 2])
                 return corLinha[index % 2]
             })
             // .style("width", CHART_WIDTH + "px")
             .style("margin-bottom", "5px")
-        // .text(d.nome)
-
-        // rowEventos.append("div")
-        //     .style("width", "260px")
-        //     .style("padding-left", "5px")
-        //     .attr("class", "text-div")
-        //     .append("text")
-        //     .attr("x", 10)
-        //     .attr("height", 20)
-        //     .attr("font-size", "12px")
-        //     .text(d.nome)
-
 
 
         // fim da adição da estrutura inicial da parte de eventos (direita)
 
         // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
-
-
         var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
             // .attr("class", "row-modulo-" + d.nome)
             .attr("class", "row-modulo-nome-" + d.nome)
             .style("width", "-webkit-fill-available")
-            .attr("height", 20)
+            .style("height", "20px")
             .style("background-color", "azure")
             .style("background-color", "#" + Object.values(corPrimaria)[index % Object.keys(corPrimaria).length])
 
         var rowHierarquia = tableModulosHierarquiaNomes.append("tr")
             .style("display", "flex")
-            .attr("height", 20)
+            .style("height", "20px")
             .style("width", "290px")
             .style("margin-bottom", "5px")
 
@@ -1063,27 +1128,27 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             // console.log("index: " + index);
             // corBackgroundLinha++
             // console.log("corBackgroundLinha: " + corBackgroundSegundoNivel);
-            
+
             var tableModulos2HierarquiaEventos = tableModulosHierarquiaEventos.append("table")
-            .attr("class", "row-modulo2-" + h.nome)
-            .style("display", "none")
-            // .style("padding-left", "15px")
-            .style("margin-bottom", "5px")
-            .attr("height", 20)
-            
+                .attr("class", "row-modulo2-" + h.nome)
+                .style("display", "none")
+                // .style("padding-left", "15px")
+                .style("margin-bottom", "5px")
+                .attr("height", 20)
+
             var row2Eventos = tableModulos2HierarquiaEventos.append("tr")
-            .attr("class", function () {
-                if (h.nome === null) {
-                    // corBackgroundLinha +1
-                    return "ocultar"
-                } else {
-                    corBackgroundSegundoNivel++
-                    // console.log("corBackgroundLinha: " + corBackgroundSegundoNivel);
+                .attr("class", function () {
+                    if (h.nome === null) {
+                        // corBackgroundLinha +1
+                        return "ocultar"
+                    } else {
+                        corBackgroundSegundoNivel++
+                        // console.log("corBackgroundLinha: " + corBackgroundSegundoNivel);
                         return "exibir"
                     }
                 })
                 // .style("background-color", "aqua")
-                .style("background-color", function(){
+                .style("background-color", function () {
                     // console.log("i: " +corBackgroundSegundoNivel + " - " + corLinha[corBackgroundSegundoNivel % 2])
                     return corLinha[corBackgroundSegundoNivel % 2]
                 })
@@ -1232,7 +1297,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 var dataFimTeste = "null";
                 // var corBackgroundNivelEvento = corBackgroundSegundoNivel
                 // console.log("i: " + i)
-                    // corBackgroundNivelEvento + i
+                // corBackgroundNivelEvento + i
 
                 if (l.levelValues[0].dataFim != "null" && l.levelValues[0].dataFim != null) {
                     dataFimTeste = l.levelValues[0].dataFim
@@ -1269,9 +1334,13 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     } else {
                         const existingSubTipo = dadosEventoSubTipo.find(item => Object.keys(item)[0] === l.levelValues[0].subTipo);
                         if (!existingSubTipo) {
+                            // console.log("l.levelValues[0]: " + JSON.stringify(l.levelValues[0]))
                             dadosEventoSubTipo.push({
                                 [l.levelValues[0].subTipo]: [
                                     {
+                                        dataInicio: l.levelValues[0].dataInicio,
+                                        dataFim: l.levelValues[0].dataFim,
+                                        evento: l.levelValues[0].evento,
                                         posInin: dataInicio,
                                         width: tamanhoBarraEvento,
                                         cor: l.levelValues[0].cor,
@@ -1281,6 +1350,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             });
                         } else {
                             existingSubTipo[l.levelValues[0].subTipo].push({
+                                dataInicio: l.levelValues[0].dataInicio,
+                                dataFim: l.levelValues[0].dataFim,
+                                evento: l.levelValues[0].evento,
                                 posInin: dataInicio,
                                 width: tamanhoBarraEvento,
                                 cor: l.levelValues[0].cor,
@@ -1294,15 +1366,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         // .attr("class", "tableModulos3")
                         .attr("class", "row-modulo3-" + l.levelValues[0].evento)
                         .style("display", "none")
-                        var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+                    var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
                         .attr("class", "linha-evento")
-                        .style("background-color", function(){
-                        // console.log("i: " +i + " - " + corLinha[i % 2])
-                        // return corLinha[corBackgroundNivelEvento % 2]
-                        // console.log("corBackgroundSegundoNivel: " +corBackgroundSegundoNivel)
-                        // console.log("corBackgroundNivelEvento: " + corBackgroundNivelEvento)
-                        return corLinha[i % 2]
-                    })
+                        .style("background-color", function () {
+                            // console.log("i: " +i + " - " + corLinha[i % 2])
+                            // return corLinha[corBackgroundNivelEvento % 2]
+                            // console.log("corBackgroundSegundoNivel: " +corBackgroundSegundoNivel)
+                            // console.log("corBackgroundNivelEvento: " + corBackgroundNivelEvento)
+                            return corLinha[i % 2]
+                        })
                         .style("display", "flex")
                         .style("width", tamanhoScalaExib + "px")
                         .style("height", "21px")
@@ -1318,6 +1390,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
                         .style("display", "flex")
                         .style("padding-left", "30px")
+                        .style("height", "21px")
                         // .style("width", "260px")
                         .style("align-items", "center")
                         .style("margin-bottom", "5px")
@@ -1373,11 +1446,19 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     "width": tamanhoBarraEvento,
                                     // "cor": l.levelValues[0].cor ? l.levelValues[0].cor : "#b1b1ff",
                                     "cor": l.levelValues[0].cor,
+                                    "dataInicio": l.levelValues[0].dataInicio,
+                                    "dataFim": l.levelValues[0].dataFim,
+                                    "evento": l.levelValues[0].evento,
                                 })
                                 tipoCategoriaBar.push({
                                     "posInin": dataInicio,
                                     "width": tamanhoBarraEvento,
                                     "cor": l.levelValues[0].cor,
+                                    "dataInicio": l.levelValues[0].dataInicio,
+                                    "dataFim": l.levelValues[0].dataFim,
+                                    "evento": l.levelValues[0].evento,
+                                    "icon": l.levelValues[0].icon
+
                                 })
                                 return tamanhoBarraEvento
                             } else {
@@ -1387,22 +1468,33 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     "posInin": dataInicio,
                                     "width": 0,
                                     "cor": l.levelValues[0].cor,
+                                    "dataInicio": l.levelValues[0].dataInicio,
+                                    "evento": l.levelValues[0].evento,
                                 })
                                 tipoCategoriaBar.push({
                                     "posInin": dataInicio,
                                     "width": 0,
                                     "cor": l.levelValues[0].cor,
+                                    "dataInicio": l.levelValues[0].dataInicio,
+                                    "evento": l.levelValues[0].evento,
+                                    "icon": l.levelValues[0].icon
                                 })
                                 return tamanhoBarraEvento + 20
                             }
                         })
                         .attr("class", "eventoBarDiv")
-                        .style("display", "block")
+                        // .style("display", "block")
+
+                        .style("display", "flex")
+                        .style("position", "absolute")
+                    // .style("left", "-11px")
+                    // console.log("evento dados: " + JSON.stringify(l.levelValues[0]))
 
                     if (dataFimTeste == "null") {
                         var iconeDiv = eventoBarDiv
+                            .style("left", "-11px")
                             // .attr("viewBox", [0, 0, 448, 512])
-                            .attr("viewBox", function(){
+                            .attr("viewBox", function () {
                                 if (l.levelValues[0].icon) {
                                     return iconsBase.vb[l.levelValues[0].icon]
                                 } else {
@@ -1436,16 +1528,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             }
                             )
                     } else {
-
                         // eventoBarDiv.style("border-radius", "10px")
-                        eventoBarDiv.style("border-radius", function (f) {
-                            var soma = dataInicio + tamanhoBarraEvento
-                            if (soma >= posDataFinal) {
-                                return "10px 0 0 10px"
-                            } else {
-                                return "10px"
-                            }
-                        })
+                        eventoBarDiv
+                            // .style("left", "-11px")
+                            .style("border-radius", function (f) {
+                                var soma = dataInicio + tamanhoBarraEvento
+                                if (soma >= posDataFinal) {
+                                    return "10px 0 0 10px"
+                                } else {
+                                    return "10px"
+                                }
+                            })
                         var iconeDiv = eventoBarDiv.append("rect")
                             .attr("fill", function () {
                                 if (l.levelValues[0].cor) {
@@ -1480,56 +1573,128 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             })
                     }
 
-                    eventoBarDiv.on("mouseover", function (event, d) {
-                        console.log("mouseover");
-                        var posX = event.pageX
-                        var posY = event.pageY
-                        tooltip
-                        .style("visibility", "visible")
-                        .style("left", (posX+10) + "px")
-                        .style("top", (posY+10) + "px")
-                        .html(`
-                            Data inicio: ${formatDate(l.levelValues[0].dataInicio)};<BR>
-                            ${l.levelValues[0].dataFim !== null ? `Data Fim: ${formatDate(l.levelValues[0].dataFim)};<BR>` : ''}
-                            Evento: ${l.levelValues[0].evento};`
-                        )
-                    })
-                        .on("mouseout", function () {
-                            tooltip.style("visibility", "hidden");
+                    eventoBarDiv
+                        .on("mouseover", function (event, d) {
+                            var posX = event.pageX;
+                            var posY = event.pageY;
+
+                            // Obter a largura e altura do tooltip
+                            var tooltipWidth = tooltip.node().offsetWidth;
+                            var tooltipHeight = tooltip.node().offsetHeight;
+
+                            // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                            if (posX + tooltipWidth + 10 > window.innerWidth) {
+                                posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                            }
+                            if (posY + tooltipHeight + 10 > window.innerHeight) {
+                                posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                            }
+
+                            tooltip
+                                .style("visibility", "visible")
+                                .style("left", (posX + 10) + "px")
+                                .style("top", (posY + 10) + "px")
+                                .html(`
+                                Data inicio: ${formatDate(l.levelValues[0].dataInicio)}<BR>
+                             ${l.levelValues[0].dataFim ? `Data Fim: ${formatDate(l.levelValues[0].dataFim)}<BR>` : ''}
+                             Evento: ${l.levelValues[0].evento}`
+                                );
                         })
-                    
+
+                        .on("mouseout", function () {
+                            tooltip.style("visibility", "hidden")
+                            // .html(``);
+                        })
+
+                    // var posicaoTextoBarra = 0
                     var dadosEventoDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function () {
-                            return `translate(${posicaoTextoEvento}, 0)`;
+                            // console.log("tamanhoBarraEvento: " + tamanhoBarraEvento)
+                            if (tamanhoBarraEvento == 0) {
+                                return `translate(${posicaoTextoEvento + 10}, 0)`;
+                            }
+                            return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
                         })
                         .attr("height", 20)
                         .attr("class", "evento-div-nome")
-                        .style("display", "block")
-                        //! rgb(204, 0, 0)
-                        // .style("width", "30px")
-                        .style("width", function (f) {
-                            var soma = dataInicio + tamanhoBarraEvento
-                            if (soma >= posDataFinal) {
-                                return "30px"
-                            }
-                            if (soma + 300 >= posDataFinal) {
-                                return posDataFinal - soma + "px"
-                            }
-                            else if (dataInicio + 300 >= posDataFinal) {
-                                return posDataFinal - posicaoTextoEvento + "px"
-                            }
-                        })
-                        .append("g")
-                        .append("text")
-                        .attr("y", 15)
-                        .attr("font-size", 12)
-                        .text(function () {
-                            if ("rot" in l.levelValues[0]) {
-                                return l.levelValues[0].rot
-                            } else {
-                                return l.levelValues[0].evento
-                            }
-                        });
+                        // .style("display", "block")
+
+                        .style("display", "flex")
+                        .style("position", "absolute")
+                    // .style("margin-left", "10px")
+                    //! rgb(204, 0, 0)
+                    // .style("width", "30px")
+
+                    // var soma = dataInicio + tamanhoBarraEvento
+                    // if (soma >= posDataFinal) {
+                    //     console.log("soma >= posDataFinal: " + l.levelValues[0].evento)
+                    //     dadosEventoDiv.style("width", "20px")
+                    //     .append("g")
+                    //     .append("text")
+                    //     .attr("y", 15)
+                    //     .attr("font-size", 12)
+                    //     .text("     ");
+                    //     // return "20px"
+                    // }
+                    // if (soma + 300 >= posDataFinal) {
+                    //     console.log("soma + 300 >= posDataFinal: " + l.levelValues[0].evento)
+                    //     dadosEventoDiv.style("width", posDataFinal - soma + "px")
+                    //     .append("g")
+                    //     .append("text")
+                    //     .attr("y", 15)
+                    //     .attr("font-size", 12)
+                    //     .text(function () {
+                    //         if ("rot" in l.levelValues[0]) {
+                    //             return l.levelValues[0].rot
+                    //         } else {
+                    //             return l.levelValues[0].evento
+                    //         }
+                    //     });
+                    //     // return posDataFinal - soma + "px"
+                    // }
+                    // else if (dataInicio + 300 >= posDataFinal) {
+                    //     dadosEventoDiv.style("width", posDataFinal - posicaoTextoEvento + "px")
+                    //     .append("g")
+                    //     .append("text")
+                    //     .attr("y", 15)
+                    //     .attr("font-size", 12)
+                    //     .text(function () {
+                    //         if ("rot" in l.levelValues[0]) {
+                    //             return l.levelValues[0].rot
+                    //         } else {
+                    //             return l.levelValues[0].evento
+                    //         }
+                    //     });
+                    //     // return posDataFinal - posicaoTextoEvento + "px"
+                    // }
+
+
+
+                    // /*
+                    .style("width", function (f) {
+                        var soma = dataInicio + tamanhoBarraEvento
+                        if (soma >= posDataFinal) {
+                            return "0px"
+                        }
+                        if (soma + 300 >= posDataFinal) {
+                            return posDataFinal - soma + "px"
+                        }
+                        else if (dataInicio + 300 >= posDataFinal) {
+                            return posDataFinal - posicaoTextoEvento + "px"
+                        }
+                    })
+                    .append("g")
+                    .append("text")
+                    .attr("y", 15)
+                    .attr("font-size", 12)
+                    .text(function () {
+                        if ("rot" in l.levelValues[0]) {
+                            return l.levelValues[0].rot
+                        } else {
+                            return l.levelValues[0].evento
+                        }
+                    });
+                    // */
                 }
             })
 
@@ -1549,6 +1714,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("height", "21px")
                         .style("margin-bottom", "5px")
                         .attr("class", "alterarEsse")
+                        .style("background-color", function () {
+                            return corLinha[i % 2]
+                        })
 
                     var testeRowEventos = row3Eventos.append("tr")
                         .attr("class", "row-modulo-evento")
@@ -1578,16 +1746,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("color", "#FFFFFF")
 
 
+                    // console.log("JSON.stringify(item): " + JSON.stringify(item))
                     Object.keys(item).forEach((key, j) => {
 
                         item[key].forEach((gov, k) => {
-                            // console.log("gov: " + JSON.stringify(gov))
+                            // console.log("item[key].forEach: " + JSON.stringify(gov))
 
                             var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
                                 .style("display", "flex")
                                 .style("position", "absolute")
                                 .attr("height", 20)
-                                .attr("class", "essaClass")
+                                .attr("class", "barraGeralEventoAgrupado")
                                 .attr("transform", function (f) {
                                     if (gov.width != 0) {
                                         return `translate(${gov.posInin},0)`
@@ -1603,11 +1772,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                             //adicionar a posição x do translate e o tamanho do width
                                             "posInin": gov.posInin,
                                             "width": gov.width,
+                                            "dataInicio": gov.dataInicio,
+                                            "evento": gov.evento,
                                         })
                                         tipoCategoriaBar.push({
                                             //adicionar a posição x do translate e o tamanho do width
                                             "posInin": gov.posInin,
                                             "width": gov.width,
+                                            "dataInicio": gov.dataInicio,
+                                            "evento": gov.evento,
                                         })
                                         return gov.width
                                     } else {
@@ -1615,11 +1788,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                             //adicionar a posição x do translate e o tamanho do width
                                             "posInin": gov.posInin,
                                             "width": 0,
+                                            "dataInicio": gov.dataInicio,
+                                            "evento": gov.evento,
                                         })
                                         tipoCategoriaBar.push({
                                             //adicionar a posição x do translate e o tamanho do width
                                             "posInin": gov.posInin,
                                             "width": 0,
+                                            "dataInicio": gov.dataInicio,
+                                            "evento": gov.evento,
                                         })
                                         return "30px"
                                     }
@@ -1689,6 +1866,55 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                         }
                                     });
                             }
+
+                            barraGeralEventoAgrupado
+                                // .on("mouseover", function (event, d) {
+                                //     // console.log("mouseover");
+                                //     var posX = event.pageX
+                                //     var posY = event.pageY
+                                //     // console.log("gov: " + JSON.stringify(gov))
+                                //     tooltip
+                                //         .style("visibility", "visible")
+                                //         .style("left", (posX + 10) + "px")
+                                //         .style("top", (posY + 10) + "px")
+                                //         .html(`
+                                //         Data inicio: ${formatDate(gov.dataInicio)};<BR>
+                                //         ${gov.dataFim ? `Data Fim: ${formatDate(gov.dataFim)};<BR>` : ''}
+                                //         Evento: ${gov.evento};`
+                                //         )
+                                // })
+
+                                .on("mouseover", function (event, d) {
+                                    var posX = event.pageX;
+                                    var posY = event.pageY;
+
+                                    // Obter a largura e altura do tooltip
+                                    var tooltipWidth = tooltip.node().offsetWidth;
+                                    var tooltipHeight = tooltip.node().offsetHeight;
+
+                                    // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                                    if (posX + tooltipWidth + 10 > window.innerWidth) {
+                                        posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                                    }
+                                    if (posY + tooltipHeight + 10 > window.innerHeight) {
+                                        posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                                    }
+
+                                    tooltip
+                                        .style("visibility", "visible")
+                                        .style("left", (posX + 10) + "px")
+                                        .style("top", (posY + 10) + "px")
+                                        .html(`
+                                        Data inicio: ${formatDate(gov.dataInicio)};<BR>
+                                     ${gov.dataFim ? `Data Fim: ${formatDate(gov.dataFim)};<BR>` : ''}
+                                     Evento: ${gov.evento}`
+                                        );
+                                })
+
+                                .on("mouseout", function () {
+                                    tooltip.style("visibility", "hidden")
+                                    // .html(``);
+                                })
                         });
                     });
                 }
@@ -1764,6 +1990,54 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         // .attr("d", iconsBase.diamond)
                         .attr("d", iconsBase.base)
                 }
+                barraGeralTeste2
+                    // .on("mouseover", function (event, d) {
+                    //     // console.log("mouseover");
+                    //     var posX = event.pageX
+                    //     var posY = event.pageY
+                    //     // console.log("item tooltip: " + JSON.stringify(item))
+                    //     tooltip
+                    //         .style("visibility", "visible")
+                    //         .style("left", (posX + 10) + "px")
+                    //         .style("top", (posY + 10) + "px")
+                    //         .html(`
+                    //         Data inicio: ${formatDate(item.dataInicio)}<BR>
+                    //         ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+                    //         Evento: ${item.evento}`
+                    //         )
+                    // })
+
+                    .on("mouseover", function (event, d) {
+                        var posX = event.pageX;
+                        var posY = event.pageY;
+
+                        // Obter a largura e altura do tooltip
+                        var tooltipWidth = tooltip.node().offsetWidth;
+                        var tooltipHeight = tooltip.node().offsetHeight;
+
+                        // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                        if (posX + tooltipWidth + 10 > window.innerWidth) {
+                            posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                        }
+                        if (posY + tooltipHeight + 10 > window.innerHeight) {
+                            posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                        }
+
+                        tooltip
+                            .style("visibility", "visible")
+                            .style("left", (posX + 10) + "px")
+                            .style("top", (posY + 10) + "px")
+                            .html(`
+                            Data inicio: ${formatDate(item.dataInicio)}<BR>
+                         ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+                         Evento: ${item.evento}`
+                            );
+                    })
+
+                    .on("mouseout", function () {
+                        tooltip.style("visibility", "hidden")
+                        // .html(``);
+                    })
             })
 
         })
@@ -1781,6 +2055,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         tipoCategoriaBar.forEach((item, i) => {
             // var barraGeralTeste2 = barraGeralTeste.append("svg")
             var barraGeralTeste2 = barraGeralTesteEvento.append("svg")
+                .attr("class", "evento-div-svg1")
                 .style("display", "flex")
                 .style("position", "absolute")
                 .attr("transform", function (f) {
@@ -1798,6 +2073,8 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         return "30px"
                     }
                 })
+            // .style("left", "-15px")
+
             if (item.width != 0) {
                 // console.log("testando: " + JSON.stringify(item))
                 // barraGeralTeste2.style("border-radius", "10px")
@@ -1824,12 +2101,22 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     .attr("width", item.width)
                     .attr("height", 20)
             } else {
+                // console.log("item svg: " + JSON.stringify(item))
+                barraGeralTeste2.style("left", "-11px")
                 barraGeralTeste2.append("svg")
+                    .attr("class", "evento-div-svg-hierarquia")
                     .attr("transform", `translate(${item.posInin},0)`)
                     .attr("height", 20)
                     // .attr("width", 30)
                     .attr("width", 20)
-                    .attr("viewBox", [0, 0, 448, 512])
+                    // .attr("viewBox", [0, 0, 448, 512])
+                    .attr("viewBox", function () {
+                        if (item.icon) {
+                            return iconsBase.vb[item.icon]
+                        } else {
+                            return "0, 0, 448, 512"
+                        }
+                    })
                     .attr("height", 20)
                     // .attr("width", 30)
                     .attr("width", 20)
@@ -1842,10 +2129,96 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             return "rgb(200, 153, 128)"
                         }
                     })
-                    // .attr("d", iconsBase.diamond)
-                    .attr("d", iconsBase.base)
-                // .attr("d", iconsBase.icons[1])
+                    .attr("d", function () {
+                        if (item.icon) {
+                            return iconsBase.icons[item.icon]
+                        } else {
+                            return iconsBase.base
+                        }
+                    }
+                    )
             }
+            // barraGeralTeste2.on("mouseover", function (event, d) {
+            //     // console.log("mouseover");
+            //     var posX = event.pageX
+            //     var posY = event.pageY
+            //     // console.log("item tooltip: " + JSON.stringify(item))
+            //     tooltip
+            //         .style("visibility", "visible")
+            //         .style("left", (posX + 10) + "px")
+            //         .style("top", (posY + 10) + "px")
+            //         .html(`
+            //         Data inicio: ${formatDate(item.dataInicio)}<BR>
+            //         ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+            //         Evento: ${item.evento}`
+            //     )
+            // })
+
+            barraGeralTeste2
+            // .on("mouseover", function (event, d) {
+            //     var posX = event.pageX;
+            //     var posY = event.pageY;
+
+            //     // Obter a largura e altura do tooltip
+            //     var tooltipWidth = tooltip.node().offsetWidth;
+            //     var tooltipHeight = tooltip.node().offsetHeight;
+
+            //     // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+            //     if (posX + tooltipWidth + 10 > window.innerWidth) {
+            //         posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+            //     }
+            //     if (posY + tooltipHeight + 10 > window.innerHeight) {
+            //         posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+            //     }
+
+            //     tooltip
+            //         .style("visibility", "visible")
+            //         .style("left", (posX + 10) + "px")
+            //         .style("top", (posY + 10) + "px")
+            //         .html(`
+            //             Data inicio: ${formatDate(item.dataInicio)}<BR>
+            //             ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+            //             Evento: ${item.evento}`
+            //         );
+            // })
+
+            // //! parte de baixo é para quando tira o mouse esconder o tooltip
+            //     .on("mouseout", function () {
+            //         tooltip.style("visibility", "hidden")
+            //             .html(``);
+            //     })
+
+
+            barraGeralTeste2.on("mouseover", function (event, d) {
+                var posX = event.pageX;
+                var posY = event.pageY;
+
+                // Obter a largura e altura do tooltip
+                var tooltipWidth = tooltip.node().offsetWidth;
+                var tooltipHeight = tooltip.node().offsetHeight;
+
+                // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                if (posX + tooltipWidth + 10 > window.innerWidth) {
+                    posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                }
+                if (posY + tooltipHeight + 10 > window.innerHeight) {
+                    posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                }
+
+                tooltip
+                    .style("visibility", "visible")
+                    .style("left", (posX + 10) + "px")
+                    .style("top", (posY + 10) + "px")
+                    .html(`
+                        Data inicio: ${formatDate(item.dataInicio)}<BR>
+                        ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+                        Evento: ${item.evento}`
+                    );
+            })
+                .on("mouseout", function () {
+                    tooltip.style("visibility", "hidden")
+                    // .html(``);
+                });
         })
     });
 }
@@ -1858,8 +2231,10 @@ function atualizaAlturaMainTdNomes() {
 }
 
 function atualizaLarguraMainTdNomes(tipo, hierarquia) {
+    const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
+    const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]') as unknown as HTMLTableCellElement[];
     if (tipo == "expande") {
-        const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
+        // const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
         var valorAdd = queryMainTdNomes.scrollWidth
         larguraRolagem.push(
             {
@@ -1868,15 +2243,27 @@ function atualizaLarguraMainTdNomes(tipo, hierarquia) {
             }
         );
         const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
-        const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]') as unknown as HTMLTableCellElement[];
+        // const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]') as unknown as HTMLTableCellElement[];
         tds.forEach((td) => {
             td.style.width = maior + 'px';
         });
     }
     else if (tipo == "comprime") {
-        const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
-        const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]') as unknown as HTMLTableCellElement[];
+        // const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
+        // const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]') as unknown as HTMLTableCellElement[];
         larguraRolagem = larguraRolagem.filter(item => item.nomeHierarquia !== hierarquia);
+        if (larguraRolagem.length === 0) {
+            tds.forEach((td) => {
+                td.style.width = "-webkit-fill-available";
+            });
+        } else {
+            const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+            tds.forEach((td) => {
+                td.style.width = maior + 'px';
+            });
+        }
+    }
+    else if (tipo == "update") {
         if (larguraRolagem.length === 0) {
             tds.forEach((td) => {
                 td.style.width = "-webkit-fill-available";

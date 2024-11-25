@@ -29,38 +29,11 @@ const vb = [
     [300, 0, 810, 860],
     [0, 0, 448, 512],
     [0, 0, 448, 512],
-    [0, 0, 448, 512],
+    [0, 0, 24, 24],
+    // [0, 0, 448, 512],
     [0, 0, 448, 512],
     [300, 0, 810, 860],
 ];
-/*
-"M
-6112,
-93 L
-6281,
-766
-6101,
-766
-6397,
-1403
-6212,
-1416
-6500,
-2402
-5733,
-1429
-5954,
-1425
-5483,
-809
-5749,
-784
-5251,
-137
-6112,
-93
-z"
-*/
 const icons = [
     "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z",
     "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z",
@@ -69,11 +42,12 @@ const icons = [
     "M681 890 c-86 -114 -80 -110 -186 -110 -52 0 -95 -2 -95 -5 0 -3 9 -46 20 -96 11 -50 17 -96 13 -102 -4 -7 -31 -42 -60 -78 -29 -36 -53 -68 -53 -71 0 -2 40 -23 89 -47 l88 -44 22 -98 c12 -55 24 -99 27 -99 2 0 40 18 84 40 44 22 87 40 95 40 8 0 51 -18 95 -40 44 -22 82 -40 84 -40 3 0 15 44 27 99 l22 98 88 44 c49 24 89 45 89 47 0 3 -24 35 -53 71 -29 36 -56 71 -60 78 -4 6 2 52 13 102 11 50 20 93 20 96 0 3 -42 5 -92 5 -51 0 -98 4 -104 8 -6 4 -37 41 -70 82 l-60 76 -43 -56z",
     "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z",
     "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z",
-    "M 6112,93 L 6281,766 6101,766 6397,1403 6212,1416 6500,2402 5733,1429 5954,1425 5483,809 5749,784 5251,137 6112, 93z",
+    "M18.82,9.18A2,2,0,0,0,17,8H15.19l1.33-3.26a2,2,0,0,0-.19-1.84A2.06,2.06,0,0,0,14.62,2H10.28A2,2,0,0,0,8.37,3.27l-3.23,8a2,2,0,0,0,.2,1.83,2.06,2.06,0,0,0,1.71.9H9.81L8,20.74a1,1,0,0,0,.5,1.15A1.12,1.12,0,0,0,9,22a1,1,0,0,0,.76-.35l8.8-10.37A2,2,0,0,0,18.82,9.18Z",
     "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z",
     "M250 495 l0 -405 203 0 202 0 203 203 202 202 -203 203 -202 202 -203 0 -202 0 0 -405z"
 ];
 /*
+"M 6112,93 L 6281,766 6101,766 6397,1403 6212,1416 6500,2402 5733,1429 5954,1425 5483,809 5749,784 5251,137 6112, 93z",
 4 "M404.2 309.5L383.1 344h42.3l-21.1-34.5zM371.4 256l-54-88H194.6l-54 88 54 88H317.4l54-88zm65.7 0l53.4 87c3.6 5.9 5.5 12.7 5.5 19.6c0 20.7-16.8 37.4-37.4 37.4H348.7l-56.2 91.5C284.8 504.3 270.9 512 256 512s-28.8-7.7-36.6-20.5L163.3 400H53.4C32.8 400 16 383.2 16 362.6c0-6.9 1.9-13.7 5.5-19.6l53.4-87L21.5 169c-3.6-5.9-5.5-12.7-5.5-19.6C16 128.8 32.8 112 53.4 112H163.3l56.2-91.5C227.2 7.7 241.1 0 256 0s28.8 7.7 36.6 20.5L348.7 112H458.6c20.7 0 37.4 16.8 37.4 37.4c0 6.9-1.9 13.7-5.5 19.6l-53.4 87zm-54-88l21.1 34.5L425.4 168H383.1zM283 112L256 68l-27 44h54zM128.9 168H86.6l21.1 34.5L128.9 168zM107.8 309.5L86.6 344h42.3l-21.1-34.5zM229 400l27 44 27-44H229z",
 7 "M18.86 11.27l-3.23-8A2 2 0 0 0 13.72 2H9.38a2.06 2.06 0 0 0-1.71.9 2 2 0 0 0-.19 1.84L8.81 8H7.05A2 2 0 0 0 5.18 9.18a2 2 0 0 0 .29 2.1l8.8 10.37A1 1 0 0 0 15 22a1.12 1.12 0 0 0 .47-.11 1 1 0 0 0 .5-1.15L14.19 14H17a2.06 2.06 0 0 0 1.71-.9A2 2 0 0 0 18.86 11.27Z",
 7 "M576 1139 c-82 -5 -151 -11 -153 -13 -2 -2 39 -60 91 -127 l96 -124 -38 -3 c-68 -5 -68 -6 27 -129 l90 -118 -41 -5 -40 -5 163 -207 c89 -114 164 -206 167 -204 2 2 -22 89 -52 192 -31 103 -56 194 -56 200 0 7 15 14 34 16 l34 3 -48 103 c-68 143 -68 142 -31 142 17 0 31 3 31 6 0 3 -11 51 -26 107 -47 191 -42 177 -72 176 -15 -1 -94 -6 -176 -10z",
@@ -134,15 +108,11 @@ var tickEspacamento = 0;
 var posDataFinal;
 var alturaRolagem;
 var larguraRolagem = [];
+var dataHoje;
 var formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcFormat */ .aLc("%b %Y");
 var corLinha = ["#F1F3F5", "#DEE2E6"];
-// #F1F3F5
-// #DEE2E6
 var tamanhoScalaExib = 100;
-// var corPrimaria = [{"1" : "006432"}, {"2" : "93A100"}, {"3" : "00867F"}]
 var corPrimaria = { "1": "006432", "2": "93A100", "3": "00867F" };
-// var tooltip
-// var tooltip = svgBase.append("div")
 var tooltip = d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ltv("body").append("div")
     .attr("class", "tooltip")
     .style("position", "absolute")
@@ -152,23 +122,23 @@ var tooltip = d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ltv("body").append("
     .style("padding", "5px")
     .style("border-radius", "5px")
     .style("box-shadow", "0px 0px 5px 0px #000000")
-    // .style("right", "0px")
-    .style("top", "0px")
-    .style("left", "0px")
-    .style("width", "fit-content");
-// .style("height", "50px")
-// .style("z-index", "-1");
+    // .style("top", "0px")
+    // .style("left", "0px")
+    .style("width", "fit-content")
+    .html(`tooltip inicial do visual de gantt`);
 class Visual {
     svgRootHTML;
     constructor(options) {
         this.svgRootHTML = d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ltv(options.element).append("div").classed("card", true);
         svgBase = this.svgRootHTML;
+        console.log("version: " + "1.4.1.3");
     }
     update(options) {
         // console.log("dataMap0: " + dataMap);
         dataMap = [];
         estruturaDados = [];
         dadosEstruturais = [];
+        dataHoje = d3__WEBPACK_IMPORTED_MODULE_0__/* .timeMinute */ .wXd(new Date());
         DATA_INICIAL = new Date("3000-01-01");
         DATA_FINAL = new Date("1500-01-01");
         // console.log("dataMap1: " + dataMap);
@@ -218,23 +188,23 @@ class Visual {
             .attr("class", "mainTdNomes")
             .style("width", "600px")
             .style("background-color", "white")
-            .style("max-width", "300px")
+            .style("max-width", "325px")
             .style("height", "-webkit-fill-available")
             .style("margin-top", "21px")
-            .style("padding-bottom", MARGIN_TOP + "px")
+            // .style("padding-bottom", MARGIN_TOP + "px")
             .style("vertical-align", "top")
             .style("position", "fixed")
-            .style("overflow-x", "auto")
-            // .style("overflow-y", "hidden")
-            .style("border", "1px solid");
-        // .style("::-webkit-scrollbar:vertical", "display: none")
-        // .style("::-webkit-scrollbar:horizontal", "display: block")
-        // .style("scrollbar-width", "none")
+            .style("overflow-x", "overlay")
+            .style("overflow-y", "auto")
+            .style("border", "1px solid")
+            .style("padding-right", "25px");
+        // console.log("tamanhoScalaExib mainTdEventos: " + tamanhoScalaExib)
         dadosEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdEventos")
             // .style("height", tamanhoExibicaoHeight + "px")
             .style("width", tamanhoScalaExib + "px")
             .style("height", "-webkit-fill-available")
+            .style("background-color", "white")
             .style("margin-top", "21px")
             .style("vertical-align", "top")
             // .style("overflow-y", "hidden")
@@ -248,10 +218,12 @@ class Visual {
             .attr("class", "divMainTdEventos")
             .style("max-width", CHART_WIDTH - 300 + "px");
         //necessario para criar as escalas
+        // console.log("tamanhoScalaExib main-svg: " + tamanhoScalaExib)
         svgRoot = testeRegulagemAltura
             .append("svg")
             .attr("class", "main-svg")
-            .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            .style("width", tamanhoScalaExib + "px")
             .style("height", "-webkit-fill-available")
             // .style("height", "10000px")
             .style("position", "absolute")
@@ -262,12 +234,12 @@ class Visual {
         dadosEventoScaleTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdScale")
             .style("height", "30px")
-            // .style("width", 30 + "px")
-            .style("width", tamanhoScalaExib + "px")
+            // .style("width", tamanhoScalaExib + "px")
+            // .style("max-width", "fit-content")
+            .style("width", CHART_WIDTH + "px")
+            .style("max-width", CHART_WIDTH + "px")
             .style("vertical-align", "top")
-            // .style("overflow-y", "hidden")
             .style("overflow-x", "hidden")
-            .style("max-width", "fit-content")
             .style("left", "310px")
             .style("padding-left", "7px");
         var testeRegulagemScala2 = dadosEventoScaleTdHTML.append("div")
@@ -291,20 +263,23 @@ class Visual {
         //     .style("top", "0px")
         //     .style("left", "0px")
         //necessario para criar as escalas
+        // console.log("tamanhoScalaExib fixed-scale: " + tamanhoScalaExib)
         fixedScale = testeRegulagemScala
             .append("svg")
             .attr("class", "fixed-scale")
             // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
-            .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            // .style("width", tamanhoScalaExib + MARGIN_RIGHT * 2 + "px")
+            .style("width", tamanhoScalaExib + "px")
             .style("height", "30px")
             .style("margin-left", "302px")
             .style("padding-right", "50px")
             .style("top", "0px")
             .style("left", "0px");
+        // console.log("tamanhoScalaExib main-eventos: " + tamanhoScalaExib)
         var dadosEventoHTML = testeRegulagemAltura.append("div")
             .attr("class", "main-eventos")
             // .style("padding-top", MARGIN_TOP * 2 + "px")
-            .style("padding-top", "3px")
+            // .style("padding-top", "3px")
             .style("width", tamanhoScalaExib + "px");
         const tagsetupScales = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".grid");
         tagsetupScales.remove();
@@ -318,7 +293,10 @@ class Visual {
         // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
         setupScales(svgRoot, tamanhoScalaExib, 600);
         fixedScales(fixedScale, tamanhoScalaExib, 600);
-        milestone(svgRoot);
+        //verificar se a data hoje esta entre DATA_INICIAL e DATA_FINAL 
+        if (dataHoje >= DATA_INICIAL && dataHoje <= DATA_FINAL) {
+            milestone(svgRoot);
+        }
         // console.log("dataMap: " + JSON.stringify(dataMap));
         treeModulos(dataMap, nomesEventoTdHTML, dadosEventoHTML);
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML); // mantem as linhas em exibição apos atualizar o visual
@@ -357,12 +335,13 @@ class Visual {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdScale.scrollLeft = mainTdEventos.scrollLeft;
         });
+        atualizaLarguraMainTdNomes("comprime", "");
     }
 }
 function formatDate(dateString) {
     const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0'); // Adiciona zero à esquerda se necessário
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
@@ -476,7 +455,6 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
                 }
             }
         }
-        // console.log("dados expandios evento");
         var categoriaExibirEventos = svgHierarquiaEventos.selectAll('[class^="' + e + '"]');
         if (categoriaExibirEventos.nodes().length > 0) {
             var eventoDivEvento = categoriaExibirEventos.select('[class^="evento-div"]');
@@ -708,24 +686,30 @@ function preencheDataFim(jsonData) {
     // DATA_FINAL_SF = new Date(nextYearFinal, nextMonthFinal, lastDayOfNextMonthFinal);
     DATA_FINAL_SF = new Date(nextYearFinal, nextMonthFinal, 1);
     DATA_FINAL = DATA_FINAL_SF;
-    console.log("preencheDataFim DATA_FINAL_SF: " + DATA_FINAL_SF);
+    // console.log("preencheDataFim DATA_FINAL_SF: " + DATA_FINAL_SF);
     // console.log("lastDayOfMonthString: " + lastDayOfMonthString);
     //timeScaleAxis DATA_FINAL: Fri Jan 30 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)
 }
 function timeScaleAxis() {
-    // console.log("timeScaleAxis DATA_INICIAL: " + DATA_INICIAL.toUTCString());
-    // console.log("timeScaleAxis new Date(DATA_INICIAL): " + new Date(Date.UTC(2024, 0, 1, 0, 0)));
-    // console.log("timeScaleAxis DATA_FINAL: " + DATA_FINAL.toUTCString());
-    // console.log("timeScaleAxis new Date (DATA_FINAL): " + new Date(Date.UTC(2025, 9, 1, 0, 0)));
     var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleUtc */ .Pps()
-        // var tamanhoData = (d3.scaleTime()
         .domain([
-        // dataInicialCom3h,
-        // dataFinalCom3h,
         DATA_INICIAL,
         DATA_FINAL
     ])
         // .nice()
+        .clamp(true)
+        .range([0, tamanhoScalaExib])
+    // .invert(0.5)
+    );
+    return tamanhoData;
+}
+function timeScaleAxisNice() {
+    var tamanhoData = (d3__WEBPACK_IMPORTED_MODULE_0__/* .scaleUtc */ .Pps()
+        .domain([
+        DATA_INICIAL,
+        DATA_FINAL
+    ])
+        .nice()
         .clamp(true)
         .range([0, tamanhoScalaExib])
     // .invert(0.5)
@@ -756,6 +740,11 @@ function timeScale(data) {
         return tamanhoData(parsedData);
     }
 }
+/*
+if mesDataInicio = mesDataFim{
+usa nice
+}
+*/
 function setupScales(svg, width, height) {
     var grid = svg.append("g")
         .attr("class", "grid")
@@ -778,21 +767,64 @@ function setupScales(svg, width, height) {
         .attr("dy", "1em");
 }
 function fixedScales(svg, width, height) {
-    var grid = svg.append("g")
-        .attr("class", "grid2")
-        .style("height", "30px")
-        .attr("transform", `translate(0, ${MARGIN_TOP})`)
-        .call(d3__WEBPACK_IMPORTED_MODULE_0__/* .axisTop */ .tlR(timeScaleAxis())
-        .ticks(escalaTickSize)
-        .tickFormat(formatoEscala)
-    // .tickSize(-12000)
-    );
+    const anoInicial = DATA_INICIAL.getFullYear();
+    const mesInicial = DATA_INICIAL.getMonth(); // Lembre-se que os meses começam em 0 (Janeiro)
+    const anoFinal = DATA_FINAL.getFullYear();
+    const mesFinal = DATA_FINAL.getMonth();
+    // Verifica se o ano é o mesmo e se o mês é o seguinte
+    if (anoFinal === anoInicial && mesFinal === mesInicial + 1) {
+        // console.log("anoFinal === anoInicial && mesFinal === mesInicial + 1")
+        var grid = svg.append("g")
+            .attr("class", "grid2")
+            .style("height", "30px")
+            .attr("transform", `translate(0, ${MARGIN_TOP})`)
+            .call(d3__WEBPACK_IMPORTED_MODULE_0__/* .axisTop */ .tlR(timeScaleAxisNice())
+            .ticks(escalaTickSize)
+            .tickFormat(formatoEscala)
+        // .tickSize(-12000)
+        );
+    }
+    else if (anoFinal === anoInicial + 1 && mesFinal === 0 && mesInicial === 11) {
+        // console.log("anoFinal === anoInicial + 1 && mesFinal === 0 && mesInicial === 11")
+        var grid = svg.append("g")
+            .attr("class", "grid2")
+            .style("height", "30px")
+            .attr("transform", `translate(0, ${MARGIN_TOP})`)
+            .call(d3__WEBPACK_IMPORTED_MODULE_0__/* .axisTop */ .tlR(timeScaleAxisNice())
+            .ticks(escalaTickSize)
+            .tickFormat(formatoEscala)
+        // .tickSize(-12000)
+        );
+    }
+    else {
+        // console.log("else")
+        var grid = svg.append("g")
+            .attr("class", "grid2")
+            .style("height", "30px")
+            .attr("transform", `translate(0, ${MARGIN_TOP})`)
+            .call(d3__WEBPACK_IMPORTED_MODULE_0__/* .axisTop */ .tlR(timeScaleAxis())
+            .ticks(escalaTickSize)
+            .tickFormat(formatoEscala)
+        // .tickSize(-12000)
+        );
+    }
+    // var grid = svg.append("g")
+    //     .attr("class", "grid2")
+    //     .style("height", "30px")
+    //     .attr("transform", `translate(0, ${MARGIN_TOP})`)
+    //     .call(d3.axisTop(timeScaleAxis())
+    //         .ticks(escalaTickSize)
+    //         .tickFormat(formatoEscala)
+    //         // .tickSize(-12000)
+    //     )
 }
 function milestone(svg) {
     var mile = svg.append("g")
         .attr("transform", function () {
-        var hoje = timeScale(d3__WEBPACK_IMPORTED_MODULE_0__/* .timeMinute */ .wXd(new Date()));
+        // var hoje = timeScale(d3.timeMinute(new Date()));
+        var hoje = timeScale(dataHoje);
         // var hoje = timeScale(new Date(data));
+        // return `translate(${hoje})`;
         return `translate(${hoje})`;
     })
         .attr("class", "milestone")
@@ -835,28 +867,18 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         })
             // .style("width", CHART_WIDTH + "px")
             .style("margin-bottom", "5px");
-        // .text(d.nome)
-        // rowEventos.append("div")
-        //     .style("width", "260px")
-        //     .style("padding-left", "5px")
-        //     .attr("class", "text-div")
-        //     .append("text")
-        //     .attr("x", 10)
-        //     .attr("height", 20)
-        //     .attr("font-size", "12px")
-        //     .text(d.nome)
         // fim da adição da estrutura inicial da parte de eventos (direita)
         // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
         var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
             // .attr("class", "row-modulo-" + d.nome)
             .attr("class", "row-modulo-nome-" + d.nome)
             .style("width", "-webkit-fill-available")
-            .attr("height", 20)
+            .style("height", "20px")
             .style("background-color", "azure")
             .style("background-color", "#" + Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]);
         var rowHierarquia = tableModulosHierarquiaNomes.append("tr")
             .style("display", "flex")
-            .attr("height", 20)
+            .style("height", "20px")
             .style("width", "290px")
             .style("margin-bottom", "5px");
         var buttonPlus = rowHierarquia.append("button")
@@ -1221,9 +1243,13 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     else {
                         const existingSubTipo = dadosEventoSubTipo.find(item => Object.keys(item)[0] === l.levelValues[0].subTipo);
                         if (!existingSubTipo) {
+                            // console.log("l.levelValues[0]: " + JSON.stringify(l.levelValues[0]))
                             dadosEventoSubTipo.push({
                                 [l.levelValues[0].subTipo]: [
                                     {
+                                        dataInicio: l.levelValues[0].dataInicio,
+                                        dataFim: l.levelValues[0].dataFim,
+                                        evento: l.levelValues[0].evento,
                                         posInin: dataInicio,
                                         width: tamanhoBarraEvento,
                                         cor: l.levelValues[0].cor,
@@ -1234,6 +1260,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         }
                         else {
                             existingSubTipo[l.levelValues[0].subTipo].push({
+                                dataInicio: l.levelValues[0].dataInicio,
+                                dataFim: l.levelValues[0].dataFim,
+                                evento: l.levelValues[0].evento,
                                 posInin: dataInicio,
                                 width: tamanhoBarraEvento,
                                 cor: l.levelValues[0].cor,
@@ -1270,6 +1299,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
                         .style("display", "flex")
                         .style("padding-left", "30px")
+                        .style("height", "21px")
                         // .style("width", "260px")
                         .style("align-items", "center")
                         .style("margin-bottom", "5px");
@@ -1319,11 +1349,18 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                 "width": tamanhoBarraEvento,
                                 // "cor": l.levelValues[0].cor ? l.levelValues[0].cor : "#b1b1ff",
                                 "cor": l.levelValues[0].cor,
+                                "dataInicio": l.levelValues[0].dataInicio,
+                                "dataFim": l.levelValues[0].dataFim,
+                                "evento": l.levelValues[0].evento,
                             });
                             tipoCategoriaBar.push({
                                 "posInin": dataInicio,
                                 "width": tamanhoBarraEvento,
                                 "cor": l.levelValues[0].cor,
+                                "dataInicio": l.levelValues[0].dataInicio,
+                                "dataFim": l.levelValues[0].dataFim,
+                                "evento": l.levelValues[0].evento,
+                                "icon": l.levelValues[0].icon
                             });
                             return tamanhoBarraEvento;
                         }
@@ -1333,19 +1370,29 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                 "posInin": dataInicio,
                                 "width": 0,
                                 "cor": l.levelValues[0].cor,
+                                "dataInicio": l.levelValues[0].dataInicio,
+                                "evento": l.levelValues[0].evento,
                             });
                             tipoCategoriaBar.push({
                                 "posInin": dataInicio,
                                 "width": 0,
                                 "cor": l.levelValues[0].cor,
+                                "dataInicio": l.levelValues[0].dataInicio,
+                                "evento": l.levelValues[0].evento,
+                                "icon": l.levelValues[0].icon
                             });
                             return tamanhoBarraEvento + 20;
                         }
                     })
                         .attr("class", "eventoBarDiv")
-                        .style("display", "block");
+                        // .style("display", "block")
+                        .style("display", "flex")
+                        .style("position", "absolute");
+                    // .style("left", "-11px")
+                    // console.log("evento dados: " + JSON.stringify(l.levelValues[0]))
                     if (dataFimTeste == "null") {
                         var iconeDiv = eventoBarDiv
+                            .style("left", "-11px")
                             // .attr("viewBox", [0, 0, 448, 512])
                             .attr("viewBox", function () {
                             if (l.levelValues[0].icon) {
@@ -1384,7 +1431,9 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     }
                     else {
                         // eventoBarDiv.style("border-radius", "10px")
-                        eventoBarDiv.style("border-radius", function (f) {
+                        eventoBarDiv
+                            // .style("left", "-11px")
+                            .style("border-radius", function (f) {
                             var soma = dataInicio + tamanhoBarraEvento;
                             if (soma >= posDataFinal) {
                                 return "10px 0 0 10px";
@@ -1427,50 +1476,97 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             }
                         });
                     }
-                    //todo tooltip
-                    // tooltip = row3HierarquiaEventos.append("div")
-                    //     .attr("class", "tooltip")
-                    //     .style("position", "absolute")
-                    //     .style("visibility", "hidden")
-                    //     .style("background-color", "#f9f9f9")
-                    //     .style("border", "1px solid #d3d3d3")
-                    //     .style("padding", "5px")
-                    //     .style("border-radius", "5px")
-                    //     .style("box-shadow", "0px 0px 5px 0px #000000")
-                    // // console.log("tooltip: " + tooltip);
-                    eventoBarDiv.on("mouseover", function (event, d) {
-                        console.log("mouseover");
-                        // console.log("eventoBarDiv: " + eventoBarDiv);
+                    eventoBarDiv
+                        .on("mouseover", function (event, d) {
                         var posX = event.pageX;
                         var posY = event.pageY;
-                        // console.log("eventoBarDiv: " + "x: " + posX + "; y: " + posY);
+                        // Obter a largura e altura do tooltip
+                        var tooltipWidth = tooltip.node().offsetWidth;
+                        var tooltipHeight = tooltip.node().offsetHeight;
+                        // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                        if (posX + tooltipWidth + 10 > window.innerWidth) {
+                            posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                        }
+                        if (posY + tooltipHeight + 10 > window.innerHeight) {
+                            posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                        }
                         tooltip
                             .style("visibility", "visible")
                             .style("left", (posX + 10) + "px")
                             .style("top", (posY + 10) + "px")
-                            // Data Fim: ${l.levelValues[0].dataFim};<BR>
                             .html(`
-                            Data inicio: ${formatDate(l.levelValues[0].dataInicio)};<BR>
-                            ${l.levelValues[0].dataFim !== null ? `Data Fim: ${formatDate(l.levelValues[0].dataFim)};<BR>` : ''}
-                            Evento: ${l.levelValues[0].evento};`);
-                        console.log("aaa: " + tooltip.html());
+                                Data inicio: ${formatDate(l.levelValues[0].dataInicio)}<BR>
+                             ${l.levelValues[0].dataFim ? `Data Fim: ${formatDate(l.levelValues[0].dataFim)}<BR>` : ''}
+                             Evento: ${l.levelValues[0].evento}`);
                     })
                         .on("mouseout", function () {
                         tooltip.style("visibility", "hidden");
+                        // .html(``);
                     });
+                    // var posicaoTextoBarra = 0
                     var dadosEventoDiv = row3HierarquiaEventos.append("svg")
                         .attr("transform", function () {
-                        return `translate(${posicaoTextoEvento}, 0)`;
+                        // console.log("tamanhoBarraEvento: " + tamanhoBarraEvento)
+                        if (tamanhoBarraEvento == 0) {
+                            return `translate(${posicaoTextoEvento + 10}, 0)`;
+                        }
+                        return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
                     })
                         .attr("height", 20)
                         .attr("class", "evento-div-nome")
-                        .style("display", "block")
+                        // .style("display", "block")
+                        .style("display", "flex")
+                        .style("position", "absolute")
+                        // .style("margin-left", "10px")
                         //! rgb(204, 0, 0)
                         // .style("width", "30px")
+                        // var soma = dataInicio + tamanhoBarraEvento
+                        // if (soma >= posDataFinal) {
+                        //     console.log("soma >= posDataFinal: " + l.levelValues[0].evento)
+                        //     dadosEventoDiv.style("width", "20px")
+                        //     .append("g")
+                        //     .append("text")
+                        //     .attr("y", 15)
+                        //     .attr("font-size", 12)
+                        //     .text("     ");
+                        //     // return "20px"
+                        // }
+                        // if (soma + 300 >= posDataFinal) {
+                        //     console.log("soma + 300 >= posDataFinal: " + l.levelValues[0].evento)
+                        //     dadosEventoDiv.style("width", posDataFinal - soma + "px")
+                        //     .append("g")
+                        //     .append("text")
+                        //     .attr("y", 15)
+                        //     .attr("font-size", 12)
+                        //     .text(function () {
+                        //         if ("rot" in l.levelValues[0]) {
+                        //             return l.levelValues[0].rot
+                        //         } else {
+                        //             return l.levelValues[0].evento
+                        //         }
+                        //     });
+                        //     // return posDataFinal - soma + "px"
+                        // }
+                        // else if (dataInicio + 300 >= posDataFinal) {
+                        //     dadosEventoDiv.style("width", posDataFinal - posicaoTextoEvento + "px")
+                        //     .append("g")
+                        //     .append("text")
+                        //     .attr("y", 15)
+                        //     .attr("font-size", 12)
+                        //     .text(function () {
+                        //         if ("rot" in l.levelValues[0]) {
+                        //             return l.levelValues[0].rot
+                        //         } else {
+                        //             return l.levelValues[0].evento
+                        //         }
+                        //     });
+                        //     // return posDataFinal - posicaoTextoEvento + "px"
+                        // }
+                        // /*
                         .style("width", function (f) {
                         var soma = dataInicio + tamanhoBarraEvento;
                         if (soma >= posDataFinal) {
-                            return "30px";
+                            return "0px";
                         }
                         if (soma + 300 >= posDataFinal) {
                             return posDataFinal - soma + "px";
@@ -1491,6 +1587,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                             return l.levelValues[0].evento;
                         }
                     });
+                    // */
                 }
             });
             //caso exista algum subtipo associado entra no if abaixo
@@ -1507,7 +1604,10 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("width", "1147px")
                         .style("height", "21px")
                         .style("margin-bottom", "5px")
-                        .attr("class", "alterarEsse");
+                        .attr("class", "alterarEsse")
+                        .style("background-color", function () {
+                        return corLinha[i % 2];
+                    });
                     var testeRowEventos = row3Eventos.append("tr")
                         .attr("class", "row-modulo-evento");
                     var barraGeralEvento = row3Eventos.append("g")
@@ -1530,14 +1630,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         .style("width", "max-content")
                         .text(Object.keys(dadosEventoSubTipo[i])[0])
                         .style("color", "#FFFFFF");
+                    // console.log("JSON.stringify(item): " + JSON.stringify(item))
                     Object.keys(item).forEach((key, j) => {
                         item[key].forEach((gov, k) => {
-                            // console.log("gov: " + JSON.stringify(gov))
+                            // console.log("item[key].forEach: " + JSON.stringify(gov))
                             var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
                                 .style("display", "flex")
                                 .style("position", "absolute")
                                 .attr("height", 20)
-                                .attr("class", "essaClass")
+                                .attr("class", "barraGeralEventoAgrupado")
                                 .attr("transform", function (f) {
                                 if (gov.width != 0) {
                                     return `translate(${gov.posInin},0)`;
@@ -1554,11 +1655,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                         //adicionar a posição x do translate e o tamanho do width
                                         "posInin": gov.posInin,
                                         "width": gov.width,
+                                        "dataInicio": gov.dataInicio,
+                                        "evento": gov.evento,
                                     });
                                     tipoCategoriaBar.push({
                                         //adicionar a posição x do translate e o tamanho do width
                                         "posInin": gov.posInin,
                                         "width": gov.width,
+                                        "dataInicio": gov.dataInicio,
+                                        "evento": gov.evento,
                                     });
                                     return gov.width;
                                 }
@@ -1567,11 +1672,15 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                         //adicionar a posição x do translate e o tamanho do width
                                         "posInin": gov.posInin,
                                         "width": 0,
+                                        "dataInicio": gov.dataInicio,
+                                        "evento": gov.evento,
                                     });
                                     tipoCategoriaBar.push({
                                         //adicionar a posição x do translate e o tamanho do width
                                         "posInin": gov.posInin,
                                         "width": 0,
+                                        "dataInicio": gov.dataInicio,
+                                        "evento": gov.evento,
                                     });
                                     return "30px";
                                 }
@@ -1643,6 +1752,48 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                                     }
                                 });
                             }
+                            barraGeralEventoAgrupado
+                                // .on("mouseover", function (event, d) {
+                                //     // console.log("mouseover");
+                                //     var posX = event.pageX
+                                //     var posY = event.pageY
+                                //     // console.log("gov: " + JSON.stringify(gov))
+                                //     tooltip
+                                //         .style("visibility", "visible")
+                                //         .style("left", (posX + 10) + "px")
+                                //         .style("top", (posY + 10) + "px")
+                                //         .html(`
+                                //         Data inicio: ${formatDate(gov.dataInicio)};<BR>
+                                //         ${gov.dataFim ? `Data Fim: ${formatDate(gov.dataFim)};<BR>` : ''}
+                                //         Evento: ${gov.evento};`
+                                //         )
+                                // })
+                                .on("mouseover", function (event, d) {
+                                var posX = event.pageX;
+                                var posY = event.pageY;
+                                // Obter a largura e altura do tooltip
+                                var tooltipWidth = tooltip.node().offsetWidth;
+                                var tooltipHeight = tooltip.node().offsetHeight;
+                                // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                                if (posX + tooltipWidth + 10 > window.innerWidth) {
+                                    posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                                }
+                                if (posY + tooltipHeight + 10 > window.innerHeight) {
+                                    posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                                }
+                                tooltip
+                                    .style("visibility", "visible")
+                                    .style("left", (posX + 10) + "px")
+                                    .style("top", (posY + 10) + "px")
+                                    .html(`
+                                        Data inicio: ${formatDate(gov.dataInicio)};<BR>
+                                     ${gov.dataFim ? `Data Fim: ${formatDate(gov.dataFim)};<BR>` : ''}
+                                     Evento: ${gov.evento}`);
+                            })
+                                .on("mouseout", function () {
+                                tooltip.style("visibility", "hidden");
+                                // .html(``);
+                            });
                         });
                     });
                 });
@@ -1720,6 +1871,48 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         // .attr("d", iconsBase.diamond)
                         .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3);
                 }
+                barraGeralTeste2
+                    // .on("mouseover", function (event, d) {
+                    //     // console.log("mouseover");
+                    //     var posX = event.pageX
+                    //     var posY = event.pageY
+                    //     // console.log("item tooltip: " + JSON.stringify(item))
+                    //     tooltip
+                    //         .style("visibility", "visible")
+                    //         .style("left", (posX + 10) + "px")
+                    //         .style("top", (posY + 10) + "px")
+                    //         .html(`
+                    //         Data inicio: ${formatDate(item.dataInicio)}<BR>
+                    //         ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+                    //         Evento: ${item.evento}`
+                    //         )
+                    // })
+                    .on("mouseover", function (event, d) {
+                    var posX = event.pageX;
+                    var posY = event.pageY;
+                    // Obter a largura e altura do tooltip
+                    var tooltipWidth = tooltip.node().offsetWidth;
+                    var tooltipHeight = tooltip.node().offsetHeight;
+                    // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                    if (posX + tooltipWidth + 10 > window.innerWidth) {
+                        posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                    }
+                    if (posY + tooltipHeight + 10 > window.innerHeight) {
+                        posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                    }
+                    tooltip
+                        .style("visibility", "visible")
+                        .style("left", (posX + 10) + "px")
+                        .style("top", (posY + 10) + "px")
+                        .html(`
+                            Data inicio: ${formatDate(item.dataInicio)}<BR>
+                         ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+                         Evento: ${item.evento}`);
+                })
+                    .on("mouseout", function () {
+                    tooltip.style("visibility", "hidden");
+                    // .html(``);
+                });
             });
         });
         // var barraGeralTeste = rowHierarquia.append("g")
@@ -1732,6 +1925,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         tipoCategoriaBar.forEach((item, i) => {
             // var barraGeralTeste2 = barraGeralTeste.append("svg")
             var barraGeralTeste2 = barraGeralTesteEvento.append("svg")
+                .attr("class", "evento-div-svg1")
                 .style("display", "flex")
                 .style("position", "absolute")
                 .attr("transform", function (f) {
@@ -1751,6 +1945,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     return "30px";
                 }
             });
+            // .style("left", "-15px")
             if (item.width != 0) {
                 // console.log("testando: " + JSON.stringify(item))
                 // barraGeralTeste2.style("border-radius", "10px")
@@ -1779,12 +1974,23 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                     .attr("height", 20);
             }
             else {
+                // console.log("item svg: " + JSON.stringify(item))
+                barraGeralTeste2.style("left", "-11px");
                 barraGeralTeste2.append("svg")
+                    .attr("class", "evento-div-svg-hierarquia")
                     .attr("transform", `translate(${item.posInin},0)`)
                     .attr("height", 20)
                     // .attr("width", 30)
                     .attr("width", 20)
-                    .attr("viewBox", [0, 0, 448, 512])
+                    // .attr("viewBox", [0, 0, 448, 512])
+                    .attr("viewBox", function () {
+                    if (item.icon) {
+                        return _icons__WEBPACK_IMPORTED_MODULE_1__.vb[item.icon];
+                    }
+                    else {
+                        return "0, 0, 448, 512";
+                    }
+                })
                     .attr("height", 20)
                     // .attr("width", 30)
                     .attr("width", 20)
@@ -1798,10 +2004,85 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         return "rgb(200, 153, 128)";
                     }
                 })
-                    // .attr("d", iconsBase.diamond)
-                    .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3);
-                // .attr("d", iconsBase.icons[1])
+                    .attr("d", function () {
+                    if (item.icon) {
+                        return _icons__WEBPACK_IMPORTED_MODULE_1__/* .icons */ .Pt[item.icon];
+                    }
+                    else {
+                        return _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3;
+                    }
+                });
             }
+            // barraGeralTeste2.on("mouseover", function (event, d) {
+            //     // console.log("mouseover");
+            //     var posX = event.pageX
+            //     var posY = event.pageY
+            //     // console.log("item tooltip: " + JSON.stringify(item))
+            //     tooltip
+            //         .style("visibility", "visible")
+            //         .style("left", (posX + 10) + "px")
+            //         .style("top", (posY + 10) + "px")
+            //         .html(`
+            //         Data inicio: ${formatDate(item.dataInicio)}<BR>
+            //         ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+            //         Evento: ${item.evento}`
+            //     )
+            // })
+            barraGeralTeste2;
+            // .on("mouseover", function (event, d) {
+            //     var posX = event.pageX;
+            //     var posY = event.pageY;
+            //     // Obter a largura e altura do tooltip
+            //     var tooltipWidth = tooltip.node().offsetWidth;
+            //     var tooltipHeight = tooltip.node().offsetHeight;
+            //     // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+            //     if (posX + tooltipWidth + 10 > window.innerWidth) {
+            //         posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+            //     }
+            //     if (posY + tooltipHeight + 10 > window.innerHeight) {
+            //         posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+            //     }
+            //     tooltip
+            //         .style("visibility", "visible")
+            //         .style("left", (posX + 10) + "px")
+            //         .style("top", (posY + 10) + "px")
+            //         .html(`
+            //             Data inicio: ${formatDate(item.dataInicio)}<BR>
+            //             ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+            //             Evento: ${item.evento}`
+            //         );
+            // })
+            // //! parte de baixo é para quando tira o mouse esconder o tooltip
+            //     .on("mouseout", function () {
+            //         tooltip.style("visibility", "hidden")
+            //             .html(``);
+            //     })
+            barraGeralTeste2.on("mouseover", function (event, d) {
+                var posX = event.pageX;
+                var posY = event.pageY;
+                // Obter a largura e altura do tooltip
+                var tooltipWidth = tooltip.node().offsetWidth;
+                var tooltipHeight = tooltip.node().offsetHeight;
+                // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                if (posX + tooltipWidth + 10 > window.innerWidth) {
+                    posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                }
+                if (posY + tooltipHeight + 10 > window.innerHeight) {
+                    posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                }
+                tooltip
+                    .style("visibility", "visible")
+                    .style("left", (posX + 10) + "px")
+                    .style("top", (posY + 10) + "px")
+                    .html(`
+                        Data inicio: ${formatDate(item.dataInicio)}<BR>
+                        ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+                        Evento: ${item.evento}`);
+            })
+                .on("mouseout", function () {
+                tooltip.style("visibility", "hidden");
+                // .html(``);
+            });
         });
     });
 }
@@ -1811,23 +2092,38 @@ function atualizaAlturaMainTdNomes() {
     svgRoot.style("height", alturaRolagem + "px");
 }
 function atualizaLarguraMainTdNomes(tipo, hierarquia) {
+    const queryMainTdNomes = document.querySelector('.mainTdNomes');
+    const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]');
     if (tipo == "expande") {
-        const queryMainTdNomes = document.querySelector('.mainTdNomes');
+        // const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
         var valorAdd = queryMainTdNomes.scrollWidth;
         larguraRolagem.push({
             nomeHierarquia: hierarquia,
             tamanho: valorAdd
         });
         const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
-        const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]');
+        // const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]') as unknown as HTMLTableCellElement[];
         tds.forEach((td) => {
             td.style.width = maior + 'px';
         });
     }
     else if (tipo == "comprime") {
-        const queryMainTdNomes = document.querySelector('.mainTdNomes');
-        const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]');
+        // const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
+        // const tds = queryMainTdNomes.querySelectorAll('[class^="row-modulo-nome-"]') as unknown as HTMLTableCellElement[];
         larguraRolagem = larguraRolagem.filter(item => item.nomeHierarquia !== hierarquia);
+        if (larguraRolagem.length === 0) {
+            tds.forEach((td) => {
+                td.style.width = "-webkit-fill-available";
+            });
+        }
+        else {
+            const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+            tds.forEach((td) => {
+                td.style.width = maior + 'px';
+            });
+        }
+    }
+    else if (tipo == "update") {
         if (larguraRolagem.length === 0) {
             tds.forEach((td) => {
                 td.style.width = "-webkit-fill-available";

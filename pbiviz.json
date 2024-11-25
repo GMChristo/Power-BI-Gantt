@@ -4,7 +4,7 @@
         "displayName": "Gantt Chart",
         "guid": "ganttChart",
         "visualClassName": "Visual",
-        "version": "1.3.1.1",
+        "version": "1.4.1.3",
         "description": "Gantt visual personalizado",
         "supportUrl": "https://github.com/gmchristo",
         "gitHubUrl": "https://github.com/gmchristo"
