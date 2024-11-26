@@ -793,7 +793,7 @@ function fixedScales(svg, width, height) {
 
     const anoInicial = DATA_INICIAL.getFullYear();
     const mesInicial = DATA_INICIAL.getMonth(); // Lembre-se que os meses começam em 0 (Janeiro)
-    
+
     const anoFinal = DATA_FINAL.getFullYear();
     const mesFinal = DATA_FINAL.getMonth();
 
@@ -801,37 +801,38 @@ function fixedScales(svg, width, height) {
     if (anoFinal === anoInicial && mesFinal === mesInicial + 1) {
         // console.log("anoFinal === anoInicial && mesFinal === mesInicial + 1")
         var grid = svg.append("g")
-        .attr("class", "grid2")
-        .style("height", "30px")
-        .attr("transform", `translate(0, ${MARGIN_TOP})`)
-        .call(d3.axisTop(timeScaleAxisNice())
-            .ticks(escalaTickSize)
-            .tickFormat(formatoEscala) 
-            // .tickSize(-12000)
-        )
+            .attr("class", "grid2")
+            .style("height", "30px")
+            .attr("transform", `translate(0, ${MARGIN_TOP})`)
+            .call(d3.axisTop(timeScaleAxisNice())
+                .ticks(escalaTickSize)
+                .tickFormat(formatoEscala)
+                // .tickSize(-12000)
+            )
     } else if (anoFinal === anoInicial + 1 && mesFinal === 0 && mesInicial === 11) {
         // console.log("anoFinal === anoInicial + 1 && mesFinal === 0 && mesInicial === 11")
         var grid = svg.append("g")
-        .attr("class", "grid2")
-        .style("height", "30px")
-        .attr("transform", `translate(0, ${MARGIN_TOP})`)
-        .call(d3.axisTop(timeScaleAxisNice())
-            .ticks(escalaTickSize)
-            .tickFormat(formatoEscala)
-            // .tickSize(-12000)
-        )
+            .attr("class", "grid2")
+            .style("height", "30px")
+            .attr("transform", `translate(0, ${MARGIN_TOP})`)
+            .call(d3.axisTop(timeScaleAxisNice())
+                .ticks(escalaTickSize)
+                .tickFormat(formatoEscala)
+                // .tickSize(-12000)
+            )
     }
-    else{
+    else {
         // console.log("else")
-    var grid = svg.append("g")
-        .attr("class", "grid2")
-        .style("height", "30px")
-        .attr("transform", `translate(0, ${MARGIN_TOP})`)
-        .call(d3.axisTop(timeScaleAxis())
-            .ticks(escalaTickSize)
-            .tickFormat(formatoEscala)
-            // .tickSize(-12000)
-        )}
+        var grid = svg.append("g")
+            .attr("class", "grid2")
+            .style("height", "30px")
+            .attr("transform", `translate(0, ${MARGIN_TOP})`)
+            .call(d3.axisTop(timeScaleAxis())
+                .ticks(escalaTickSize)
+                .tickFormat(formatoEscala)
+                // .tickSize(-12000)
+            )
+    }
 
 
 
@@ -870,18 +871,21 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         var tipoCategoriaBar = []
         var corBackgroundSegundoNivel = index
 
-        //rgb(204,0,0) comentario abaixo é para efetuar o item 14 adicionar uma linha de divisão entre as hierarquias
-        /*
+        //rgb(204,0,0) o bloco abaixo é para adicionar uma linha de divisão entre as hierarquias
+        // /*
         console.log("d.index: " + d.nome + " - " + index)
         if (index != 0) {
             var espacamentoNomes = svgHierarquiaNomes.append("table")
                 .attr("class", "row-modulo-espacamentoNomes")
-                .style("height", "10px")
+                // .style("height", "10px")
+                .style("height", "5px")
 
             var espacamentoEventos = svgHierarquiaEventos.append("table")
                 .attr("class", "row-modulo-espacamentoEventos")
-                .style("height", "10px")
-        }*/
+                // .style("height", "10px")
+                .style("height", "5px")
+        }
+                // */
 
         // adiciona a estrutura inicial da parte de eventos (direita)
         var tableModulosHierarquiaEventos = svgHierarquiaEventos.append("table")
@@ -1621,79 +1625,29 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 
                         .style("display", "flex")
                         .style("position", "absolute")
-                    // .style("margin-left", "10px")
-                    //! rgb(204, 0, 0)
-                    // .style("width", "30px")
-
-                    // var soma = dataInicio + tamanhoBarraEvento
-                    // if (soma >= posDataFinal) {
-                    //     console.log("soma >= posDataFinal: " + l.levelValues[0].evento)
-                    //     dadosEventoDiv.style("width", "20px")
-                    //     .append("g")
-                    //     .append("text")
-                    //     .attr("y", 15)
-                    //     .attr("font-size", 12)
-                    //     .text("     ");
-                    //     // return "20px"
-                    // }
-                    // if (soma + 300 >= posDataFinal) {
-                    //     console.log("soma + 300 >= posDataFinal: " + l.levelValues[0].evento)
-                    //     dadosEventoDiv.style("width", posDataFinal - soma + "px")
-                    //     .append("g")
-                    //     .append("text")
-                    //     .attr("y", 15)
-                    //     .attr("font-size", 12)
-                    //     .text(function () {
-                    //         if ("rot" in l.levelValues[0]) {
-                    //             return l.levelValues[0].rot
-                    //         } else {
-                    //             return l.levelValues[0].evento
-                    //         }
-                    //     });
-                    //     // return posDataFinal - soma + "px"
-                    // }
-                    // else if (dataInicio + 300 >= posDataFinal) {
-                    //     dadosEventoDiv.style("width", posDataFinal - posicaoTextoEvento + "px")
-                    //     .append("g")
-                    //     .append("text")
-                    //     .attr("y", 15)
-                    //     .attr("font-size", 12)
-                    //     .text(function () {
-                    //         if ("rot" in l.levelValues[0]) {
-                    //             return l.levelValues[0].rot
-                    //         } else {
-                    //             return l.levelValues[0].evento
-                    //         }
-                    //     });
-                    //     // return posDataFinal - posicaoTextoEvento + "px"
-                    // }
-
-
-
-                    // /*
-                    .style("width", function (f) {
-                        var soma = dataInicio + tamanhoBarraEvento
-                        if (soma >= posDataFinal) {
-                            return "0px"
-                        }
-                        if (soma + 300 >= posDataFinal) {
-                            return posDataFinal - soma + "px"
-                        }
-                        else if (dataInicio + 300 >= posDataFinal) {
-                            return posDataFinal - posicaoTextoEvento + "px"
-                        }
-                    })
-                    .append("g")
-                    .append("text")
-                    .attr("y", 15)
-                    .attr("font-size", 12)
-                    .text(function () {
-                        if ("rot" in l.levelValues[0]) {
-                            return l.levelValues[0].rot
-                        } else {
-                            return l.levelValues[0].evento
-                        }
-                    });
+                        .style("width", function (f) {
+                            var soma = dataInicio + tamanhoBarraEvento
+                            if (soma >= posDataFinal) {
+                                return "0px"
+                            }
+                            if (soma + 300 >= posDataFinal) {
+                                return posDataFinal - soma + "px"
+                            }
+                            else if (dataInicio + 300 >= posDataFinal) {
+                                return posDataFinal - posicaoTextoEvento + "px"
+                            }
+                        })
+                        .append("g")
+                        .append("text")
+                        .attr("y", 15)
+                        .attr("font-size", 12)
+                        .text(function () {
+                            if ("rot" in l.levelValues[0]) {
+                                return l.levelValues[0].rot
+                            } else {
+                                return l.levelValues[0].evento
+                            }
+                        });
                     // */
                 }
             })
