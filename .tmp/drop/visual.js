@@ -845,30 +845,28 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         if (index != 0) {
             var espacamentoNomes = svgHierarquiaNomes.append("table")
                 .attr("class", "row-modulo-espacamentoNomes")
-                // .style("height", "10px")
                 .style("height", "5px");
             var espacamentoEventos = svgHierarquiaEventos.append("table")
                 .attr("class", "row-modulo-espacamentoEventos")
-                // .style("height", "10px")
                 .style("height", "5px");
         }
-        // */
+        // */=
         // adiciona a estrutura inicial da parte de eventos (direita)
         var tableModulosHierarquiaEventos = svgHierarquiaEventos.append("table")
             // .attr("class", "row-modulo-" + d.nome)
             .attr("class", "row-modulo-nome-" + d.nome)
-            .style("height", "20px");
+            .style("height", "20px")
+            //adiciona as linhas de cores alternadas no primeiro nivel de hierarquia
+            .style("background-color", function () {
+            return corLinha[index % 2];
+        });
         // .style("width", CHART_WIDTH +"px")
         var rowEventos = tableModulosHierarquiaEventos.append("tr")
             .style("display", "flex")
-            .style("height", "20px")
-            .style("width", tamanhoScalaExib + "px")
-            .style("background-color", function () {
-            // console.log("i: " +index + " - " + corLinha[index % 2])
-            return corLinha[index % 2];
-        })
-            // .style("width", CHART_WIDTH + "px")
-            .style("margin-bottom", "5px");
+            // .style("height", "20px")
+            .style("height", "25px")
+            .style("width", tamanhoScalaExib + "px");
+        // .style("margin-bottom", "5px")
         // fim da adição da estrutura inicial da parte de eventos (direita)
         // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
         var tableModulosHierarquiaNomes = svgHierarquiaNomes.append("table")
@@ -1056,6 +1054,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
         //!
         //! Segundo nivel da hierarquia
         //!
+        var corBackgroundSegundoNivel = index;
         d.dados.forEach((h, i) => {
             var tipoEventoBar = [];
             // var corBackgroundSegundoNivel = index
@@ -1063,6 +1062,7 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
             // console.log("index: " + index);
             // corBackgroundLinha++
             // console.log("corBackgroundLinha: " + corBackgroundSegundoNivel);
+            // console.log("index segundo nivel: " + corBackgroundSegundoNivel);
             var tableModulos2HierarquiaEventos = tableModulosHierarquiaEventos.append("table")
                 .attr("class", "row-modulo2-" + h.nome)
                 .style("display", "none")
@@ -1077,18 +1077,22 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 }
                 else {
                     corBackgroundSegundoNivel++;
+                    // console.log("index segundo nivel +1: " + corBackgroundSegundoNivel);
                     // console.log("corBackgroundLinha: " + corBackgroundSegundoNivel);
                     return "exibir";
                 }
             })
                 // .style("background-color", "aqua")
                 .style("background-color", function () {
+                console.log("index segundo nivel: " + corBackgroundSegundoNivel);
+                console.log("index segundo nivel: " + corLinha[corBackgroundSegundoNivel % 2]);
                 // console.log("i: " +corBackgroundSegundoNivel + " - " + corLinha[corBackgroundSegundoNivel % 2])
                 return corLinha[corBackgroundSegundoNivel % 2];
             })
                 .style("display", "flex")
-                .attr("height", 20)
-                .style("margin-bottom", "5px");
+                .attr("height", 25);
+            // .attr("height", 20)
+            // .style("margin-bottom", "5px")
             // inicio da estrutura da sgunda hierarquia(esquerda), juntamente com os botoes e nomes
             var tableModulos2HierarquiaNomes = tableModulosHierarquiaNomes.append("table")
                 .attr("class", "row-modulo2-" + h.nome)
@@ -1197,21 +1201,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                 .style("padding-left", "5px")
                 .text(h.nome)
                 .style("color", "#FFFFFF");
+            var corBackgroundTerceiroNivel = corBackgroundSegundoNivel;
             //! bloco abaixo é usado para a parte de evento da hierarquia
             var dadosEventoSubTipo = [];
             h.dados.forEach((l, i) => {
                 var tamanhoBarraEvento = timeScale(l.levelValues[0].dataInicio);
-                // console.log("l.levelValues[0].dataInicio: " + l.levelValues[0].evento + " - " + l.levelValues[0].dataInicio);
-                // console.log("l.levelValues[0].dataInicio: " + l.levelValues[0].evento + " - " + l.levelValues[0].dataInicio);
-                // console.log("timeScale(l.levelValues[0].dataInicio): " + timeScale(l.levelValues[0].dataInicio));
-                // console.log("l.levelValues[0]: " + JSON.stringify(l.levelValues[0]));
-                // var dataInicio = timeScale(l.levelValues[0].dataInicio);
                 var dataInicio = timeScale(l.levelValues[0].dataInicio) + tickEspacamento;
                 var posicaoTextoEvento;
                 var dataFimTeste = "null";
-                // var corBackgroundNivelEvento = corBackgroundSegundoNivel
-                // console.log("i: " + i)
-                // corBackgroundNivelEvento + i
+                console.log("corBackgroundTerceiroNivel: " + corBackgroundTerceiroNivel);
+                corBackgroundTerceiroNivel++;
+                console.log("corBackgroundTerceiroNivel++: " + corBackgroundTerceiroNivel);
                 if (l.levelValues[0].dataFim != "null" && l.levelValues[0].dataFim != null) {
                     dataFimTeste = l.levelValues[0].dataFim;
                 }
@@ -1286,13 +1286,17 @@ function treeModulos(data, svgHierarquiaNomes, svgHierarquiaEventos) {
                         // return corLinha[corBackgroundNivelEvento % 2]
                         // console.log("corBackgroundSegundoNivel: " +corBackgroundSegundoNivel)
                         // console.log("corBackgroundNivelEvento: " + corBackgroundNivelEvento)
-                        return corLinha[i % 2];
+                        console.log("background-color: " + corBackgroundTerceiroNivel);
+                        return corLinha[corBackgroundTerceiroNivel % 2];
+                        // return "red"
+                        // return corLinha[i % 2]
                     })
                         .style("display", "flex")
                         .style("width", tamanhoScalaExib + "px")
-                        .style("height", "21px")
-                        .style("align-items", "center")
-                        .style("margin-bottom", "5px");
+                        .style("height", "26px")
+                        // .style("height", "21px")
+                        // .style("margin-bottom", "5px")
+                        .style("align-items", "center");
                     //terceiro nivel dos nomes das hierarquias
                     var tableModulos3HierarquiaNomes = tableModulos2HierarquiaNomes.append("table")
                         // .attr("class", "tableModulos3")
