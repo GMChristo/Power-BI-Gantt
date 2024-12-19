@@ -93,9 +93,6 @@
             },
             "conditions": [
                 {
-                    "category": {
-                        "max": 3
-                    },
                     "subTipo": {
                         "max": 1
                     },
