@@ -105,6 +105,8 @@ var posDataFinal;
 var alturaRolagem;
 var larguraRolagem = [];
 var dataHoje;
+var dataAgrupado = []; //usado em agrupamentoHierarquia
+var jsonAgrupado = [];
 var formatoEscala = d3__WEBPACK_IMPORTED_MODULE_0__/* .utcFormat */ .aLc("%b %Y");
 var corLinha = ["#F1F3F5", "#DEE2E6"];
 var tamanhoScalaExib = 100;
@@ -125,7 +127,7 @@ class Visual {
     constructor(options) {
         this.svgRootHTML = d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ltv(options.element).append("div").classed("card", true);
         svgBase = this.svgRootHTML;
-        console.log("version: " + "1.4.1.3");
+        console.log("version: " + "2.0.0.3"); //
     }
     update(options) {
         // console.log("dataMap0: " + dataMap);
@@ -156,8 +158,15 @@ class Visual {
         preencheDataInicioFim(dataMap);
         defineEscala();
         // console.log("tamanhoScalaExib: " + tamanhoScalaExib);
+        // console.log("dataMap antes agrupamentoHierarquia: " + JSON.stringify(dataMap))
         agrupamentoHierarquia(dataMap, dataAgrupado);
-        // console.log("dataMap: " + JSON.stringify(dataMap));
+        // console.log("jsonAgrupado antes organizaJsonAgrupado: " + JSON.stringify(jsonAgrupado))
+        // console.log("dataAgrupado depois agrupamentoHierarquia: " + JSON.stringify(dataAgrupado))
+        organizaJsonAgrupado(dataAgrupado, jsonAgrupado);
+        //! criar uma nova function para so agrupar os dados do evento
+        // console.log("dataMap depois agrupamentoHierarquia: " + JSON.stringify(dataMap))
+        // console.log("dataAgrupado depois agrupamentoHierarquia: " + JSON.stringify(dataAgrupado))
+        // console.log("jsonAgrupado depois organizaJsonAgrupado: " + JSON.stringify(jsonAgrupado))
         const tagMainDiv = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".main-div");
         tagMainDiv.remove();
         const tagMainSvg = d3__WEBPACK_IMPORTED_MODULE_0__/* .selectAll */ .Ubm(".main-svg");
@@ -175,9 +184,12 @@ class Visual {
         var mainTableTr = mainDivTable.append("tr");
         nomesEventoTdHTML = mainTableTr.append("td")
             .attr("class", "mainTdNomes")
-            .style("width", "600px")
+            // .style("width", "600px")
             .style("background-color", "white")
-            .style("max-width", "325px")
+            .style("max-width", "305px")
+            // .style("max-width", "325px")
+            // .style("max-width", "24.4%")
+            // .style("min-width", "306px")
             .style("height", "-webkit-fill-available")
             .style("margin-top", "21px")
             .style("vertical-align", "top")
@@ -195,7 +207,8 @@ class Visual {
             .style("vertical-align", "top")
             .style("overflow-y", "auto")
             .style("position", "fixed")
-            .style("max-width", "-webkit-fill-available")
+            // .style("max-width", "-webkit-fill-available")
+            .style("max-width", "75%")
             .style("border", "1px solid")
             .style("left", "310px");
         var testeRegulagemAltura = dadosEventoTdHTML.append("div")
@@ -219,7 +232,8 @@ class Visual {
             .style("vertical-align", "top")
             .style("overflow-x", "hidden")
             .style("left", "310px")
-            .style("padding-left", "7px");
+            // .style("padding-left", "7px")
+            .style("padding-left", "5px");
         var testeRegulagemScala2 = dadosEventoScaleTdHTML.append("div")
             .style("width", "310px")
             .style("height", "20px")
@@ -258,7 +272,9 @@ class Visual {
         if (dataHoje >= DATA_INICIAL && dataHoje <= DATA_FINAL) {
             milestone(svgRoot);
         }
-        treeModulos2(dataMap, nomesEventoTdHTML, dadosEventoHTML);
+        treeModulos2(dataAgrupado, nomesEventoTdHTML, dadosEventoHTML);
+        // treeModulos2(dataMap, nomesEventoTdHTML, dadosEventoHTML);
+        // treeModulos2(jsonAgrupado, nomesEventoTdHTML, dadosEventoHTML);
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML); // mantem as linhas em exibição apos atualizar o visual
         alternaCores();
         //seleciona as td que tem os nomes e os eventos e cria um listener para caso seja feita a rolagem em uma o evento tb ser executada na outra
@@ -286,7 +302,7 @@ class Visual {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdScale.scrollLeft = mainTdEventos.scrollLeft;
         });
-        atualizaLarguraMainTdNomes("comprime", "", -1, 0);
+        atualizaLarguraMainTdNomes("inicioZerado", "inicioZerado", -1, 0);
     }
 }
 function formatDate(dateString) {
@@ -387,7 +403,6 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
                         }
                     }
                     catch (error) {
-                        // console.log("catch: ");
                     }
                 }
             }
@@ -431,38 +446,141 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
                         }
                     }
                     catch (error) {
-                        // console.log("catch: ");
                     }
                 }
             }
         }
     });
 }
-var dataAgrupado = [];
+//! versao original
+// function agrupamentoHierarquia(dataMap, dataAgrupado) {
+//     dataMap.forEach((data, i) => {
+//         if (data.dados) {
+//             dataAgrupado.push({
+//                 level: data.level,
+//                 nome: data.nome,
+//                 qtdSub: data.qtdSub,
+//                 dados: []
+//             })
+//             agrupamentoHierarquia(data.dados, dataAgrupado[i].dados)
+//         }
+//         else if (data.levelValues) {
+//             // console.log("agrupamentoHierarquia data.levelValues: " + JSON.stringify(data.levelValues))
+//             dataAgrupado.push({
+//                 level: data.level,
+//                 ...(data.levelValues[0].agrupamento && { agrupamento: data.levelValues[0].agrupamento }),
+//                 levelValues: []
+//             })
+//             // if(data.levelValues[0].agrupamento)
+//             agrupamentoHierarquia(data.levelValues, dataAgrupado[i].levelValues)
+//         }
+//         else {
+//             dataAgrupado.push({
+//                 evento: data.evento,
+//                 // ...(data.agrupamento && { agrupamento: data.agrupamento }),
+//                 dataInicio: data.dataInicio,
+//                 dataFim: data.dataFim,
+//                 ...(data.rot && { rot: data.rot }),
+//                 ...(data.icon && { icon: data.icon }),
+//                 ...(data.cor && { cor: data.cor }),
+//             })
+//         }
+//     })
+// }
 function agrupamentoHierarquia(dataMap, dataAgrupado) {
-    dataMap.forEach((data, i) => {
+    // Objeto para rastrear agrupamentos já processados
+    const agrupamentosMap = {};
+    dataMap.forEach((data) => {
         if (data.dados) {
-            dataAgrupado.push({
+            const novoGrupo = {
                 level: data.level,
                 nome: data.nome,
                 qtdSub: data.qtdSub,
                 dados: []
-            });
-            agrupamentoHierarquia(data.dados, dataAgrupado[i].dados);
+            };
+            dataAgrupado.push(novoGrupo);
+            agrupamentoHierarquia(data.dados, novoGrupo.dados);
         }
         else if (data.levelValues) {
-            agrupamentoHierarquia(data.levelValues, dataAgrupado);
+            const agrupamentoNome = data.levelValues[0].agrupamento;
+            // Verifica se o agrupamento já foi processado
+            if (agrupamentosMap[agrupamentoNome]) {
+                // Se já existe, adiciona os novos levelValues ao existente
+                agrupamentosMap[agrupamentoNome].levelValues.push(...data.levelValues);
+            }
+            else {
+                // Se não existe, cria um novo agrupamento
+                const novoAgrupamento = {
+                    level: data.level,
+                    agrupamento: agrupamentoNome,
+                    levelValues: [...data.levelValues] // Copia os levelValues
+                };
+                agrupamentosMap[agrupamentoNome] = novoAgrupamento; // Adiciona ao mapa
+                dataAgrupado.push(novoAgrupamento); // Adiciona ao array de agrupados
+            }
         }
         else {
             dataAgrupado.push({
                 evento: data.evento,
-                ...(data.subTipo && { subTipo: data.subTipo }),
                 dataInicio: data.dataInicio,
                 dataFim: data.dataFim,
                 ...(data.rot && { rot: data.rot }),
                 ...(data.icon && { icon: data.icon }),
                 ...(data.cor && { cor: data.cor }),
             });
+        }
+    });
+}
+function organizaJsonAgrupado(dados, jsonAgrupado) {
+    dados.forEach((data) => {
+        if (data.dados) {
+            // Adiciona o objeto atual ao jsonAgrupado
+            const novoGrupo = {
+                level: data.level,
+                nome: data.nome,
+                qtdSub: data.qtdSub,
+                dados: []
+            };
+            jsonAgrupado.push(novoGrupo);
+            // Verifica se o primeiro item de dados tem levelValues
+            if (data.dados[0].levelValues) {
+                // console.log("data.levelValues: " + JSON.stringify(data.dados));
+                data.dados.forEach((event) => {
+                    // Cria um novo objeto para o agrupamento
+                    const agrupamentoExistente = novoGrupo.dados.find((item) => item.agrupamento === event.agrupamento);
+                    if (agrupamentoExistente) {
+                        // Se o agrupamento já existe, adiciona o evento ao levelValues existente
+                        agrupamentoExistente.levelValues.push({
+                            evento: event.levelValues[0].evento,
+                            dataInicio: event.levelValues[0].dataInicio,
+                            dataFim: event.levelValues[0].dataFim,
+                            ...(event.levelValues[0].rot && { rot: event.levelValues[0].rot }),
+                            ...(event.levelValues[0].icon && { icon: event.levelValues[0].icon }),
+                            ...(event.levelValues[0].cor && { cor: event.levelValues[0].cor }),
+                        });
+                    }
+                    else {
+                        // Se não existe, cria um novo agrupamento
+                        const eventosAdd = {
+                            level: data.level + 1,
+                            agrupamento: event.agrupamento,
+                            levelValues: [{
+                                    evento: event.levelValues[0].evento,
+                                    dataInicio: event.levelValues[0].dataInicio,
+                                    dataFim: event.levelValues[0].dataFim,
+                                    ...(event.levelValues[0].rot && { rot: event.levelValues[0].rot }),
+                                    ...(event.levelValues[0].icon && { icon: event.levelValues[0].icon }),
+                                    ...(event.levelValues[0].cor && { cor: event.levelValues[0].cor }),
+                                }]
+                        };
+                        novoGrupo.dados.push(eventosAdd);
+                    }
+                });
+            }
+            else {
+                // Chama a função recursivamente se não houver levelValues
+                organizaJsonAgrupado(data.dados, novoGrupo.dados);
+            }
         }
     });
 }
@@ -502,16 +620,13 @@ function hierarquiaTree(element, lvl, dataMap) {
                 marcosEventos: []
             });
             hierarquiaTree(element[i].children, lvl + 1, dataMap[i].dados);
-            // var retorno = hierarquiaTree(element[i].children, lvl + 1, dataMap[i].dados)
-            // dataMap[dataMap.length - 1].marcosEventos = dataMap[dataMap.length - 1].marcosEventos.concat(retorno);
         }
         else if ("levelValues" in element[i]) {
             dataMap.push({
                 level: lvl,
                 levelValues: []
             });
-            var retorno = hierarquiaTree(element[i].levelValues, lvl + 1, dataMap[i].levelValues);
-            // return retorno
+            hierarquiaTree(element[i].levelValues, lvl + 1, dataMap[i].levelValues);
         }
         else if ("levelSourceIndex" in element[i]) {
             var cat = null; //categoria
@@ -525,7 +640,7 @@ function hierarquiaTree(element, lvl, dataMap) {
                 if (e.roleName == "category") {
                     cat = e.index;
                 }
-                else if (e.roleName == "subTipo") {
+                else if (e.roleName == "agrupamento") {
                     sTipo = e.index;
                 }
                 else if (e.roleName == "dataInicial") {
@@ -547,7 +662,7 @@ function hierarquiaTree(element, lvl, dataMap) {
             if (dataMap.length == 0) {
                 dataMap.push({
                     evento: element[cat].value,
-                    ...(element[sTipo] && { subTipo: element[sTipo].value }),
+                    ...(element[sTipo] && { agrupamento: element[sTipo].value }),
                     dataInicio: element[dIni].value,
                     dataFim: element[dFim].value,
                     ...(rot.map(r => element[r].value).filter(v => v !== null && v !== undefined && v !== "null").join(' - ') !== '' && { rot: rot.map(r => element[r].value).filter(v => v !== null && v !== undefined && v !== "null").join(' - ') }),
@@ -609,7 +724,7 @@ function calculaDatasInicioFim(jsonData) {
             }
         }
         else {
-            console.log("não erra pra vc estar aqui O.õ");
+            console.log("não era pra vc estar aqui O.õ");
         }
     });
 }
@@ -726,13 +841,55 @@ function atualizaAlturaMainTdNomes() {
     svgRoot.style("height", alturaRolagem + "px");
 }
 function atualizaLarguraMainTdNomes(tipo, hierarquia, index, level) {
+    // console.log("atualizaLarguraMainTdNomes")
     const queryMainTdNomes = document.querySelector('.mainTdNomes');
     const tds = queryMainTdNomes.querySelectorAll(`[class^="row-modulo-"][class*="-0-"]`);
-    if (tipo == "expande") {
-        var valorAdd = queryMainTdNomes.scrollWidth;
+    // console.log("tds: " + tds)
+    // console.log("tds: " + JSON.stringify(tds))
+    var tamanhoDomaior = 0;
+    var nomeDoMaior = "inicioZerado";
+    if (tipo == "inicioZerado") {
+        const tdsArray = Array.from(tds);
+        tdsArray.forEach((td, index) => {
+            // console.log(`td[${index}]:`, td);
+            // console.log(`td.scrollWidth[${index}]:`, td.scrollWidth);
+            if (td.scrollWidth > tamanhoDomaior) {
+                tamanhoDomaior = td.scrollWidth;
+                nomeDoMaior = hierarquia;
+            }
+        });
+        if (index == -1) {
+            larguraRolagem.push({
+                nomeHierarquia: nomeDoMaior,
+                tamanho: tamanhoDomaior,
+                // nomeHierarquia: hierarquia,
+                // tamanho: td.scrollWidth,
+            });
+        }
+        const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+        tds.forEach((td) => {
+            td.style.width = maior + 'px';
+        });
+    }
+    else if (tipo == "expande") {
+        // atualizaLarguraMainTdNomes("inicioZerado", "inicioZerado", -2, 0)
+        tds.forEach((td) => {
+            td.style.width = '305px';
+        });
+        const tdsArray = Array.from(tds);
+        tdsArray.forEach((td, index) => {
+            // console.log(`td[${index}]:`, td);
+            // console.log(`td.scrollWidth[${index}]:`, td.scrollWidth);
+            if (td.scrollWidth > tamanhoDomaior) {
+                tamanhoDomaior = td.scrollWidth;
+                nomeDoMaior = hierarquia;
+            }
+        });
         larguraRolagem.push({
-            nomeHierarquia: hierarquia,
-            tamanho: valorAdd
+            nomeHierarquia: nomeDoMaior,
+            tamanho: tamanhoDomaior,
+            // nomeHierarquia: hierarquia,
+            // tamanho: td.scrollWidth,
         });
         const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
         tds.forEach((td) => {
@@ -740,14 +897,58 @@ function atualizaLarguraMainTdNomes(tipo, hierarquia, index, level) {
         });
     }
     else if (tipo == "comprime") {
+        console.log("comprime: " + hierarquia + " - " + hierarquia);
         larguraRolagem = larguraRolagem.filter(item => item.nomeHierarquia !== hierarquia);
-        if (larguraRolagem.length === 0) {
-            tds.forEach((td) => {
-                // td.style.width = "-webkit-fill-available";
-                td.style.width = "305px";
-            });
-        }
-        else {
+        const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+        tds.forEach((td) => {
+            td.style.width = maior + 'px';
+        });
+    }
+    // var valorAdd = queryMainTdNomes.scrollWidth
+    // larguraRolagem.push(
+    //     {
+    //         nomeHierarquia: hierarquia,
+    //         tamanho: valorAdd,
+    //     }
+    // );
+    /*
+
+    if (tipo == "expande") {
+        var valorAdd = queryMainTdNomes.scrollWidth
+        
+        tds.forEach((td) => {
+            td.style.width = "305px";
+        });
+
+        larguraRolagem.push(
+            {
+                nomeHierarquia: hierarquia,
+                tamanho: valorAdd
+            }
+        );
+        const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+        tds.forEach((td) => {
+            td.style.width = maior + 'px';
+        });
+    }
+    else if (tipo == "comprime") {
+        larguraRolagem = larguraRolagem.filter(item => item.nomeHierarquia !== hierarquia);
+        // if (larguraRolagem.length === 0) {
+        //     tds.forEach((td) => {
+        //         td.style.width = "305px";
+        //     });
+        // } else {
+        //     const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
+        //     tds.forEach((td) => {
+        //         td.style.width = maior + 'px';
+        //     });
+        // }
+
+
+        tds.forEach((td) => {
+            td.style.width = "305px";
+        });
+        if (larguraRolagem.length != 0) {
             const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
             tds.forEach((td) => {
                 td.style.width = maior + 'px';
@@ -760,28 +961,54 @@ function atualizaLarguraMainTdNomes(tipo, hierarquia, index, level) {
                 // td.style.width = "-webkit-fill-available";
                 td.style.width = "max-content";
             });
-        }
-        else {
+        } else {
             const maior = Math.max(...larguraRolagem.map(item => item.tamanho));
             tds.forEach((td) => {
                 td.style.width = maior + 'px';
             });
         }
     }
+*/
+    // console.log("larguraRolagem: " + JSON.stringify(larguraRolagem))
 }
 function treeModulos2(data, svgHierarquiaNomes, svgHierarquiaEventos) {
+    // console.log("treeModulos2: " + JSON.stringify(data))
     data.forEach((d, index) => {
-        var fineNivelHiera = defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
+        defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
     });
 }
 // esssa funçao deve ser chamada quando é passado somente um array de itens
 function recursividadeHierarquiaArray(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
     var dadosRetornar = [];
-    data.forEach((d) => {
-        var recursividadeHierarquiaNull = defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
+    if (data[0].agrupamento) {
+        // console.log("recursividadeHierarquiaArray: " + JSON.stringify(data))
+        var recursividadeHierarquiaNull = testeEventoLinha(data, svgHierarquiaNomes, svgHierarquiaEventos, index);
+        console.log("recursividadeHierarquiaNull: " + JSON.stringify(recursividadeHierarquiaNull));
         dadosRetornar.push(recursividadeHierarquiaNull);
-    });
+    }
+    else if (!data[0].agrupamento) {
+        // console.log("else if(!data[0].agrupamento) data: " + JSON.stringify(data))
+        data.forEach((d) => {
+            var recursividadeHierarquiaNull = defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
+            dadosRetornar.push(recursividadeHierarquiaNull);
+        });
+    }
     return dadosRetornar;
+}
+function testeEventoLinha(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
+    // console.log("if(data[0].agrupamento): " + data[0].agrupamento)
+    console.log("testeEventoLinha: " + JSON.stringify(data));
+    var posRetorno = [];
+    data.forEach((d) => {
+        console.log("testeEventoLinha data.forEach d: " + JSON.stringify(d));
+        console.log("testeEventoLinha data.forEach d.levelValues: " + JSON.stringify(d.levelValues));
+        var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento);
+        // console.log("eventoLinhaHierarquia: " + JSON.stringify(eventoLinhaHierarquia[0]))
+        // return eventoLinhaHierarquia[0]
+        posRetorno.push(eventoLinhaHierarquia[0]);
+    });
+    // console.log("posRetorno: " + JSON.stringify(posRetorno))
+    return posRetorno;
 }
 // esssa funçao deve ser chamada quando é passado somente um unico item
 function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index) {
@@ -802,25 +1029,36 @@ function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, ind
             return hierarquiaNull;
         }
         else {
+            // if(d.dados[0].levelValues){
+            //     //! as linhas 996 e 997 estao fazendo a funçao do else if(d) na linha 1008, porem ele faz para todos os elementos do array
+            //     // console.log("if(d.dados[0].agrupamento): " + JSON.stringify(d.dados))
+            //     console.log("d.dados: " + JSON.stringify(d.dados))
+            //     console.log("d: " + JSON.stringify(d))
+            //     var eventoLinhaHierarquia = hierarquiaEvento(d.dados[0].levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento)
+            //     return eventoLinhaHierarquia[0]
+            // }
+            // else{
             var hierarquiaNotNull = hierarquiaPrimeiroNivel(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
+            // console.log("else if (d.level !== 0 && d.dados): " + JSON.stringify(d))
             return hierarquiaNotNull;
+            // }
         }
     }
     else if (d) {
-        var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index);
+        console.log("else if (d): " + JSON.stringify(d));
+        if (d.agrupamento) {
+            console.log("if(d.agrupamento)");
+        }
+        // console.log("agrupamento: " + d)
+        var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento);
         return eventoLinhaHierarquia[0];
     }
 }
-// criar uma variavel ou array de listaMarcosEvento
 function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
     // adiciona a estrutura inicial da parte de eventos (direita)
     var tableModulosHierarquiaEventos = svgHierarquiaEventos.append("table")
         .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
         .style("height", "20px")
-        //! adiciona as linhas de cores alternadas no primeiro nivel de hierarquia
-        // .style("background-color", function () {
-        //     return corLinha[index % 2]
-        // })
         .style("display", function () {
         if (data.level != 0) {
             return "none";
@@ -859,12 +1097,19 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
     var rowHierarquia = tableModulosHierarquiaNomes.append("tr")
         .style("display", "flex")
         .style("height", "20px")
-        .style("width", "290px")
+        .attr("class", "alterando")
+        .style("width", function () {
+        if (data.level == 0)
+            // return "290px"
+            return "max-content";
+        else {
+            return "max-content";
+        }
+    })
         .style("margin-bottom", "5px")
         .style("margin-left", function () {
-        if (data.level != 0) {
-            return "30px";
-        }
+        var margem = 15;
+        return margem * data.level + "px";
     });
     var buttonPlus = rowHierarquia.append("button")
         .attr("class", "iconPlus-div")
@@ -874,7 +1119,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         .style("border", "none")
         .on("click", function () {
         const td = document.querySelector('.mainTdNomes');
-        var larguraRolagem = td.scrollWidth;
         exibir.push("row-modulo-" + index + "-" + data.level + "-" + data.nome);
         var eventoHide = rowHierarquia.select(".iconPlus-div");
         if (eventoHide) {
@@ -936,7 +1180,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
             alteraLinhaEvento.style("display", function () {
                 return d3__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ltv(this).style("display") === "none" ? "contents" : "none";
             });
-            // var alternadoLinhaEvento = alteraLinhaEvento.selectAll(`:scope > [class^="linha-evento"]`);
             var alternadoLinhaEvento = alteraLinhaEvento.selectAll('.linha-evento');
             alternadoLinhaEvento
                 .classed("showLinhaAlternada", true);
@@ -944,7 +1187,7 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         catch (error) {
         }
         try {
-            var segundaHierarquiaEventos = tableModulosHierarquiaEventos.selectAll(`[class^="row-modulo-${index}"]`);
+            var segundaHierarquiaEventos = tableModulosHierarquiaEventos.selectAll(`:scope > [class^="row-modulo-${index}"]`);
             if (segundaHierarquiaEventos) {
                 segundaHierarquiaEventos.style("display", segundaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
             }
@@ -952,7 +1195,8 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         catch (error) {
         }
         try {
-            var segundaHierarquiaEventos2 = tableModulosHierarquiaEventos.selectAll(`[class^="tr-modulo-${index}"]`);
+            var segundaHierarquiaEventos2 = tableModulosHierarquiaEventos.selectAll(`[class^="tr-modulo-${index}-${data.level + 1}"]`);
+            // console.log("data.level expande: " + data.level)
             if (segundaHierarquiaEventos2) {
                 segundaHierarquiaEventos2.classed("showLinhaAlternada", true);
             }
@@ -992,7 +1236,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         .attr("class", "iconMinus-div")
         .on("click", function () {
         exibir = exibir.filter(elemento => elemento !== "row-modulo-" + index + "-" + data.level + "-" + data.nome);
-        // exibir = exibir.filter(elemento => elemento !== "row-modulo-" + data.level + "-" + index + "-" + data.nome);
         atualizaLarguraMainTdNomes("comprime", data.nome, index, data.level);
         var eventoHide = rowHierarquia.select(".iconPlus-div");
         if (eventoHide) {
@@ -1012,7 +1255,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         catch (error) {
         }
         try {
-            // var segundaHierarquia = tableModulosHierarquiaNomes.selectAll(`[class^="row-modulo-${index}"]`)
             var segundaHierarquia = tableModulosHierarquiaNomes.selectAll(`:scope > [class^="row-modulo-${index}"]`);
             if (segundaHierarquia) {
                 segundaHierarquia.style("display", segundaHierarquia.style("display") === "none" ? "contents" : "none");
@@ -1026,7 +1268,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
                 segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
             }
             var terceiraHierarquia = tableModulosHierarquiaNomes.selectAll(`[class^="row-linhaEvento-${index}"]`);
-            // var terceiraHierarquia = tableModulosHierarquiaNomes.selectAll('[class^="row-linhaEvento-"]')
             if (terceiraHierarquia) {
                 terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
             }
@@ -1063,7 +1304,7 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         catch (error) {
         }
         try {
-            var segundaHierarquiaEventos = tableModulosHierarquiaEventos.selectAll(`[class^="row-modulo-${index}"]`);
+            var segundaHierarquiaEventos = tableModulosHierarquiaEventos.selectAll(`:scope > [class^="row-modulo-${index}"]`);
             if (segundaHierarquiaEventos) {
                 segundaHierarquiaEventos.style("display", segundaHierarquiaEventos.style("display") === "none" ? "contents" : "none");
                 segundaHierarquiaEventos.classed("showLinhaAlternada", false);
@@ -1072,7 +1313,7 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         catch (error) {
         }
         try {
-            var segundaHierarquiaEventos2 = tableModulosHierarquiaEventos.selectAll(`[class^="row-modulo-${index}"]`);
+            var segundaHierarquiaEventos2 = tableModulosHierarquiaEventos.selectAll(`[class^="tr-modulo-${index}-${data.level + 1}"]`);
             if (segundaHierarquiaEventos2) {
                 segundaHierarquiaEventos2.classed("showLinhaAlternada", false);
             }
@@ -1101,13 +1342,12 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         .append("path")
         .attr("d", _icons__WEBPACK_IMPORTED_MODULE_1__/* .arrow_right */ .B7)
         .style("fill", "white");
-    rowHierarquia.append("div")
+    rowHierarquia
+        .append("div")
         .style("padding-left", "5px")
         .attr("class", "text-div")
-        .append("text")
-        .attr("x", 10)
-        .attr("height", 20)
-        .attr("font-size", "12px")
+        .append("tr")
+        .attr("class", "text-nome")
         .text(function () {
         if (data.level == 0) {
             return data.nome.toUpperCase();
@@ -1116,31 +1356,37 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
             return data.nome;
         }
     })
+        .style("font-weight", "bold")
         .style("color", "#FFFFFF")
-        .style("font-weight", "bold");
-    var jaNemSei = recursividadeHierarquiaArray(data.dados, tableModulosHierarquiaNomes, tableModulosHierarquiaEventos, index);
-    // console.log("jaNemSei: " + JSON.stringify(jaNemSei))
+        .style("width", "max-content");
+    var marcosRecursivos = recursividadeHierarquiaArray(data.dados, tableModulosHierarquiaNomes, tableModulosHierarquiaEventos, index);
     //o bloco abaixo eh usado para transformar o array, foi verificado que em alguns casos ele vinha como Array de arrays [[]] com isso os marcos nao sao exibidos
-    const arrayTransformado = Array.isArray(jaNemSei) && jaNemSei.length > 0 && Array.isArray(jaNemSei[0])
-        ? jaNemSei.flat() : jaNemSei;
+    const arrayTransformado = Array.isArray(marcosRecursivos) && marcosRecursivos.length > 0 && Array.isArray(marcosRecursivos[0])
+        ? marcosRecursivos.flat() : marcosRecursivos;
     eventoColapsado(arrayTransformado, rowEventos);
     return arrayTransformado;
 }
-function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
-    var dadosEventoSubTipo = [];
+function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, nomeAgrupamento) {
+    // console.log("hierarquiaEvento nomeAgrupamento: " + nomeAgrupamento)
+    console.log("hierarquiaEvento data: " + JSON.stringify(data));
+    var dadosEventoAgrupamento = [];
     var tipoEventoBar = [];
-    var tamanhoBarraEvento = timeScale(data[0].dataInicio);
-    var dataInicio = timeScale(data[0].dataInicio) + tickEspacamento;
+    var dItem = data[0];
+    // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
+    // data.forEach((dItem, index) => {
+    // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
+    var tamanhoBarraEvento = timeScale(dItem.dataInicio);
+    var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
     var posicaoTextoEvento;
     var dataFimTeste = "null";
-    if (data[0].dataFim != "null" && data[0].dataFim != null) {
-        dataFimTeste = data[0].dataFim;
+    if (dItem.dataFim != "null" && dItem.dataFim != null) {
+        dataFimTeste = dItem.dataFim;
     }
     if (dataFimTeste != "null") {
-        if (new Date(DATA_FINAL).getTime() < new Date(data[0].dataFim).getTime()) {
-            data[0].dataFim = DATA_FINAL;
+        if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+            dItem.dataFim = DATA_FINAL;
         }
-        var dataFim = timeScale(data[0].dataFim);
+        var dataFim = timeScale(dItem.dataFim);
         tamanhoBarraEvento = dataFim - dataInicio;
         posicaoTextoEvento = dataInicio;
     }
@@ -1148,258 +1394,278 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index)
         posicaoTextoEvento = dataInicio;
         tamanhoBarraEvento = 0;
     }
-    if (data[0].subTipo) {
-        if (data[0].subTipo == "null") {
-            dadosEventoSubTipo.push({
-                [data[0].evento]: [
+    // /*
+    if (dItem.agrupamento) {
+        console.log("if (dItem.agrupamento): " + JSON.stringify(dItem));
+        // console.log("if (dItem.agrupamento): " + JSON.stringify(dItem))
+        // }
+        if (dItem.agrupamento == "null") {
+            dadosEventoAgrupamento.push({
+                [dItem.evento]: [
                     {
                         posInin: dataInicio,
                         width: tamanhoBarraEvento,
                         group: false,
-                        cor: data[0].cor,
-                        rot: data[0].rot
+                        cor: dItem.cor,
+                        rot: dItem.rot
                     },
                 ],
             });
         }
         else {
-            const existingSubTipo = dadosEventoSubTipo.find(item => Object.keys(item)[0] === data[0].subTipo);
-            if (!existingSubTipo) {
-                dadosEventoSubTipo.push({
-                    [data[0].subTipo]: [
+            const existingAgrupamento = dadosEventoAgrupamento.find(item => Object.keys(item)[0] === dItem.agrupamento);
+            if (!existingAgrupamento) {
+                dadosEventoAgrupamento.push({
+                    [dItem.agrupamento]: [
                         {
-                            dataInicio: data[0].dataInicio,
-                            dataFim: data[0].dataFim,
-                            evento: data[0].evento,
+                            dataInicio: dItem.dataInicio,
+                            dataFim: dItem.dataFim,
+                            evento: dItem.evento,
                             posInin: dataInicio,
                             width: tamanhoBarraEvento,
-                            cor: data[0].cor,
+                            cor: dItem.cor,
                             group: true
                         },
                     ],
                 });
             }
             else {
-                existingSubTipo[data[0].subTipo].push({
-                    dataInicio: data[0].dataInicio,
-                    dataFim: data[0].dataFim,
-                    evento: data[0].evento,
+                existingAgrupamento[dItem.agrupamento].push({
+                    dataInicio: dItem.dataInicio,
+                    dataFim: dItem.dataFim,
+                    evento: dItem.evento,
                     posInin: dataInicio,
                     width: tamanhoBarraEvento,
-                    cor: data[0].cor,
+                    cor: dItem.cor,
                     group: true
                 });
             }
         }
+        console.log("dadosEventoAgrupamento: " + JSON.stringify(dadosEventoAgrupamento));
+        // console.log("final")
     }
-    else {
-        //terceiro nivel dos eventos das hierarquias
-        var tableModulos3HierarquiaEventos = svgHierarquiaEventos.append("table")
-            .attr("class", "row-linhaEvento-" + index + "-" + data[0].evento)
-            .style("display", "none");
-        var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
-            .attr("class", "linha-evento")
-            .style("background-color", function () {
-            return corLinha[index % 2];
-        })
-            .style("display", "flex")
-            .style("width", tamanhoScalaExib + "px")
-            .style("height", "26px")
-            .style("align-items", "center");
-        //terceiro nivel dos nomes das hierarquias
-        var tableModulos3HierarquiaNomes = svgHierarquiaNomes.append("table")
-            .attr("class", "row-linhaEvento-" + index + "-" + data[0].evento)
-            .style("display", "none");
-        var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
-            .style("display", "flex")
-            .style("padding-left", "30px")
-            .style("height", "21px")
-            .style("align-items", "center")
-            .style("margin-bottom", "5px")
-            .style("width", "-webkit-fill-available");
-        var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
-            .attr("class", "row-modulo-segundo")
-            .text(data[0].evento)
-            // .style("padding-left", "25px")
-            .style("padding-left", "30px")
-            .style("color", "#FFFFFF")
-            // .style("width", "-webkit-fill-available")
-            .style("width", "max-content");
-        var eventoBarDiv = row3HierarquiaEventos.append("svg")
-            .attr("transform", function (d, i) {
-            if (dataFimTeste == "null") {
-                return `translate(${dataInicio}, 0)`;
+    // else {
+    // */
+    console.log("tableModulos3HierarquiaEventos antes: " + JSON.stringify(dItem));
+    //terceiro nivel dos eventos das hierarquias
+    var tableModulos3HierarquiaEventos = svgHierarquiaEventos.append("table")
+        .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+        .style("display", "none");
+    var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+        .attr("class", "linha-evento")
+        .style("background-color", function () {
+        return corLinha[index % 2];
+    })
+        .style("display", "flex")
+        .style("width", tamanhoScalaExib + "px")
+        .style("height", "26px")
+        .style("align-items", "center");
+    //terceiro nivel dos nomes das hierarquias
+    var tableModulos3HierarquiaNomes = svgHierarquiaNomes.append("table")
+        .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+        .style("display", "none");
+    var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
+        .style("display", "flex")
+        .style("padding-left", "30px")
+        .style("height", "21px")
+        .style("align-items", "center")
+        .style("margin-bottom", "5px")
+        .style("width", "-webkit-fill-available");
+    // console.log("dItem: ", JSON.stringify(dItem))
+    var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
+        .attr("class", "row-modulo-segundo")
+        .text(dItem.evento)
+        .style("padding-left", "30px")
+        .style("color", "#FFFFFF")
+        .style("width", "max-content");
+    var eventoBarDiv = row3HierarquiaEventos.append("svg")
+        .attr("transform", function (d, i) {
+        if (dataFimTeste == "null") {
+            return `translate(${dataInicio}, 0)`;
+        }
+        else {
+            return `translate(${dataInicio + tickEspacamento}, 0)`;
+        }
+    })
+        .attr("height", 20)
+        .attr("width", function () {
+        if (tamanhoBarraEvento < 0) {
+        }
+        if (dataFimTeste !== "null") {
+            tipoEventoBar.push({
+                "posInin": dataInicio,
+                "width": tamanhoBarraEvento,
+                "cor": dItem.cor,
+                "dataInicio": dItem.dataInicio,
+                "dataFim": dItem.dataFim,
+                "evento": dItem.evento,
+                "agrupamento": dItem.agrupamento
+            });
+            return tamanhoBarraEvento;
+        }
+        else {
+            tipoEventoBar.push({
+                "posInin": dataInicio,
+                "width": 0,
+                "cor": dItem.cor,
+                "dataInicio": dItem.dataInicio,
+                "evento": dItem.evento,
+                "icone": dItem.icon,
+                "agrupamento": dItem.agrupamento
+            });
+            return tamanhoBarraEvento + 20;
+        }
+    })
+        .attr("class", "eventoBarDiv")
+        .style("display", "flex")
+        .style("position", "absolute");
+    // if(dItem.dataFim == dItem.dataInicio){
+    //     console.log("dItem.dataFim == dItem.dataInicio: " + dItem.evento + " - " + dItem.dataInicio)
+    // }
+    // if (dataFimTeste == "null") {
+    if (dataFimTeste == "null" || dItem.dataFim == dItem.dataInicio) {
+        var iconeDiv = eventoBarDiv
+            .style("left", "-11px")
+            .attr("viewBox", function () {
+            if (dItem.icon) {
+                return _icons__WEBPACK_IMPORTED_MODULE_1__.vb[dItem.icon];
             }
             else {
-                return `translate(${dataInicio + tickEspacamento}, 0)`;
+                return "0, 0, 448, 512";
             }
         })
-            .attr("height", 20)
-            .attr("width", function () {
-            if (tamanhoBarraEvento < 0) {
+            .attr("width", 20)
+            .append("path")
+            .attr("fill", function () {
+            if (dItem.cor) {
+                return "#" + dItem.cor;
             }
-            if (dataFimTeste !== "null") {
-                tipoEventoBar.push({
-                    "posInin": dataInicio,
-                    "width": tamanhoBarraEvento,
-                    "cor": data[0].cor,
-                    "dataInicio": data[0].dataInicio,
-                    "dataFim": data[0].dataFim,
-                    "evento": data[0].evento,
-                });
+            else {
+                return "#F2A840";
+                // return "#40C5BF"
+                // return "rgb(0, 0153, 128)"
+            }
+        })
+            .attr("d", function () {
+            if (dItem.icon) {
+                return _icons__WEBPACK_IMPORTED_MODULE_1__/* .icons */ .Pt[dItem.icon];
+            }
+            else {
+                return _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3;
+            }
+        });
+    }
+    else {
+        eventoBarDiv
+            .style("left", "-1px")
+            .style("border-radius", function (f) {
+            var soma = dataInicio + tamanhoBarraEvento;
+            if (soma >= posDataFinal) {
+                return "10px 0 0 10px";
+            }
+            else {
+                return "10px";
+            }
+        });
+        var iconeDiv = eventoBarDiv.append("rect")
+            .attr("class", "podeRemover")
+            .attr("fill", function () {
+            if (dItem.cor) {
+                return "#" + dItem.cor;
+            }
+            else {
+                // return "#80c2a1"
+                return "#40C5BF";
+                // return "rgb(0, 0153, 128)"
+            }
+        })
+            .style("height", "21.25px")
+            .attr("width", function (d) {
+            if (dataFimTeste != "null") {
+                if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+                    dItem.dataFim = DATA_FINAL;
+                }
+                var dataFim = timeScale(dItem.dataFim);
+                tamanhoBarraEvento = dataFim - dataInicio;
                 return tamanhoBarraEvento;
             }
             else {
-                tipoEventoBar.push({
-                    "posInin": dataInicio,
-                    "width": 0,
-                    "cor": data[0].cor,
-                    "dataInicio": data[0].dataInicio,
-                    "evento": data[0].evento,
-                    "icone": data[0].icon,
-                });
                 return tamanhoBarraEvento + 20;
-            }
-        })
-            .attr("class", "eventoBarDiv")
-            .style("display", "flex")
-            .style("position", "absolute");
-        if (dataFimTeste == "null") {
-            var iconeDiv = eventoBarDiv
-                .style("left", "-11px")
-                .attr("viewBox", function () {
-                if (data[0].icon) {
-                    return _icons__WEBPACK_IMPORTED_MODULE_1__.vb[data[0].icon];
-                }
-                else {
-                    return "0, 0, 448, 512";
-                }
-            })
-                .attr("width", 20)
-                .append("path")
-                .attr("fill", function () {
-                if (data[0].cor) {
-                    return "#" + data[0].cor;
-                }
-                else {
-                    return "rgb(0, 0153, 128)";
-                }
-            })
-                .attr("d", function () {
-                if (data[0].icon) {
-                    return _icons__WEBPACK_IMPORTED_MODULE_1__/* .icons */ .Pt[data[0].icon];
-                }
-                else {
-                    return _icons__WEBPACK_IMPORTED_MODULE_1__/* .base */ .E3;
-                }
-            });
-        }
-        else {
-            eventoBarDiv
-                .style("border-radius", function (f) {
-                var soma = dataInicio + tamanhoBarraEvento;
-                if (soma >= posDataFinal) {
-                    return "10px 0 0 10px";
-                }
-                else {
-                    return "10px";
-                }
-            });
-            var iconeDiv = eventoBarDiv.append("rect")
-                .attr("class", "podeRemover")
-                .attr("fill", function () {
-                if (data[0].cor) {
-                    return "#" + data[0].cor;
-                }
-                else {
-                    return "rgb(0, 0153, 128)";
-                }
-            })
-                .style("height", "21.25px")
-                .attr("width", function (d) {
-                if (dataFimTeste != "null") {
-                    if (new Date(DATA_FINAL).getTime() < new Date(data[0].dataFim).getTime()) {
-                        data[0].dataFim = DATA_FINAL;
-                    }
-                    var dataFim = timeScale(data[0].dataFim);
-                    tamanhoBarraEvento = dataFim - dataInicio;
-                    return tamanhoBarraEvento;
-                }
-                else {
-                    return tamanhoBarraEvento + 20;
-                }
-            });
-        }
-        eventoBarDiv
-            .on("mouseover", function (event, d) {
-            var posX = event.pageX;
-            var posY = event.pageY;
-            // Obter a largura e altura do tooltip
-            var tooltipWidth = tooltip.node().offsetWidth;
-            var tooltipHeight = tooltip.node().offsetHeight;
-            // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
-            if (posX + tooltipWidth + 10 > window.innerWidth) {
-                posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
-            }
-            if (posY + tooltipHeight + 10 > window.innerHeight) {
-                posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
-            }
-            tooltip
-                .style("visibility", "visible")
-                .style("left", (posX + 10) + "px")
-                .style("top", (posY + 10) + "px")
-                .html(`
-                                Data inicio: ${formatDate(data[0].dataInicio)}<BR>
-                             ${data[0].dataFim ? `Data Fim: ${formatDate(data[0].dataFim)}<BR>` : ''}
-                             Evento: ${data[0].evento}`);
-        })
-            .on("mouseout", function () {
-            tooltip.style("visibility", "hidden");
-        });
-        var dadosEventoDiv = row3HierarquiaEventos.append("svg")
-            .attr("transform", function () {
-            if (tamanhoBarraEvento == 0) {
-                return `translate(${posicaoTextoEvento + 10}, 0)`;
-            }
-            return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
-        })
-            .attr("height", 20)
-            .attr("class", "evento-div-nome")
-            .style("display", "flex")
-            .style("position", "absolute")
-            .style("width", function (f) {
-            var soma = dataInicio + tamanhoBarraEvento;
-            if (soma >= posDataFinal) {
-                return "0px";
-            }
-            if (soma + 300 >= posDataFinal) {
-                return posDataFinal - soma + "px";
-            }
-            else if (dataInicio + 300 >= posDataFinal) {
-                return posDataFinal - posicaoTextoEvento + "px";
-            }
-        })
-            .append("g")
-            .append("text")
-            .attr("y", 15)
-            .attr("font-size", 12)
-            .text(function () {
-            if ("rot" in data[0]) {
-                return data[0].rot;
-            }
-            else {
-                return data[0].evento;
             }
         });
     }
+    eventoBarDiv
+        .on("mouseover", function (event, d) {
+        var posX = event.pageX;
+        var posY = event.pageY;
+        // Obter a largura e altura do tooltip
+        var tooltipWidth = tooltip.node().offsetWidth;
+        var tooltipHeight = tooltip.node().offsetHeight;
+        // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+        if (posX + tooltipWidth + 10 > window.innerWidth) {
+            posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+        }
+        if (posY + tooltipHeight + 10 > window.innerHeight) {
+            posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+        }
+        tooltip
+            .style("visibility", "visible")
+            .style("left", (posX + 10) + "px")
+            .style("top", (posY + 10) + "px")
+            .html(`
+                                Data inicio: ${formatDate(dItem.dataInicio)}<BR>
+                             ${dItem.dataFim ? `Data Fim: ${formatDate(dItem.dataFim)}<BR>` : ''}
+                             Evento: ${dItem.evento}`);
+    })
+        .on("mouseout", function () {
+        tooltip.style("visibility", "hidden");
+    });
+    var dadosEventoDiv = row3HierarquiaEventos.append("svg")
+        .attr("transform", function () {
+        if (tamanhoBarraEvento == 0) {
+            return `translate(${posicaoTextoEvento + 10}, 0)`;
+        }
+        return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
+    })
+        .attr("height", 20)
+        .attr("class", "evento-div-nome")
+        .style("display", "flex")
+        .style("position", "absolute")
+        .style("width", function (f) {
+        var soma = dataInicio + tamanhoBarraEvento;
+        if (soma >= posDataFinal) {
+            return "0px";
+        }
+        if (soma + 300 >= posDataFinal) {
+            return posDataFinal - soma + "px";
+        }
+        else if (dataInicio + 300 >= posDataFinal) {
+            return posDataFinal - posicaoTextoEvento + "px";
+        }
+    })
+        .append("g")
+        .append("text")
+        .attr("y", 15)
+        .attr("font-size", 12)
+        .text(function () {
+        if ("rot" in dItem) {
+            return dItem.rot;
+        }
+        else {
+            return dItem.evento;
+        }
+    });
+    // }
+    // })
+    console.log("tipoEventoBar: " + JSON.stringify(tipoEventoBar));
     return tipoEventoBar;
 }
 // Exibe/oculta os marcos e barras ao colapsar/expandir uma hierarquia
-function eventoColapsado(jaNemSei, rowEventos) {
+function eventoColapsado(marcosRecursivos, rowEventos) {
     var barraGeralTeste = rowEventos.append("g")
         .attr("transform", `translate(0,0)`)
         .attr("class", "evento-div2");
-    jaNemSei.forEach((item, i) => {
+    marcosRecursivos.forEach((item, i) => {
         var barraGeralTeste2 = barraGeralTeste.append("svg")
             .style("display", "flex")
             .style("position", "absolute")
@@ -1421,6 +1687,7 @@ function eventoColapsado(jaNemSei, rowEventos) {
             }
         });
         if (item.width != 0) {
+            barraGeralTeste2.style("left", "-0.5px");
             barraGeralTeste2.style("border-radius", function (f) {
                 var soma = item.posInin + item.width;
                 if (soma >= posDataFinal) {
@@ -1436,14 +1703,18 @@ function eventoColapsado(jaNemSei, rowEventos) {
                     return "#" + item.cor;
                 }
                 else {
-                    return "rgb(200, 153, 128)";
+                    return "#008542";
+                    // return "rgb(23, 138, 10)"
+                    // return "rgb(200, 153, 128)"
+                    // return "rgb(120, 13, 50)"
                 }
             })
                 .attr("width", item.width)
                 .attr("height", 20);
         }
         else {
-            barraGeralTeste2.style("left", "-11px");
+            barraGeralTeste2.style("left", "-11px")
+                .style("z-index", "1");
             barraGeralTeste2.append("svg")
                 .attr("transform", `translate(${item.posInin},0)`)
                 .attr("height", 20)
@@ -1464,7 +1735,9 @@ function eventoColapsado(jaNemSei, rowEventos) {
                     return "#" + item.cor;
                 }
                 else {
-                    return "rgb(200, 153, 128)";
+                    return "#FDC82F";
+                    // return "rgb(200, 153, 128)"
+                    // return "rgb(150, 153, 108)"
                 }
             })
                 .attr("d", function () {
@@ -1504,16 +1777,253 @@ function eventoColapsado(jaNemSei, rowEventos) {
     });
 }
 function alternaCores() {
-    console.log("alternaCores()");
-    // var cont = index + 1
     var cont = 0;
-    // var alternadoLinhaEvento = svgBase.selectAll('.linha-evento');
     var alternadoLinhaEvento = svgBase.selectAll('.showLinhaAlternada');
     alternadoLinhaEvento.style("background-color", function (d, i) {
         var corExib = corLinha[cont % 2];
-        console.log("cont: " + cont);
         cont++;
         return corExib;
+    });
+}
+function lalala(h, svgHierarquiaNomes, svgHierarquiaEventos) {
+    var dadosEventoSubTipo = [];
+    var tipoEventoBar = [];
+    var tipoCategoriaBar = [];
+    h.dados.forEach((l, i) => {
+        var dataInicio = timeScale(l.levelValues[0].dataInicio) + tickEspacamento;
+        var tamanhoBarraEvento = timeScale(l.levelValues[0].dataInicio);
+        if (l.levelValues[0].subTipo) {
+            if (l.levelValues[0].subTipo == "null") {
+                dadosEventoSubTipo.push({
+                    [l.levelValues[0].evento]: [
+                        {
+                            posInin: dataInicio,
+                            width: tamanhoBarraEvento,
+                            group: false,
+                            cor: l.levelValues[0].cor,
+                            rot: l.levelValues[0].rot
+                            // icon: l.levelValues[0].icon
+                        },
+                    ],
+                });
+            }
+            else {
+                const existingSubTipo = dadosEventoSubTipo.find(item => Object.keys(item)[0] === l.levelValues[0].subTipo);
+                if (!existingSubTipo) {
+                    // console.log("l.levelValues[0]: " + JSON.stringify(l.levelValues[0]))
+                    dadosEventoSubTipo.push({
+                        [l.levelValues[0].subTipo]: [
+                            {
+                                dataInicio: l.levelValues[0].dataInicio,
+                                dataFim: l.levelValues[0].dataFim,
+                                evento: l.levelValues[0].evento,
+                                posInin: dataInicio,
+                                width: tamanhoBarraEvento,
+                                cor: l.levelValues[0].cor,
+                                group: true
+                            },
+                        ],
+                    });
+                }
+                else {
+                    existingSubTipo[l.levelValues[0].subTipo].push({
+                        dataInicio: l.levelValues[0].dataInicio,
+                        dataFim: l.levelValues[0].dataFim,
+                        evento: l.levelValues[0].evento,
+                        posInin: dataInicio,
+                        width: tamanhoBarraEvento,
+                        cor: l.levelValues[0].cor,
+                        group: true
+                    });
+                }
+            }
+        }
+        if (dadosEventoSubTipo.length != 0) {
+            dadosEventoSubTipo.forEach((item, i) => {
+                // console.log("tableModulos3 = tableModulos2.append: " + JSON.stringify(item));
+                // console.log("tableModulos3 = tableModulos2.append item[0]: " + Object.keys(item)[0]);
+                var tableModulos3Eventos = svgHierarquiaEventos.append("table")
+                    // .attr("class", "tableModulos3")
+                    .attr("class", "row-modulo3-" + Object.keys(item)[0])
+                    .style("display", "none");
+                var row3Eventos = tableModulos3Eventos.append("tr")
+                    .style("display", "flex")
+                    .style("width", "1147px")
+                    .style("height", "21px")
+                    .style("margin-bottom", "5px")
+                    .attr("class", "alterarEsse")
+                    .style("background-color", function () {
+                    return corLinha[i % 2];
+                });
+                var testeRowEventos = row3Eventos.append("tr")
+                    .attr("class", "row-modulo-evento");
+                var barraGeralEvento = row3Eventos.append("g")
+                    .attr("transform", `translate(0,0)`)
+                    .attr("class", "evento-div3");
+                //parte referente ao nome dos eventos
+                var tableModulos3Nomes = svgHierarquiaNomes.append("table")
+                    .attr("class", "row-modulo3-" + Object.keys(item)[0])
+                    .style("display", "none");
+                var row3Nomes = tableModulos3Nomes.append("tr")
+                    .style("display", "flex")
+                    .style("padding-left", "30px")
+                    // .style("width", "1147px")
+                    .style("margin-bottom", "5px");
+                var testeRowNomes = row3Nomes.append("tr")
+                    .attr("class", "row-modulo-evento")
+                    // .attr("height", 20)
+                    .style("padding-left", "5px")
+                    // .style("width", "260px")
+                    .style("width", "max-content")
+                    .text(Object.keys(dadosEventoSubTipo[i])[0])
+                    .style("color", "#FFFFFF");
+                // console.log("JSON.stringify(item): " + JSON.stringify(item))
+                Object.keys(item).forEach((key, j) => {
+                    item[key].forEach((gov, k) => {
+                        // console.log("item[key].forEach: " + JSON.stringify(gov))
+                        var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
+                            .style("display", "flex")
+                            .style("position", "absolute")
+                            .attr("height", 20)
+                            .attr("class", "barraGeralEventoAgrupado")
+                            .attr("transform", function (f) {
+                            if (gov.width != 0) {
+                                return `translate(${gov.posInin},0)`;
+                            }
+                            else {
+                                return `translate(${gov.posInin},0)`;
+                            }
+                        })
+                            .attr("width", function (f) {
+                            if (gov.width != 0) {
+                                tipoEventoBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": gov.width,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                });
+                                tipoCategoriaBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": gov.width,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                });
+                                return gov.width;
+                            }
+                            else {
+                                tipoEventoBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": 0,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                });
+                                tipoCategoriaBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": 0,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                });
+                                return "30px";
+                            }
+                        });
+                        if (gov.width != 0) {
+                            barraGeralEventoAgrupado.style("border-radius", "10px");
+                            barraGeralEventoAgrupado.append("rect")
+                                .attr("fill", function () {
+                                if (gov.cor) {
+                                    return "#" + gov.cor;
+                                }
+                                else {
+                                    return "rgb(10, 0, 250)";
+                                }
+                            })
+                                .attr("width", gov.width)
+                                .attr("height", 20);
+                        }
+                        else {
+                            barraGeralEventoAgrupado
+                                .attr("viewBox", [0, 0, 448, 512])
+                                .attr("height", 20)
+                                .attr("width", 20)
+                                .append("path")
+                                .attr("fill", function () {
+                                if (gov.cor) {
+                                    return "#" + gov.cor;
+                                }
+                                else {
+                                    return "rgb(10, 0, 250)";
+                                }
+                            })
+                                .attr("d", function () {
+                                if (gov.icon) {
+                                    return gov.icon;
+                                }
+                                else {
+                                    return iconsBase.base;
+                                }
+                            });
+                        }
+                        if (!gov.group) {
+                            barraGeralEvento.append("svg")
+                                .attr("transform", function () {
+                                if (gov.width != 0) {
+                                    return `translate(${gov.posInin + gov.width + 5}, 0)`;
+                                }
+                                else {
+                                    return `translate(${gov.posInin + 15}, 0)`;
+                                }
+                            })
+                                .attr("height", 20)
+                                .attr("class", "evento-div")
+                                .style("display", "block")
+                                .append("g")
+                                .append("text")
+                                .attr("y", 15)
+                                .attr("font-size", 12)
+                                .text(function () {
+                                if (gov.rot && (gov.rot != "null" && gov.rot != null)) {
+                                    return gov.rot;
+                                }
+                                else {
+                                    return key;
+                                }
+                            });
+                        }
+                        barraGeralEventoAgrupado
+                            .on("mouseover", function (event, d) {
+                            var posX = event.pageX;
+                            var posY = event.pageY;
+                            // Obter a largura e altura do tooltip
+                            var tooltipWidth = tooltip.node().offsetWidth;
+                            var tooltipHeight = tooltip.node().offsetHeight;
+                            // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                            if (posX + tooltipWidth + 10 > window.innerWidth) {
+                                posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                            }
+                            if (posY + tooltipHeight + 10 > window.innerHeight) {
+                                posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                            }
+                            tooltip
+                                .style("visibility", "visible")
+                                .style("left", (posX + 10) + "px")
+                                .style("top", (posY + 10) + "px")
+                                .html(`
+                                Data inicio: ${formatDate(gov.dataInicio)};<BR>
+                             ${gov.dataFim ? `Data Fim: ${formatDate(gov.dataFim)};<BR>` : ''}
+                             Evento: ${gov.evento}`);
+                        })
+                            .on("mouseout", function () {
+                            tooltip.style("visibility", "hidden");
+                            // .html(``);
+                        });
+                    });
+                });
+            });
+        }
     });
 }
 

@@ -1,3 +1,5 @@
-//!
+//! atualmente esta so pegando o primeiro item data[0], 
 
-//! Segundo nivel da hierarquia
+//! verificar essa classe ocultar
+
+//!para o agrupamento eh necessarioo um foreach pois tem varios dadoos no msm levelValues

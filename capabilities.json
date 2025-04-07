@@ -7,7 +7,7 @@
             "kind": "Grouping"
         },
         {
-            "name": "subTipo",
+            "name": "agrupamento",
             "displayName": "Agrupamento",
             "kind": "Grouping"
         },
@@ -55,7 +55,7 @@
                     "select": [
                         {
                             "for": {
-                                "in": "subTipo"
+                                "in": "agrupamento"
                             }
                         },
                         {
@@ -93,7 +93,7 @@
             },
             "conditions": [
                 {
-                    "subTipo": {
+                    "agrupamento": {
                         "max": 1
                     },
                     "dataInicio": {
