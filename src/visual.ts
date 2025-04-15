@@ -39,6 +39,7 @@ var larguraRolagem = [];
 var dataHoje;
 var dataAgrupado = [] //usado em agrupamentoHierarquia
 var jsonAgrupado = []
+var temAgrupamento = false
 
 
 var formatoEscala = d3.utcFormat("%b %Y")
@@ -77,6 +78,7 @@ export class Visual implements IVisual {
         dataHoje = d3.timeMinute(new Date());
         DATA_INICIAL = new Date("3000-01-01");
         DATA_FINAL = new Date("1500-01-01");
+        temAgrupamento = false;
         // console.log("dataMap1: " + dataMap);
 
         const dataView: DataView = options.dataViews[0];
@@ -239,8 +241,14 @@ export class Visual implements IVisual {
             milestone(svgRoot);
         }
 
-        treeModulos2(dataAgrupado, nomesEventoTdHTML, dadosEventoHTML);
-        // treeModulos2(dataMap, nomesEventoTdHTML, dadosEventoHTML);
+        // console.log("Tem Agrupamento? - " + temAgrupamento)
+        // console.log("dataAgrupado: " + JSON.stringify(dataAgrupado))
+        // console.log("depois treeModulos2")
+        if(temAgrupamento){
+            treeModulos2(dataAgrupado, nomesEventoTdHTML, dadosEventoHTML);
+        }else{
+            treeModulos2(dataMap, nomesEventoTdHTML, dadosEventoHTML);
+        }
         // treeModulos2(jsonAgrupado, nomesEventoTdHTML, dadosEventoHTML);
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML) // mantem as linhas em exibição apos atualizar o visual
         alternaCores()
@@ -250,12 +258,14 @@ export class Visual implements IVisual {
         const mainTdEventos = document.querySelector(".mainTdEventos")
         const mainTdScale = document.querySelector(".mainTdScale")
         mainTdNomes.addEventListener('scroll', function () {
+            // console.log("mainTdNomes scroll")
             // Define a posição de rolagem da segunda tabela para a posição de rolagem da primeira
             mainTdEventos.scrollTop = mainTdNomes.scrollTop;
         });
 
         // Adiciona um listener de evento para o evento de rolagem na segunda tabela
         mainTdEventos.addEventListener('scroll', function () {
+            // console.log("mainTdEventos scroll")
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdNomes.scrollTop = mainTdEventos.scrollTop;
         });
@@ -265,12 +275,14 @@ export class Visual implements IVisual {
 
         // Adiciona um listener de evento para o evento de rolagem na segunda tabela
         mainTdScale.addEventListener('scroll', function () {
+            // console.log("mainTdScale scroll")
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdEventos.scrollLeft = mainTdScale.scrollLeft;
         });
 
         // Adiciona um listener de evento para o evento de rolagem na segunda tabela
         mainTdEventos.addEventListener('scroll', function () {
+            // console.log("mainTdEventos scroll")
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdScale.scrollLeft = mainTdEventos.scrollLeft;
         });
@@ -487,7 +499,15 @@ function agrupamentoHierarquia(dataMap, dataAgrupado) {
             dataAgrupado.push(novoGrupo);
             agrupamentoHierarquia(data.dados, novoGrupo.dados);
         } else if (data.levelValues) {
+            if(data.levelValues[0].agrupamento){
+                temAgrupamento = true
+            }
             const agrupamentoNome = data.levelValues[0].agrupamento;
+            // const agrupamentoNome = data.levelValues[0].agrupamento != "" ? data.levelValues[0].agrupamento : data.levelValues[0].evento;
+            // if(data.levelValues[0].agrupamento == ""){
+            //     console.log("agrupamentoNome vazio, tem que usar o evento: " +JSON.stringify(data.levelValues[0]))
+            //     console.log("agrupamentoNome vazio, tem que usar o evento2: " +JSON.stringify(agrupamentoNome))
+            // }
 
             // Verifica se o agrupamento já foi processado
             if (agrupamentosMap[agrupamentoNome]) {
@@ -1023,19 +1043,21 @@ function recursividadeHierarquiaArray(data, svgHierarquiaNomes, svgHierarquiaEve
             var recursividadeHierarquiaNull = defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index)
             dadosRetornar.push(recursividadeHierarquiaNull)
         })
+        console.log("dadosRetornar: " + JSON.stringify(dadosRetornar))
     }
     return dadosRetornar
 }
 
 function testeEventoLinha(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
     // console.log("if(data[0].agrupamento): " + data[0].agrupamento)
-    console.log("testeEventoLinha: " + JSON.stringify(data))
+    console.log("-------------------------------------------------------------------")
+    // console.log("testeEventoLinha: " + JSON.stringify(data))
     var posRetorno = []
     data.forEach((d) => {
-        console.log("testeEventoLinha data.forEach d: " + JSON.stringify(d))
-        console.log("testeEventoLinha data.forEach d.levelValues: " + JSON.stringify(d.levelValues))
+        // console.log("testeEventoLinha data.forEach d: " + JSON.stringify(d))
+        // console.log("testeEventoLinha data.forEach d.levelValues: " + JSON.stringify(d.levelValues))
         var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento)
-        // console.log("eventoLinhaHierarquia: " + JSON.stringify(eventoLinhaHierarquia[0]))
+        // console.log("eventoLinhaHierarquia: " + JSON.stringify(eventoLinhaHierarquia))
         // return eventoLinhaHierarquia[0]
         posRetorno.push(eventoLinhaHierarquia[0])
     })
@@ -1060,6 +1082,7 @@ function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, ind
     else if (d.level !== 0 && d.dados) {
         if (d.nome == "null" || d.nome == null) {
             var hierarquiaNull = recursividadeHierarquiaArray(d.dados, svgHierarquiaNomes, svgHierarquiaEventos, index)
+            // console.log("recursividadeHierarquiaArray d.nome == null: " + JSON.stringify(hierarquiaNull))
             return hierarquiaNull
         }
         else {
@@ -1072,19 +1095,22 @@ function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, ind
             //     return eventoLinhaHierarquia[0]
             // }
             // else{
+            // console.log("recursividadeHierarquiaArray else antes: " + JSON.stringify(d))
             var hierarquiaNotNull = hierarquiaPrimeiroNivel(d, svgHierarquiaNomes, svgHierarquiaEventos, index)
+            // console.log("recursividadeHierarquiaArray else: " + JSON.stringify(hierarquiaNotNull))
             // console.log("else if (d.level !== 0 && d.dados): " + JSON.stringify(d))
             return hierarquiaNotNull
             // }
         }
     }
     else if (d) {
-        console.log("else if (d): " + JSON.stringify(d))
-        if(d.agrupamento){
-            console.log("if(d.agrupamento)")
+        // console.log("else if (d): " + JSON.stringify(d))
+        if (d.agrupamento) {
+            // console.log("if(d.agrupamento)")
         }
         // console.log("agrupamento: " + d)
         var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento)
+        console.log("eventoLinhaHierarquia: " + JSON.stringify(eventoLinhaHierarquia))
         return eventoLinhaHierarquia[0]
     }
 }
@@ -1415,11 +1441,11 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         .style("width", "max-content")
 
     var marcosRecursivos = recursividadeHierarquiaArray(data.dados, tableModulosHierarquiaNomes, tableModulosHierarquiaEventos, index)
+    console.log("marcosRecursivos/arrayTransformado: " + JSON.stringify(marcosRecursivos))
 
     //o bloco abaixo eh usado para transformar o array, foi verificado que em alguns casos ele vinha como Array de arrays [[]] com isso os marcos nao sao exibidos
     const arrayTransformado = Array.isArray(marcosRecursivos) && marcosRecursivos.length > 0 && Array.isArray(marcosRecursivos[0])
         ? marcosRecursivos.flat() : marcosRecursivos;
-
     eventoColapsado(arrayTransformado, rowEventos)
     return arrayTransformado
 }
@@ -1427,304 +1453,1133 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
 function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, nomeAgrupamento) {
 
     // console.log("hierarquiaEvento nomeAgrupamento: " + nomeAgrupamento)
-    console.log("hierarquiaEvento data: " + JSON.stringify(data))
+    // console.log("hierarquiaEvento data: " + JSON.stringify(data))
 
     var dadosEventoAgrupamento = []
+
     var tipoEventoBar = []
     var dItem = data[0]
-    // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
 
-    // data.forEach((dItem, index) => {
-    // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
+    var tipoCategoriaBar = []
 
-    var tamanhoBarraEvento = timeScale(dItem.dataInicio);
-    var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
-
-    var posicaoTextoEvento;
-    var dataFimTeste = "null";
-    if (dItem.dataFim != "null" && dItem.dataFim != null) {
-        dataFimTeste = dItem.dataFim
-    }
-    if (dataFimTeste != "null") {
-        if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
-            dItem.dataFim = DATA_FINAL
-        }
-        var dataFim = timeScale(dItem.dataFim)
-        tamanhoBarraEvento = dataFim - dataInicio
-        posicaoTextoEvento = dataInicio
-    }
-    else {
-        posicaoTextoEvento = dataInicio
-        tamanhoBarraEvento = 0
-    }
-
-    // /*
-    if (dItem.agrupamento) {
-        console.log("if (dItem.agrupamento): " + JSON.stringify(dItem))
-        // console.log("if (dItem.agrupamento): " + JSON.stringify(dItem))
-        // }
-        if (dItem.agrupamento == "null") {
-            dadosEventoAgrupamento.push({
-                [dItem.evento]: [
-                    {
-                        posInin: dataInicio,
-                        width: tamanhoBarraEvento,
-                        group: false,
-                        cor: dItem.cor,
-                        rot: dItem.rot
-                    },
-                ],
-            });
-        } else {
-            const existingAgrupamento = dadosEventoAgrupamento.find(item => Object.keys(item)[0] === dItem.agrupamento);
-            if (!existingAgrupamento) {
+    data.forEach((dItem, index) => {
+        // console.log("hierarquiaEvento data: " + JSON.stringify(dItem))
+        if (dItem.agrupamento) {
+            var tamanhoBarraEvento = timeScale(dItem.dataInicio);
+            var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
+            var posicaoTextoEvento;
+            var dataFimTeste = "null";
+            if (dItem.dataFim != "null" && dItem.dataFim != null) {
+                dataFimTeste = dItem.dataFim
+            }
+            if (dataFimTeste != "null") {
+                if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+                    dItem.dataFim = DATA_FINAL
+                }
+                var dataFim = timeScale(dItem.dataFim)
+                tamanhoBarraEvento = dataFim - dataInicio
+                posicaoTextoEvento = dataInicio
+            }
+            else {
+                posicaoTextoEvento = dataInicio
+                tamanhoBarraEvento = 0
+            }
+            // if (dItem.agrupamento && dItem.length>1) {
+            // console.log("com_agrupamento - " + dItem.agrupamento)
+            // console.log("com_agrupamento - : " + JSON.stringify(dItem))
+            // console.log("if (dItem.agrupamento): " + JSON.stringify(dItem))
+            // }
+            if (dItem.agrupamento == "null" || dadosEventoAgrupamento.length == 0) {
+                // if (dItem.agrupamento == "null") {
                 dadosEventoAgrupamento.push({
                     [dItem.agrupamento]: [
                         {
+                            posInin: dataInicio,
+                            width: tamanhoBarraEvento,
                             dataInicio: dItem.dataInicio,
                             dataFim: dItem.dataFim,
                             evento: dItem.evento,
-                            posInin: dataInicio,
-                            width: tamanhoBarraEvento,
+                            group: false,
                             cor: dItem.cor,
-                            group: true
+                            rot: dItem.rot
                         },
                     ],
                 });
             } else {
-                existingAgrupamento[dItem.agrupamento].push({
-                    dataInicio: dItem.dataInicio,
-                    dataFim: dItem.dataFim,
-                    evento: dItem.evento,
-                    posInin: dataInicio,
-                    width: tamanhoBarraEvento,
-                    cor: dItem.cor,
-                    group: true
-                });
+                // console.log("existingAgrupamento dItem: " + JSON.stringify(dItem))
+                // console.log("dadosEventoAgrupamento dItem: " + JSON.stringify(dadosEventoAgrupamento))
+                const existingAgrupamento = dadosEventoAgrupamento.find(item => Object.keys(item)[0] === dItem.agrupamento);
+                // console.log("existingAgrupamento: " + existingAgrupamento)
+                if (!existingAgrupamento) {
+                    dadosEventoAgrupamento.push({
+                        [dItem.agrupamento]: [
+                            {
+                                dataInicio: dItem.dataInicio,
+                                dataFim: dItem.dataFim,
+                                evento: dItem.evento,
+                                posInin: dataInicio,
+                                width: tamanhoBarraEvento,
+                                cor: dItem.cor,
+                                group: true
+                            },
+                        ],
+                    });
+                } else {
+                    existingAgrupamento[dItem.agrupamento].push({
+                        dataInicio: dItem.dataInicio,
+                        dataFim: dItem.dataFim,
+                        evento: dItem.evento,
+                        posInin: dataInicio,
+                        width: tamanhoBarraEvento,
+                        cor: dItem.cor,
+                        group: true
+                    });
+                }
             }
         }
-        console.log("dadosEventoAgrupamento: " + JSON.stringify(dadosEventoAgrupamento))
-        // console.log("final")
-    }
-    // else {
-        // */
-        console.log("tableModulos3HierarquiaEventos antes: " + JSON.stringify(dItem))
-    //terceiro nivel dos eventos das hierarquias
-    var tableModulos3HierarquiaEventos = svgHierarquiaEventos.append("table")
-        .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
-        .style("display", "none")
-    var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
-        .attr("class", "linha-evento")
-        .style("background-color", function () {
-            return corLinha[index % 2]
-        })
-        .style("display", "flex")
-        .style("width", tamanhoScalaExib + "px")
-        .style("height", "26px")
-        .style("align-items", "center")
-
-    //terceiro nivel dos nomes das hierarquias
-    var tableModulos3HierarquiaNomes = svgHierarquiaNomes.append("table")
-        .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
-        .style("display", "none")
-
-    var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
-        .style("display", "flex")
-        .style("padding-left", "30px")
-        .style("height", "21px")
-        .style("align-items", "center")
-        .style("margin-bottom", "5px")
-        .style("width", "-webkit-fill-available")
-    // console.log("dItem: ", JSON.stringify(dItem))
-    var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
-        .attr("class", "row-modulo-segundo")
-        .text(dItem.evento)
-        .style("padding-left", "30px")
-        .style("color", "#FFFFFF")
-        .style("width", "max-content")
-
-    var eventoBarDiv = row3HierarquiaEventos.append("svg")
-        .attr("transform", function (d, i) {
-            if (dataFimTeste == "null") {
-                return `translate(${dataInicio}, 0)`;
-            } else {
-                return `translate(${dataInicio + tickEspacamento}, 0)`;
+        if (!dItem.agrupamento) {
+            // if (!dItem.agrupamento || dItem.length<=1) {
+            // console.log("sem_agrupamento")
+            if (dItem.agrupamento == "") {
+                // console.log("ta vazio esse agrupamento!")
+                // console.log("sem_agrupamento dItem: " + JSON.stringify(dItem))
             }
-        })
-        .attr("height", 20)
-        .attr("width", function () {
-            if (tamanhoBarraEvento < 0) {
+
+            var tamanhoBarraEvento = timeScale(dItem.dataInicio);
+            var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
+            var posicaoTextoEvento;
+            var dataFimTeste = "null";
+            if (dItem.dataFim != "null" && dItem.dataFim != null) {
+                dataFimTeste = dItem.dataFim
             }
-            if (dataFimTeste !== "null") {
-                tipoEventoBar.push({
-                    "posInin": dataInicio,
-                    "width": tamanhoBarraEvento,
-                    "cor": dItem.cor,
-                    "dataInicio": dItem.dataInicio,
-                    "dataFim": dItem.dataFim,
-                    "evento": dItem.evento,
-                    "agrupamento": dItem.agrupamento
+            if (dataFimTeste != "null") {
+                if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+                    dItem.dataFim = DATA_FINAL
+                }
+                var dataFim = timeScale(dItem.dataFim)
+                tamanhoBarraEvento = dataFim - dataInicio
+                posicaoTextoEvento = dataInicio
+            }
+            else {
+                posicaoTextoEvento = dataInicio
+                tamanhoBarraEvento = 0
+            }
+
+            var posicaoTextoEvento;
+            var dataFimTeste = "null";
+            if (dItem.dataFim != "null" && dItem.dataFim != null) {
+                dataFimTeste = dItem.dataFim
+            }
+            if (dataFimTeste != "null") {
+                if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+                    dItem.dataFim = DATA_FINAL
+                }
+                var dataFim = timeScale(dItem.dataFim)
+                tamanhoBarraEvento = dataFim - dataInicio
+                posicaoTextoEvento = dataInicio
+            }
+            else {
+                posicaoTextoEvento = dataInicio
+                tamanhoBarraEvento = 0
+            }
+
+            // console.log("tableModulos3HierarquiaEventos antes: " + JSON.stringify(dItem))
+            //terceiro nivel dos eventos das hierarquias
+            var tableModulos3HierarquiaEventos = svgHierarquiaEventos.append("table")
+                .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+                .style("display", "none")
+            var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+                .attr("class", "linha-evento")
+                .style("background-color", function () {
+                    return corLinha[index % 2]
                 })
-                return tamanhoBarraEvento
-            } else {
-                tipoEventoBar.push({
-                    "posInin": dataInicio,
-                    "width": 0,
-                    "cor": dItem.cor,
-                    "dataInicio": dItem.dataInicio,
-                    "evento": dItem.evento,
-                    "icone": dItem.icon,
-                    "agrupamento": dItem.agrupamento
-                })
-                return tamanhoBarraEvento + 20
-            }
-        })
-        .attr("class", "eventoBarDiv")
-        .style("display", "flex")
-        .style("position", "absolute")
+                .style("display", "flex")
+                .style("width", tamanhoScalaExib + "px")
+                .style("height", "26px")
+                .style("align-items", "center")
 
-    // if(dItem.dataFim == dItem.dataInicio){
-    //     console.log("dItem.dataFim == dItem.dataInicio: " + dItem.evento + " - " + dItem.dataInicio)
-    // }
+            //terceiro nivel dos nomes das hierarquias
+            var tableModulos3HierarquiaNomes = svgHierarquiaNomes.append("table")
+                .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+                .style("display", "none")
 
-    // if (dataFimTeste == "null") {
-    if (dataFimTeste == "null" || dItem.dataFim == dItem.dataInicio) {
-        var iconeDiv = eventoBarDiv
-            .style("left", "-11px")
-            .attr("viewBox", function () {
-                if (dItem.icon) {
-                    return iconsBase.vb[dItem.icon]
-                } else {
-                    return "0, 0, 448, 512"
-                }
-            })
-            .attr("width", 20)
-            .append("path")
-            .attr("fill", function () {
-                if (dItem.cor) {
-                    return "#" + dItem.cor
-                } else {
-                    return "#F2A840"
-                    // return "#40C5BF"
-                    // return "rgb(0, 0153, 128)"
-                }
-            }
-            )
-            .attr("d", function () {
-                if (dItem.icon) {
-                    return iconsBase.icons[dItem.icon]
-                } else {
-                    return iconsBase.base
-                }
-            }
-            )
-    } else {
-        eventoBarDiv
-            .style("left", "-1px")
-            .style("border-radius", function (f) {
-                var soma = dataInicio + tamanhoBarraEvento
-                if (soma >= posDataFinal) {
-                    return "10px 0 0 10px"
-                } else {
-                    return "10px"
-                }
-            })
-        var iconeDiv = eventoBarDiv.append("rect")
-            .attr("class", "podeRemover")
-            .attr("fill", function () {
-                if (dItem.cor) {
-                    return "#" + dItem.cor
-                } else {
-                    // return "#80c2a1"
-                    return "#40C5BF"
-                    // return "rgb(0, 0153, 128)"
-                }
-            }
-            )
-            .style("height", "21.25px")
-            .attr("width", function (d) {
-                if (dataFimTeste != "null") {
-                    if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
-                        dItem.dataFim = DATA_FINAL
+            var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
+                .style("display", "flex")
+                .style("padding-left", "30px")
+                .style("height", "21px")
+                .style("align-items", "center")
+                .style("margin-bottom", "5px")
+                .style("width", "-webkit-fill-available")
+            var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
+                .attr("class", "row-modulo-segundo")
+                .text(dItem.evento)
+                .style("padding-left", "30px")
+                .style("color", "#FFFFFF")
+                .style("width", "max-content")
+
+            var eventoBarDiv = row3HierarquiaEventos.append("svg")
+                .attr("transform", function (d, i) {
+                    if (dataFimTeste == "null") {
+                        return `translate(${dataInicio}, 0)`;
+                    } else {
+                        return `translate(${dataInicio + tickEspacamento}, 0)`;
                     }
-                    var dataFim = timeScale(dItem.dataFim)
-                    tamanhoBarraEvento = dataFim - dataInicio
-                    return tamanhoBarraEvento
-                } else {
-                    return tamanhoBarraEvento + 20
-                }
-            })
-    }
-    eventoBarDiv
-        .on("mouseover", function (event, d) {
-            var posX = event.pageX;
-            var posY = event.pageY;
+                })
+                .attr("height", 20)
+                .attr("width", function () {
+                    if (tamanhoBarraEvento < 0) {
+                    }
+                    if (dataFimTeste !== "null") {
+                        tipoEventoBar.push({
+                            "posInin": dataInicio,
+                            "width": tamanhoBarraEvento,
+                            "cor": dItem.cor,
+                            "dataInicio": dItem.dataInicio,
+                            "dataFim": dItem.dataFim,
+                            "evento": dItem.evento,
+                            // "agrupamento": dItem.agrupamento
+                        })
+                        return tamanhoBarraEvento
+                    } else {
+                        tipoEventoBar.push({
+                            "posInin": dataInicio,
+                            "width": 0,
+                            "cor": dItem.cor,
+                            "dataInicio": dItem.dataInicio,
+                            "evento": dItem.evento,
+                            "icone": dItem.icon,
+                            // "agrupamento": dItem.agrupamento
+                        })
+                        return tamanhoBarraEvento + 20
+                    }
+                })
+                .attr("class", "eventoBarDiv")
+                .style("display", "flex")
+                .style("position", "absolute")
 
-            // Obter a largura e altura do tooltip
-            var tooltipWidth = tooltip.node().offsetWidth;
-            var tooltipHeight = tooltip.node().offsetHeight;
-
-            // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
-            if (posX + tooltipWidth + 10 > window.innerWidth) {
-                posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+            if (dataFimTeste == "null" || dItem.dataFim == dItem.dataInicio) {
+                var iconeDiv = eventoBarDiv
+                    .style("left", "-11px")
+                    .attr("viewBox", function () {
+                        if (dItem.icon) {
+                            return iconsBase.vb[dItem.icon]
+                        } else {
+                            return "0, 0, 448, 512"
+                        }
+                    })
+                    .attr("width", 20)
+                    .append("path")
+                    .attr("fill", function () {
+                        if (dItem.cor) {
+                            return "#" + dItem.cor
+                        } else {
+                            return "#F2A840"
+                            // return "#40C5BF"
+                            // return "rgb(0, 0153, 128)"
+                        }
+                    }
+                    )
+                    .attr("d", function () {
+                        if (dItem.icon) {
+                            return iconsBase.icons[dItem.icon]
+                        } else {
+                            return iconsBase.base
+                        }
+                    }
+                    )
+            } else {
+                eventoBarDiv
+                    .style("left", "-1px")
+                    .style("border-radius", function (f) {
+                        var soma = dataInicio + tamanhoBarraEvento
+                        if (soma >= posDataFinal) {
+                            return "10px 0 0 10px"
+                        } else {
+                            return "10px"
+                        }
+                    })
+                var iconeDiv = eventoBarDiv.append("rect")
+                    .attr("class", "podeRemover")
+                    .attr("fill", function () {
+                        if (dItem.cor) {
+                            return "#" + dItem.cor
+                        } else {
+                            // return "#80c2a1"
+                            return "#40C5BF"
+                            // return "rgb(0, 0153, 128)"
+                        }
+                    }
+                    )
+                    .style("height", "21.25px")
+                    .attr("width", function (d) {
+                        if (dataFimTeste != "null") {
+                            if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+                                dItem.dataFim = DATA_FINAL
+                            }
+                            var dataFim = timeScale(dItem.dataFim)
+                            tamanhoBarraEvento = dataFim - dataInicio
+                            return tamanhoBarraEvento
+                        } else {
+                            return tamanhoBarraEvento + 20
+                        }
+                    })
             }
-            if (posY + tooltipHeight + 10 > window.innerHeight) {
-                posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
-            }
+            eventoBarDiv
+                .on("mouseover", function (event, d) {
+                    var posX = event.pageX;
+                    var posY = event.pageY;
 
-            tooltip
-                .style("visibility", "visible")
-                .style("left", (posX + 10) + "px")
-                .style("top", (posY + 10) + "px")
-                .html(`
+                    // Obter a largura e altura do tooltip
+                    var tooltipWidth = tooltip.node().offsetWidth;
+                    var tooltipHeight = tooltip.node().offsetHeight;
+
+                    // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                    if (posX + tooltipWidth + 10 > window.innerWidth) {
+                        posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                    }
+                    if (posY + tooltipHeight + 10 > window.innerHeight) {
+                        posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                    }
+
+                    tooltip
+                        .style("visibility", "visible")
+                        .style("left", (posX + 10) + "px")
+                        .style("top", (posY + 10) + "px")
+                        .html(`
                                 Data inicio: ${formatDate(dItem.dataInicio)}<BR>
                              ${dItem.dataFim ? `Data Fim: ${formatDate(dItem.dataFim)}<BR>` : ''}
                              Evento: ${dItem.evento}`
-                );
-        })
+                        );
+                })
 
-        .on("mouseout", function () {
-            tooltip.style("visibility", "hidden")
-        })
+                .on("mouseout", function () {
+                    tooltip.style("visibility", "hidden")
+                })
 
-    var dadosEventoDiv = row3HierarquiaEventos.append("svg")
-        .attr("transform", function () {
-            if (tamanhoBarraEvento == 0) {
-                return `translate(${posicaoTextoEvento + 10}, 0)`;
+            var dadosEventoDiv = row3HierarquiaEventos.append("svg")
+                .attr("transform", function () {
+                    if (tamanhoBarraEvento == 0) {
+                        return `translate(${posicaoTextoEvento + 10}, 0)`;
+                    }
+                    return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
+                })
+                .attr("height", 20)
+                .attr("class", "evento-div-nome")
+                .style("display", "flex")
+                .style("position", "absolute")
+                .style("width", function (f) {
+                    var soma = dataInicio + tamanhoBarraEvento
+                    if (soma >= posDataFinal) {
+                        return "0px"
+                    }
+                    if (soma + 300 >= posDataFinal) {
+                        return posDataFinal - soma + "px"
+                    }
+                    else if (dataInicio + 300 >= posDataFinal) {
+                        return posDataFinal - posicaoTextoEvento + "px"
+                    }
+                })
+                .append("g")
+                .append("text")
+                .attr("y", 15)
+                .attr("font-size", 12)
+                .text(function () {
+                    if ("rot" in dItem) {
+                        return dItem.rot
+                    } else {
+                        return dItem.evento
+                    }
+                });
+            // }
+            // linha de baixo fecha o forEach
+            // })
+            console.log("tipoEventoBar: " + JSON.stringify(tipoEventoBar))
+            return tipoEventoBar
+
+        }
+    })
+
+    if (dadosEventoAgrupamento.length != 0) {
+        console.log("if (dadosEventoAgrupamento.length != 0)")
+        console.log("dadosEventoAgrupamento: " + JSON.stringify(dadosEventoAgrupamento));
+        dadosEventoAgrupamento.forEach((item, i) => {
+            console.log("tableModulos3 = tableModulos2.append: " + JSON.stringify(item));
+            // console.log("tableModulos3 = tableModulos2.append item[0]: " + Object.keys(item)[0]);
+            var tableModulos3Eventos = svgHierarquiaEventos.append("table")
+                // .attr("class", "tableModulos3")
+                // .attr("class", "row-modulo3-" + Object.keys(item)[0])
+                .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+                .style("display", "none")
+
+            var row3Eventos = tableModulos3Eventos.append("tr")
+                .style("display", "flex")
+                // .style("width", "1147px")
+                .style("height", "21px")
+                .style("margin-bottom", "5px")
+                // .attr("class", "alterarEsse")
+                .attr("class", "linha-evento")
+                .style("background-color", function () {
+                    return corLinha[i % 2]
+                })
+
+            var testeRowEventos = row3Eventos.append("tr")
+                .attr("class", "row-modulo-evento")
+
+            var barraGeralEvento = row3Eventos.append("g")
+                .attr("transform", `translate(0,0)`)
+                .attr("class", "evento-div3")
+
+            //parte referente ao nome dos eventos
+            var tableModulos3Nomes = svgHierarquiaNomes.append("table")
+                // .attr("class", "row-modulo3-" + Object.keys(item)[0])
+                .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+                .style("display", "none")
+
+            var row3Nomes = tableModulos3Nomes.append("tr")
+                .style("display", "flex")
+                .style("padding-left", "30px")
+                // .style("width", "1147px")
+                .style("margin-bottom", "5px")
+
+            var testeRowNomes = row3Nomes.append("tr")
+                .attr("class", "row-modulo-evento")
+                // .attr("height", 20)
+                .style("padding-left", "5px")
+                // .style("width", "260px")
+                .style("width", "max-content")
+                .text(Object.keys(dadosEventoAgrupamento[i])[0])
+                .style("color", "#FFFFFF")
+
+
+            // console.log("JSON.stringify(item) 1: " + JSON.stringify(item))
+            Object.keys(item).forEach((key, j) => {
+
+                item[key].forEach((gov, k) => {
+                    // console.log("item[key].forEach gov: " + JSON.stringify(gov))
+
+                    var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
+                        .style("display", "flex")
+                        .style("position", "absolute")
+                        .attr("height", 20)
+                        .attr("class", "barraGeralEventoAgrupado")
+                        .attr("transform", function (f) {
+                            if (gov.width != 0) {
+                                return `translate(${gov.posInin},0)`
+                            } else {
+                                // return `translate(${gov.posInin - 15},0)`
+                                // return `translate(${gov.posInin - 18},0)`
+                                return `translate(${gov.posInin},0)`
+                            }
+                        })
+                        .attr("width", function (f) {
+                            if (gov.width != 0) {
+                                tipoEventoBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": gov.width,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                })
+                                tipoCategoriaBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": gov.width,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                })
+                                return gov.width
+                            } else {
+                                tipoEventoBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": 0,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                })
+                                tipoCategoriaBar.push({
+                                    //adicionar a posição x do translate e o tamanho do width
+                                    "posInin": gov.posInin,
+                                    "width": 0,
+                                    "dataInicio": gov.dataInicio,
+                                    "evento": gov.evento,
+                                })
+                                return "30px"
+                            }
+                        })
+                    if (gov.width != 0) {
+                        barraGeralEventoAgrupado.style("border-radius", "10px")
+                        barraGeralEventoAgrupado.append("rect")
+                            .attr("fill", function () {
+                                // console.log("gov agrupado: " + JSON.stringify(gov));
+                                if (gov.cor) {
+                                    return "#" + gov.cor
+                                } else {
+                                    return "rgb(10, 0, 250)"
+                                }
+                            }
+                            )
+                            .attr("width", gov.width)
+                            .attr("height", 20)
+                    } else {
+                        barraGeralEventoAgrupado
+                            .attr("viewBox", [0, 0, 448, 512])
+                            .attr("height", 20)
+                            // .attr("width", 30)
+                            .attr("width", 20)
+                            .append("path")
+                            .attr("fill", function () {
+                                if (gov.cor) {
+                                    return "#" + gov.cor
+                                } else {
+                                    return "rgb(10, 0, 250)"
+                                }
+                            })
+                            // .attr("d", iconsBase.diamond)
+                            .attr("d",
+                                function () {
+                                    if (gov.icon) {
+                                        return gov.icon
+                                    } else {
+                                        // return iconsBase.diamond
+                                        return iconsBase.base
+                                    }
+                                }
+                            )
+                    }
+
+                    if (!gov.group) {
+                        barraGeralEvento.append("svg")
+                            .attr("transform", function () {
+                                if (gov.width != 0) {
+                                    return `translate(${gov.posInin + gov.width + 5}, 0)`;
+                                } else {
+                                    return `translate(${gov.posInin + 15}, 0)`;
+                                }
+                            })
+                            .attr("height", 20)
+                            .attr("class", "evento-div")
+                            // .style("display", "block")
+                            .style("display", "flex")
+                            .style("position", "absolute")
+                            .append("g")
+                            .append("text")
+                            .attr("y", 15)
+                            .attr("font-size", 12)
+                            .text(function () {
+                                if (gov.rot && (gov.rot != "null" && gov.rot != null)) {
+                                    return gov.rot
+                                } else {
+                                    return key
+                                }
+                            });
+                    }
+
+                    barraGeralEventoAgrupado.on("mouseover", function (event, d) {
+                        var posX = event.pageX;
+                        var posY = event.pageY;
+
+                        // Obter a largura e altura do tooltip
+                        var tooltipWidth = tooltip.node().offsetWidth;
+                        var tooltipHeight = tooltip.node().offsetHeight;
+
+                        // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                        if (posX + tooltipWidth + 10 > window.innerWidth) {
+                            posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                        }
+                        if (posY + tooltipHeight + 10 > window.innerHeight) {
+                            posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                        }
+
+                        tooltip
+                            .style("visibility", "visible")
+                            .style("left", (posX + 10) + "px")
+                            .style("top", (posY + 10) + "px")
+                            .html(`
+                                Data inicio: ${formatDate(gov.dataInicio)};<BR>
+                             ${gov.dataFim ? `Data Fim: ${formatDate(gov.dataFim)};<BR>` : ''}
+                             Evento: ${gov.evento}`
+                            );
+                    })
+
+                        .on("mouseout", function () {
+                            tooltip.style("visibility", "hidden")
+                            // .html(``);
+                        })
+                });
+                // console.log("JSON.stringify(item) 2: " + JSON.stringify(item))
+            });
+        }
+        )
+        // console.log("JSON.stringify(item) 3: ")
+    }
+    // console.log("tipoEventoBar final: " + JSON.stringify(tipoEventoBar))
+    dadosEventoAgrupamento.push({
+        [tipoEventoBar[0].evento]: [
+            {
+                posInin: tipoEventoBar[0].posInin,
+                width: tipoEventoBar[0].width,
+                dataInicio: tipoEventoBar[0].dataInicio,
+                dataFim: tipoEventoBar[0].dataFim,
+                evento: tipoEventoBar[0].evento,
+                group: false,
+                cor: tipoEventoBar[0].cor,
+                rot: tipoEventoBar[0].rot
             }
-            return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
-        })
-        .attr("height", 20)
-        .attr("class", "evento-div-nome")
-        .style("display", "flex")
-        .style("position", "absolute")
-        .style("width", function (f) {
-            var soma = dataInicio + tamanhoBarraEvento
-            if (soma >= posDataFinal) {
-                return "0px"
+        ]
+    })
+    // console.log("dadosEventoAgrupamento: " + JSON.stringify(dadosEventoAgrupamento))
+    return dadosEventoAgrupamento
+    //bloco comentado
+    {
+        // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
+
+        // data.forEach((dItem, index) => {
+        // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
+
+        // var tamanhoBarraEvento = timeScale(dItem.dataInicio);
+        // var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
+
+        // var posicaoTextoEvento;
+        // var dataFimTeste = "null";
+        // if (dItem.dataFim != "null" && dItem.dataFim != null) {
+        //     dataFimTeste = dItem.dataFim
+        // }
+        // if (dataFimTeste != "null") {
+        //     if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+        //         dItem.dataFim = DATA_FINAL
+        //     }
+        //     var dataFim = timeScale(dItem.dataFim)
+        //     tamanhoBarraEvento = dataFim - dataInicio
+        //     posicaoTextoEvento = dataInicio
+        // }
+        // else {
+        //     posicaoTextoEvento = dataInicio
+        //     tamanhoBarraEvento = 0
+        // }
+
+        // console.log("tableModulos3HierarquiaEventos antes: " + JSON.stringify(dItem))
+        // //terceiro nivel dos eventos das hierarquias
+        // var tableModulos3HierarquiaEventos = svgHierarquiaEventos.append("table")
+        //     .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+        //     .style("display", "none")
+        // var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+        //     .attr("class", "linha-evento")
+        //     .style("background-color", function () {
+        //         return corLinha[index % 2]
+        //     })
+        //     .style("display", "flex")
+        //     .style("width", tamanhoScalaExib + "px")
+        //     .style("height", "26px")
+        //     .style("align-items", "center")
+
+        // //terceiro nivel dos nomes das hierarquias
+        // var tableModulos3HierarquiaNomes = svgHierarquiaNomes.append("table")
+        //     .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+        //     .style("display", "none")
+
+        // var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
+        //     .style("display", "flex")
+        //     .style("padding-left", "30px")
+        //     .style("height", "21px")
+        //     .style("align-items", "center")
+        //     .style("margin-bottom", "5px")
+        //     .style("width", "-webkit-fill-available")
+        // var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
+        //     .attr("class", "row-modulo-segundo")
+        //     .text(dItem.evento)
+        //     .style("padding-left", "30px")
+        //     .style("color", "#FFFFFF")
+        //     .style("width", "max-content")
+
+        // var eventoBarDiv = row3HierarquiaEventos.append("svg")
+        //     .attr("transform", function (d, i) {
+        //         if (dataFimTeste == "null") {
+        //             return `translate(${dataInicio}, 0)`;
+        //         } else {
+        //             return `translate(${dataInicio + tickEspacamento}, 0)`;
+        //         }
+        //     })
+        //     .attr("height", 20)
+        //     .attr("width", function () {
+        //         if (tamanhoBarraEvento < 0) {
+        //         }
+        //         if (dataFimTeste !== "null") {
+        //             tipoEventoBar.push({
+        //                 "posInin": dataInicio,
+        //                 "width": tamanhoBarraEvento,
+        //                 "cor": dItem.cor,
+        //                 "dataInicio": dItem.dataInicio,
+        //                 "dataFim": dItem.dataFim,
+        //                 "evento": dItem.evento,
+        //                 "agrupamento": dItem.agrupamento
+        //             })
+        //             return tamanhoBarraEvento
+        //         } else {
+        //             tipoEventoBar.push({
+        //                 "posInin": dataInicio,
+        //                 "width": 0,
+        //                 "cor": dItem.cor,
+        //                 "dataInicio": dItem.dataInicio,
+        //                 "evento": dItem.evento,
+        //                 "icone": dItem.icon,
+        //                 "agrupamento": dItem.agrupamento
+        //             })
+        //             return tamanhoBarraEvento + 20
+        //         }
+        //     })
+        //     .attr("class", "eventoBarDiv")
+        //     .style("display", "flex")
+        //     .style("position", "absolute")
+
+        // if (dataFimTeste == "null" || dItem.dataFim == dItem.dataInicio) {
+        //     var iconeDiv = eventoBarDiv
+        //         .style("left", "-11px")
+        //         .attr("viewBox", function () {
+        //             if (dItem.icon) {
+        //                 return iconsBase.vb[dItem.icon]
+        //             } else {
+        //                 return "0, 0, 448, 512"
+        //             }
+        //         })
+        //         .attr("width", 20)
+        //         .append("path")
+        //         .attr("fill", function () {
+        //             if (dItem.cor) {
+        //                 return "#" + dItem.cor
+        //             } else {
+        //                 return "#F2A840"
+        //                 // return "#40C5BF"
+        //                 // return "rgb(0, 0153, 128)"
+        //             }
+        //         }
+        //         )
+        //         .attr("d", function () {
+        //             if (dItem.icon) {
+        //                 return iconsBase.icons[dItem.icon]
+        //             } else {
+        //                 return iconsBase.base
+        //             }
+        //         }
+        //         )
+        // } else {
+        //     eventoBarDiv
+        //         .style("left", "-1px")
+        //         .style("border-radius", function (f) {
+        //             var soma = dataInicio + tamanhoBarraEvento
+        //             if (soma >= posDataFinal) {
+        //                 return "10px 0 0 10px"
+        //             } else {
+        //                 return "10px"
+        //             }
+        //         })
+        //     var iconeDiv = eventoBarDiv.append("rect")
+        //         .attr("class", "podeRemover")
+        //         .attr("fill", function () {
+        //             if (dItem.cor) {
+        //                 return "#" + dItem.cor
+        //             } else {
+        //                 // return "#80c2a1"
+        //                 return "#40C5BF"
+        //                 // return "rgb(0, 0153, 128)"
+        //             }
+        //         }
+        //         )
+        //         .style("height", "21.25px")
+        //         .attr("width", function (d) {
+        //             if (dataFimTeste != "null") {
+        //                 if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+        //                     dItem.dataFim = DATA_FINAL
+        //                 }
+        //                 var dataFim = timeScale(dItem.dataFim)
+        //                 tamanhoBarraEvento = dataFim - dataInicio
+        //                 return tamanhoBarraEvento
+        //             } else {
+        //                 return tamanhoBarraEvento + 20
+        //             }
+        //         })
+        // }
+        // eventoBarDiv
+        //     .on("mouseover", function (event, d) {
+        //         var posX = event.pageX;
+        //         var posY = event.pageY;
+
+        //         // Obter a largura e altura do tooltip
+        //         var tooltipWidth = tooltip.node().offsetWidth;
+        //         var tooltipHeight = tooltip.node().offsetHeight;
+
+        //         // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+        //         if (posX + tooltipWidth + 10 > window.innerWidth) {
+        //             posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+        //         }
+        //         if (posY + tooltipHeight + 10 > window.innerHeight) {
+        //             posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+        //         }
+
+        //         tooltip
+        //             .style("visibility", "visible")
+        //             .style("left", (posX + 10) + "px")
+        //             .style("top", (posY + 10) + "px")
+        //             .html(`
+        //                             Data inicio: ${formatDate(dItem.dataInicio)}<BR>
+        //                          ${dItem.dataFim ? `Data Fim: ${formatDate(dItem.dataFim)}<BR>` : ''}
+        //                          Evento: ${dItem.evento}`
+        //             );
+        //     })
+
+        //     .on("mouseout", function () {
+        //         tooltip.style("visibility", "hidden")
+        //     })
+
+        // var dadosEventoDiv = row3HierarquiaEventos.append("svg")
+        //     .attr("transform", function () {
+        //         if (tamanhoBarraEvento == 0) {
+        //             return `translate(${posicaoTextoEvento + 10}, 0)`;
+        //         }
+        //         return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
+        //     })
+        //     .attr("height", 20)
+        //     .attr("class", "evento-div-nome")
+        //     .style("display", "flex")
+        //     .style("position", "absolute")
+        //     .style("width", function (f) {
+        //         var soma = dataInicio + tamanhoBarraEvento
+        //         if (soma >= posDataFinal) {
+        //             return "0px"
+        //         }
+        //         if (soma + 300 >= posDataFinal) {
+        //             return posDataFinal - soma + "px"
+        //         }
+        //         else if (dataInicio + 300 >= posDataFinal) {
+        //             return posDataFinal - posicaoTextoEvento + "px"
+        //         }
+        //     })
+        //     .append("g")
+        //     .append("text")
+        //     .attr("y", 15)
+        //     .attr("font-size", 12)
+        //     .text(function () {
+        //         if ("rot" in dItem) {
+        //             return dItem.rot
+        //         } else {
+        //             return dItem.evento
+        //         }
+        //     });
+        // // }
+        // // linha de baixo fecha o forEach
+        // // })
+        // console.log("tipoEventoBar: " + JSON.stringify(tipoEventoBar))
+        // return tipoEventoBar
+    }
+}
+
+//! bloco abaixo eh o original
+{
+    /*
+    function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, nomeAgrupamento) {
+    
+        // console.log("hierarquiaEvento nomeAgrupamento: " + nomeAgrupamento)
+        console.log("hierarquiaEvento data: " + JSON.stringify(data))
+    
+        if(!data.agrupamento) {
+            console.log("sem_agrupamento")
+        }
+        if(data.agrupamento) {
+            console.log("com_agrupamento")
+        }
+        var dadosEventoAgrupamento = []
+    
+        var tipoEventoBar = []
+        var dItem = data[0]
+        // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
+    
+        // data.forEach((dItem, index) => {
+        // console.log("hierarquiaEvento dItem: " + JSON.stringify(dItem))
+    
+        var tamanhoBarraEvento = timeScale(dItem.dataInicio);
+        var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
+    
+        var posicaoTextoEvento;
+        var dataFimTeste = "null";
+        if (dItem.dataFim != "null" && dItem.dataFim != null) {
+            dataFimTeste = dItem.dataFim
+        }
+        if (dataFimTeste != "null") {
+            if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+                dItem.dataFim = DATA_FINAL
             }
-            if (soma + 300 >= posDataFinal) {
-                return posDataFinal - soma + "px"
-            }
-            else if (dataInicio + 300 >= posDataFinal) {
-                return posDataFinal - posicaoTextoEvento + "px"
-            }
-        })
-        .append("g")
-        .append("text")
-        .attr("y", 15)
-        .attr("font-size", 12)
-        .text(function () {
-            if ("rot" in dItem) {
-                return dItem.rot
+            var dataFim = timeScale(dItem.dataFim)
+            tamanhoBarraEvento = dataFim - dataInicio
+            posicaoTextoEvento = dataInicio
+        }
+        else {
+            posicaoTextoEvento = dataInicio
+            tamanhoBarraEvento = 0
+        }
+    
+        // /*
+        if (dItem.agrupamento) {
+            console.log("if (dItem.agrupamento): " + JSON.stringify(dItem))
+            // console.log("if (dItem.agrupamento): " + JSON.stringify(dItem))
+            // }
+            if (dItem.agrupamento == "null") {
+                dadosEventoAgrupamento.push({
+                    [dItem.evento]: [
+                        {
+                            posInin: dataInicio,
+                            width: tamanhoBarraEvento,
+                            group: false,
+                            cor: dItem.cor,
+                            rot: dItem.rot
+                        },
+                    ],
+                });
             } else {
-                return dItem.evento
+                const existingAgrupamento = dadosEventoAgrupamento.find(item => Object.keys(item)[0] === dItem.agrupamento);
+                if (!existingAgrupamento) {
+                    dadosEventoAgrupamento.push({
+                        [dItem.agrupamento]: [
+                            {
+                                dataInicio: dItem.dataInicio,
+                                dataFim: dItem.dataFim,
+                                evento: dItem.evento,
+                                posInin: dataInicio,
+                                width: tamanhoBarraEvento,
+                                cor: dItem.cor,
+                                group: true
+                            },
+                        ],
+                    });
+                } else {
+                    existingAgrupamento[dItem.agrupamento].push({
+                        dataInicio: dItem.dataInicio,
+                        dataFim: dItem.dataFim,
+                        evento: dItem.evento,
+                        posInin: dataInicio,
+                        width: tamanhoBarraEvento,
+                        cor: dItem.cor,
+                        group: true
+                    });
+                }
             }
-        });
-    // }
-    // })
-    console.log("tipoEventoBar: " + JSON.stringify(tipoEventoBar))
-    return tipoEventoBar
+            console.log("dadosEventoAgrupamento: " + JSON.stringify(dadosEventoAgrupamento))
+            // console.log("final")
+        }
+        // else {
+            // * /
+            console.log("tableModulos3HierarquiaEventos antes: " + JSON.stringify(dItem))
+        //terceiro nivel dos eventos das hierarquias
+        var tableModulos3HierarquiaEventos = svgHierarquiaEventos.append("table")
+            .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+            .style("display", "none")
+        var row3HierarquiaEventos = tableModulos3HierarquiaEventos.append("tr")
+            .attr("class", "linha-evento")
+            .style("background-color", function () {
+                return corLinha[index % 2]
+            })
+            .style("display", "flex")
+            .style("width", tamanhoScalaExib + "px")
+            .style("height", "26px")
+            .style("align-items", "center")
+    
+        //terceiro nivel dos nomes das hierarquias
+        var tableModulos3HierarquiaNomes = svgHierarquiaNomes.append("table")
+            .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+            .style("display", "none")
+    
+        var row3HierarquiaNomes = tableModulos3HierarquiaNomes.append("tr")
+            .style("display", "flex")
+            .style("padding-left", "30px")
+            .style("height", "21px")
+            .style("align-items", "center")
+            .style("margin-bottom", "5px")
+            .style("width", "-webkit-fill-available")
+        var testeRow3HierarquiaNomes = row3HierarquiaNomes.append("tr")
+            .attr("class", "row-modulo-segundo")
+            .text(dItem.evento)
+            .style("padding-left", "30px")
+            .style("color", "#FFFFFF")
+            .style("width", "max-content")
+    
+        var eventoBarDiv = row3HierarquiaEventos.append("svg")
+            .attr("transform", function (d, i) {
+                if (dataFimTeste == "null") {
+                    return `translate(${dataInicio}, 0)`;
+                } else {
+                    return `translate(${dataInicio + tickEspacamento}, 0)`;
+                }
+            })
+            .attr("height", 20)
+            .attr("width", function () {
+                if (tamanhoBarraEvento < 0) {
+                }
+                if (dataFimTeste !== "null") {
+                    tipoEventoBar.push({
+                        "posInin": dataInicio,
+                        "width": tamanhoBarraEvento,
+                        "cor": dItem.cor,
+                        "dataInicio": dItem.dataInicio,
+                        "dataFim": dItem.dataFim,
+                        "evento": dItem.evento,
+                        "agrupamento": dItem.agrupamento
+                    })
+                    return tamanhoBarraEvento
+                } else {
+                    tipoEventoBar.push({
+                        "posInin": dataInicio,
+                        "width": 0,
+                        "cor": dItem.cor,
+                        "dataInicio": dItem.dataInicio,
+                        "evento": dItem.evento,
+                        "icone": dItem.icon,
+                        "agrupamento": dItem.agrupamento
+                    })
+                    return tamanhoBarraEvento + 20
+                }
+            })
+            .attr("class", "eventoBarDiv")
+            .style("display", "flex")
+            .style("position", "absolute")
+    
+        if (dataFimTeste == "null" || dItem.dataFim == dItem.dataInicio) {
+            var iconeDiv = eventoBarDiv
+                .style("left", "-11px")
+                .attr("viewBox", function () {
+                    if (dItem.icon) {
+                        return iconsBase.vb[dItem.icon]
+                    } else {
+                        return "0, 0, 448, 512"
+                    }
+                })
+                .attr("width", 20)
+                .append("path")
+                .attr("fill", function () {
+                    if (dItem.cor) {
+                        return "#" + dItem.cor
+                    } else {
+                        return "#F2A840"
+                        // return "#40C5BF"
+                        // return "rgb(0, 0153, 128)"
+                    }
+                }
+                )
+                .attr("d", function () {
+                    if (dItem.icon) {
+                        return iconsBase.icons[dItem.icon]
+                    } else {
+                        return iconsBase.base
+                    }
+                }
+                )
+        } else {
+            eventoBarDiv
+                .style("left", "-1px")
+                .style("border-radius", function (f) {
+                    var soma = dataInicio + tamanhoBarraEvento
+                    if (soma >= posDataFinal) {
+                        return "10px 0 0 10px"
+                    } else {
+                        return "10px"
+                    }
+                })
+            var iconeDiv = eventoBarDiv.append("rect")
+                .attr("class", "podeRemover")
+                .attr("fill", function () {
+                    if (dItem.cor) {
+                        return "#" + dItem.cor
+                    } else {
+                        // return "#80c2a1"
+                        return "#40C5BF"
+                        // return "rgb(0, 0153, 128)"
+                    }
+                }
+                )
+                .style("height", "21.25px")
+                .attr("width", function (d) {
+                    if (dataFimTeste != "null") {
+                        if (new Date(DATA_FINAL).getTime() < new Date(dItem.dataFim).getTime()) {
+                            dItem.dataFim = DATA_FINAL
+                        }
+                        var dataFim = timeScale(dItem.dataFim)
+                        tamanhoBarraEvento = dataFim - dataInicio
+                        return tamanhoBarraEvento
+                    } else {
+                        return tamanhoBarraEvento + 20
+                    }
+                })
+        }
+        eventoBarDiv
+            .on("mouseover", function (event, d) {
+                var posX = event.pageX;
+                var posY = event.pageY;
+    
+                // Obter a largura e altura do tooltip
+                var tooltipWidth = tooltip.node().offsetWidth;
+                var tooltipHeight = tooltip.node().offsetHeight;
+    
+                // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                if (posX + tooltipWidth + 10 > window.innerWidth) {
+                    posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                }
+                if (posY + tooltipHeight + 10 > window.innerHeight) {
+                    posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                }
+    
+                tooltip
+                    .style("visibility", "visible")
+                    .style("left", (posX + 10) + "px")
+                    .style("top", (posY + 10) + "px")
+                    .html(`
+                                    Data inicio: ${formatDate(dItem.dataInicio)}<BR>
+                                 ${dItem.dataFim ? `Data Fim: ${formatDate(dItem.dataFim)}<BR>` : ''}
+                                 Evento: ${dItem.evento}`
+                    );
+            })
+    
+            .on("mouseout", function () {
+                tooltip.style("visibility", "hidden")
+            })
+    
+        var dadosEventoDiv = row3HierarquiaEventos.append("svg")
+            .attr("transform", function () {
+                if (tamanhoBarraEvento == 0) {
+                    return `translate(${posicaoTextoEvento + 10}, 0)`;
+                }
+                return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
+            })
+            .attr("height", 20)
+            .attr("class", "evento-div-nome")
+            .style("display", "flex")
+            .style("position", "absolute")
+            .style("width", function (f) {
+                var soma = dataInicio + tamanhoBarraEvento
+                if (soma >= posDataFinal) {
+                    return "0px"
+                }
+                if (soma + 300 >= posDataFinal) {
+                    return posDataFinal - soma + "px"
+                }
+                else if (dataInicio + 300 >= posDataFinal) {
+                    return posDataFinal - posicaoTextoEvento + "px"
+                }
+            })
+            .append("g")
+            .append("text")
+            .attr("y", 15)
+            .attr("font-size", 12)
+            .text(function () {
+                if ("rot" in dItem) {
+                    return dItem.rot
+                } else {
+                    return dItem.evento
+                }
+            });
+        // }
+        // linha de baixo fecha o forEach
+        // })
+        console.log("tipoEventoBar: " + JSON.stringify(tipoEventoBar))
+        return tipoEventoBar
+    }
+    */
 }
 
 // Exibe/oculta os marcos e barras ao colapsar/expandir uma hierarquia
@@ -1732,30 +2587,51 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
     var barraGeralTeste = rowEventos.append("g")
         .attr("transform", `translate(0,0)`)
         .attr("class", "evento-div2")
+    console.log("eventoColapsado: " + JSON.stringify(marcosRecursivos))
 
     marcosRecursivos.forEach((item, i) => {
+        const chave = Object.keys(item)[0];
+        // const dadosComprimidos = item[chave][0]
+        //! necessario um foreach para ajustar isso e apresentar todos os eventos comprimidos
+
+        item[chave].forEach((dadosComprimidos) => {
+
+        
+        
         var barraGeralTeste2 = barraGeralTeste.append("svg")
             .style("display", "flex")
             .style("position", "absolute")
             .attr("transform", function (f) {
-                if (item.width != 0) {
-                    return `translate(${item.posInin},0)`
+                console.log("eventoColapsado2: " + JSON.stringify(item))
+                // console.log("chave: " + chave)
+                console.log("item[chave][0]: " + JSON.stringify(item[chave][0]))
+                if (dadosComprimidos.width != 0) {
+                    // if (item[0].width != 0) {
+                    // return `translate(${item[0].posInin},0)`
+                    return `translate(${dadosComprimidos.posInin},0)`
                 } else {
-                    return `translate(${item.posInin},0)`
+                    // return `translate(${item[0].posInin},0)`
+                    return `translate(${dadosComprimidos.posInin},0)`
                 }
             })
             .attr("height", 20)
             .attr("width", function (f) {
-                if (item.width != 0) {
-                    return item.width
+                if (dadosComprimidos.width != 0) {
+                    return dadosComprimidos.width
+                    // if (item.width != 0) {
+                    //     return item.width
                 } else {
                     return "30px"
                 }
             })
-        if (item.width != 0) {
+        if (dadosComprimidos.width != 0) {
+            console.log("com agrupamento")
+            console.log("dadosComprimidos: " + JSON.stringify(dadosComprimidos))
+            // if (item.width != 0) {
             barraGeralTeste2.style("left", "-0.5px")
             barraGeralTeste2.style("border-radius", function (f) {
-                var soma = item.posInin + item.width
+                var soma = dadosComprimidos.posInin + dadosComprimidos.width
+                // var soma = item.posInin + item.width
                 if (soma >= posDataFinal) {
                     return "10px 0 0 10px"
                 } else {
@@ -1764,8 +2640,10 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
             })
             barraGeralTeste2.append("rect")
                 .attr("fill", function (f) {
-                    if (item.cor) {
-                        return "#" + item.cor
+                    if (dadosComprimidos.cor) {
+                        return "#" + dadosComprimidos.cor
+                        // if (item.cor) {
+                        //     return "#" + item.cor
                     } else {
                         return "#008542"
                         // return "rgb(23, 138, 10)"
@@ -1773,18 +2651,23 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
                         // return "rgb(120, 13, 50)"
                     }
                 })
-                .attr("width", item.width)
+                .attr("width", dadosComprimidos.width)
+                // .attr("width", item.width)
                 .attr("height", 20)
         } else {
+            console.log("sem agrupamento")
             barraGeralTeste2.style("left", "-11px")
                 .style("z-index", "1")
             barraGeralTeste2.append("svg")
-                .attr("transform", `translate(${item.posInin},0)`)
+                .attr("transform", `translate(${dadosComprimidos.posInin},0)`)
+                // .attr("transform", `translate(${item.posInin},0)`)
                 .attr("height", 20)
                 .attr("width", 20)
                 .attr("viewBox", function () {
-                    if (item.icone) {
-                        return iconsBase.vb[item.icone]
+                    if (dadosComprimidos.icone) {
+                        return iconsBase.vb[dadosComprimidos.icone]
+                        // if (item.icone) {
+                        //     return iconsBase.vb[item.icone]
                     } else {
                         return "0, 0, 448, 512"
                     }
@@ -1793,8 +2676,11 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
                 .attr("width", 20)
                 .append("path")
                 .attr("fill", function (f) {
-                    if (item.cor) {
-                        return "#" + item.cor
+                    if (dadosComprimidos.cor) {
+                        // if (item.cor) {
+                        // return "rgb(0, 27, 89)"
+                        return "#" + dadosComprimidos.cor
+                        // return "#" + item.cor
                     } else {
                         return "#FDC82F"
                         // return "rgb(200, 153, 128)"
@@ -1802,14 +2688,19 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
                     }
                 })
                 .attr("d", function () {
-                    if (item.icone) {
-                        return iconsBase.icons[item.icone]
+                    if (dadosComprimidos.icone) {
+                        return iconsBase.icons[dadosComprimidos.icone]
+                        // if (item.icone) {
+                        //     return iconsBase.icons[item.icone]
                     } else {
                         return iconsBase.base
                     }
                 }
                 )
         }
+
+        
+
         barraGeralTeste2.on("mouseover", function (event, d) {
             var posX = event.pageX;
             var posY = event.pageY;
@@ -1830,14 +2721,20 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
                 .style("left", (posX + 10) + "px")
                 .style("top", (posY + 10) + "px")
                 .html(`
-                            Data inicio: ${formatDate(item.dataInicio)}<BR>
-                         ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
-                         Evento: ${item.evento}`
+                            Data inicio: ${formatDate(dadosComprimidos.dataInicio)}<BR>
+                         ${dadosComprimidos.dataFim ? `Data Fim: ${formatDate(dadosComprimidos.dataFim)}<BR>` : ''}
+                         Evento: ${dadosComprimidos.evento}`
+                    //     Data inicio: ${formatDate(item.dataInicio)}<BR>
+                    //  ${item.dataFim ? `Data Fim: ${formatDate(item.dataFim)}<BR>` : ''}
+                    //  Evento: ${item.evento}`
                 );
         })
             .on("mouseout", function () {
                 tooltip.style("visibility", "hidden")
             })
+
+
+        })
     })
 }
 
@@ -1849,263 +2746,6 @@ function alternaCores() {
         cont++
         return corExib
     })
-}
-
-
-
-function lalala(h, svgHierarquiaNomes, svgHierarquiaEventos) {
-    var dadosEventoSubTipo = []
-    var tipoEventoBar = []
-    var tipoCategoriaBar = []
-    h.dados.forEach((l, i) => {
-        var dataInicio = timeScale(l.levelValues[0].dataInicio) + tickEspacamento;
-        var tamanhoBarraEvento = timeScale(l.levelValues[0].dataInicio);
-        if (l.levelValues[0].subTipo) {
-            if (l.levelValues[0].subTipo == "null") {
-                dadosEventoSubTipo.push({
-                    [l.levelValues[0].evento]: [
-                        {
-                            posInin: dataInicio,
-                            width: tamanhoBarraEvento,
-                            group: false,
-                            cor: l.levelValues[0].cor,
-                            rot: l.levelValues[0].rot
-                            // icon: l.levelValues[0].icon
-                        },
-                    ],
-                });
-            } else {
-                const existingSubTipo = dadosEventoSubTipo.find(item => Object.keys(item)[0] === l.levelValues[0].subTipo);
-                if (!existingSubTipo) {
-                    // console.log("l.levelValues[0]: " + JSON.stringify(l.levelValues[0]))
-                    dadosEventoSubTipo.push({
-                        [l.levelValues[0].subTipo]: [
-                            {
-                                dataInicio: l.levelValues[0].dataInicio,
-                                dataFim: l.levelValues[0].dataFim,
-                                evento: l.levelValues[0].evento,
-                                posInin: dataInicio,
-                                width: tamanhoBarraEvento,
-                                cor: l.levelValues[0].cor,
-                                group: true
-                            },
-                        ],
-                    });
-                } else {
-                    existingSubTipo[l.levelValues[0].subTipo].push({
-                        dataInicio: l.levelValues[0].dataInicio,
-                        dataFim: l.levelValues[0].dataFim,
-                        evento: l.levelValues[0].evento,
-                        posInin: dataInicio,
-                        width: tamanhoBarraEvento,
-                        cor: l.levelValues[0].cor,
-                        group: true
-                    });
-                }
-            }
-        }
-
-
-        if (dadosEventoSubTipo.length != 0) {
-            dadosEventoSubTipo.forEach((item, i) => {
-                // console.log("tableModulos3 = tableModulos2.append: " + JSON.stringify(item));
-                // console.log("tableModulos3 = tableModulos2.append item[0]: " + Object.keys(item)[0]);
-                var tableModulos3Eventos = svgHierarquiaEventos.append("table")
-                    // .attr("class", "tableModulos3")
-                    .attr("class", "row-modulo3-" + Object.keys(item)[0])
-                    .style("display", "none")
-
-                var row3Eventos = tableModulos3Eventos.append("tr")
-                    .style("display", "flex")
-                    .style("width", "1147px")
-                    .style("height", "21px")
-                    .style("margin-bottom", "5px")
-                    .attr("class", "alterarEsse")
-                    .style("background-color", function () {
-                        return corLinha[i % 2]
-                    })
-
-                var testeRowEventos = row3Eventos.append("tr")
-                    .attr("class", "row-modulo-evento")
-
-                var barraGeralEvento = row3Eventos.append("g")
-                    .attr("transform", `translate(0,0)`)
-                    .attr("class", "evento-div3")
-
-                //parte referente ao nome dos eventos
-                var tableModulos3Nomes = svgHierarquiaNomes.append("table")
-                    .attr("class", "row-modulo3-" + Object.keys(item)[0])
-                    .style("display", "none")
-
-                var row3Nomes = tableModulos3Nomes.append("tr")
-                    .style("display", "flex")
-                    .style("padding-left", "30px")
-                    // .style("width", "1147px")
-                    .style("margin-bottom", "5px")
-
-                var testeRowNomes = row3Nomes.append("tr")
-                    .attr("class", "row-modulo-evento")
-                    // .attr("height", 20)
-                    .style("padding-left", "5px")
-                    // .style("width", "260px")
-                    .style("width", "max-content")
-                    .text(Object.keys(dadosEventoSubTipo[i])[0])
-                    .style("color", "#FFFFFF")
-
-                // console.log("JSON.stringify(item): " + JSON.stringify(item))
-                Object.keys(item).forEach((key, j) => {
-
-                    item[key].forEach((gov, k) => {
-                        // console.log("item[key].forEach: " + JSON.stringify(gov))
-
-                        var barraGeralEventoAgrupado = barraGeralEvento.append("svg")
-                            .style("display", "flex")
-                            .style("position", "absolute")
-                            .attr("height", 20)
-                            .attr("class", "barraGeralEventoAgrupado")
-                            .attr("transform", function (f) {
-                                if (gov.width != 0) {
-                                    return `translate(${gov.posInin},0)`
-                                } else {
-                                    return `translate(${gov.posInin},0)`
-                                }
-                            })
-                            .attr("width", function (f) {
-                                if (gov.width != 0) {
-                                    tipoEventoBar.push({
-                                        //adicionar a posição x do translate e o tamanho do width
-                                        "posInin": gov.posInin,
-                                        "width": gov.width,
-                                        "dataInicio": gov.dataInicio,
-                                        "evento": gov.evento,
-                                    })
-                                    tipoCategoriaBar.push({
-                                        //adicionar a posição x do translate e o tamanho do width
-                                        "posInin": gov.posInin,
-                                        "width": gov.width,
-                                        "dataInicio": gov.dataInicio,
-                                        "evento": gov.evento,
-                                    })
-                                    return gov.width
-                                } else {
-                                    tipoEventoBar.push({
-                                        //adicionar a posição x do translate e o tamanho do width
-                                        "posInin": gov.posInin,
-                                        "width": 0,
-                                        "dataInicio": gov.dataInicio,
-                                        "evento": gov.evento,
-                                    })
-                                    tipoCategoriaBar.push({
-                                        //adicionar a posição x do translate e o tamanho do width
-                                        "posInin": gov.posInin,
-                                        "width": 0,
-                                        "dataInicio": gov.dataInicio,
-                                        "evento": gov.evento,
-                                    })
-                                    return "30px"
-                                }
-                            })
-                        if (gov.width != 0) {
-                            barraGeralEventoAgrupado.style("border-radius", "10px")
-                            barraGeralEventoAgrupado.append("rect")
-                                .attr("fill", function () {
-                                    if (gov.cor) {
-                                        return "#" + gov.cor
-                                    } else {
-                                        return "rgb(10, 0, 250)"
-                                    }
-                                }
-                                )
-                                .attr("width", gov.width)
-                                .attr("height", 20)
-                        } else {
-                            barraGeralEventoAgrupado
-                                .attr("viewBox", [0, 0, 448, 512])
-                                .attr("height", 20)
-                                .attr("width", 20)
-                                .append("path")
-                                .attr("fill", function () {
-                                    if (gov.cor) {
-                                        return "#" + gov.cor
-                                    } else {
-                                        return "rgb(10, 0, 250)"
-                                    }
-                                })
-                                .attr("d",
-                                    function () {
-                                        if (gov.icon) {
-                                            return gov.icon
-                                        } else {
-                                            return iconsBase.base
-                                        }
-                                    }
-                                )
-                        }
-
-                        if (!gov.group) {
-                            barraGeralEvento.append("svg")
-                                .attr("transform", function () {
-                                    if (gov.width != 0) {
-                                        return `translate(${gov.posInin + gov.width + 5}, 0)`;
-                                    } else {
-                                        return `translate(${gov.posInin + 15}, 0)`;
-                                    }
-                                })
-                                .attr("height", 20)
-                                .attr("class", "evento-div")
-                                .style("display", "block")
-                                .append("g")
-                                .append("text")
-                                .attr("y", 15)
-                                .attr("font-size", 12)
-                                .text(function () {
-                                    if (gov.rot && (gov.rot != "null" && gov.rot != null)) {
-                                        return gov.rot
-                                    } else {
-                                        return key
-                                    }
-                                });
-                        }
-
-                        barraGeralEventoAgrupado
-                            .on("mouseover", function (event, d) {
-                                var posX = event.pageX;
-                                var posY = event.pageY;
-
-                                // Obter a largura e altura do tooltip
-                                var tooltipWidth = tooltip.node().offsetWidth;
-                                var tooltipHeight = tooltip.node().offsetHeight;
-
-                                // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
-                                if (posX + tooltipWidth + 10 > window.innerWidth) {
-                                    posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
-                                }
-                                if (posY + tooltipHeight + 10 > window.innerHeight) {
-                                    posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
-                                }
-
-                                tooltip
-                                    .style("visibility", "visible")
-                                    .style("left", (posX + 10) + "px")
-                                    .style("top", (posY + 10) + "px")
-                                    .html(`
-                                Data inicio: ${formatDate(gov.dataInicio)};<BR>
-                             ${gov.dataFim ? `Data Fim: ${formatDate(gov.dataFim)};<BR>` : ''}
-                             Evento: ${gov.evento}`
-                                    );
-                            })
-
-                            .on("mouseout", function () {
-                                tooltip.style("visibility", "hidden")
-                                // .html(``);
-                            })
-                    });
-                });
-            }
-            )
-        }
-    }
-    )
 }
 
 
