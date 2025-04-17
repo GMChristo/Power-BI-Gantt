@@ -1615,6 +1615,11 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                                 return `translate(${gov.posInin},0)`
                             }
                         })
+                    .style("left", function (f) {
+                        if (gov.width == 0) {
+                            return "-11px"
+                        }
+                    })
                         .attr("width", function (f) {
                             if (gov.width != 0) {
                                 tipoEventoBar.push({
@@ -1673,7 +1678,8 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                                 if (gov.cor) {
                                     return "#" + gov.cor
                                 } else {
-                                    return "rgb(64, 197, 191)"
+                                    return "rgb(242, 168, 64)"
+                                    // return "rgb(64, 197, 191)"
                                 }
                             })
                             .attr("d",
@@ -1832,6 +1838,7 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
                     if (dadosComprimidos.cor) {
                         return "#" + dadosComprimidos.cor
                     } else {
+                        return "#F2A840"
                     }
                 })
                 .attr("d", function () {

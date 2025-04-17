@@ -1,5 +1,1 @@
-//! necessario um foreach para ajustar isso e apresentar todos os eventos comprimidos
-
 //! verificar essa classe ocultar
-
-//! versao original
