@@ -1,5 +1,5 @@
-//! atualmente esta so pegando o primeiro item data[0], 
+//! necessario um foreach para ajustar isso e apresentar todos os eventos comprimidos
 
 //! verificar essa classe ocultar
 
-//!para o agrupamento eh necessarioo um foreach pois tem varios dadoos no msm levelValues
+//! versao original
