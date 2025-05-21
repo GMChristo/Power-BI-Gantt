@@ -40,6 +40,16 @@
             "name": "escala",
             "displayName": "Escala",
             "kind": "Grouping"
+        },
+        {
+            "name": "idEvento",
+            "displayName": "IdEvento",
+            "kind": "Grouping"
+        },
+        {
+            "name": "predecessor",
+            "displayName": "Predecessor",
+            "kind": "Grouping"
         }
     ],
     "objects": {},
@@ -86,6 +96,16 @@
                         {
                             "for": {
                                 "in": "escala"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "idEvento"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "predecessor"
                             }
                         }
                     ]

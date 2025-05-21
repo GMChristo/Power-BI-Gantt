@@ -40,6 +40,16 @@ var dataHoje;
 var dataAgrupado = [] //usado em agrupamentoHierarquia
 var jsonAgrupado = []
 var temAgrupamento = false
+let dadosJson = []
+
+// as 3 variaveis abaixo sao utilizados para predecessorSucessor
+var idsFilhos = []
+var idsPredecessores = []
+var htmlPredecessoresSelecionados = []
+// var predecessoresDadosAdd = []
+// a variavel abaixo recebe a posiça em que a barra de rolagem verticcal esta para compensar na hora das setas
+var posRolagemVertical = 0
+var posRolagemHorizontal = 0
 
 var formatoEscala = d3.utcFormat("%b %Y")
 
@@ -47,6 +57,10 @@ var corLinha = ["#F1F3F5", "#DEE2E6"]
 
 var tamanhoScalaExib = 100
 var corPrimaria = { "1": "006432", "2": "93A100", "3": "00867F" }
+
+
+
+var principalPortView
 
 var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -66,7 +80,7 @@ export class Visual implements IVisual {
     constructor(options: VisualConstructorOptions) {
         this.svgRootHTML = d3.select(options.element).append("div").classed("card", true);
         svgBase = this.svgRootHTML
-        console.log("version: " + "2.0.0.3")
+        console.log("version: " + "2.0.0.4")
     }
 
     public update(options: VisualUpdateOptions) {
@@ -88,13 +102,17 @@ export class Visual implements IVisual {
         const estrutura = matrixDataView.rows.levels;
         const dadoEstrutura = estrutura[estrutura.length - 1].sources;
         const tipoDeEscala = options.dataViews[0].metadata.columns;
+        // console.log("matrixDataView: " + JSON.stringify(matrixDataView));
 
         estruturaEscala(tipoDeEscala)
 
         estruturaHierarquia(dadoEstrutura, estruturaDados) //retorna quais campos no visual foram preenchidos
+        // console.log("estruturaHierarquia - estruturaDados: " + JSON.stringify(estruturaDados))
         dadosEstruturais = estruturaDados;
 
+        // console.log("hierarquiaTree antes: " + JSON.stringify(dataMap));
         hierarquiaTree(categorias, 0, dataMap)
+        dadosJson = dataMap
         // console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
         preencheDataInicioFim(dataMap)
 
@@ -152,6 +170,9 @@ export class Visual implements IVisual {
             .attr("class", "divMainTdEventos")
             .style("max-width", CHART_WIDTH - 300 + "px")
 
+
+        // principalPortView = testeRegulagemAltura
+
         //necessario para criar as escalas
         svgRoot = testeRegulagemAltura
             .append("svg")
@@ -199,6 +220,8 @@ export class Visual implements IVisual {
             .attr("class", "main-eventos")
             .style("width", tamanhoScalaExib + "px")
 
+        principalPortView = dadosEventoHTML
+
         const tagsetupScales = d3.selectAll(".grid");
         tagsetupScales.remove();
         const tagmilestone = d3.selectAll(".milestone");
@@ -218,9 +241,9 @@ export class Visual implements IVisual {
             milestone(svgRoot);
         }
 
-        if(temAgrupamento){
+        if (temAgrupamento) {
             treeModulos2(dataAgrupado, nomesEventoTdHTML, dadosEventoHTML);
-        }else{
+        } else {
             treeModulos2(dataMap, nomesEventoTdHTML, dadosEventoHTML);
         }
         dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML) // mantem as linhas em exibição apos atualizar o visual
@@ -239,6 +262,7 @@ export class Visual implements IVisual {
         mainTdEventos.addEventListener('scroll', function () {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdNomes.scrollTop = mainTdEventos.scrollTop;
+            posRolagemVertical = mainTdNomes.scrollTop
         });
 
         const td = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
@@ -248,12 +272,14 @@ export class Visual implements IVisual {
         mainTdScale.addEventListener('scroll', function () {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdEventos.scrollLeft = mainTdScale.scrollLeft;
+
         });
 
         // Adiciona um listener de evento para o evento de rolagem na segunda tabela
         mainTdEventos.addEventListener('scroll', function () {
             // Define a posição de rolagem da primeira tabela para a posição de rolagem da segunda
             mainTdScale.scrollLeft = mainTdEventos.scrollLeft;
+            posRolagemHorizontal = mainTdScale.scrollLeft
         });
         atualizaLarguraMainTdNomes("inicioZerado", "inicioZerado", -1, 0)
     }
@@ -265,6 +291,16 @@ function formatDate(dateString) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+}
+
+function estruturaEscala(element) {
+    var key = "escala"
+
+    for (var i = 0; i < element.length; i++) {
+        if (key in element[i].roles) {
+            tipoEscalaGrafico = element[i].displayName
+        }
+    }
 }
 
 function defineEscala() {
@@ -429,7 +465,7 @@ function agrupamentoHierarquia(dataMap, dataAgrupado) {
             dataAgrupado.push(novoGrupo);
             agrupamentoHierarquia(data.dados, novoGrupo.dados);
         } else if (data.levelValues) {
-            if(data.levelValues[0].agrupamento){
+            if (data.levelValues[0].agrupamento) {
                 temAgrupamento = true
             }
             const agrupamentoNome = data.levelValues[0].agrupamento;
@@ -460,8 +496,6 @@ function agrupamentoHierarquia(dataMap, dataAgrupado) {
         }
     });
 }
-
-
 
 function organizaJsonAgrupado(dados, jsonAgrupado) {
     dados.forEach((data) => {
@@ -517,15 +551,6 @@ function organizaJsonAgrupado(dados, jsonAgrupado) {
     });
 }
 
-function estruturaEscala(element) {
-    var key = "escala"
-
-    for (var i = 0; i < element.length; i++) {
-        if (key in element[i].roles) {
-            tipoEscalaGrafico = element[i].displayName
-        }
-    }
-}
 
 function estruturaHierarquia(element, estruturaDados) {
     var roleName = ""
@@ -573,6 +598,8 @@ function hierarquiaTree(element, lvl, dataMap) {
             var rot = []; //rotulo
             var icon = null; //icone
             var cor = null; //cor
+            var idEvento = null; //id do Evento
+            var predecessor = null; //predecessor
 
             dadosEstruturais.forEach((e) => {
                 if (e.roleName == "category") {
@@ -589,6 +616,10 @@ function hierarquiaTree(element, lvl, dataMap) {
                     icon = e.index
                 } else if (e.roleName == "cor") {
                     cor = e.index
+                } else if (e.roleName == "idEvento") {
+                    idEvento = e.index
+                } else if (e.roleName == "predecessor") {
+                    predecessor = e.index
                 }
             })
 
@@ -601,6 +632,8 @@ function hierarquiaTree(element, lvl, dataMap) {
                     ...(rot.map(r => element[r].value).filter(v => v !== null && v !== undefined && v !== "null").join(' - ') !== '' && { rot: rot.map(r => element[r].value).filter(v => v !== null && v !== undefined && v !== "null").join(' - ') }),
                     ...(element[icon] && { icon: element[icon].value }),
                     ...(element[cor] && { cor: element[cor].value }),
+                    ...(element[idEvento] && { idEvento: element[idEvento].value }),
+                    ...(element[predecessor] && { predecessor: element[predecessor].value }),
                 })
                 return dataMap
             }
@@ -717,7 +750,8 @@ function timeScale(data) {
 function setupScales(svg) {
     var grid = svg.append("g")
         .attr("class", "grid")
-        .style("height", "1200px")
+        .style("height", alturaRolagem + "px")
+        // .style("height", "1200px")
         .attr("transform", `translate(0, ${MARGIN_TOP})`)
         .call(d3.axisTop(timeScaleAxis())
             .ticks(escalaTickSize)
@@ -867,7 +901,7 @@ function treeModulos2(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 function recursividadeHierarquiaArray(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
     var dadosRetornar = []
     if (data[0].agrupamento) {
-        var recursividadeHierarquiaNull = testeEventoLinha(data, svgHierarquiaNomes, svgHierarquiaEventos, index)
+        var recursividadeHierarquiaNull = defineNivelHierarquicoComAgrupamento(data, svgHierarquiaNomes, svgHierarquiaEventos, index)
         dadosRetornar.push(recursividadeHierarquiaNull)
     }
     else if (!data[0].agrupamento) {
@@ -879,7 +913,7 @@ function recursividadeHierarquiaArray(data, svgHierarquiaNomes, svgHierarquiaEve
     return dadosRetornar
 }
 
-function testeEventoLinha(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
+function defineNivelHierarquicoComAgrupamento(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
     var posRetorno = []
     data.forEach((d) => {
         var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento)
@@ -1091,6 +1125,8 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
             atualizaAlturaMainTdNomes()
             atualizaLarguraMainTdNomes("expande", data.nome, index, data.level)
             alternaCores()
+            predecessorSucessor(data.nome, tableModulosHierarquiaEventos, true)
+            // console.log("---------------------------------------------")
         })
         .append("svg")
         .attr("viewBox", [0, 0, 590, 670])
@@ -1211,8 +1247,15 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
                 }
             } catch (error) {
             }
+            // console.log("posRolagemHorizontal antes: " + posRolagemHorizontal)
+            // console.log("posRolagemVertical antes: " + posRolagemVertical)
+            // console.log("alturaRolagem antes: " + alturaRolagem)
             atualizaAlturaMainTdNomes()
             alternaCores()
+            // console.log("posRolagemHorizontal: " + posRolagemHorizontal)
+            // console.log("posRolagemVertical: " + posRolagemVertical)
+            // console.log("alturaRolagem: " + alturaRolagem)
+            predecessorSucessor(data.nome, tableModulosHierarquiaEventos, false)
         })
         .append("svg")
         .attr("viewBox", [0, 0, 590, 670])
@@ -1242,7 +1285,7 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
         .style("width", "max-content")
 
     var marcosRecursivos = recursividadeHierarquiaArray(data.dados, tableModulosHierarquiaNomes, tableModulosHierarquiaEventos, index)
-    
+
     //o bloco abaixo eh usado para transformar o array, foi verificado que em alguns casos ele vinha como Array de arrays [[]] com isso os marcos nao sao exibidos
     const arrayTransformado = Array.isArray(marcosRecursivos) && marcosRecursivos.length > 0 && Array.isArray(marcosRecursivos[0])
         ? marcosRecursivos.flat() : marcosRecursivos;
@@ -1257,6 +1300,7 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
     var tipoCategoriaBar = []
 
     data.forEach((dItem, i) => {
+        // console.log("dItem: " + JSON.stringify(dItem))
         if (dItem.agrupamento) {
             var tamanhoBarraEvento = timeScale(dItem.dataInicio);
             var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
@@ -1428,6 +1472,7 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                     }
                 })
                 .attr("class", "eventoBarDiv")
+                .attr("id", dItem.idEvento)
                 .style("display", "flex")
                 .style("position", "absolute")
 
@@ -1462,14 +1507,15 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
             } else {
                 eventoBarDiv
                     .style("left", "-1px")
-                    .style("border-radius", function (f) {
-                        var soma = dataInicio + tamanhoBarraEvento
-                        if (soma >= posDataFinal) {
-                            return "10px 0 0 10px"
-                        } else {
-                            return "10px"
-                        }
-                    })
+                // .style("border-radius", function (f) {
+                //     var soma = dataInicio + tamanhoBarraEvento
+                //     if (soma >= posDataFinal) {
+                //         return "10px 0 0 10px"
+                //     } else {
+                //         return "10px"
+                //     }
+                // })
+                //!alterar o nome dessa classe....
                 var iconeDiv = eventoBarDiv.append("rect")
                     .attr("class", "podeRemover")
                     .attr("fill", function () {
@@ -1517,7 +1563,10 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                         .html(`
                                 Data inicio: ${formatDate(dItem.dataInicio)}<BR>
                              ${dItem.dataFim ? `Data Fim: ${formatDate(dItem.dataFim)}<BR>` : ''}
-                             Evento: ${dItem.evento}`
+                             Evento: ${dItem.evento}<BR>
+                             Id: ${dItem.idEvento}<BR>
+                             ${dItem.predecessor ? `Predecessor: ${dItem.predecessor}<BR>` : ''}
+                             `
                         );
                 })
                 .on("mouseout", function () {
@@ -1615,11 +1664,11 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                                 return `translate(${gov.posInin},0)`
                             }
                         })
-                    .style("left", function (f) {
-                        if (gov.width == 0) {
-                            return "-11px"
-                        }
-                    })
+                        .style("left", function (f) {
+                            if (gov.width == 0) {
+                                return "-11px"
+                            }
+                        })
                         .attr("width", function (f) {
                             if (gov.width != 0) {
                                 tipoEventoBar.push({
@@ -1778,107 +1827,107 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
     marcosRecursivos.forEach((item, i) => {
         const chave = Object.keys(item)[0];
         item[chave].forEach((dadosComprimidos) => {
-        
-        var barraGeralTeste2 = barraGeralTeste.append("svg")
-            .style("display", "flex")
-            .style("position", "absolute")
-            .attr("transform", function (f) {
-                if (dadosComprimidos.width != 0) {
-                    return `translate(${dadosComprimidos.posInin},0)`
-                } else {
-                    return `translate(${dadosComprimidos.posInin},0)`
-                }
-            })
-            .attr("height", 20)
-            .attr("width", function (f) {
-                if (dadosComprimidos.width != 0) {
-                    return dadosComprimidos.width
-                } else {
-                    return "30px"
-                }
-            })
-        if (dadosComprimidos.width != 0) {
-            barraGeralTeste2.style("left", "-0.5px")
-            barraGeralTeste2.style("border-radius", function (f) {
-                var soma = dadosComprimidos.posInin + dadosComprimidos.width
-                if (soma >= posDataFinal) {
-                    return "10px 0 0 10px"
-                } else {
-                    return "10px"
-                }
-            })
-            barraGeralTeste2.append("rect")
-                .attr("fill", function (f) {
-                    if (dadosComprimidos.cor) {
-                        return "#" + dadosComprimidos.cor
+
+            var barraGeralTeste2 = barraGeralTeste.append("svg")
+                .style("display", "flex")
+                .style("position", "absolute")
+                .attr("transform", function (f) {
+                    if (dadosComprimidos.width != 0) {
+                        return `translate(${dadosComprimidos.posInin},0)`
                     } else {
-                        return "#008542"
-                    }
-                })
-                .attr("width", dadosComprimidos.width)
-                .attr("height", 20)
-        } else {
-            barraGeralTeste2.style("left", "-11px")
-                .style("z-index", "1")
-            barraGeralTeste2.append("svg")
-                .attr("transform", `translate(${dadosComprimidos.posInin},0)`)
-                .attr("height", 20)
-                .attr("width", 20)
-                .attr("viewBox", function () {
-                    if (dadosComprimidos.icone) {
-                        return iconsBase.vb[dadosComprimidos.icone]
-                    } else {
-                        return "0, 0, 448, 512"
+                        return `translate(${dadosComprimidos.posInin},0)`
                     }
                 })
                 .attr("height", 20)
-                .attr("width", 20)
-                .append("path")
-                .attr("fill", function (f) {
-                    if (dadosComprimidos.cor) {
-                        return "#" + dadosComprimidos.cor
+                .attr("width", function (f) {
+                    if (dadosComprimidos.width != 0) {
+                        return dadosComprimidos.width
                     } else {
-                        return "#F2A840"
+                        return "30px"
                     }
                 })
-                .attr("d", function () {
-                    if (dadosComprimidos.icone) {
-                        return iconsBase.icons[dadosComprimidos.icone]
+            if (dadosComprimidos.width != 0) {
+                barraGeralTeste2.style("left", "-0.5px")
+                barraGeralTeste2.style("border-radius", function (f) {
+                    var soma = dadosComprimidos.posInin + dadosComprimidos.width
+                    if (soma >= posDataFinal) {
+                        return "10px 0 0 10px"
                     } else {
-                        return iconsBase.base
+                        return "10px"
                     }
-                }
-                )
-        }
-
-        barraGeralTeste2.on("mouseover", function (event, d) {
-            var posX = event.pageX;
-            var posY = event.pageY;
-
-            // Obter a largura e altura do tooltip
-            var tooltipWidth = tooltip.node().offsetWidth;
-            var tooltipHeight = tooltip.node().offsetHeight;
-
-            // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
-            if (posX + tooltipWidth + 10 > window.innerWidth) {
-                posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                })
+                barraGeralTeste2.append("rect")
+                    .attr("fill", function (f) {
+                        if (dadosComprimidos.cor) {
+                            return "#" + dadosComprimidos.cor
+                        } else {
+                            return "#008542"
+                        }
+                    })
+                    .attr("width", dadosComprimidos.width)
+                    .attr("height", 20)
+            } else {
+                barraGeralTeste2.style("left", "-11px")
+                    .style("z-index", "1")
+                barraGeralTeste2.append("svg")
+                    .attr("transform", `translate(${dadosComprimidos.posInin},0)`)
+                    .attr("height", 20)
+                    .attr("width", 20)
+                    .attr("viewBox", function () {
+                        if (dadosComprimidos.icone) {
+                            return iconsBase.vb[dadosComprimidos.icone]
+                        } else {
+                            return "0, 0, 448, 512"
+                        }
+                    })
+                    .attr("height", 20)
+                    .attr("width", 20)
+                    .append("path")
+                    .attr("fill", function (f) {
+                        if (dadosComprimidos.cor) {
+                            return "#" + dadosComprimidos.cor
+                        } else {
+                            return "#F2A840"
+                        }
+                    })
+                    .attr("d", function () {
+                        if (dadosComprimidos.icone) {
+                            return iconsBase.icons[dadosComprimidos.icone]
+                        } else {
+                            return iconsBase.base
+                        }
+                    }
+                    )
             }
-            if (posY + tooltipHeight + 10 > window.innerHeight) {
-                posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
-            }
-            tooltip
-                .style("visibility", "visible")
-                .style("left", (posX + 10) + "px")
-                .style("top", (posY + 10) + "px")
-                .html(`
+
+            barraGeralTeste2.on("mouseover", function (event, d) {
+                var posX = event.pageX;
+                var posY = event.pageY;
+
+                // Obter a largura e altura do tooltip
+                var tooltipWidth = tooltip.node().offsetWidth;
+                var tooltipHeight = tooltip.node().offsetHeight;
+
+                // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+                if (posX + tooltipWidth + 10 > window.innerWidth) {
+                    posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+                }
+                if (posY + tooltipHeight + 10 > window.innerHeight) {
+                    posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+                }
+                tooltip
+                    .style("visibility", "visible")
+                    .style("left", (posX + 10) + "px")
+                    .style("top", (posY + 10) + "px")
+                    .html(`
                             Data inicio: ${formatDate(dadosComprimidos.dataInicio)}<BR>
                          ${dadosComprimidos.dataFim ? `Data Fim: ${formatDate(dadosComprimidos.dataFim)}<BR>` : ''}
                          Evento: ${dadosComprimidos.evento}`
-                );
-        })
-            .on("mouseout", function () {
-                tooltip.style("visibility", "hidden")
+                    );
             })
+                .on("mouseout", function () {
+                    tooltip.style("visibility", "hidden")
+                })
 
 
         })
@@ -1894,6 +1943,242 @@ function alternaCores() {
         return corExib
     })
 }
+
+function predecessorSucessor(data, tableModulosHierarquiaEventos, adicionaIsTrue) {
+    // console.log("predecessorSucessor data: " + data)
+
+    const tagSVGSetas = d3.selectAll(".svg-setas");
+    tagSVGSetas.remove();
+
+    const firstClass = tableModulosHierarquiaEventos.node().getAttribute('class');
+
+    if (adicionaIsTrue == true) {
+        // console.log("tableModulosHierarquiaEventos: " + JSON.stringify(tableModulosHierarquiaEventos.node().outerHTML))
+        var resultado = pesquisaFilhos(data)
+        // console.log("predecessorSucessor - predecessoresDadosAdd: " + JSON.stringify(predecessoresDadosAdd))
+
+        // var idsFilhos = resultado.idsFilhos
+        // var idsPredecessores = resultado.idsPredecessores
+        // console.log("resultado.idsFilhosPesquisaFilhos: " + JSON.stringify(resultado.idsFilhosPesquisaFilhos));
+        // console.log("resultado.idsPredecessoresPesquisaFilhos: " + JSON.stringify(resultado.idsPredecessoresPesquisaFilhos));
+        idsFilhos.push(resultado.idsFilhosPesquisaFilhos[0])
+        idsPredecessores.push(resultado.idsPredecessoresPesquisaFilhos[0])
+        htmlPredecessoresSelecionados.push(firstClass)
+    } else {
+        const removeItemByName = (array, name) => {
+            for (let i = array.length - 1; i >= 0; i--) {
+                if (array[i].hasOwnProperty(name)) {
+                    array.splice(i, 1); // Remove o item do array original
+                }
+            }
+        };
+        // Remove o item dos arrays originais
+        removeItemByName(idsFilhos, data);
+        removeItemByName(idsPredecessores, data);
+        removeItemByName(htmlPredecessoresSelecionados, data);
+        // console.log("remove idsFilhos: " + JSON.stringify(idsFilhos));
+        // console.log("remove idsPredecessores: " + JSON.stringify(idsPredecessores));
+        // console.log("remove htmlPredecessoresSelecionados: " + JSON.stringify(htmlPredecessoresSelecionados));
+    }
+    // console.log("idsFilhos: " + JSON.stringify(idsFilhos));
+    // console.log("idsPredecessores: " + JSON.stringify(idsPredecessores));
+    // console.log("htmlPredecessoresSelecionados: " + JSON.stringify(htmlPredecessoresSelecionados));
+    // console.log("tableModulosHierarquiaEventos: " + JSON.stringify(tableModulosHierarquiaEventos.node().outerHTML))
+    // const firstClass = tableElement.node().getAttribute('class');
+    // console.log("htmlPredecessoresSelecionados: " + JSON.stringify(htmlPredecessoresSelecionados));
+
+    const svgElement = document.querySelector('.main-svg');
+    const heightTag = svgElement.clientHeight; // Altura
+    // console.log("heightTag: " + heightTag)
+    // console.log("alturaRolagem: " + alturaRolagem)
+
+    const svg = principalPortView
+        .append("svg")
+        .attr("class", "svg-setas")
+        .attr("width", tamanhoScalaExib + "px") // Defina a largura do SVG conforme necessário
+        .attr("height", alturaRolagem + 17 + "px") // Defina a altura do SVG conforme necessário
+        // .attr("height", heightTag + 17 + "px") // Defina a altura do SVG conforme necessário
+        .style("position", "absolute")
+        .style("top", "-17px")
+        .style("left", "0px")
+        .style("z-index", "0");
+
+    idsPredecessores.forEach((idPre, i) => {
+        // console.log("idsPredecessores.forEach: " + i + " - " + JSON.stringify(idPre))
+        const firstKey = Object.keys(idPre)[0];
+        const filhosArray = idsFilhos[i][firstKey];
+        // console.log("idsFilhos: " + JSON.stringify(idsFilhos));
+        // console.log("filhosArray: " + JSON.stringify(filhosArray));
+        idPre[firstKey].forEach(item => {
+            for (const id in item) {
+                // console.log("idPre[firstKey].forEach item: " + JSON.stringify(item));
+                // console.log("idPre[firstKey].forEach id: " + JSON.stringify(id));
+                // console.log("idPre[firstKey].forEach item[id]: " + JSON.stringify(item[id]));
+                if (item.hasOwnProperty(id)) {
+                    const valorIdPredecessor = item[id];
+                    // Separar valores caso tenha vírgulas
+                    const valuesArray = valorIdPredecessor.split(",");
+
+                    // Verificar se algum desses valores está contido no array filhosArray
+                    if (valuesArray.some(val => filhosArray.includes(parseInt(val.trim())))) {
+                        const matchingItem = htmlPredecessoresSelecionados.find(item => item.includes(firstKey));
+                        // console.log("matchingItem: " + JSON.stringify(matchingItem));
+                        verificaPosicao(svg, valorIdPredecessor, id, matchingItem)
+                    } else {
+                        // console.log(`ID: ${id}, Valor: ${value}, Nao esca contido em idsFilhos`)
+                    }
+                }
+            }
+        });
+    })
+}
+
+//o id nao eh totalmente unico, em casa hierarquia de primeiro nivel ele se repete
+//verifica quais sao os filhos da hierarquia selecionada e retorna para idsFilhos
+//tambem verifica quais possuem predecessor e retorna a informacao para idsPredecessores
+function pesquisaFilhos(selecionado) {
+    // const existeNome = dadosJson.some(item => item.nome === selecionado);
+    const itemEncontrado = dadosJson.find(item => item.nome === selecionado);
+    // console.log("predecessoresDadosAdd antes: " + JSON.stringify(predecessoresDadosAdd))
+
+    let dadosFilhos = [];
+    let idsFilhosPesquisaFilhos = [];
+    let idsPredecessoresPesquisaFilhos = [];
+
+    if (itemEncontrado) {
+        dadosFilhos = itemEncontrado.dados; // Atribui os dados encontrados à variável dadosFilhos
+        var idDadosAdd = []
+        var predecessoresDadosAdd = []
+        dadosFilhos.forEach((d) => {
+            // console.log(`Evento: "${d.levelValues[0].evento}" -  id: "${d.levelValues[0].idEvento}"`);
+            // idsFilhos.push(d.levelValues[0].idEvento)
+            idDadosAdd.push(d.levelValues[0].idEvento)
+            d.levelValues[0].predecessor ? predecessoresDadosAdd.push({ [d.levelValues[0].idEvento]: d.levelValues[0].predecessor }) : null
+            // d.levelValues[0].idEvento
+        })
+        idsFilhosPesquisaFilhos.push({ [selecionado]: idDadosAdd })
+        idsPredecessoresPesquisaFilhos.push({ [selecionado]: predecessoresDadosAdd })
+        // console.log("pesquisaFilhos idsFilhos: " + JSON.stringify(idsFilhos));
+        // console.log("pesquisaFilhos idsPredecessores: " + JSON.stringify(idsPredecessores));
+        // console.log(`O nome "${selecionado}" foi encontrado.`);
+        // console.log(JSON.stringify(dadosFilho)); // Exibe os dadosFilho
+        return { idsFilhosPesquisaFilhos, idsPredecessoresPesquisaFilhos }
+    } else {
+        console.log(`O nome "${selecionado}" não foi encontrado.`);
+    }
+}
+
+function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
+    // console.log("verificaPosicao svgHTML: " + svgHTML.node().outerHTML)
+    // console.log("verificaPosicao valorIdItem: " + valorIdItem)
+
+    const svgHTML = principalPortView.selectAll(`:scope > [class^="${matchingItem}"]`);
+
+    // console.log("svgHTML2: " + JSON.stringify(svgHTML2.node().outerHTML))
+    //matchingItem: "row-modulo-2-0-Campanha da MEQ"
+
+
+    var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
+    var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
+    // var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
+    // var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
+    // console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
+    var dadosAtual = HTMLItemAtual.node().getBoundingClientRect();
+    var atualPosX = dadosAtual.left
+    var atualPosY = dadosAtual.top
+
+    
+    const scrollContainerVertical = document.querySelector(".mainTdEventos"); //main-eventos
+    const scrollPositionVertical = scrollContainerVertical.scrollTop;
+    const scrollContainerHorizontal = document.querySelector(".mainTdScale"); //main-eventos
+    const scrollPositionHorizontal = scrollContainerHorizontal.scrollLeft;
+
+    var primeiroElemento = HTMLPredecessor.node();
+
+    // const scrollContainer = principalPortView.select('.mainTdEventos');
+    // const scrollPosition = scrollContainer.node().scrollTop;
+
+    // if(valorIdItem == 4){
+    //     // console.log("matchingItem: " + matchingItem)
+    //     console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
+    //     console.log(`atualPosX: ${atualPosX} - atualPosY: ${atualPosY}`)
+    //     // console.log("Posição da rolagem no eixo Y:", scrollPosition);
+    //     // console.log(`mainEventosX: ${mainEventos.node().getBoundingClientRect().left} - mainEventosY: ${mainEventos.node().getBoundingClientRect().left}`)
+
+    //     //clicando primeiro em contrataçao de dados: atualPosX: 734.3887939453125 - atualPosY: 261 -- x="75.91366577148438" y="209"
+    //     //clicando primeiro em cambanha da meq: atualPosX: 734.3887939453125 - atualPosY: 493 -- x="75.91366577148438" y="441"
+    //     //dados corretos: atualPosX: 734.3887939453125 - atualPosY: 15263 -- x="75.91366577148438" y="15211"
+    // }
+    // console.log("posRolagemHorizontal: " + posRolagemHorizontal)
+    // console.log("posRolagemVertical: " + posRolagemVertical)
+    if (primeiroElemento) {
+        // Obtém as informações de posição e dimensões do elemento
+        var dadosPredecessor = primeiroElemento.getBoundingClientRect();
+        var predecessorPosX = dadosPredecessor.left + dadosPredecessor.width
+        var predecessorPosY = dadosPredecessor.top
+        setasPredecessor(svg, predecessorPosX + scrollPositionHorizontal - 12, predecessorPosY + scrollPositionVertical, atualPosX + scrollPositionHorizontal, atualPosY + scrollPositionVertical)
+        // setasPredecessor(svg, predecessorPosX + posRolagemHorizontal - 12, predecessorPosY + posRolagemVertical, atualPosX + posRolagemHorizontal, atualPosY + posRolagemVertical)
+    }
+}
+
+function setasPredecessor(svg, predecessorPosX, predecessorPosY, atualPosX, atualPosY) {
+
+    var tamanhoLinha = 1
+
+    // Criando o quadrado
+    svg.append("rect")
+        .attr("x", predecessorPosX - 300) // Posição X do quadrado
+        .attr("y", predecessorPosY) // Posição Y do quadrado
+        .attr("width", 5) // Largura do quadrado
+        .attr("height", 5) // Altura do quadrado
+        .style("fill", "black"); // Cor do quadrado
+
+    // Definindo o marcador para a seta
+    svg.append("defs").append("marker")
+        .attr("id", "arrow")
+        .attr("viewBox", "0 0 10 10") // Área de visualização menor
+        .attr("refX", 5) // Ponto de referência ajustado
+        .attr("refY", 5) // Ponto de referência ajustado
+        .attr("markerWidth", 6) // Largura da seta menor
+        .attr("markerHeight", 6) // Altura da seta menor
+        .attr("orient", "auto")
+        .append("polygon")
+        .attr("points", "0,0 10,5 0,10")
+        .style("fill", "black");
+
+    svg.append("line")
+        .attr("x1", predecessorPosX - 300 + 2.5) // Posição X do quadrado + metade da largura
+        .attr("y1", predecessorPosY + 2.5) // Posição Y do quadrado + metade da altura
+        .attr("x2", predecessorPosX - 300 + 2.5) // Posição X do ângulo
+        .attr("y2", predecessorPosY + 15) // Posição Y do ângulo
+        .style("stroke", "black") // Cor da linha
+        .style("stroke-width", tamanhoLinha); // Largura da linha
+    // Segundo segmento: do ângulo até (atualPosX, predecessorPosY + 10)
+    svg.append("line")
+        .attr("x1", predecessorPosX - 300 + 2.5) // Posição X do ângulo
+        .attr("y1", predecessorPosY + 15) // Posição Y do ângulo
+        .attr("x2", atualPosX - 321) // Posição X atual
+        .attr("y2", predecessorPosY + 15) // Posição Y do ângulo
+        .style("stroke", "black") // Cor da linha
+        .style("stroke-width", tamanhoLinha); // Largura da linha
+    // Terceiro segmento: do ângulo até (atualPosX, atualPosY)
+    svg.append("line")
+        .attr("x1", atualPosX - 321) // Posição X atual
+        .attr("y1", predecessorPosY + 15) // Posição Y do ângulo
+        .attr("x2", atualPosX - 321) // Posição X atual
+        .attr("y2", atualPosY + 2.5) // Posição Y atual
+        .style("stroke", "black") // Cor da linha
+        .style("stroke-width", tamanhoLinha) // Largura da linha
+    svg.append("line")
+        .attr("x1", atualPosX - 321) // Posição X atual
+        .attr("y1", atualPosY + 2.5) // Posição Y do ângulo
+        .attr("x2", atualPosX - 314) // Posição X atual
+        .attr("y2", atualPosY + 2.5) // Posição Y atual
+        .style("stroke", "black") // Cor da linha
+        .style("stroke-width", tamanhoLinha) // Largura da linha
+        .attr("marker-end", "url(#arrow)"); // Adicionando a seta
+}
+
 
 
 /*
