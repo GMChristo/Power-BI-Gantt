@@ -80,7 +80,7 @@ export class Visual implements IVisual {
     constructor(options: VisualConstructorOptions) {
         this.svgRootHTML = d3.select(options.element).append("div").classed("card", true);
         svgBase = this.svgRootHTML
-        console.log("version: " + "2.0.0.4")
+        console.log("version: " + "2.0.0.5")
     }
 
     public update(options: VisualUpdateOptions) {
@@ -118,6 +118,7 @@ export class Visual implements IVisual {
 
         defineEscala()
 
+        //as duas funçoes so sao totalmente executadas caso tenha agrupamento, caso alguma informaçao nao deva ser aplicada junto com agrupamento entao nao é necessario aplicar nas funçoes abaixo
         agrupamentoHierarquia(dataMap, dataAgrupado)
         organizaJsonAgrupado(dataAgrupado, jsonAgrupado)
 
@@ -600,6 +601,9 @@ function hierarquiaTree(element, lvl, dataMap) {
             var cor = null; //cor
             var idEvento = null; //id do Evento
             var predecessor = null; //predecessor
+            var caminhoCritico = null; //caminhoCritico
+            var previstoInicio = null; //previstoInicio
+            var previstoFinal = null; //previstoFinal
 
             dadosEstruturais.forEach((e) => {
                 if (e.roleName == "category") {
@@ -620,6 +624,12 @@ function hierarquiaTree(element, lvl, dataMap) {
                     idEvento = e.index
                 } else if (e.roleName == "predecessor") {
                     predecessor = e.index
+                } else if (e.roleName == "caminhoCritico") {
+                    caminhoCritico = e.index
+                } else if (e.roleName == "previstoInicio") {
+                    previstoInicio = e.index
+                } else if (e.roleName == "previstoFinal") {
+                    previstoFinal = e.index
                 }
             })
 
@@ -634,6 +644,9 @@ function hierarquiaTree(element, lvl, dataMap) {
                     ...(element[cor] && { cor: element[cor].value }),
                     ...(element[idEvento] && { idEvento: element[idEvento].value }),
                     ...(element[predecessor] && { predecessor: element[predecessor].value }),
+                    ...(element[caminhoCritico] && { caminhoCritico: element[caminhoCritico].value }),
+                    ...(element[previstoInicio] && { previstoInicio: element[previstoInicio].value }),
+                    ...(element[previstoFinal] && { previstoFinal: element[previstoFinal].value }),
                 })
                 return dataMap
             }
@@ -1125,7 +1138,10 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
             atualizaAlturaMainTdNomes()
             atualizaLarguraMainTdNomes("expande", data.nome, index, data.level)
             alternaCores()
-            predecessorSucessor(data.nome, tableModulosHierarquiaEventos, true)
+            // console.log("data predecessorSucessor: " + JSON.stringify(data))
+            if (data.predecessor) {
+                predecessorSucessor(data.nome, tableModulosHierarquiaEventos, true)
+            }
             // console.log("---------------------------------------------")
         })
         .append("svg")
@@ -1255,7 +1271,9 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
             // console.log("posRolagemHorizontal: " + posRolagemHorizontal)
             // console.log("posRolagemVertical: " + posRolagemVertical)
             // console.log("alturaRolagem: " + alturaRolagem)
-            predecessorSucessor(data.nome, tableModulosHierarquiaEventos, false)
+            if (data.predecessor) {
+                predecessorSucessor(data.nome, tableModulosHierarquiaEventos, false)
+            }
         })
         .append("svg")
         .attr("viewBox", [0, 0, 590, 670])
@@ -1436,7 +1454,7 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                 .style("padding-left", "30px")
                 .style("color", "#FFFFFF")
                 .style("width", "max-content")
-
+// console.log("dItem: " + JSON.stringify(dItem))
             var eventoBarDiv = row3HierarquiaEventos.append("svg")
                 .attr("transform", function (d, i) {
                     if (dataFimTeste == "null") {
@@ -1445,7 +1463,15 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                         return `translate(${dataInicio + tickEspacamento}, 0)`;
                     }
                 })
-                .attr("height", 20)
+                // .attr("height", 20)
+                // .style("height", "20px")
+                .style("height", function(){
+                    if(dItem.caminhoCritico == true){
+                        return "14px"
+                    }else{
+                        return "20px"
+                    }
+                })
                 .attr("width", function () {
                     if (tamanhoBarraEvento < 0) {
                     }
@@ -1507,14 +1533,19 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
             } else {
                 eventoBarDiv
                     .style("left", "-1px")
-                // .style("border-radius", function (f) {
-                //     var soma = dataInicio + tamanhoBarraEvento
-                //     if (soma >= posDataFinal) {
-                //         return "10px 0 0 10px"
-                //     } else {
-                //         return "10px"
-                //     }
-                // })
+                    .style("border-radius", function (f) {
+                        var soma = dataInicio + tamanhoBarraEvento
+                        if (soma >= posDataFinal) {
+                            return "10px 0 0 10px"
+                        } else {
+                            return "10px"
+                        }
+                    })
+                    .style("border", function(){
+                        if(dItem.caminhoCritico == true){
+                            return "3px solid black"
+                        }
+                    })
                 //!alterar o nome dessa classe....
                 var iconeDiv = eventoBarDiv.append("rect")
                     .attr("class", "podeRemover")
@@ -1578,7 +1609,7 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                     if (tamanhoBarraEvento == 0) {
                         return `translate(${posicaoTextoEvento + 10}, 0)`;
                     }
-                    return `translate(${posicaoTextoEvento + tamanhoBarraEvento}, 0)`;
+                    return `translate(${posicaoTextoEvento + tamanhoBarraEvento +5}, 0)`;
                 })
                 .attr("height", 20)
                 .attr("class", "evento-div-nome")
@@ -2087,7 +2118,7 @@ function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
     var atualPosX = dadosAtual.left
     var atualPosY = dadosAtual.top
 
-    
+
     const scrollContainerVertical = document.querySelector(".mainTdEventos"); //main-eventos
     const scrollPositionVertical = scrollContainerVertical.scrollTop;
     const scrollContainerHorizontal = document.querySelector(".mainTdScale"); //main-eventos

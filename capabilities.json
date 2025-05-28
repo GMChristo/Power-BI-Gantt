@@ -50,6 +50,21 @@
             "name": "predecessor",
             "displayName": "Predecessor",
             "kind": "Grouping"
+        },
+        {
+            "name": "caminhoCritico",
+            "displayName": "Caminho Critico",
+            "kind": "Grouping"
+        },
+        {
+            "name": "previstoInicio",
+            "displayName": "Previsto Inicio",
+            "kind": "Grouping"
+        },
+        {
+            "name": "previstoFinal",
+            "displayName": "Previsto Final",
+            "kind": "Grouping"
         }
     ],
     "objects": {},
@@ -106,6 +121,21 @@
                         {
                             "for": {
                                 "in": "predecessor"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "caminhoCritico"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "previstoInicio"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "previstoFinal"
                             }
                         }
                     ]
