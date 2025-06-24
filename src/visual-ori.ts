@@ -80,7 +80,7 @@ export class Visual implements IVisual {
     constructor(options: VisualConstructorOptions) {
         this.svgRootHTML = d3.select(options.element).append("div").classed("card", true);
         svgBase = this.svgRootHTML
-        console.log("version: " + "3.0.0.1")
+        console.log("version: " + "2.0.0.5")
     }
 
     public update(options: VisualUpdateOptions) {
@@ -113,7 +113,7 @@ export class Visual implements IVisual {
         // console.log("hierarquiaTree antes: " + JSON.stringify(dataMap));
         hierarquiaTree(categorias, 0, dataMap)
         dadosJson = dataMap
-        console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
+        // console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
         preencheDataInicioFim(dataMap)
 
         defineEscala()
@@ -222,7 +222,7 @@ export class Visual implements IVisual {
             .style("width", tamanhoScalaExib + "px")
 
         principalPortView = dadosEventoHTML
-      
+
         const tagsetupScales = d3.selectAll(".grid");
         tagsetupScales.remove();
         const tagmilestone = d3.selectAll(".milestone");
@@ -710,32 +710,6 @@ function calculaDatasInicioFim(jsonData) {
         else {
         }
     })
-}
-
-function tamanhoEscala() {
-    console.log("tamanhoEscala dataInicio: " + DATA_INICIAL);
-    console.log("tamanhoEscala dataFim: " + DATA_FINAL);
-    
-    const inicio = new Date(DATA_INICIAL)
-    const fim = new Date(DATA_FINAL)
-    var resultadoTamanhoEscala
-    if (tipoEscalaGrafico == "Ano") {
-        resultadoTamanhoEscala = fim.getFullYear() - inicio.getFullYear();
-        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
-        
-    }
-    if (tipoEscalaGrafico == "Trimestre") {
-        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
-        console.log("tamanhoEscala: " + resultadoTamanhoEscala/3);
-    }
-    if (tipoEscalaGrafico == "Mês") {
-        resultadoTamanhoEscala = (fim.getFullYear() - inicio.getFullYear()) * 12 + fim.getMonth() - inicio.getMonth();
-        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
-    }
-    if (tipoEscalaGrafico == "Dia") {
-        resultadoTamanhoEscala = Math.floor((fim.getTime() - inicio.getTime()) / (1000 * 3600 * 24));
-        console.log("tamanhoEscala: " + resultadoTamanhoEscala);
-    }
 }
 
 function timeScaleAxis() {
@@ -1480,17 +1454,21 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                 .style("padding-left", "30px")
                 .style("color", "#FFFFFF")
                 .style("width", "max-content")
-            // console.log("dItem: " + JSON.stringify(dItem))
+// console.log("dItem: " + JSON.stringify(dItem))
             var eventoBarDiv = row3HierarquiaEventos.append("svg")
-                // .attr("transform", `translate(${timeScale(dItem.previstoInicio)}, 0)`)
-                .attr("transform", `translate(${timeScale(dItem.previstoInicio || dItem.dataInicio)}, 0)`)
-
+                .attr("transform", function (d, i) {
+                    if (dataFimTeste == "null") {
+                        return `translate(${dataInicio}, 0)`;
+                    } else {
+                        return `translate(${dataInicio + tickEspacamento}, 0)`;
+                    }
+                })
                 // .attr("height", 20)
                 // .style("height", "20px")
-                .style("height", function () {
-                    if (dItem.caminhoCritico == true) {
+                .style("height", function(){
+                    if(dItem.caminhoCritico == true){
                         return "14px"
-                    } else {
+                    }else{
                         return "20px"
                     }
                 })
@@ -1563,26 +1541,22 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                             return "10px"
                         }
                     })
-                    .style("border", function () {
-                        if (dItem.caminhoCritico == true) {
+                    .style("border", function(){
+                        if(dItem.caminhoCritico == true){
                             return "3px solid black"
                         }
                     })
                 //!alterar o nome dessa classe....
                 var iconeDiv = eventoBarDiv.append("rect")
-                    .attr("fill", "#E67E22") // vermelho = realizado
-                    .style("height", "21.25px")
-                    .attr("width", function () {
-                        if (dataFimTeste !== "null") {
-                            var dataFim = timeScale(dItem.dataFim);
-                            tamanhoBarraEvento = dataFim - dataInicio;
-                            return tamanhoBarraEvento;
+                    .attr("class", "podeRemover")
+                    .attr("fill", function () {
+                        if (dItem.cor) {
+                            return "#" + dItem.cor
                         } else {
-                            return tamanhoBarraEvento + 20;
+                            return "#40C5BF"
                         }
-                    })
-
-
+                    }
+                    )
                     .style("height", "21.25px")
                     .attr("width", function (d) {
                         if (dataFimTeste != "null") {
@@ -1596,26 +1570,7 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                             return tamanhoBarraEvento + 20
                         }
                     })
-            };
-            // Adiciona barra "Previsto" em verde (#008542) se houver datas e for diferente da real
-            // if (dItem.previstoInicio && dItem.previstoFinal && dItem.previstoFinal !== dItem.dataFim) {
-            if(dItem.previstoInicio && dItem.previstoFinal){
-                const dataInicioPrevisto = timeScale(dItem.previstoInicio);
-                const dataFimPrevisto = timeScale(dItem.previstoFinal);
-                const tamanhoPrevisto = dataFimPrevisto - dataInicioPrevisto;
-
-                eventoBarDiv.append("rect")
-                    .attr("class", "barra-previsto")
-                    .attr("x", dataInicioPrevisto - dataInicio)
-                    .attr("y", 7)
-                    .attr("height", 6)
-                    .attr("width", tamanhoPrevisto)
-                    .attr("fill", "#2C3E50") // verde = previsto
-                    .attr("opacity", 0.9)
-                    .append("title")
-                    .text(`Previsto: ${formatDate(dItem.previstoInicio)} até ${formatDate(dItem.previstoFinal)}`);
-            // }
-        }
+            }
             eventoBarDiv
                 .on("mouseover", function (event, d) {
                     var posX = event.pageX;
@@ -1637,20 +1592,13 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                         .style("left", (posX + 10) + "px")
                         .style("top", (posY + 10) + "px")
                         .html(`
-    <b>${dItem.evento}</b><br>
-    <div style="margin-top: 4px;">
-        <span style="display:inline-block;width:10px;height:10px;background:#2C3E50;margin-right:5px;border-radius:2px;"></span>
-        <b>Realizado:</b> ${formatDate(dItem.dataInicio)} até ${formatDate(dItem.dataFim)}
-    </div>
-    ${dItem.previstoInicio && dItem.previstoFinal ? `
-    <div style="margin-top: 4px;">
-        <span style="display:inline-block;width:10px;height:10px;background:#E67E22;margin-right:5px;border-radius:2px;"></span>
-        <b>Previsto:</b> ${formatDate(dItem.previstoInicio)} até ${formatDate(dItem.previstoFinal)}
-    </div>` : ''}
-    ${dItem.predecessor ? `<div style="margin-top: 4px;"><b>Predecessor:</b> ${dItem.predecessor}</div>` : ''}
-    <div style="margin-top: 4px;"><b>ID:</b> ${dItem.idEvento}</div>
-`)
-                        ;
+                                Data inicio: ${formatDate(dItem.dataInicio)}<BR>
+                             ${dItem.dataFim ? `Data Fim: ${formatDate(dItem.dataFim)}<BR>` : ''}
+                             Evento: ${dItem.evento}<BR>
+                             Id: ${dItem.idEvento}<BR>
+                             ${dItem.predecessor ? `Predecessor: ${dItem.predecessor}<BR>` : ''}
+                             `
+                        );
                 })
                 .on("mouseout", function () {
                     tooltip.style("visibility", "hidden")
@@ -1661,7 +1609,7 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                     if (tamanhoBarraEvento == 0) {
                         return `translate(${posicaoTextoEvento + 10}, 0)`;
                     }
-                    return `translate(${posicaoTextoEvento + tamanhoBarraEvento + 5}, 0)`;
+                    return `translate(${posicaoTextoEvento + tamanhoBarraEvento +5}, 0)`;
                 })
                 .attr("height", 20)
                 .attr("class", "evento-div-nome")

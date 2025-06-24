@@ -7,7 +7,7 @@
             "kind": "Grouping"
         },
         {
-            "name": "subTipo",
+            "name": "agrupamento",
             "displayName": "Agrupamento",
             "kind": "Grouping"
         },
@@ -32,8 +32,38 @@
             "kind": "Grouping"
         },
         {
+            "name": "icone",
+            "displayName": "Icone",
+            "kind": "Grouping"
+        },
+        {
             "name": "escala",
             "displayName": "Escala",
+            "kind": "Grouping"
+        },
+        {
+            "name": "idEvento",
+            "displayName": "IdEvento",
+            "kind": "Grouping"
+        },
+        {
+            "name": "predecessor",
+            "displayName": "Predecessor",
+            "kind": "Grouping"
+        },
+        {
+            "name": "caminhoCritico",
+            "displayName": "Caminho Critico",
+            "kind": "Grouping"
+        },
+        {
+            "name": "previstoInicio",
+            "displayName": "Previsto Inicio",
+            "kind": "Grouping"
+        },
+        {
+            "name": "previstoFinal",
+            "displayName": "Previsto Final",
             "kind": "Grouping"
         }
     ],
@@ -50,7 +80,7 @@
                     "select": [
                         {
                             "for": {
-                                "in": "subTipo"
+                                "in": "agrupamento"
                             }
                         },
                         {
@@ -75,7 +105,37 @@
                         },
                         {
                             "for": {
+                                "in": "icone"
+                            }
+                        },
+                        {
+                            "for": {
                                 "in": "escala"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "idEvento"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "predecessor"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "caminhoCritico"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "previstoInicio"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "previstoFinal"
                             }
                         }
                     ]
@@ -83,10 +143,7 @@
             },
             "conditions": [
                 {
-                    "category": {
-                        "max": 3
-                    },
-                    "subTipo": {
+                    "agrupamento": {
                         "max": 1
                     },
                     "dataInicio": {
@@ -96,7 +153,6 @@
                         "max": 1
                     },
                     "escala": {
-                        "min": 1,
                         "max": 1
                     }
                 }
