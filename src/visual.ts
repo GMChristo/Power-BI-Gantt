@@ -41,6 +41,7 @@ var dataAgrupado = [] //usado em agrupamentoHierarquia
 var jsonAgrupado = []
 var temAgrupamento = false
 let dadosJson = []
+var temPredecessor = false
 
 // as 3 variaveis abaixo sao utilizados para predecessorSucessor
 var idsFilhos = []
@@ -80,7 +81,7 @@ export class Visual implements IVisual {
     constructor(options: VisualConstructorOptions) {
         this.svgRootHTML = d3.select(options.element).append("div").classed("card", true);
         svgBase = this.svgRootHTML
-        console.log("version: " + "3.0.0.1")
+        console.log("version: " + "3.0.0.2")
     }
 
     public update(options: VisualUpdateOptions) {
@@ -113,7 +114,7 @@ export class Visual implements IVisual {
         // console.log("hierarquiaTree antes: " + JSON.stringify(dataMap));
         hierarquiaTree(categorias, 0, dataMap)
         dadosJson = dataMap
-        console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
+        // console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
         preencheDataInicioFim(dataMap)
 
         defineEscala()
@@ -624,6 +625,7 @@ function hierarquiaTree(element, lvl, dataMap) {
                     idEvento = e.index
                 } else if (e.roleName == "predecessor") {
                     predecessor = e.index
+                    temPredecessor = true
                 } else if (e.roleName == "caminhoCritico") {
                     caminhoCritico = e.index
                 } else if (e.roleName == "previstoInicio") {
@@ -1165,7 +1167,8 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
             atualizaLarguraMainTdNomes("expande", data.nome, index, data.level)
             alternaCores()
             // console.log("data predecessorSucessor: " + JSON.stringify(data))
-            if (data.predecessor) {
+            console.log("data predecessorSucessor: " + temPredecessor)
+            if (temPredecessor) {
                 predecessorSucessor(data.nome, tableModulosHierarquiaEventos, true)
             }
             // console.log("---------------------------------------------")
@@ -1297,7 +1300,7 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
             // console.log("posRolagemHorizontal: " + posRolagemHorizontal)
             // console.log("posRolagemVertical: " + posRolagemVertical)
             // console.log("alturaRolagem: " + alturaRolagem)
-            if (data.predecessor) {
+            if (temPredecessor) {
                 predecessorSucessor(data.nome, tableModulosHierarquiaEventos, false)
             }
         })
