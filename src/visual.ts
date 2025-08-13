@@ -415,6 +415,10 @@ function defineEscala() {
   }
 }
 
+
+//!
+//! verificar a funçao abaixo
+//!
 function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
   // console.log("dadosExpandidos exibir: " + exibir);
   //dadosExpandidos exibir: row-modulo-1-0-BID 14 e 15 - Naru, Urissanê, Yba, Mairarê
