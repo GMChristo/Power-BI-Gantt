@@ -6,11 +6,18 @@ import FormattingSettingsModel = formattingSettings.Model;
  * Data Point Formatting Card
  */
 declare class DataPointCardSettings extends FormattingSettingsCard {
-    defaultColor: formattingSettings.ColorPicker;
-    showAllDataPoints: formattingSettings.ToggleSwitch;
-    fill: formattingSettings.ColorPicker;
-    fillRule: formattingSettings.ColorPicker;
     fontSize: formattingSettings.NumUpDown;
+    fontColor: formattingSettings.ColorPicker;
+    showAllDataPoints: formattingSettings.ToggleSwitch;
+    fontFamily: formattingSettings.ItemDropdown;
+    name: string;
+    displayName: string;
+    slices: Array<FormattingSettingsSlice>;
+}
+declare class CustomCardSettings extends FormattingSettingsCard {
+    corHierarquiaUm: formattingSettings.ColorPicker;
+    corHierarquiaDois: formattingSettings.ColorPicker;
+    corHierarquiaTres: formattingSettings.ColorPicker;
     name: string;
     displayName: string;
     slices: Array<FormattingSettingsSlice>;
@@ -21,6 +28,7 @@ declare class DataPointCardSettings extends FormattingSettingsCard {
 */
 export declare class VisualFormattingSettingsModel extends FormattingSettingsModel {
     dataPointCard: DataPointCardSettings;
-    cards: DataPointCardSettings[];
+    customCardBack: CustomCardSettings;
+    cards: (DataPointCardSettings | CustomCardSettings)[];
 }
 export {};

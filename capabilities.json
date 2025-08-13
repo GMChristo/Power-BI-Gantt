@@ -67,7 +67,88 @@
             "kind": "Grouping"
         }
     ],
-    "objects": {},
+    "objects": {
+        "dataPoint": {
+            "properties": {
+                "fontSize": {
+                    "type": {
+                        "formatting": {
+                            "fontSize": true
+                        }
+                    }
+                },
+                "fontColor": {
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "backgroundFontColor": {
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "showAllDataPoints": {
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "fontFamily": {
+                    "type": {
+                        "enumeration": [
+                            { "value": "Arial" },
+                            { "value": "Comic Sans MS" },
+                            { "value": "Courier New" },
+                            { "value": "Impact" },
+                            { "value": "Georgia" },
+                            { "value": "Tahoma" },
+                            { "value": "Times New Roman" },
+                            { "value": "Trebuchet MS" },
+                            { "value": "Verdana" }
+                        ]
+                    }
+                }
+            }
+        },
+        "customSettings": {
+            "properties": {
+                "corHierarquiaUm": {
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "corHierarquiaDois": {
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "corHierarquiaTres": {
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
     "dataViewMappings": [
         {
             "matrix": {

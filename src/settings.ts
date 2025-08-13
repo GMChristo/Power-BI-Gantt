@@ -1,29 +1,3 @@
-/*
- *  Power BI Visualizations
- *
- *  Copyright (c) Microsoft Corporation
- *  All rights reserved.
- *  MIT License
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the ""Software""), to deal
- *  in the Software without restriction, including without limitation the rights
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *  copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- *  THE SOFTWARE.
- */
-
 "use strict";
 
 import { formattingSettings } from "powerbi-visuals-utils-formattingmodel";
@@ -36,40 +10,65 @@ import FormattingSettingsModel = formattingSettings.Model;
  * Data Point Formatting Card
  */
 class DataPointCardSettings extends FormattingSettingsCard {
-    defaultColor = new formattingSettings.ColorPicker({
-        name: "defaultColor",
-        displayName: "Default color",
-        value: { value: "" }
+    fontSize = new formattingSettings.NumUpDown({
+        name: "fontSize",
+        displayName: "Tamanho de fonte",
+        value: 18
     });
 
+    fontColor = new formattingSettings.ColorPicker({
+        name: "fontColor",
+        displayName: "Cor da fonte",
+        value: { value: "" }
+    });      
     showAllDataPoints = new formattingSettings.ToggleSwitch({
         name: "showAllDataPoints",
         displayName: "Show all",
         value: true
     });
-
-    fill = new formattingSettings.ColorPicker({
-        name: "fill",
-        displayName: "Fill",
-        value: { value: "" }
-    });
-
-    fillRule = new formattingSettings.ColorPicker({
-        name: "fillRule",
-        displayName: "Color saturation",
-        value: { value: "" }
-    });
-
-    fontSize = new formattingSettings.NumUpDown({
-        name: "fontSize",
-        displayName: "Text Size",
-        value: 12
+    fontFamily = new formattingSettings.ItemDropdown({
+        name: "fontFamily",
+        displayName: "Fonte",
+        value: { value: "Trebuchet MS", displayName: "Trebuchet MS" },
+        items: [
+            { displayName: "Arial", value: "Arial, sans-serif" },
+            { displayName: "Courier New", value: "'Courier New', Courier, monospace" },
+            { displayName: "Georgia", value: "Georgia, serif" },
+            { displayName: "Impact", value: "Impact, Charcoal, sans-serif" },
+            { displayName: "Tahoma", value: "Tahoma, Geneva, sans-serif" },
+            { displayName: "Times New Roman", value: "'Times New Roman', Times, serif" },
+            { displayName: "Trebuchet MS", value: "'Trebuchet MS', Helvetica, sans-serif" },
+            { displayName: "Verdana", value: "Verdana, Geneva, sans-serif" }
+        ]
     });
 
     name: string = "dataPoint";
-    displayName: string = "Data colors";
-    slices: Array<FormattingSettingsSlice> = [this.defaultColor, this.showAllDataPoints, this.fill, this.fillRule, this.fontSize];
+    displayName: string = "Customização de Fonte";
+    slices: Array<FormattingSettingsSlice> = [this.fontSize, this.fontColor, this.showAllDataPoints, this.fontFamily];
 }
+
+class CustomCardSettings extends FormattingSettingsCard {
+    corHierarquiaUm = new formattingSettings.ColorPicker({
+        name: "corHierarquiaUm",
+        displayName: "Cor 1",
+        value: { value: "" }
+    }); 
+    corHierarquiaDois = new formattingSettings.ColorPicker({
+        name: "corHierarquiaDois",
+        displayName: "Cor 2",
+        value: { value: "" }
+    }); 
+    corHierarquiaTres = new formattingSettings.ColorPicker({
+        name: "corHierarquiaTres",
+        displayName: "Cor 3",
+        value: { value: "" }
+    }); 
+
+    name: string = "customSettings";
+    displayName: string = "Cores Hierarquia/Evento";
+    slices: Array<FormattingSettingsSlice> = [this.corHierarquiaUm, this.corHierarquiaDois, this.corHierarquiaTres];
+}
+
 
 /**
 * visual settings model class
@@ -78,6 +77,9 @@ class DataPointCardSettings extends FormattingSettingsCard {
 export class VisualFormattingSettingsModel extends FormattingSettingsModel {
     // Create formatting settings model formatting cards
     dataPointCard = new DataPointCardSettings();
+    customCardBack = new CustomCardSettings();
 
-    cards = [this.dataPointCard];
+    //so aparece os cards adicionados no array abaixo
+    // cards = [this.dataPointCard];
+    cards = [this.dataPointCard, this.customCardBack];
 }
