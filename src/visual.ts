@@ -107,11 +107,11 @@ export class Visual implements IVisual {
       .append("div")
       .classed("card", true);
     svgBase = this.svgRootHTML;
-    console.log("version: " + "3.0.1.2");
+    console.log("version: " + "3.0.1.3");
   }
 
   public update(options: VisualUpdateOptions) {
-    console.log("update exibir: " + exibir);
+    // console.log("update exibir: " + exibir);
     //update exibir: row-modulo-1-0-BID 14 e 15 - Naru, Urissanê, Yba, Mairarê
     // console.log("update1");
     this.formattingSettings =
@@ -158,7 +158,7 @@ export class Visual implements IVisual {
     // console.log("hierarquiaTree antes: " + JSON.stringify(dataMap));
     hierarquiaTree(categorias, 0, dataMap);
     dadosJson = dataMap;
-    // console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
+    console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
     preencheDataInicioFim(dataMap);
 
     defineEscala();
@@ -416,7 +416,7 @@ function defineEscala() {
 }
 
 
-//!
+//!TODO
 //! verificar a funçao abaixo
 //!
 function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
@@ -537,7 +537,6 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
       }
     }
   });
-  console.log("parte final!!!")
 }
 
 function agrupamentoHierarquia(dataMap, dataAgrupado) {
@@ -704,6 +703,7 @@ function hierarquiaTree(element, lvl, dataMap) {
       var caminhoCritico = null; //caminhoCritico
       var previstoInicio = null; //previstoInicio
       var previstoFinal = null; //previstoFinal
+      var toolTipDados = []; //toolTipDados
 
       dadosEstruturais.forEach((e) => {
         if (e.roleName == "category") {
@@ -731,6 +731,8 @@ function hierarquiaTree(element, lvl, dataMap) {
           previstoInicio = e.index;
         } else if (e.roleName == "previstoFinal") {
           previstoFinal = e.index;
+        } else if (e.roleName == "toolTipDados") {
+          toolTipDados.push(e.index);
         }
       });
 
@@ -763,6 +765,18 @@ function hierarquiaTree(element, lvl, dataMap) {
           }),
           ...(element[previstoFinal] && {
             previstoFinal: element[previstoFinal].value,
+          }),
+          // ...(element[toolTipDados] && {
+          //   toolTipDados: element[toolTipDados].value,
+          // }),
+          ...(toolTipDados
+            .map((td) => element[td].value)
+            .filter((v) => v !== null && v !== undefined && v !== "null")
+            .join(" <br> ") !== "" && {
+            toolTipDados: toolTipDados
+              .map((td) => element[td].value)
+              .filter((v) => v !== null && v !== undefined && v !== "null")
+              .join(" <br> "),
           }),
         });
         return dataMap;
@@ -1386,6 +1400,7 @@ function hierarquiaPrimeiroNivel(
         }
       } catch (error) { }
 
+      //!TODO
       //! verificar essa classe ocultar
       try {
         var segundaHierarquia2Eventos =
@@ -1924,6 +1939,7 @@ function hierarquiaEvento(
               return "3px solid black";
             }
           });
+        //!TODO
         //!alterar o nome dessa classe....
         //!verificar o width pois o rect esta coom dois diferentes
         var iconeDiv = eventoBarDiv
@@ -2006,62 +2022,24 @@ function hierarquiaEvento(
             .attr("width", tamanhoPrevisto)
             .attr("fill", "#2C3E50") // verde = previsto
             .attr("opacity", 0.9)
-            .append("title")
-            .text(
-              `Previsto: ${formatDate(dItem.previstoInicio)} até ${formatDate(
-                dItem.previstoFinal
-              )}`
-            );
+            .on("mouseover", function (event, d) {
+              showTooltip(dItem, event, index)
+            })
+            .on("mouseout", hideTooltip)
+          // .append("title")
+          // .text(
+          //   `Previsto: ${formatDate(dItem.previstoInicio)} até ${formatDate(
+          //     dItem.previstoFinal
+          //   )}`
+          // );
           // }
         }
       }
       eventoBarDiv
         .on("mouseover", function (event, d) {
-          var posX = event.pageX;
-          var posY = event.pageY;
-
-          // Obter a largura e altura do tooltip
-          var tooltipWidth = tooltip.node().offsetWidth;
-          var tooltipHeight = tooltip.node().offsetHeight;
-
-          // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
-          if (posX + tooltipWidth + 10 > window.innerWidth) {
-            posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
-          }
-          if (posY + tooltipHeight + 10 > window.innerHeight) {
-            posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
-          }
-          tooltip
-            .style("visibility", "visible")
-            .style("left", posX + 10 + "px")
-            .style("top", posY + 10 + "px").html(`
-    <b>${dItem.evento}</b><br>
-    <div style="margin-top: 4px;">
-        <span style="display:inline-block;width:10px;height:10px;background:#2C3E50;margin-right:5px;border-radius:2px;"></span>
-        <b>Realizado:</b> ${formatDate(
-              dItem.dataInicio
-            )} até ${formatDate(dItem.dataFim)}
-    </div>
-    ${dItem.previstoInicio && dItem.previstoFinal
-                ? `
-    <div style="margin-top: 4px;">
-        <span style="display:inline-block;width:10px;height:10px;background:#E67E22;margin-right:5px;border-radius:2px;"></span>
-        <b>Previsto:</b> ${formatDate(dItem.previstoInicio)} até ${formatDate(
-                  dItem.previstoFinal
-                )}
-    </div>`
-                : ""
-              }
-    ${dItem.predecessor
-                ? `<div style="margin-top: 4px;"><b>Predecessor:</b> ${dItem.predecessor}</div>`
-                : ""
-              }
-    <div style="margin-top: 4px;"><b>ID:</b> ${dItem.idEvento}</div>
-`);
+          showTooltip(dItem, event, index)
         })
-        .on("mouseout", function () {
-          tooltip.style("visibility", "hidden");
-        });
+        .on("mouseout", hideTooltip);
 
       var dadosEventoDiv = row3HierarquiaEventos
         .append("svg")
@@ -2421,38 +2399,45 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
 
       barraGeralTeste2
         .on("mouseover", function (event, d) {
-          var posX = event.pageX;
-          var posY = event.pageY;
 
-          // Obter a largura e altura do tooltip
-          var tooltipWidth = tooltip.node().offsetWidth;
-          var tooltipHeight = tooltip.node().offsetHeight;
+          showTooltip(dadosComprimidos, event, d)
 
-          // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
-          if (posX + tooltipWidth + 10 > window.innerWidth) {
-            posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
-          }
-          if (posY + tooltipHeight + 10 > window.innerHeight) {
-            posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
-          }
-          tooltip
-            .style("visibility", "visible")
-            .style("left", posX + 10 + "px")
-            .style("top", posY + 10 + "px").html(`
-                            Data inicio: ${formatDate(
-              dadosComprimidos.dataInicio
-            )}<BR>
-                         ${dadosComprimidos.dataFim
-                ? `Data Fim: ${formatDate(
-                  dadosComprimidos.dataFim
-                )}<BR>`
-                : ""
-              }
-                         Evento: ${dadosComprimidos.evento}`);
+          // var posX = event.pageX;
+          // var posY = event.pageY;
+
+          // // Obter a largura e altura do tooltip
+          // var tooltipWidth = tooltip.node().offsetWidth;
+          // var tooltipHeight = tooltip.node().offsetHeight;
+
+          // // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+          // if (posX + tooltipWidth + 10 > window.innerWidth) {
+          //   posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+          // }
+          // if (posY + tooltipHeight + 10 > window.innerHeight) {
+          //   posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+          // }
+
+          // tooltip
+          //   .style("visibility", "visible")
+          //   .style("left", posX + 10 + "px")
+          //   .style("top", posY + 10 + "px").html(`
+          //     Data inicio: ${formatDate(dadosComprimidos.dataInicio)}<BR>
+          //     ${dadosComprimidos.dataFim ? `Data Fim: ${formatDate(dadosComprimidos.dataFim)} <BR>` : ""}
+          //     Evento: ${dadosComprimidos.evento}`);
+
+          // showTooltip(dadosComprimidos, posX, posY, d)
+
+          // tooltip
+          //   .style("visibility", "visible")
+          //   .style("left", posX + 10 + "px")
+          //   .style("top", posY + 10 + "px").html(`
+          //     <b>${dadosComprimidos.evento}</b><br>
+          //     Início: ${formatDate(dadosComprimidos.dataInicio)}<BR>
+          //     ${dadosComprimidos.dataFim ? `Termino: ${formatDate(dadosComprimidos.dataFim)} <BR>` : ""}
+          //     `);
+
         })
-        .on("mouseout", function () {
-          tooltip.style("visibility", "hidden");
-        });
+        .on("mouseout", hideTooltip);
     });
   });
 }
@@ -2833,6 +2818,68 @@ function ajustaFonte() {
   } else {
     console.log("Nenhum elemento encontrado com essa classe.");
   }
+}
+
+
+// Função para gerar o conteúdo HTML do tooltip
+function getTooltipContent(dItem, index) {
+  return `
+    <b>${dItem.evento}</b><br>
+    <div style="margin-top: 4px;">
+      <span style="display:inline-block;width:10px;height:10px;background:#2C3E50;margin-right:5px;border-radius:2px;"></span>
+      <b>Realizado:</b> ${formatDate(dItem.dataInicio)} até ${formatDate(dItem.dataFim)}
+    </div>
+    ${dItem.previstoInicio && dItem.previstoFinal
+      ? `<div style="margin-top: 4px;">
+            <span style="display:inline-block;width:10px;height:10px;background:${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]
+      };margin-right:5px;border-radius:2px;"></span>
+            <b>Previsto:</b> ${formatDate(dItem.previstoInicio)} até ${formatDate(dItem.previstoFinal)}
+          </div>`
+      : ""
+    }
+    ${dItem.predecessor
+      ? `<div style="margin-top: 4px;"><b>Predecessor:</b> ${dItem.predecessor}</div>`
+      : ""
+    }
+    ${dItem.idEvento
+      ? `<div style="margin-top: 4px;"><b>ID:</b> ${dItem.idEvento}</div>`
+      : ""
+    }
+    ${dItem.toolTipDados
+      ? `<div style="margin-top: 4px;"><b></b> ${dItem.toolTipDados}</div>`
+      : ""
+    }
+  `;
+}
+
+// Função para mostrar o tooltip
+// function showTooltip(dItem, posX, posY, index) {
+function showTooltip(dItem, event, index) {
+  console.log("showTooltip: ", dItem)
+  var posX = event.pageX;
+  var posY = event.pageY;
+
+  // Obter a largura e altura do tooltip
+  var tooltipWidth = tooltip.node().offsetWidth;
+  var tooltipHeight = tooltip.node().offsetHeight;
+
+  // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
+  if (posX + tooltipWidth + 10 > window.innerWidth) {
+    posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
+  }
+  if (posY + tooltipHeight + 10 > window.innerHeight) {
+    posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
+  }
+  tooltip
+    .style("visibility", "visible")
+    .style("left", (posX + 10) + "px")
+    .style("top", (posY + 10) + "px")
+    .html(getTooltipContent(dItem, index));
+}
+
+// E para esconder o tooltip
+function hideTooltip() {
+  tooltip.style("visibility", "hidden");
 }
 
 /*
