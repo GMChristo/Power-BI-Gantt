@@ -107,7 +107,7 @@ export class Visual implements IVisual {
       .append("div")
       .classed("card", true);
     svgBase = this.svgRootHTML;
-    console.log("version: " + "3.0.1.3");
+    console.log("version: " + "3.0.1.4");
   }
 
   public update(options: VisualUpdateOptions) {
@@ -158,7 +158,7 @@ export class Visual implements IVisual {
     // console.log("hierarquiaTree antes: " + JSON.stringify(dataMap));
     hierarquiaTree(categorias, 0, dataMap);
     dadosJson = dataMap;
-    console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
+    // console.log("hierarquiaTree depois: " + JSON.stringify(dataMap));
     preencheDataInicioFim(dataMap);
 
     defineEscala();
@@ -420,119 +420,77 @@ function defineEscala() {
 //! verificar a funçao abaixo
 //!
 function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
-  // console.log("dadosExpandidos exibir: " + exibir);
-  //dadosExpandidos exibir: row-modulo-1-0-BID 14 e 15 - Naru, Urissanê, Yba, Mairarê
+  console.log("dadosExpandidos exibir: " + exibir);
+  //class="row-modulo-1-1-Logística Naru e Urissanê (Contrataçao Direta)" -> primeiro nivel
+  //class="row-linhaEvento-1-DIP Estratégia Suprimentos" -> evento
   exibir.forEach((e) => {
-    console.log("exibir.forEach: " + e);
+    // console.log("exibir.forEach: " + e);
     var categoriaExibirNomes = svgHierarquiaNomes.selectAll('[class^="' + e + '"]');
-    // console.log("categoriaExibirNomes: ", categoriaExibirNomes.nodes()[0].outerHTML);
-    if (categoriaExibirNomes.nodes().length > 0) {
-      // console.log("categoriaExibirNomes: ", categoriaExibirNomes.nodes()[0]);
-      var teste = categoriaExibirNomes.select('[class^="row-linhaEvento-"]');
-      console.log("teste: ", teste)
-
-
-
-
-      var eventoHide = categoriaExibirNomes.select('[class^="iconPlus-div"]');
-      if (eventoHide) {
-        //   console.log("if (eventoHide)");
-        eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
-      }
-      var eventoShow = categoriaExibirNomes.select('[class^="iconMinus-div"]');
-      if (eventoShow) {
-        //   console.log("if (eventoShow)");
-        eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
-      }
-
-      //!TODO rgb(204,0,0) verificar a logica abaixo pois pode ser otimizada para uso parecido do else .querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0)
-      var segundaHierarquia = categoriaExibirNomes.selectAll('[class^="row-modulo2-"]');
-
-      console.log("antes if (segundaHierarquia)")
-      if (segundaHierarquia) {
-        if (!categoriaExibirNomes.selectAll('[class^="ocultar"]').empty()) {
-          var segundaHierarquia2 = categoriaExibirNomes.selectAll('[class^="row-modulo2-null"]');
-          if (segundaHierarquia2) {
-            segundaHierarquia2.style("display", segundaHierarquia2.style("display") === "none" ? "contents" : "none");
-          }
-          var segundaHierarquia2 =
-            categoriaExibirNomes.selectAll('[class^="ocultar"]');
-          if (segundaHierarquia2.size() > 0) {
-            segundaHierarquia2.style("display", "none");
-          }
-
-          var terceiraHierarquia = categoriaExibirNomes.selectAll('[class^="row-linhaEvento-"]');
-          if (terceiraHierarquia) {
-            terceiraHierarquia.style("display", terceiraHierarquia.style("display") === "none" ? "contents" : "none");
-          }
-        } else {
-          try {
-            if (categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) {
-              var filhos = categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`);
-              filhos.forEach(function (filho) {
-                filho.style.display = "contents";
-              });
-            }
-            if (categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-linhaEvento-"]`).length > 0) {
-              // if (categoriaExibirNomes.querySelectorAll(`.${e} > [class*="row-linhaEvento-"]`).length > 0) {
-              console.log("categoriaExibirNomes.querySelectorAll")
-              var filhos = categoriaExibirNomes.nodes()[0].querySelectorAll(`.${e} > [class*="row-linhaEvento-"]`);
-              //   var filhos = categoriaExibirNomes.querySelectorAll(`.${e} > [class*="row-linhaEvento-"]`);
-              filhos.forEach(function (filho) {
-                filho.style.display = "contents";
-              });
-            }
-          } catch (error) { }
-        }
-      }
-    } else {
-      console.log("falha em: if (categoriaExibirNomes.nodes().length > 0) ")
-    }
-
-    console.log("parte 2!!!!")
     var categoriaExibirEventos = svgHierarquiaEventos.selectAll('[class^="' + e + '"]');
-    if (categoriaExibirEventos.nodes().length > 0) {
-      var eventoDivEvento = categoriaExibirEventos.select('[class^="evento-div"]');
-      if (eventoDivEvento) {
-        eventoDivEvento.style("display", eventoDivEvento.style("display") === "none" ? "block" : "none");
+    if (categoriaExibirNomes.nodes().length > 0) {
+      // var testeModulo = categoriaExibirNomes.selectAll('[class^="row-modulo-"]');
+      var testeModulo = categoriaExibirNomes.selectAll(`:scope > [class^="row-modulo-"]`);
+      // console.log("testeModulo row-modulo- : ", testeModulo)
+      // console.log("testeModulo row-modulo-.nodes().length : ", testeModulo.nodes().length)
+      if(testeModulo.nodes().length > 0){
+        var testeModulo1 = categoriaExibirNomes.selectAll(`:scope > [class^="row-modulo-"]`);
+        testeModulo1.nodes().forEach((t2) => {
+          const selecao2 = d3.select(t2);
+          selecao2.nodes()[0].style.display = "contents";
+        })
+        
+        
+        var testeModulo2 = categoriaExibirEventos.selectAll(`:scope > [class^="row-modulo-"]`);
+        testeModulo2.nodes().forEach((t2) => {
+          const selecao2 = d3.select(t2);
+          selecao2.nodes()[0].style.display = "contents";
+        })
+        var eventoDivEvento = categoriaExibirEventos.select('[class^="evento-div"]');
+        if (eventoDivEvento) {
+          eventoDivEvento.style("display", eventoDivEvento.style("display") === "none" ? "block" : "none");
+        }
+        // var testeModulo2 = categoriaExibirEventos.selectAll(`:scope > [class^="tr-modulo-"]`);
+        var testeModulo2 = categoriaExibirEventos.selectAll('[class^="tr-modulo-"]');
+        testeModulo2.nodes().forEach((t3) => {
+          const selecao2 = d3.select(t3);
+          selecao2.classed("showLinhaAlternada", true);
+        })
       }
 
-      //!TODO rgb(204,0,0) verificar a logica abaixo pois pode ser otimizada para uso parecido do else .querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0)
-      var segundaHierarquiaEvento = categoriaExibirEventos.selectAll('[class^="row-modulo2-"]');
 
-      if (segundaHierarquiaEvento) {
-        if (!categoriaExibirEventos.selectAll('[class^="ocultar"]').empty()) {
-          var segundaHierarquia2Evento = categoriaExibirEventos.selectAll('[class^="row-modulo2-null"]');
-          if (segundaHierarquia2Evento) {
-            segundaHierarquia2Evento.style("display", segundaHierarquia2Evento.style("display") === "none" ? "contents" : "none");
-          }
-
-          var segundaHierarquia2Evento =
-            categoriaExibirEventos.selectAll('[class^="ocultar"]');
-          if (segundaHierarquia2Evento.size() > 0) {
-            segundaHierarquia2Evento.style("display", "none");
-          }
-
-          var terceiraHierarquiaEvento = categoriaExibirEventos.selectAll('[class^="row-linhaEvento-"]');
-          if (terceiraHierarquiaEvento) {
-            terceiraHierarquiaEvento.style("display", terceiraHierarquiaEvento.style("display") === "none" ? "contents" : "none");
-          }
-        } else {
-          try {
-            if (categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`).length > 0) {
-              var filhosEvento = categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-modulo2-"]`);
-              filhosEvento.forEach(function (filho) {
-                filho.style.display = "contents";
-              });
-            }
-            if (
-              categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-linhaEvento-"]`).length > 0) {
-              var filhosEvento = categoriaExibirEventos.nodes()[0].querySelectorAll(`.${e} > [class*="row-linhaEvento-"]`);
-              filhosEvento.forEach(function (filho) {
-                filho.style.display = "contents";
-              });
-            }
-          } catch (error) { }
+      //bloco para evento
+      var testeNome = categoriaExibirNomes.selectAll(`:scope > [class^="row-linhaEvento-"]`);
+      // var testeNome = categoriaExibirNomes.selectAll('[class^="row-linhaEvento-"]');
+      // console.log("testeNome row-linhaEvento- : ", testeNome)
+      // console.log("testeNome testeNome.group.length : ", testeNome.nodes().length)
+      if(testeNome.nodes().length > 0){
+        // console.log("testeNome.nodes().length > 0")
+        var testeEventos = categoriaExibirEventos.selectAll(`:scope > [class^="row-linhaEvento-"]`);
+        // var testeEventos = categoriaExibirEventos.selectAll('[class^="row-linhaEvento-"]');
+        var alternadoLinhaEvento = categoriaExibirEventos.selectAll(".linha-evento");
+        testeNome.nodes().forEach((t1) => {
+          const selecao1 = d3.select(t1);
+          selecao1.nodes()[0].style.display = "contents";
+        })
+        testeEventos.nodes().forEach((t2) => {
+          const selecao2 = d3.select(t2);
+          selecao2.nodes()[0].style.display = "contents";
+        })
+        alternadoLinhaEvento.nodes().forEach((t3) => {
+          const selecao2 = d3.select(t3);
+          selecao2.classed("showLinhaAlternada", true);
+        })
+        var eventoDivEvento = categoriaExibirEventos.select('[class^="evento-div"]');
+        if (eventoDivEvento) {
+          eventoDivEvento.style("display", eventoDivEvento.style("display") === "none" ? "block" : "none");
+        }
+        var eventoHide = categoriaExibirNomes.select('[class^="iconPlus-div"]');
+        if (eventoHide) {
+          eventoHide.style("display", eventoHide.style("display") === "none" ? "block" : "none");
+        }
+        var eventoShow = categoriaExibirNomes.select('[class^="iconMinus-div"]');
+        if (eventoShow) {
+          eventoShow.style("display", eventoShow.style("display") === "none" ? "block" : "none");
         }
       }
     }
@@ -849,6 +807,8 @@ function calculaDatasInicioFim(jsonData) {
   });
 }
 
+//!
+//! verificar necessidade dessa funçao(a mesma nao foi adicionada a documentaçao tecnica)
 function tamanhoEscala() {
   console.log("tamanhoEscala dataInicio: " + DATA_INICIAL);
   console.log("tamanhoEscala dataFim: " + DATA_FINAL);
@@ -901,10 +861,7 @@ function timeScaleAxisNice() {
   return tamanhoData;
 }
 
-const xScale = d3
-  .scaleTime()
-  .domain([DATA_INICIAL, DATA_FINAL])
-  .range([0, tamanhoScalaExib]);
+const xScale = d3.scaleTime().domain([DATA_INICIAL, DATA_FINAL]).range([0, tamanhoScalaExib]);
 
 function timeScale(data) {
   var parser = d3.timeParse("%d/%m/%Y");
@@ -2398,9 +2355,8 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
       }
 
       barraGeralTeste2
-        .on("mouseover", function (event, d) {
-
-          showTooltip(dadosComprimidos, event, d)
+        .on("mouseover", function (event) {
+          showTooltip(dadosComprimidos, event, "")
 
           // var posX = event.pageX;
           // var posY = event.pageY;
@@ -2452,11 +2408,7 @@ function alternaCores() {
   });
 }
 
-function predecessorSucessor(
-  data,
-  tableModulosHierarquiaEventos,
-  adicionaIsTrue
-) {
+function predecessorSucessor(data, tableModulosHierarquiaEventos, adicionaIsTrue) {
   // console.log("predecessorSucessor data: " + data)
 
   const tagSVGSetas = d3.selectAll(".svg-setas");
@@ -2651,13 +2603,7 @@ function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
   }
 }
 
-function setasPredecessor(
-  svg,
-  predecessorPosX,
-  predecessorPosY,
-  atualPosX,
-  atualPosY
-) {
+function setasPredecessor(svg, predecessorPosX, predecessorPosY, atualPosX, atualPosY) {
   var tamanhoLinha = 1;
 
   // Criando o quadrado
@@ -2721,11 +2667,7 @@ function setasPredecessor(
     .attr("marker-end", "url(#arrow)"); // Adicionando a seta
 }
 
-/*
-1) Customizar o tamanho, fonte, cor da letra no texto das hierarquias.
-
-2) Customizar a cor de fundo no texto das hierarquias e das barras dos eventos.
-*/
+//Usado para alterar os dados default do visual para os dados personalizados
 function dadosCustom(customData) {
   var tamanhoFonte = "16px";
   var corFonte = "#FFFFFF";
@@ -2826,23 +2768,19 @@ function getTooltipContent(dItem, index) {
   return `
     <b>${dItem.evento}</b><br>
     <div style="margin-top: 4px;">
-      <span style="display:inline-block;width:10px;height:10px;background:#2C3E50;margin-right:5px;border-radius:2px;"></span>
+      ${index == "" ? `` : `<span style="display:inline-block;width:10px;height:10px;background:#2C3E50;margin-right:5px;border-radius:2px;"></span>`}
       <b>Realizado:</b> ${formatDate(dItem.dataInicio)} até ${formatDate(dItem.dataFim)}
     </div>
     ${dItem.previstoInicio && dItem.previstoFinal
       ? `<div style="margin-top: 4px;">
-            <span style="display:inline-block;width:10px;height:10px;background:${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]
-      };margin-right:5px;border-radius:2px;"></span>
+            <span style="display:inline-block;width:10px;height:10px;background:${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]};
+            margin-right:5px;border-radius:2px;"></span>
             <b>Previsto:</b> ${formatDate(dItem.previstoInicio)} até ${formatDate(dItem.previstoFinal)}
           </div>`
       : ""
     }
-    ${dItem.predecessor
-      ? `<div style="margin-top: 4px;"><b>Predecessor:</b> ${dItem.predecessor}</div>`
-      : ""
-    }
     ${dItem.idEvento
-      ? `<div style="margin-top: 4px;"><b>ID:</b> ${dItem.idEvento}</div>`
+      ? `<div style="margin-top: 4px;"><b>ID:</b> ${dItem.idEvento}   ${dItem.predecessor ? `<b> - Predecessor:</b> ${dItem.predecessor}` : ""}</div>`
       : ""
     }
     ${dItem.toolTipDados
@@ -2855,7 +2793,7 @@ function getTooltipContent(dItem, index) {
 // Função para mostrar o tooltip
 // function showTooltip(dItem, posX, posY, index) {
 function showTooltip(dItem, event, index) {
-  console.log("showTooltip: ", dItem)
+  // console.log("showTooltip: ", dItem)
   var posX = event.pageX;
   var posY = event.pageY;
 

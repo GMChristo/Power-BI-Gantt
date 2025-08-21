@@ -1,1 +1,9 @@
+//!
+
+//! verificar a funçao abaixo
+
 //! verificar essa classe ocultar
+
+//! verificar necessidade dessa funçao(a mesma nao foi adicionada a documentaçao tecnica)
+
+//!TODO

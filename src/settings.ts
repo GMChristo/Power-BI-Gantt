@@ -20,11 +20,6 @@ class DataPointCardSettings extends FormattingSettingsCard {
         name: "fontColor",
         displayName: "Cor da fonte",
         value: { value: "" }
-    });      
-    showAllDataPoints = new formattingSettings.ToggleSwitch({
-        name: "showAllDataPoints",
-        displayName: "Show all",
-        value: true
     });
     fontFamily = new formattingSettings.ItemDropdown({
         name: "fontFamily",
@@ -44,7 +39,7 @@ class DataPointCardSettings extends FormattingSettingsCard {
 
     name: string = "dataPoint";
     displayName: string = "Customização de Fonte";
-    slices: Array<FormattingSettingsSlice> = [this.fontSize, this.fontColor, this.showAllDataPoints, this.fontFamily];
+    slices: Array<FormattingSettingsSlice> = [this.fontSize, this.fontColor, this.fontFamily];
 }
 
 class CustomCardSettings extends FormattingSettingsCard {
@@ -52,17 +47,17 @@ class CustomCardSettings extends FormattingSettingsCard {
         name: "corHierarquiaUm",
         displayName: "Cor 1",
         value: { value: "" }
-    }); 
+    });
     corHierarquiaDois = new formattingSettings.ColorPicker({
         name: "corHierarquiaDois",
         displayName: "Cor 2",
         value: { value: "" }
-    }); 
+    });
     corHierarquiaTres = new formattingSettings.ColorPicker({
         name: "corHierarquiaTres",
         displayName: "Cor 3",
         value: { value: "" }
-    }); 
+    });
 
     name: string = "customSettings";
     displayName: string = "Cores Hierarquia/Evento";

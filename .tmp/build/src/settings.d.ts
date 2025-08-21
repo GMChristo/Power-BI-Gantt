@@ -8,7 +8,6 @@ import FormattingSettingsModel = formattingSettings.Model;
 declare class DataPointCardSettings extends FormattingSettingsCard {
     fontSize: formattingSettings.NumUpDown;
     fontColor: formattingSettings.ColorPicker;
-    showAllDataPoints: formattingSettings.ToggleSwitch;
     fontFamily: formattingSettings.ItemDropdown;
     name: string;
     displayName: string;

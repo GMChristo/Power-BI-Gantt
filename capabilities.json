@@ -100,11 +100,6 @@
                         }
                     }
                 },
-                "showAllDataPoints": {
-                    "type": {
-                        "bool": true
-                    }
-                },
                 "fontFamily": {
                     "type": {
                         "enumeration": [
