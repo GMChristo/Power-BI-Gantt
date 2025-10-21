@@ -12,13 +12,23 @@
             "kind": "Grouping"
         },
         {
-            "name": "dataInicial",
-            "displayName": "Data Inicio/Milestone",
+            "name": "dataInicialPrev",
+            "displayName": "Data Inicio Prevista",
             "kind": "Grouping"
         },
         {
-            "name": "dataFinal",
-            "displayName": "Data Fim",
+            "name": "dataFinalPrev",
+            "displayName": "Data Final Prevista",
+            "kind": "Grouping"
+        },
+        {
+            "name": "dataInicialReal",
+            "displayName": "Data Inicio Realizado",
+            "kind": "Grouping"
+        },
+        {
+            "name": "dataFinalReal",
+            "displayName": "Data Final Realizado",
             "kind": "Grouping"
         },
         {
@@ -54,16 +64,6 @@
         {
             "name": "caminhoCritico",
             "displayName": "Caminho Critico",
-            "kind": "Grouping"
-        },
-        {
-            "name": "previstoInicio",
-            "displayName": "Previsto Inicio",
-            "kind": "Grouping"
-        },
-        {
-            "name": "previstoFinal",
-            "displayName": "Previsto Final",
             "kind": "Grouping"
         },
         {
@@ -166,12 +166,22 @@
                         },
                         {
                             "for": {
-                                "in": "dataInicial"
+                                "in": "dataInicialPrev"
                             }
                         },
                         {
                             "for": {
-                                "in": "dataFinal"
+                                "in": "dataFinalPrev"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "dataInicialReal"
+                            }
+                        },
+                        {
+                            "for": {
+                                "in": "dataFinalReal"
                             }
                         },
                         {
@@ -211,16 +221,6 @@
                         },
                         {
                             "for": {
-                                "in": "previstoInicio"
-                            }
-                        },
-                        {
-                            "for": {
-                                "in": "previstoFinal"
-                            }
-                        },
-                        {
-                            "for": {
                                 "in": "toolTipDados"
                             }
                         }
@@ -232,10 +232,10 @@
                     "agrupamento": {
                         "max": 1
                     },
-                    "dataInicio": {
+                    "dataInicialPrev": {
                         "max": 1
                     },
-                    "dataFim": {
+                    "dataFinalPrev": {
                         "max": 1
                     },
                     "escala": {

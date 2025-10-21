@@ -12,10 +12,6 @@ import DataViewMatrix = powerbi.DataViewMatrix;
 import * as d3 from "d3";
 type Selection<T extends d3.BaseType> = d3.Selection<T, any, any, any>;
 
-import EnumerateVisualObjectInstancesOptions = powerbi.EnumerateVisualObjectInstancesOptions;
-import VisualObjectInstance = powerbi.VisualObjectInstance;
-import VisualObjectInstanceEnumeration = powerbi.VisualObjectInstanceEnumeration;
-
 //imports usado para personalizaçao
 import { FormattingSettingsService } from "powerbi-visuals-utils-formattingmodel";
 import { VisualFormattingSettingsModel } from "./settings";
@@ -107,7 +103,7 @@ export class Visual implements IVisual {
       .append("div")
       .classed("card", true);
     svgBase = this.svgRootHTML;
-    console.log("version: " + "3.0.1.4");
+    console.log("version: " + "3.0.1.6");
   }
 
   public update(options: VisualUpdateOptions) {
@@ -123,6 +119,7 @@ export class Visual implements IVisual {
     customData = this.formattingSettings.cards;
     //custom[0] é o card "Customização de Fonte"
     //custom[1] é o card "Personalizados"
+    // console.log("customData: " + JSON.stringify(customData))
     // console.log("customData: " + JSON.stringify(customData))
     // console.log("update2")
     dadosCustom(customData);
@@ -420,7 +417,7 @@ function defineEscala() {
 //! verificar a funçao abaixo
 //!
 function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
-  console.log("dadosExpandidos exibir: " + exibir);
+  // console.log("dadosExpandidos exibir: " + exibir);
   //class="row-modulo-1-1-Logística Naru e Urissanê (Contrataçao Direta)" -> primeiro nivel
   //class="row-linhaEvento-1-DIP Estratégia Suprimentos" -> evento
   exibir.forEach((e) => {
@@ -432,14 +429,14 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
       var testeModulo = categoriaExibirNomes.selectAll(`:scope > [class^="row-modulo-"]`);
       // console.log("testeModulo row-modulo- : ", testeModulo)
       // console.log("testeModulo row-modulo-.nodes().length : ", testeModulo.nodes().length)
-      if(testeModulo.nodes().length > 0){
+      if (testeModulo.nodes().length > 0) {
         var testeModulo1 = categoriaExibirNomes.selectAll(`:scope > [class^="row-modulo-"]`);
         testeModulo1.nodes().forEach((t2) => {
           const selecao2 = d3.select(t2);
           selecao2.nodes()[0].style.display = "contents";
         })
-        
-        
+
+
         var testeModulo2 = categoriaExibirEventos.selectAll(`:scope > [class^="row-modulo-"]`);
         testeModulo2.nodes().forEach((t2) => {
           const selecao2 = d3.select(t2);
@@ -463,7 +460,7 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
       // var testeNome = categoriaExibirNomes.selectAll('[class^="row-linhaEvento-"]');
       // console.log("testeNome row-linhaEvento- : ", testeNome)
       // console.log("testeNome testeNome.group.length : ", testeNome.nodes().length)
-      if(testeNome.nodes().length > 0){
+      if (testeNome.nodes().length > 0) {
         // console.log("testeNome.nodes().length > 0")
         var testeEventos = categoriaExibirEventos.selectAll(`:scope > [class^="row-linhaEvento-"]`);
         // var testeEventos = categoriaExibirEventos.selectAll('[class^="row-linhaEvento-"]');
@@ -651,27 +648,45 @@ function hierarquiaTree(element, lvl, dataMap) {
     } else if ("levelSourceIndex" in element[i]) {
       var cat = null; //categoria
       var sTipo = null; //subTipo = Agrupamento
-      var dIni = null; //dataInicial
-      var dFim = null; //dataFim
+      // var dIni = null; //dataInicial
+      // var dFim = null; //dataFim
+      var dIniPrev = null; //dataInicial
+      var dFimPrev = null; //dataFim
+      // var previstoInicio = null; //previstoInicio
+      // var previstoFinal = null; //previstoFinal
+      var dIniReal = null; //previstoInicio
+      var dFimReal = null; //previstoFinal
       var rot = []; //rotulo
       var icon = null; //icone
       var cor = null; //cor
       var idEvento = null; //id do Evento
       var predecessor = null; //predecessor
       var caminhoCritico = null; //caminhoCritico
-      var previstoInicio = null; //previstoInicio
-      var previstoFinal = null; //previstoFinal
       var toolTipDados = []; //toolTipDados
+
+      // console.log("dadosEstruturais: " + JSON.stringify(dadosEstruturais))
 
       dadosEstruturais.forEach((e) => {
         if (e.roleName == "category") {
           cat = e.index;
         } else if (e.roleName == "agrupamento") {
           sTipo = e.index;
-        } else if (e.roleName == "dataInicial") {
-          dIni = e.index;
-        } else if (e.roleName == "dataFinal") {
-          dFim = e.index;
+        // } else if (e.roleName == "dataInicial") {
+        //   dIni = e.index;
+        // } else if (e.roleName == "dataFinal") {
+        //   dFim = e.index;
+        } else if (e.roleName == "dataInicialPrev") {
+          dIniPrev = e.index;
+        } else if (e.roleName == "dataFinalPrev") {
+          dFimPrev = e.index;
+        // } else if (e.roleName == "previstoInicio") {
+        //   previstoInicio = e.index;
+        // } else if (e.roleName == "previstoFinal") {
+        //   previstoFinal = e.index;
+        } else if (e.roleName == "dataInicialReal") {
+          dIniReal = e.index;
+        } else if (e.roleName == "dataFinalReal") {
+          dFimReal = e.index;
         } else if (e.roleName == "rotulo") {
           rot.push(e.index);
         } else if (e.roleName == "icone") {
@@ -685,21 +700,18 @@ function hierarquiaTree(element, lvl, dataMap) {
           temPredecessor = true;
         } else if (e.roleName == "caminhoCritico") {
           caminhoCritico = e.index;
-        } else if (e.roleName == "previstoInicio") {
-          previstoInicio = e.index;
-        } else if (e.roleName == "previstoFinal") {
-          previstoFinal = e.index;
         } else if (e.roleName == "toolTipDados") {
           toolTipDados.push(e.index);
         }
       });
 
       if (dataMap.length == 0) {
+        // console.log("element[predecessor].value: " + typeof(element[predecessor].value) + " - " + element[predecessor].value)
         dataMap.push({
           evento: element[cat].value,
           ...(element[sTipo] && { agrupamento: element[sTipo].value }),
-          dataInicio: element[dIni].value,
-          dataFim: element[dFim].value,
+          dataInicio: element[dIniPrev].value,
+          dataFim: element[dFimPrev].value,
           ...(rot
             .map((r) => element[r].value)
             .filter((v) => v !== null && v !== undefined && v !== "null")
@@ -713,16 +725,24 @@ function hierarquiaTree(element, lvl, dataMap) {
           ...(element[cor] && { cor: element[cor].value }),
           ...(element[idEvento] && { idEvento: element[idEvento].value }),
           ...(element[predecessor] && {
-            predecessor: element[predecessor].value,
+            predecessor: String(element[predecessor].value),
+            // predecessor: element[predecessor].value.toString(),
+            // predecessor: element[predecessor].value,
           }),
           ...(element[caminhoCritico] && {
             caminhoCritico: element[caminhoCritico].value,
           }),
-          ...(element[previstoInicio] && {
-            previstoInicio: element[previstoInicio].value,
+          // ...(element[previstoInicio] && {
+          //   previstoInicio: element[previstoInicio].value,
+          // }),
+          // ...(element[previstoFinal] && {
+          //   previstoFinal: element[previstoFinal].value,
+          // }),
+          ...(element[dIniReal] && {
+            dIniReal: element[dIniReal].value,
           }),
-          ...(element[previstoFinal] && {
-            previstoFinal: element[previstoFinal].value,
+          ...(element[dFimReal] && {
+            dFimReal: element[dFimReal].value,
           }),
           // ...(element[toolTipDados] && {
           //   toolTipDados: element[toolTipDados].value,
@@ -737,6 +757,8 @@ function hierarquiaTree(element, lvl, dataMap) {
               .join(" <br> "),
           }),
         });
+        // console.log("teste2222")
+
         return dataMap;
       } else {
         return "";
@@ -1865,7 +1887,15 @@ function hierarquiaEvento(
           .attr("fill", function () {
             // console.log("ditem verifica cor: " + JSON.stringify(dItem));
             if (dItem.cor) {
-              return dItem.cor;
+              if (dItem.cor.startsWith('#')) {
+                // console.log("tem essa budega sim")
+                return dItem.cor;
+              }
+              else {
+                // console.log("nao tem esse treco nao")
+                return "#" + dItem.cor;
+              }
+              // return dItem.cor;
             } else {
               // return "#F2A840"
               return Object.values(corPrimaria)[
@@ -1903,7 +1933,15 @@ function hierarquiaEvento(
           .append("rect")
           .attr("fill", function () {
             if (dItem.cor) {
-              return dItem.cor;
+              if (dItem.cor.startsWith('#')) {
+                // console.log("tem essa budega sim")
+                return dItem.cor;
+              }
+              else {
+                // console.log("nao tem esse treco nao")
+                return "#" + dItem.cor;
+              }
+              // return dItem.cor;
             } else {
               return Object.values(
                 corPrimaria
@@ -1942,11 +1980,20 @@ function hierarquiaEvento(
       }
       //? Adiciona barra "Previsto" em verde (#008542) se houver datas e for diferente da real
       // if (dItem.previstoInicio && dItem.previstoFinal && dItem.previstoFinal !== dItem.dataFim) {
-      if (dItem.previstoInicio && dItem.previstoFinal) {
-        const dataInicioPrevisto = timeScale(dItem.previstoInicio);
-        const dataFimPrevisto = timeScale(dItem.previstoFinal);
+      // if (dItem.previstoInicio && dItem.previstoFinal) {
+      // if (dItem.DIniReal && dItem.previstoFinal) {
+        // console.log("if (dItem.dIniReal && dItem.dFimPrev) antes")
+        console.log("dItem: " + JSON.stringify(dItem))
+        if (dItem.dIniReal && dItem.dataFim) {
+          console.log("if (dItem.dIniReal && dItem.dFimPrev) depois")
+        // const dataInicioPrevisto = timeScale(dItem.previstoInicio);
+        const dataInicioPrevisto = timeScale(dItem.dIniReal);
+        // const dataFimPrevisto = timeScale(dItem.previstoFinal);
+        const dataFimPrevisto = timeScale(dItem.dataFim);
         const tamanhoPrevisto = dataFimPrevisto - dataInicioPrevisto;
         if (dataInicioPrevisto < timeScale(DATA_FINAL)) {
+              console.log("barra-previsto: " + dataInicio)
+
           var eventoPrevisto = row3HierarquiaEventos
             .append("svg")
             // .attr("transform", `translate(${timeScale(dItem.previstoInicio)}, 0)`)
@@ -1973,7 +2020,11 @@ function hierarquiaEvento(
           eventoPrevisto
             .append("rect")
             .attr("class", "barra-previsto")
-            .attr("x", dataInicioPrevisto - dataInicio)
+            // .attr("x", dataInicioPrevisto - dataInicio)
+            .attr("x", function(){
+              // console.log("barra-previsto: " + dataInicio)
+              return dataInicioPrevisto - dataInicio
+            })
             .attr("y", 0)
             .attr("height", 6)
             .attr("width", tamanhoPrevisto)
@@ -2311,9 +2362,20 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
           .attr("fill", function (f) {
             if (dadosComprimidos.cor) {
               // return "#" + dadosComprimidos.cor
-              return dadosComprimidos.cor;
+              if (dadosComprimidos.cor.startsWith('#')) {
+                // console.log("tem essa budega sim")
+                return dadosComprimidos.cor;
+              }
+              else {
+                // console.log("nao tem esse treco nao")
+                return "#" + dadosComprimidos.cor;
+              }
+              // return dadosComprimidos.cor;
             } else {
               return "#008542";
+              // return Object.values(corPrimaria)[
+              //   i % Object.keys(corPrimaria).length
+              // ];
             }
           })
           .attr("width", dadosComprimidos.width)
@@ -2340,7 +2402,15 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
           .attr("fill", function (f) {
             if (dadosComprimidos.cor) {
               //   return "#" + dadosComprimidos.cor;
-              return dadosComprimidos.cor;
+              if (dadosComprimidos.cor.startsWith('#')) {
+                // console.log("tem essa budega sim")
+                return dadosComprimidos.cor;
+              }
+              else {
+                // console.log("nao tem esse treco nao")
+                return "#" + dadosComprimidos.cor;
+              }
+              // return dadosComprimidos.cor;
             } else {
               return "#F2A840";
             }
@@ -2419,6 +2489,7 @@ function predecessorSucessor(data, tableModulosHierarquiaEventos, adicionaIsTrue
   if (adicionaIsTrue == true) {
     // console.log("tableModulosHierarquiaEventos: " + JSON.stringify(tableModulosHierarquiaEventos.node().outerHTML))
     var resultado = pesquisaFilhos(data);
+    console.log("resultado: " + resultado)
     // console.log("predecessorSucessor - predecessoresDadosAdd: " + JSON.stringify(predecessoresDadosAdd))
 
     // var idsFilhos = resultado.idsFilhos
@@ -2517,9 +2588,15 @@ function pesquisaFilhos(selecionado) {
 
   if (itemEncontrado) {
     dadosFilhos = itemEncontrado.dados; // Atribui os dados encontrados à variável dadosFilhos
+    console.log("dadosFilhos: ", dadosFilhos)
     var idDadosAdd = [];
     var predecessoresDadosAdd = [];
     dadosFilhos.forEach((d) => {
+      if(d.levelValues[0]){
+        console.log("d.levelValues[0].idEvento: ", d.levelValues[0])
+      }else{
+        console.log("d.levelValues[0].idEvento: ", d)
+      }
       // console.log(`Evento: "${d.levelValues[0].evento}" -  id: "${d.levelValues[0].idEvento}"`);
       // idsFilhos.push(d.levelValues[0].idEvento)
       idDadosAdd.push(d.levelValues[0].idEvento);
@@ -2762,20 +2839,22 @@ function ajustaFonte() {
   }
 }
 
-
 // Função para gerar o conteúdo HTML do tooltip
 function getTooltipContent(dItem, index) {
+//  console.log("index tooltip: ", index)
+//  console.log("dItem.cor tooltip: ", dItem.cor)
+//  <span style="display:inline-block;width:10px;height:10px;background:${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]};
   return `
     <b>${dItem.evento}</b><br>
     <div style="margin-top: 4px;">
-      ${index == "" ? `` : `<span style="display:inline-block;width:10px;height:10px;background:#2C3E50;margin-right:5px;border-radius:2px;"></span>`}
-      <b>Realizado:</b> ${formatDate(dItem.dataInicio)} até ${formatDate(dItem.dataFim)}
-    </div>
-    ${dItem.previstoInicio && dItem.previstoFinal
-      ? `<div style="margin-top: 4px;">
-            <span style="display:inline-block;width:10px;height:10px;background:${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]};
+    <span style="display:inline-block;width:10px;height:10px;background:#${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]};
             margin-right:5px;border-radius:2px;"></span>
-            <b>Previsto:</b> ${formatDate(dItem.previstoInicio)} até ${formatDate(dItem.previstoFinal)}
+      <b>Previsto:</b> ${formatDate(dItem.dataInicio)} até ${formatDate(dItem.dataFim)}
+    </div>
+    ${dItem.dIniReal && dItem.dataFim
+      ? `<div style="margin-top: 4px;">
+      <span style="display:inline-block;width:10px;height:10px;background:#2C3E50;margin-right:5px;border-radius:2px;"></span>
+            <b>Realizado:</b> ${formatDate(dItem.dIniReal)} até ${formatDate(dItem.dataFim)}
           </div>`
       : ""
     }
