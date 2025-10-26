@@ -103,7 +103,7 @@ export class Visual implements IVisual {
       .append("div")
       .classed("card", true);
     svgBase = this.svgRootHTML;
-    console.log("version: " + "3.0.1.6");
+    console.log("version: " + "3.0.1.7");
   }
 
   public update(options: VisualUpdateOptions) {
@@ -417,25 +417,17 @@ function defineEscala() {
 //! verificar a funçao abaixo
 //!
 function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
-  // console.log("dadosExpandidos exibir: " + exibir);
-  //class="row-modulo-1-1-Logística Naru e Urissanê (Contrataçao Direta)" -> primeiro nivel
-  //class="row-linhaEvento-1-DIP Estratégia Suprimentos" -> evento
   exibir.forEach((e) => {
-    // console.log("exibir.forEach: " + e);
     var categoriaExibirNomes = svgHierarquiaNomes.selectAll('[class^="' + e + '"]');
     var categoriaExibirEventos = svgHierarquiaEventos.selectAll('[class^="' + e + '"]');
     if (categoriaExibirNomes.nodes().length > 0) {
-      // var testeModulo = categoriaExibirNomes.selectAll('[class^="row-modulo-"]');
       var testeModulo = categoriaExibirNomes.selectAll(`:scope > [class^="row-modulo-"]`);
-      // console.log("testeModulo row-modulo- : ", testeModulo)
-      // console.log("testeModulo row-modulo-.nodes().length : ", testeModulo.nodes().length)
       if (testeModulo.nodes().length > 0) {
         var testeModulo1 = categoriaExibirNomes.selectAll(`:scope > [class^="row-modulo-"]`);
         testeModulo1.nodes().forEach((t2) => {
           const selecao2 = d3.select(t2);
           selecao2.nodes()[0].style.display = "contents";
         })
-
 
         var testeModulo2 = categoriaExibirEventos.selectAll(`:scope > [class^="row-modulo-"]`);
         testeModulo2.nodes().forEach((t2) => {
@@ -446,7 +438,6 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
         if (eventoDivEvento) {
           eventoDivEvento.style("display", eventoDivEvento.style("display") === "none" ? "block" : "none");
         }
-        // var testeModulo2 = categoriaExibirEventos.selectAll(`:scope > [class^="tr-modulo-"]`);
         var testeModulo2 = categoriaExibirEventos.selectAll('[class^="tr-modulo-"]');
         testeModulo2.nodes().forEach((t3) => {
           const selecao2 = d3.select(t3);
@@ -454,16 +445,10 @@ function dadosExpandidos(svgHierarquiaNomes, svgHierarquiaEventos) {
         })
       }
 
-
       //bloco para evento
       var testeNome = categoriaExibirNomes.selectAll(`:scope > [class^="row-linhaEvento-"]`);
-      // var testeNome = categoriaExibirNomes.selectAll('[class^="row-linhaEvento-"]');
-      // console.log("testeNome row-linhaEvento- : ", testeNome)
-      // console.log("testeNome testeNome.group.length : ", testeNome.nodes().length)
       if (testeNome.nodes().length > 0) {
-        // console.log("testeNome.nodes().length > 0")
         var testeEventos = categoriaExibirEventos.selectAll(`:scope > [class^="row-linhaEvento-"]`);
-        // var testeEventos = categoriaExibirEventos.selectAll('[class^="row-linhaEvento-"]');
         var alternadoLinhaEvento = categoriaExibirEventos.selectAll(".linha-evento");
         testeNome.nodes().forEach((t1) => {
           const selecao1 = d3.select(t1);
@@ -648,12 +633,8 @@ function hierarquiaTree(element, lvl, dataMap) {
     } else if ("levelSourceIndex" in element[i]) {
       var cat = null; //categoria
       var sTipo = null; //subTipo = Agrupamento
-      // var dIni = null; //dataInicial
-      // var dFim = null; //dataFim
       var dIniPrev = null; //dataInicial
       var dFimPrev = null; //dataFim
-      // var previstoInicio = null; //previstoInicio
-      // var previstoFinal = null; //previstoFinal
       var dIniReal = null; //previstoInicio
       var dFimReal = null; //previstoFinal
       var rot = []; //rotulo
@@ -664,25 +645,15 @@ function hierarquiaTree(element, lvl, dataMap) {
       var caminhoCritico = null; //caminhoCritico
       var toolTipDados = []; //toolTipDados
 
-      // console.log("dadosEstruturais: " + JSON.stringify(dadosEstruturais))
-
       dadosEstruturais.forEach((e) => {
         if (e.roleName == "category") {
           cat = e.index;
         } else if (e.roleName == "agrupamento") {
           sTipo = e.index;
-        // } else if (e.roleName == "dataInicial") {
-        //   dIni = e.index;
-        // } else if (e.roleName == "dataFinal") {
-        //   dFim = e.index;
         } else if (e.roleName == "dataInicialPrev") {
           dIniPrev = e.index;
         } else if (e.roleName == "dataFinalPrev") {
           dFimPrev = e.index;
-        // } else if (e.roleName == "previstoInicio") {
-        //   previstoInicio = e.index;
-        // } else if (e.roleName == "previstoFinal") {
-        //   previstoFinal = e.index;
         } else if (e.roleName == "dataInicialReal") {
           dIniReal = e.index;
         } else if (e.roleName == "dataFinalReal") {
@@ -706,7 +677,6 @@ function hierarquiaTree(element, lvl, dataMap) {
       });
 
       if (dataMap.length == 0) {
-        // console.log("element[predecessor].value: " + typeof(element[predecessor].value) + " - " + element[predecessor].value)
         dataMap.push({
           evento: element[cat].value,
           ...(element[sTipo] && { agrupamento: element[sTipo].value }),
@@ -726,27 +696,16 @@ function hierarquiaTree(element, lvl, dataMap) {
           ...(element[idEvento] && { idEvento: element[idEvento].value }),
           ...(element[predecessor] && {
             predecessor: String(element[predecessor].value),
-            // predecessor: element[predecessor].value.toString(),
-            // predecessor: element[predecessor].value,
           }),
           ...(element[caminhoCritico] && {
             caminhoCritico: element[caminhoCritico].value,
           }),
-          // ...(element[previstoInicio] && {
-          //   previstoInicio: element[previstoInicio].value,
-          // }),
-          // ...(element[previstoFinal] && {
-          //   previstoFinal: element[previstoFinal].value,
-          // }),
           ...(element[dIniReal] && {
             dIniReal: element[dIniReal].value,
           }),
           ...(element[dFimReal] && {
             dFimReal: element[dFimReal].value,
           }),
-          // ...(element[toolTipDados] && {
-          //   toolTipDados: element[toolTipDados].value,
-          // }),
           ...(toolTipDados
             .map((td) => element[td].value)
             .filter((v) => v !== null && v !== undefined && v !== "null")
@@ -757,8 +716,6 @@ function hierarquiaTree(element, lvl, dataMap) {
               .join(" <br> "),
           }),
         });
-        // console.log("teste2222")
-
         return dataMap;
       } else {
         return "";
@@ -906,7 +863,6 @@ function setupScales(svg) {
     .append("g")
     .attr("class", "grid")
     .style("height", alturaRolagem + "px")
-    // .style("height", "1200px")
     .attr("transform", `translate(0, ${MARGIN_TOP})`)
     .call(
       d3
@@ -932,7 +888,6 @@ function setupScales(svg) {
 function fixedScales(svg) {
   const anoInicial = DATA_INICIAL.getFullYear();
   const mesInicial = DATA_INICIAL.getMonth(); // Lembre-se que os meses começam em 0 (Janeiro)
-
   const anoFinal = DATA_FINAL.getFullYear();
   const mesFinal = DATA_FINAL.getMonth();
 
@@ -1066,12 +1021,7 @@ function treeModulos2(data, svgHierarquiaNomes, svgHierarquiaEventos) {
 }
 
 // esssa funçao deve ser chamada quando é passado somente um array de itens
-function recursividadeHierarquiaArray(
-  data,
-  svgHierarquiaNomes,
-  svgHierarquiaEventos,
-  index
-) {
+function recursividadeHierarquiaArray(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
   var dadosRetornar = [];
   if (data[0].agrupamento) {
     var recursividadeHierarquiaNull = defineNivelHierarquicoComAgrupamento(
@@ -1095,12 +1045,7 @@ function recursividadeHierarquiaArray(
   return dadosRetornar;
 }
 
-function defineNivelHierarquicoComAgrupamento(
-  data,
-  svgHierarquiaNomes,
-  svgHierarquiaEventos,
-  index
-) {
+function defineNivelHierarquicoComAgrupamento(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
   var posRetorno = [];
   data.forEach((d) => {
     var eventoLinhaHierarquia = hierarquiaEvento(
@@ -1116,12 +1061,7 @@ function defineNivelHierarquicoComAgrupamento(
 }
 
 // esssa funçao deve ser chamada quando é passado somente um unico item
-function defineNivelHierarquico(
-  d,
-  svgHierarquiaNomes,
-  svgHierarquiaEventos,
-  index
-) {
+function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index) {
   if (d.level == 0) {
     if (index != 0) {
       var espacamentoNomes = svgHierarquiaNomes
@@ -1170,20 +1110,13 @@ function defineNivelHierarquico(
   }
 }
 
-function hierarquiaPrimeiroNivel(
-  data,
-  svgHierarquiaNomes,
-  svgHierarquiaEventos,
-  index
-) {
+function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
   // adiciona a estrutura inicial da parte de eventos (direita)
   var tableModulosHierarquiaEventos = svgHierarquiaEventos
     .append("table")
     .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
     .attr("id", "hierarquia1-evento")
-    // .style("background-color", "aqua")
     .style("height", tamanhoComponenteNome + 9 + "px")
-    // .style("height", "20px")
     .style("display", function () {
       if (data.level != 0) {
         return "none";
@@ -1200,8 +1133,6 @@ function hierarquiaPrimeiroNivel(
     })
     .style("display", "flex")
     .style("height", tamanhoComponenteNome + 5 + "px")
-    // .style("height", tamanhoComponenteNome + 4 + "px")
-    // .style("height", "25px")
     .style("width", tamanhoScalaExib + "px");
   // fim da adição da estrutura inicial da parte de eventos (direita)
 
@@ -1212,8 +1143,6 @@ function hierarquiaPrimeiroNivel(
     .attr("id", "hierarquia1-nome")
     .style("width", "305px")
     .style("height", tamanhoComponenteNome + "px")
-    // .style("height", "20px")
-    // .style("background-color", "#" + Object.values(corPrimaria)[index % Object.keys(corPrimaria).length])
     .style(
       "background-color",
       Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]
@@ -1235,7 +1164,6 @@ function hierarquiaPrimeiroNivel(
     .append("tr")
     .style("display", "flex")
     .style("height", tamanhoComponenteNome + "px")
-    // .style("height", "20px")
     .attr("class", "alterando")
     .style("width", function () {
       if (data.level == 0) return "max-content";
@@ -1244,7 +1172,6 @@ function hierarquiaPrimeiroNivel(
       }
     })
     .style("margin-bottom", "5px")
-    // .style("margin-bottom", "4px")
     .style("margin-left", function () {
       var margem = 15;
       return margem * data.level + "px";
@@ -1259,6 +1186,11 @@ function hierarquiaPrimeiroNivel(
     .style("border", "none")
     .on("click", function () {
       const td = document.querySelector(".mainTdNomes") as HTMLTableCellElement;
+
+      console.log("clicou em data: " + JSON.stringify(data))
+      console.log("clicou em data.nome: " + data.nome)
+      // console.log("td: " + JSON.stringify(td))
+
 
       exibir.push("row-modulo-" + index + "-" + data.level + "-" + data.nome);
 
@@ -1408,12 +1340,9 @@ function hierarquiaPrimeiroNivel(
       atualizaAlturaMainTdNomes();
       atualizaLarguraMainTdNomes("expande", data.nome, index, data.level);
       alternaCores();
-      // console.log("data predecessorSucessor: " + JSON.stringify(data))
-      // if (data.predecessor) {
       if (temPredecessor) {
-        predecessorSucessor(data.nome, tableModulosHierarquiaEventos, true);
+        predecessorSucessor(data.nome, data.level, tableModulosHierarquiaEventos, true);
       }
-      // console.log("---------------------------------------------")
     })
     .append("svg")
     .attr("viewBox", [0, 0, 590, 670])
@@ -1584,17 +1513,10 @@ function hierarquiaPrimeiroNivel(
           );
         }
       } catch (error) { }
-      // console.log("posRolagemHorizontal antes: " + posRolagemHorizontal)
-      // console.log("posRolagemVertical antes: " + posRolagemVertical)
-      // console.log("alturaRolagem antes: " + alturaRolagem)
       atualizaAlturaMainTdNomes();
       alternaCores();
-      // console.log("posRolagemHorizontal: " + posRolagemHorizontal)
-      // console.log("posRolagemVertical: " + posRolagemVertical)
-      // console.log("alturaRolagem: " + alturaRolagem)
-      // if (data.predecessor) {
       if (temPredecessor) {
-        predecessorSucessor(data.nome, tableModulosHierarquiaEventos, false);
+        predecessorSucessor(data.nome, data.level, tableModulosHierarquiaEventos, false);
       }
     })
     .append("svg")
@@ -1619,12 +1541,7 @@ function hierarquiaPrimeiroNivel(
         return data.nome;
       }
     })
-    // .style("font-size", "25px")
     .style("font-size", tamanhoFonteHierarquia + "px")
-    // .style("font-size", function () {
-    // //   console.log("tamanhoFonteHierarquia:" + tamanhoFonteHierarquia + "px");
-    //   return tamanhoFonteHierarquia + "px";
-    // })
     .style("font-weight", "bold")
     .style("color", corFonteHierarquia)
     .style("font-family", fontePrimaria)
@@ -1648,13 +1565,7 @@ function hierarquiaPrimeiroNivel(
   return arrayTransformado;
 }
 
-function hierarquiaEvento(
-  data,
-  svgHierarquiaNomes,
-  svgHierarquiaEventos,
-  index,
-  nomeAgrupamento
-) {
+function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, nomeAgrupamento) {
   var dadosEventoAgrupamento = [];
   var tipoEventoBar = [];
   var dItem = data[0];
@@ -1960,8 +1871,6 @@ function hierarquiaEvento(
               return tamanhoBarraEvento + 20;
             }
           })
-
-          // .style("height", "21.25px")
           .attr("width", function (d) {
             if (dataFimTeste != "null") {
               if (
@@ -1979,25 +1888,16 @@ function hierarquiaEvento(
           });
       }
       //? Adiciona barra "Previsto" em verde (#008542) se houver datas e for diferente da real
-      // if (dItem.previstoInicio && dItem.previstoFinal && dItem.previstoFinal !== dItem.dataFim) {
-      // if (dItem.previstoInicio && dItem.previstoFinal) {
-      // if (dItem.DIniReal && dItem.previstoFinal) {
-        // console.log("if (dItem.dIniReal && dItem.dFimPrev) antes")
-        console.log("dItem: " + JSON.stringify(dItem))
-        if (dItem.dIniReal && dItem.dataFim) {
-          console.log("if (dItem.dIniReal && dItem.dFimPrev) depois")
-        // const dataInicioPrevisto = timeScale(dItem.previstoInicio);
+      if (dItem.dIniReal && dItem.dataFim) {
+        console.log("if (dItem.dIniReal && dItem.dFimPrev) depois")
         const dataInicioPrevisto = timeScale(dItem.dIniReal);
-        // const dataFimPrevisto = timeScale(dItem.previstoFinal);
         const dataFimPrevisto = timeScale(dItem.dataFim);
         const tamanhoPrevisto = dataFimPrevisto - dataInicioPrevisto;
         if (dataInicioPrevisto < timeScale(DATA_FINAL)) {
-              console.log("barra-previsto: " + dataInicio)
+          console.log("barra-previsto: " + dataInicio)
 
           var eventoPrevisto = row3HierarquiaEventos
             .append("svg")
-            // .attr("transform", `translate(${timeScale(dItem.previstoInicio)}, 0)`)
-            // .attr("transform", `translate(${timeScale(dItem.previstoInicio || dItem.dataInicio)}, 0)`)
             .attr("transform", function (d, i) {
               if (dataFimTeste == "null") {
                 return `translate(${dataInicioPrevisto}, 0)`;
@@ -2015,14 +1915,10 @@ function hierarquiaEvento(
             })
             .style("left", "-1px")
             .style("position", "absolute");
-
-          // eventoBarDiv.append("rect")
           eventoPrevisto
             .append("rect")
             .attr("class", "barra-previsto")
-            // .attr("x", dataInicioPrevisto - dataInicio)
-            .attr("x", function(){
-              // console.log("barra-previsto: " + dataInicio)
+            .attr("x", function () {
               return dataInicioPrevisto - dataInicio
             })
             .attr("y", 0)
@@ -2034,13 +1930,6 @@ function hierarquiaEvento(
               showTooltip(dItem, event, index)
             })
             .on("mouseout", hideTooltip)
-          // .append("title")
-          // .text(
-          //   `Previsto: ${formatDate(dItem.previstoInicio)} até ${formatDate(
-          //     dItem.previstoFinal
-          //   )}`
-          // );
-          // }
         }
       }
       eventoBarDiv
@@ -2057,7 +1946,6 @@ function hierarquiaEvento(
           }
           return `translate(${posicaoTextoEvento + tamanhoBarraEvento + 5}, 0)`;
         })
-        // .attr("height", 20)
         .attr("height", parseInt(tamanhoFonteHierarquia) - 5)
         .attr("class", "evento-div-nome")
         .style("display", "flex")
@@ -2074,17 +1962,9 @@ function hierarquiaEvento(
           }
         })
         .append("g")
-        // .attr("transform", function(){
-        //     // ajustaFonte()
-        //     // return `translate(0, ${(parseInt(tamanhoFonteHierarquia))/2})`
-        //     return `translate(0, 15)`
-        // } )
-        // .append("tr")
         .append("text")
-        // .attr("y", 15)
         .attr("y", 0)
         .style("dominant-baseline", "hanging")
-        // .attr("font-size", 12)
         .attr("font-size", parseInt(tamanhoFonteHierarquia) - 5)
         .style("font-family", fontePrimaria)
         .text(function () {
@@ -2338,7 +2218,6 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
           }
         })
         .style("height", tamanhoComponenteNome + "px")
-        // .attr("height", 20)
         .attr("width", function (f) {
           if (dadosComprimidos.width != 0) {
             return dadosComprimidos.width;
@@ -2361,32 +2240,23 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
           .attr("class", "barra-recolhida")
           .attr("fill", function (f) {
             if (dadosComprimidos.cor) {
-              // return "#" + dadosComprimidos.cor
               if (dadosComprimidos.cor.startsWith('#')) {
-                // console.log("tem essa budega sim")
                 return dadosComprimidos.cor;
               }
               else {
-                // console.log("nao tem esse treco nao")
                 return "#" + dadosComprimidos.cor;
               }
-              // return dadosComprimidos.cor;
             } else {
               return "#008542";
-              // return Object.values(corPrimaria)[
-              //   i % Object.keys(corPrimaria).length
-              // ];
             }
           })
           .attr("width", dadosComprimidos.width)
           .style("height", tamanhoComponenteNome + 4 + "px");
-        // .attr("height", 20)
       } else {
         barraGeralTeste2.style("left", "-11px").style("z-index", "1");
         barraGeralTeste2
           .append("svg")
           .attr("class", "svg-colapsado-icon")
-          //   .attr("transform", `translate(${dadosComprimidos.posInin},0)`)
           .attr("height", 20)
           .attr("width", 20)
           .attr("viewBox", function () {
@@ -2401,16 +2271,12 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
           .append("path")
           .attr("fill", function (f) {
             if (dadosComprimidos.cor) {
-              //   return "#" + dadosComprimidos.cor;
               if (dadosComprimidos.cor.startsWith('#')) {
-                // console.log("tem essa budega sim")
                 return dadosComprimidos.cor;
               }
               else {
-                // console.log("nao tem esse treco nao")
                 return "#" + dadosComprimidos.cor;
               }
-              // return dadosComprimidos.cor;
             } else {
               return "#F2A840";
             }
@@ -2427,41 +2293,6 @@ function eventoColapsado(marcosRecursivos, rowEventos) {
       barraGeralTeste2
         .on("mouseover", function (event) {
           showTooltip(dadosComprimidos, event, "")
-
-          // var posX = event.pageX;
-          // var posY = event.pageY;
-
-          // // Obter a largura e altura do tooltip
-          // var tooltipWidth = tooltip.node().offsetWidth;
-          // var tooltipHeight = tooltip.node().offsetHeight;
-
-          // // Ajustar a posição do tooltip se estiver perto da borda direita ou inferior
-          // if (posX + tooltipWidth + 10 > window.innerWidth) {
-          //   posX = window.innerWidth - tooltipWidth - 10; // Ajusta para a borda direita
-          // }
-          // if (posY + tooltipHeight + 10 > window.innerHeight) {
-          //   posY = window.innerHeight - tooltipHeight - 10; // Ajusta para a borda inferior
-          // }
-
-          // tooltip
-          //   .style("visibility", "visible")
-          //   .style("left", posX + 10 + "px")
-          //   .style("top", posY + 10 + "px").html(`
-          //     Data inicio: ${formatDate(dadosComprimidos.dataInicio)}<BR>
-          //     ${dadosComprimidos.dataFim ? `Data Fim: ${formatDate(dadosComprimidos.dataFim)} <BR>` : ""}
-          //     Evento: ${dadosComprimidos.evento}`);
-
-          // showTooltip(dadosComprimidos, posX, posY, d)
-
-          // tooltip
-          //   .style("visibility", "visible")
-          //   .style("left", posX + 10 + "px")
-          //   .style("top", posY + 10 + "px").html(`
-          //     <b>${dadosComprimidos.evento}</b><br>
-          //     Início: ${formatDate(dadosComprimidos.dataInicio)}<BR>
-          //     ${dadosComprimidos.dataFim ? `Termino: ${formatDate(dadosComprimidos.dataFim)} <BR>` : ""}
-          //     `);
-
         })
         .on("mouseout", hideTooltip);
     });
@@ -2478,27 +2309,23 @@ function alternaCores() {
   });
 }
 
-function predecessorSucessor(data, tableModulosHierarquiaEventos, adicionaIsTrue) {
-  // console.log("predecessorSucessor data: " + data)
-
+function predecessorSucessor(data, level, tableModulosHierarquiaEventos, adicionaIsTrue) {
   const tagSVGSetas = d3.selectAll(".svg-setas");
   tagSVGSetas.remove();
 
   const firstClass = tableModulosHierarquiaEventos.node().getAttribute("class");
 
   if (adicionaIsTrue == true) {
-    // console.log("tableModulosHierarquiaEventos: " + JSON.stringify(tableModulosHierarquiaEventos.node().outerHTML))
-    var resultado = pesquisaFilhos(data);
-    console.log("resultado: " + resultado)
-    // console.log("predecessorSucessor - predecessoresDadosAdd: " + JSON.stringify(predecessoresDadosAdd))
-
-    // var idsFilhos = resultado.idsFilhos
-    // var idsPredecessores = resultado.idsPredecessores
-    // console.log("resultado.idsFilhosPesquisaFilhos: " + JSON.stringify(resultado.idsFilhosPesquisaFilhos));
-    // console.log("resultado.idsPredecessoresPesquisaFilhos: " + JSON.stringify(resultado.idsPredecessoresPesquisaFilhos));
-    idsFilhos.push(resultado.idsFilhosPesquisaFilhos[0]);
-    idsPredecessores.push(resultado.idsPredecessoresPesquisaFilhos[0]);
-    htmlPredecessoresSelecionados.push(firstClass);
+    var resultado = pesquisaFilhos(data, level, dadosJson);
+    if (resultado == null) {
+      console.log("resultado==null")
+    }
+    else {
+      console.log("resultado: " + JSON.stringify(resultado))
+      idsFilhos.push(resultado.idsFilhosPesquisaFilhos[0]);
+      idsPredecessores.push(resultado.idsPredecessoresPesquisaFilhos[0]);
+      htmlPredecessoresSelecionados.push(firstClass);
+    }
   } else {
     const removeItemByName = (array, name) => {
       for (let i = array.length - 1; i >= 0; i--) {
@@ -2511,44 +2338,26 @@ function predecessorSucessor(data, tableModulosHierarquiaEventos, adicionaIsTrue
     removeItemByName(idsFilhos, data);
     removeItemByName(idsPredecessores, data);
     removeItemByName(htmlPredecessoresSelecionados, data);
-    // console.log("remove idsFilhos: " + JSON.stringify(idsFilhos));
-    // console.log("remove idsPredecessores: " + JSON.stringify(idsPredecessores));
-    // console.log("remove htmlPredecessoresSelecionados: " + JSON.stringify(htmlPredecessoresSelecionados));
   }
-  // console.log("idsFilhos: " + JSON.stringify(idsFilhos));
-  // console.log("idsPredecessores: " + JSON.stringify(idsPredecessores));
-  // console.log("htmlPredecessoresSelecionados: " + JSON.stringify(htmlPredecessoresSelecionados));
-  // console.log("tableModulosHierarquiaEventos: " + JSON.stringify(tableModulosHierarquiaEventos.node().outerHTML))
-  // const firstClass = tableElement.node().getAttribute('class');
-  // console.log("htmlPredecessoresSelecionados: " + JSON.stringify(htmlPredecessoresSelecionados));
 
   const svgElement = document.querySelector(".main-svg");
   const heightTag = svgElement.clientHeight; // Altura
-  // console.log("heightTag: " + heightTag)
-  // console.log("alturaRolagem: " + alturaRolagem)
 
   const svg = principalPortView
     .append("svg")
     .attr("class", "svg-setas")
     .attr("width", tamanhoScalaExib + "px") // Defina a largura do SVG conforme necessário
     .attr("height", alturaRolagem + 17 + "px") // Defina a altura do SVG conforme necessário
-    // .attr("height", heightTag + 17 + "px") // Defina a altura do SVG conforme necessário
     .style("position", "absolute")
     .style("top", "-17px")
     .style("left", "0px")
     .style("z-index", "0");
 
   idsPredecessores.forEach((idPre, i) => {
-    // console.log("idsPredecessores.forEach: " + i + " - " + JSON.stringify(idPre))
     const firstKey = Object.keys(idPre)[0];
     const filhosArray = idsFilhos[i][firstKey];
-    // console.log("idsFilhos: " + JSON.stringify(idsFilhos));
-    // console.log("filhosArray: " + JSON.stringify(filhosArray));
     idPre[firstKey].forEach((item) => {
       for (const id in item) {
-        // console.log("idPre[firstKey].forEach item: " + JSON.stringify(item));
-        // console.log("idPre[firstKey].forEach id: " + JSON.stringify(id));
-        // console.log("idPre[firstKey].forEach item[id]: " + JSON.stringify(item[id]));
         if (item.hasOwnProperty(id)) {
           const valorIdPredecessor = item[id];
           // Separar valores caso tenha vírgulas
@@ -2560,13 +2369,9 @@ function predecessorSucessor(data, tableModulosHierarquiaEventos, adicionaIsTrue
               filhosArray.includes(parseInt(val.trim()))
             )
           ) {
-            const matchingItem = htmlPredecessoresSelecionados.find((item) =>
-              item.includes(firstKey)
-            );
-            // console.log("matchingItem: " + JSON.stringify(matchingItem));
+            const matchingItem = htmlPredecessoresSelecionados.find((item) => item.includes(firstKey));
             verificaPosicao(svg, valorIdPredecessor, id, matchingItem);
           } else {
-            // console.log(`ID: ${id}, Valor: ${value}, Nao esca contido em idsFilhos`)
           }
         }
       }
@@ -2574,13 +2379,82 @@ function predecessorSucessor(data, tableModulosHierarquiaEventos, adicionaIsTrue
   });
 }
 
+// function apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal) {
+//   // console.log("apoioPesquisaFilho levelSelecionado: ", levelSelecionado)
+//   // console.log("apoioPesquisaFilho dadosJson: ", dadosJsonLocal)
+//   console.log("apoioPesquisaFilho selecionado:", selecionado);
+//   console.log("apoioPesquisaFilho dadosJsonLocal:", dadosJsonLocal);
+//   const itemEncontrado = dadosJsonLocal.find((item) => {
+//     // console.log("apoioPesquisaFilho item.level:", item.level);
+//     // console.log("apoioPesquisaFilho item.nome:", item.nome);
+//     if (item.level === levelSelecionado && item.nome === selecionado) {
+//       console.log("apoioPesquisaFilho itemEncontrado item: ", item)
+//       return item.nome === selecionado
+//     }
+//     else {
+//       // console.log("nao eh o level certo ainda")
+//       // console.log("item.dados: " + JSON.stringify(item.dados))
+//       if (item.dados) {
+//         var coca2L = apoioPesquisaFilho(selecionado, levelSelecionado, item.dados)
+//         if (Array.isArray(item.dados) && item.dados.length > 0) {
+//           var coca2L = apoioPesquisaFilho(selecionado, levelSelecionado, item.dados);
+//           console.log("coca2L:", JSON.stringify(coca2L));
+//         }
+//         // return coca2L
+//       } else {
+//         // console.log("nao eh o level do levelValue")
+//       }
+//     }
+//   });
+//   console.log("apoioPesquisaFilho return itemEncontrado: ", itemEncontrado)
+//   return itemEncontrado
+// }
+
+function apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal) {
+  // Verificação inicial
+  if (!Array.isArray(dadosJsonLocal)) {
+    console.warn("apoioPesquisaFilho: dadosJsonLocal não é um array:", dadosJsonLocal);
+    return undefined;
+  }
+
+  // Percorre todos os itens do array atual
+  for (const item of dadosJsonLocal) {
+
+    // Verifica se é o item desejado
+    if (item.level === levelSelecionado && item.nome === selecionado) {
+      console.log("✅ Encontrado item:", item);
+      return item; // retorna imediatamente o item encontrado
+    }
+
+    // Se tiver filhos, busca recursivamente
+    if (Array.isArray(item.dados) && item.dados.length > 0) {
+      const resultadoFilho = apoioPesquisaFilho(selecionado, levelSelecionado, item.dados);
+
+      // Se encontrou no nível abaixo, retorna também
+      if (resultadoFilho !== undefined) {
+        return resultadoFilho;
+      }
+    }
+  }
+
+  // Se chegou aqui, não encontrou nada neste ramo
+  return undefined;
+}
+
+
 //o id nao eh totalmente unico, em casa hierarquia de primeiro nivel ele se repete
 //verifica quais sao os filhos da hierarquia selecionada e retorna para idsFilhos
 //tambem verifica quais possuem predecessor e retorna a informacao para idsPredecessores
-function pesquisaFilhos(selecionado) {
-  // const existeNome = dadosJson.some(item => item.nome === selecionado);
-  const itemEncontrado = dadosJson.find((item) => item.nome === selecionado);
-  // console.log("predecessoresDadosAdd antes: " + JSON.stringify(predecessoresDadosAdd))
+function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
+  // console.log("pesquisaFilhos levelSelecionado: ", levelSelecionado)
+  // console.log("pesquisaFilhos dadosJson: ", dadosJsonLocal)
+  // const itemEncontrado = dadosJsonLocal.find((item) => {
+  //   console.log("itemEncontrado item: ", item)
+  //   return item.nome === selecionado
+  // });
+  // console.log("itemEncontrado: ", itemEncontrado)
+  var itemEncontrado = apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal)
+  console.log("pesquisaFilhos itemEncontrado:", itemEncontrado);
 
   let dadosFilhos = [];
   let idsFilhosPesquisaFilhos = [];
@@ -2589,33 +2463,36 @@ function pesquisaFilhos(selecionado) {
   if (itemEncontrado) {
     dadosFilhos = itemEncontrado.dados; // Atribui os dados encontrados à variável dadosFilhos
     console.log("dadosFilhos: ", dadosFilhos)
-    var idDadosAdd = [];
-    var predecessoresDadosAdd = [];
-    dadosFilhos.forEach((d) => {
-      if(d.levelValues[0]){
-        console.log("d.levelValues[0].idEvento: ", d.levelValues[0])
-      }else{
-        console.log("d.levelValues[0].idEvento: ", d)
-      }
-      // console.log(`Evento: "${d.levelValues[0].evento}" -  id: "${d.levelValues[0].idEvento}"`);
-      // idsFilhos.push(d.levelValues[0].idEvento)
-      idDadosAdd.push(d.levelValues[0].idEvento);
-      d.levelValues[0].predecessor
-        ? predecessoresDadosAdd.push({
-          [d.levelValues[0].idEvento]: d.levelValues[0].predecessor,
-        })
-        : null;
-      // d.levelValues[0].idEvento
-    });
-    idsFilhosPesquisaFilhos.push({ [selecionado]: idDadosAdd });
-    idsPredecessoresPesquisaFilhos.push({
-      [selecionado]: predecessoresDadosAdd,
-    });
-    // console.log("pesquisaFilhos idsFilhos: " + JSON.stringify(idsFilhos));
-    // console.log("pesquisaFilhos idsPredecessores: " + JSON.stringify(idsPredecessores));
-    // console.log(`O nome "${selecionado}" foi encontrado.`);
-    // console.log(JSON.stringify(dadosFilho)); // Exibe os dadosFilho
-    return { idsFilhosPesquisaFilhos, idsPredecessoresPesquisaFilhos };
+
+    if (dadosFilhos?.[0]?.levelValues?.[0]) {
+      console.log("esta no nivel certo!")
+
+
+      var idDadosAdd = [];
+      var predecessoresDadosAdd = [];
+      dadosFilhos.forEach((d) => {
+        if (d.levelValues[0]) {
+          // console.log("d.levelValues[0].idEvento: ", d.levelValues[0])
+        } else {
+          // console.log("d.levelValues[0].idEvento: ", d)
+        }
+        idDadosAdd.push(d.levelValues[0].idEvento);
+        d.levelValues[0].predecessor
+          ? predecessoresDadosAdd.push({
+            [d.levelValues[0].idEvento]: d.levelValues[0].predecessor,
+          })
+          : null;
+      });
+      idsFilhosPesquisaFilhos.push({ [selecionado]: idDadosAdd });
+      idsPredecessoresPesquisaFilhos.push({
+        [selecionado]: predecessoresDadosAdd,
+      });
+      return { idsFilhosPesquisaFilhos, idsPredecessoresPesquisaFilhos };
+    }
+    else {
+      console.log("hierarquia com niveis errados");
+    }
+
   } else {
     console.log(`O nome "${selecionado}" não foi encontrado.`);
   }
@@ -2624,19 +2501,28 @@ function pesquisaFilhos(selecionado) {
 function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
   // console.log("verificaPosicao svgHTML: " + svgHTML.node().outerHTML)
   // console.log("verificaPosicao valorIdItem: " + valorIdItem)
+  
+  // console.log("verificaPosicao matchingItem: " + matchingItem)
+  // console.log("verificaPosicao principalPortView: " + principalPortView.node().outerHTML)
+  
+  // const svgHTML = principalPortView.selectAll(
+  //   `:scope > [class^="${matchingItem}"]`
+  // );
+  const svgHTML = principalPortView.selectAll(`[class^="${matchingItem}"]`);
 
-  const svgHTML = principalPortView.selectAll(
-    `:scope > [class^="${matchingItem}"]`
-  );
+  // console.log("verificaPosicao JSON.stringify(svgHTML): " + JSON.stringify(svgHTML))
+  // console.log("verificaPosicao svgHTML empty?", svgHTML.empty());
+  // console.log("verificaPosicao svgHTML: " + svgHTML.node().outerHTML)
 
   // console.log("svgHTML2: " + JSON.stringify(svgHTML2.node().outerHTML))
   //matchingItem: "row-modulo-2-0-Campanha da MEQ"
-
+  
   var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
   var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
   // var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
   // var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
-  // console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
+  console.log("HTMLItemAtual: " + JSON.stringify(HTMLItemAtual.node().outerHTML))
+  console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
   var dadosAtual = HTMLItemAtual.node().getBoundingClientRect();
   var atualPosX = dadosAtual.left;
   var atualPosY = dadosAtual.top;
@@ -2648,22 +2534,6 @@ function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
 
   var primeiroElemento = HTMLPredecessor.node();
 
-  // const scrollContainer = principalPortView.select('.mainTdEventos');
-  // const scrollPosition = scrollContainer.node().scrollTop;
-
-  // if(valorIdItem == 4){
-  //     // console.log("matchingItem: " + matchingItem)
-  //     console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
-  //     console.log(`atualPosX: ${atualPosX} - atualPosY: ${atualPosY}`)
-  //     // console.log("Posição da rolagem no eixo Y:", scrollPosition);
-  //     // console.log(`mainEventosX: ${mainEventos.node().getBoundingClientRect().left} - mainEventosY: ${mainEventos.node().getBoundingClientRect().left}`)
-
-  //     //clicando primeiro em contrataçao de dados: atualPosX: 734.3887939453125 - atualPosY: 261 -- x="75.91366577148438" y="209"
-  //     //clicando primeiro em cambanha da meq: atualPosX: 734.3887939453125 - atualPosY: 493 -- x="75.91366577148438" y="441"
-  //     //dados corretos: atualPosX: 734.3887939453125 - atualPosY: 15263 -- x="75.91366577148438" y="15211"
-  // }
-  // console.log("posRolagemHorizontal: " + posRolagemHorizontal)
-  // console.log("posRolagemVertical: " + posRolagemVertical)
   if (primeiroElemento) {
     // Obtém as informações de posição e dimensões do elemento
     var dadosPredecessor = primeiroElemento.getBoundingClientRect();
@@ -2676,7 +2546,6 @@ function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
       atualPosX + scrollPositionHorizontal,
       atualPosY + scrollPositionVertical
     );
-    // setasPredecessor(svg, predecessorPosX + posRolagemHorizontal - 12, predecessorPosY + posRolagemVertical, atualPosX + posRolagemHorizontal, atualPosY + posRolagemVertical)
   }
 }
 
@@ -2761,19 +2630,10 @@ function dadosCustom(customData) {
 
   customData.forEach((item) => {
     corPrimaria = { "1": "#006432", "2": "#93A100", "3": "#00867F" };
-    // console.log("item: " + JSON.stringify(item))
     if (item.fontSize) {
       tamanhoFonte = item.fontSize.value != 16 ? item.fontSize.value : 16;
-      // tamanhoFonteHierarquia = tamanhoFonte + "px"
       tamanhoFonteHierarquia = tamanhoFonte;
-      //   console.log("tamanho fonte: " + item.fontSize.value);
       tamanhoComponenteNome = tamanhoFonte + 5;
-
-      // const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
-      // console.log("queryMainTdNomes:" + queryMainTdNomes)
-
-      // const tds = queryMainTdNomes.querySelector(`[class^="text-nome"]`) as unknown as HTMLTableCellElement[];
-      // console.log("tamanho fonte:" + tds)
     }
     if (item.fontColor) {
       corFonte =
@@ -2781,7 +2641,6 @@ function dadosCustom(customData) {
           ? item.fontColor.value.value
           : "#FFFFFF";
       corFonteHierarquia = corFonte;
-      // console.log("cor da fonte: " + item.fontColor.value.value)
     }
     if (item.fontFamily) {
       estiloFonte =
@@ -2789,10 +2648,8 @@ function dadosCustom(customData) {
           ? item.fontFamily.value.value
           : "Trebuchet MS";
       fontePrimaria = estiloFonte;
-      // console.log("fontFamily value: " + item.fontFamily.value.value)
     }
     if (item.corHierarquiaUm) {
-      // console.log("corHierarquiaUm: " + JSON.stringify(item.corHierarquiaUm))
       corBackground1 =
         item.corHierarquiaUm.value.value != ""
           ? item.corHierarquiaUm.value.value
@@ -2817,11 +2674,6 @@ function dadosCustom(customData) {
 }
 
 function ajustaFonte() {
-  // const queryMainTdNomes = document.querySelector('.mainTdNomes') as HTMLTableCellElement;
-  // // console.log("queryMainTdNomesfdsfs:" + queryMainTdNomes)
-  // const tds = queryMainTdNomes.querySelector(`[class^="text-nome"]`) as unknown as HTMLTableCellElement[];
-  // console.log("tamanho fontefsdfsdf:" + tds)
-
   const queryMainTdNomes = document.querySelector(
     ".mainTdNomes"
   ) as HTMLElement;
@@ -2829,8 +2681,6 @@ function ajustaFonte() {
     `[class^="row-modulo-segundo"]`
   ) as HTMLTableCellElement;
   if (primeiroTd) {
-    // console.log("Primeiro elemento encontrado:", primeiroTd);
-    // console.log("Texto do primeiro elemento:", primeiroTd.textContent);
     const rect = primeiroTd.getBoundingClientRect();
     const altura = rect.height; // altura em pixels, número decimal
     console.log("Altura do elemento em px:", altura);
@@ -2841,9 +2691,6 @@ function ajustaFonte() {
 
 // Função para gerar o conteúdo HTML do tooltip
 function getTooltipContent(dItem, index) {
-//  console.log("index tooltip: ", index)
-//  console.log("dItem.cor tooltip: ", dItem.cor)
-//  <span style="display:inline-block;width:10px;height:10px;background:${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]};
   return `
     <b>${dItem.evento}</b><br>
     <div style="margin-top: 4px;">
@@ -2872,7 +2719,6 @@ function getTooltipContent(dItem, index) {
 // Função para mostrar o tooltip
 // function showTooltip(dItem, posX, posY, index) {
 function showTooltip(dItem, event, index) {
-  // console.log("showTooltip: ", dItem)
   var posX = event.pageX;
   var posY = event.pageY;
 
@@ -2903,4 +2749,5 @@ function hideTooltip() {
 consoles logs:
 console.log("treeModulos2: " + svgHierarquiaNomes.node().outerHTML) //*exibe o codigo html do elemento
 console.log("inicio hierarquiaPrimeiroNivel data: " + JSON.stringify(data)) //*Json.stringfy transforma um object em string na hora de exibir
+console.log("tableModulosHierarquiaEventos: " + JSON.stringify(tableModulosHierarquiaEventos.node().outerHTML))
 */
