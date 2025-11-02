@@ -103,7 +103,7 @@ export class Visual implements IVisual {
       .append("div")
       .classed("card", true);
     svgBase = this.svgRootHTML;
-    console.log("version: " + "3.0.1.7");
+    console.log("version: " + "3.0.1.9");
   }
 
   public update(options: VisualUpdateOptions) {
@@ -1074,12 +1074,7 @@ function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, ind
         .attr("class", "row-modulo-espacamentoEventos")
         .style("height", "5px");
     }
-    var barrasEvento = hierarquiaPrimeiroNivel(
-      d,
-      svgHierarquiaNomes,
-      svgHierarquiaEventos,
-      index
-    );
+    var barrasEvento = hierarquiaPrimeiroNivel(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
   } else if (d.level !== 0 && d.dados) {
     if (d.nome == "null" || d.nome == null) {
       var hierarquiaNull = recursividadeHierarquiaArray(
@@ -1110,11 +1105,17 @@ function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, ind
   }
 }
 
+var aleatoriedade = 0
 function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
   // adiciona a estrutura inicial da parte de eventos (direita)
+  aleatoriedade = aleatoriedade + 1
+  data.idSequencial = aleatoriedade
+  // console.log("aleatoriedade: " + aleatoriedade)
+  // console.log("data: " + JSON.stringify(data))
   var tableModulosHierarquiaEventos = svgHierarquiaEventos
     .append("table")
-    .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
+    // .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
+    .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome + "-" + aleatoriedade)
     .attr("id", "hierarquia1-evento")
     .style("height", tamanhoComponenteNome + 9 + "px")
     .style("display", function () {
@@ -1125,7 +1126,8 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
 
   var rowEventos = tableModulosHierarquiaEventos
     .append("tr")
-    .attr("class", "tr-modulo-" + index + "-" + data.level + "-" + data.nome)
+    // .attr("class", "tr-modulo-" + index + "-" + data.level + "-" + data.nome)
+    .attr("class", "tr-modulo-" + index + "-" + data.level + "-" + data.nome + "-" + aleatoriedade)
     .classed("showLinhaAlternada", function () {
       if (data.level == 0) {
         return true;
@@ -1139,7 +1141,8 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
   // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
   var tableModulosHierarquiaNomes = svgHierarquiaNomes
     .append("table")
-    .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
+    // .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
+    .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome + "-" + aleatoriedade)
     .attr("id", "hierarquia1-nome")
     .style("width", "305px")
     .style("height", tamanhoComponenteNome + "px")
@@ -1187,8 +1190,14 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
     .on("click", function () {
       const td = document.querySelector(".mainTdNomes") as HTMLTableCellElement;
 
-      console.log("clicou em data: " + JSON.stringify(data))
-      console.log("clicou em data.nome: " + data.nome)
+
+      // console.log("HTML Completo evento:", document.querySelector(".main-eventos"));
+      // console.log("Classe do botão:", this.className);
+      // console.log("Classe do TR:", this.parentElement.className);
+      // console.log("Classe do TABLE:", this.parentElement.parentElement.className);
+
+      // console.log("clicou em data: " + JSON.stringify(data))
+      // console.log("clicou em data.nome: " + data.nome)
       // console.log("td: " + JSON.stringify(td))
 
 
@@ -1341,7 +1350,14 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
       atualizaLarguraMainTdNomes("expande", data.nome, index, data.level);
       alternaCores();
       if (temPredecessor) {
-        predecessorSucessor(data.nome, data.level, tableModulosHierarquiaEventos, true);
+        // console.log("click expandir: " + JSON.stringify(data))
+        // var eventoSelecionado = data.nome + "-" + aleatoriedade
+        var eventoSelecionado = data.nome + "-" + data.idSequencial
+        var eventoSelecionadoHTML = this.parentElement.parentElement.className
+        // console.log("eventoSelecionado onClick: " + eventoSelecionado)
+        predecessorSucessor(eventoSelecionado, data.level, tableModulosHierarquiaEventos, true);
+        // predecessorSucessor(eventoSelecionadoHTML, data.level, tableModulosHierarquiaEventos, true);
+        // predecessorSucessor(data.nome, data.level, tableModulosHierarquiaEventos, true);
       }
     })
     .append("svg")
@@ -1750,7 +1766,9 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
           if (dItem.caminhoCritico == true) {
             return "14px";
           } else {
-            return parseInt(tamanhoComponenteNome) - 10 + "px";
+            // return 11.5 + "px";
+            // return parseInt(tamanhoComponenteNome) - 10 + "px";
+            return parseInt(tamanhoComponenteNome) - 2 + "px";
           }
         })
         .attr("width", function () {
@@ -1861,7 +1879,8 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
           })
           // .attr("fill", "#E67E22") // vermelho = realizado
           // .style("height", "21.25px")
-          .style("height", parseInt(tamanhoComponenteNome) - 5 + "px")
+          // .style("height", parseInt(tamanhoComponenteNome) - 5 + "px")
+          .style("height", parseInt(tamanhoComponenteNome) - 2 + "px")
           .attr("width", function () {
             if (dataFimTeste !== "null") {
               var dataFim = timeScale(dItem.dataFim);
@@ -1887,17 +1906,20 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
             }
           });
       }
+      // console.log("antes if (dItem.dIniReal && dItem.dataFim): " + JSON.stringify(dItem))
       //? Adiciona barra "Previsto" em verde (#008542) se houver datas e for diferente da real
       if (dItem.dIniReal && dItem.dataFim) {
-        console.log("if (dItem.dIniReal && dItem.dFimPrev) depois")
+        // console.log("depois if (dItem.dIniReal && dItem.dataFim): " + JSON.stringify(dItem))
+
         const dataInicioPrevisto = timeScale(dItem.dIniReal);
         const dataFimPrevisto = timeScale(dItem.dataFim);
         const tamanhoPrevisto = dataFimPrevisto - dataInicioPrevisto;
-        if (dataInicioPrevisto < timeScale(DATA_FINAL)) {
-          console.log("barra-previsto: " + dataInicio)
 
+        if (dItem.dIniReal == dItem.dFimReal) {
+          // console.log("Precisa gerar um marco para " + dItem.evento)
           var eventoPrevisto = row3HierarquiaEventos
             .append("svg")
+            .attr("class", "marcoPrevisto")
             .attr("transform", function (d, i) {
               if (dataFimTeste == "null") {
                 return `translate(${dataInicioPrevisto}, 0)`;
@@ -1905,31 +1927,75 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                 return `translate(${dataInicioPrevisto + tickEspacamento}, 0)`;
               }
             })
-            .style("height", 6)
-            .attr("width", function () {
-              if (tamanhoPrevisto >= 1) {
-                return tamanhoPrevisto;
+            .style("display", "flex")
+            .style("position", "absolute")
+            .style("height", function () {
+              return ((parseInt(tamanhoComponenteNome) - 4) / 2) + "px";
+            })
+            .attr("width", "20px")
+            .style("left", "-11px")
+            .attr("viewBox", function () {
+              if (dItem.icon) {
+                return iconsBase.vb[dItem.icon];
               } else {
-                return tamanhoBarraEvento + 20;
+                return "0, 0, 448, 512";
               }
             })
-            .style("left", "-1px")
-            .style("position", "absolute");
-          eventoPrevisto
-            .append("rect")
-            .attr("class", "barra-previsto")
-            .attr("x", function () {
-              return dataInicioPrevisto - dataInicio
+            .attr("width", 20)
+            .append("path")
+            .attr("fill", "black")
+            .attr("d", function () {
+              if (dItem.icon) {
+                return iconsBase.icons[dItem.icon];
+              } else {
+                return iconsBase.base;
+              }
             })
-            .attr("y", 0)
-            .attr("height", 6)
-            .attr("width", tamanhoPrevisto)
-            .attr("fill", "#2C3E50") // verde = previsto
-            .attr("opacity", 0.9)
-            .on("mouseover", function (event, d) {
-              showTooltip(dItem, event, index)
-            })
-            .on("mouseout", hideTooltip)
+
+        }
+
+
+
+        else {
+          // console.log("if (dItem.dIniReal && dItem.dFimPrev) depois")?
+          if (dataInicioPrevisto < timeScale(DATA_FINAL)) {
+            // console.log("barra-previsto: " + dataInicio)
+
+            var eventoPrevisto = row3HierarquiaEventos
+              .append("svg")
+              .attr("transform", function (d, i) {
+                if (dataFimTeste == "null") {
+                  return `translate(${dataInicioPrevisto}, 0)`;
+                } else {
+                  return `translate(${dataInicioPrevisto + tickEspacamento}, 0)`;
+                }
+              })
+              .style("height", 6)
+              .attr("width", function () {
+                if (tamanhoPrevisto >= 1) {
+                  return tamanhoPrevisto;
+                } else {
+                  return tamanhoBarraEvento + 20;
+                }
+              })
+              .style("left", "-1px")
+              .style("position", "absolute");
+            eventoPrevisto
+              .append("rect")
+              .attr("class", "barra-previsto")
+              .attr("x", function () {
+                return dataInicioPrevisto - dataInicio
+              })
+              .attr("y", 0)
+              .attr("height", 6)
+              .attr("width", tamanhoPrevisto)
+              .attr("fill", "#2C3E50") // verde = previsto
+              .attr("opacity", 0.9)
+              .on("mouseover", function (event, d) {
+                showTooltip(dItem, event, index)
+              })
+              .on("mouseout", hideTooltip)
+          }
         }
       }
       eventoBarDiv
@@ -2314,14 +2380,16 @@ function predecessorSucessor(data, level, tableModulosHierarquiaEventos, adicion
   tagSVGSetas.remove();
 
   const firstClass = tableModulosHierarquiaEventos.node().getAttribute("class");
-
+  // console.log("firstClass: " + firstClass)
+  // console.log("predecessorSucessor: " + data)
   if (adicionaIsTrue == true) {
     var resultado = pesquisaFilhos(data, level, dadosJson);
+    // console.log("resultado = pesquisaFilhos: " + JSON.stringify(resultado))
     if (resultado == null) {
-      console.log("resultado==null")
+      // console.log("resultado==null")
     }
     else {
-      console.log("resultado: " + JSON.stringify(resultado))
+      // console.log("resultado: " + JSON.stringify(resultado))
       idsFilhos.push(resultado.idsFilhosPesquisaFilhos[0]);
       idsPredecessores.push(resultado.idsPredecessoresPesquisaFilhos[0]);
       htmlPredecessoresSelecionados.push(firstClass);
@@ -2369,7 +2437,12 @@ function predecessorSucessor(data, level, tableModulosHierarquiaEventos, adicion
               filhosArray.includes(parseInt(val.trim()))
             )
           ) {
+            // console.log("htmlPredecessoresSelecionados: ", htmlPredecessoresSelecionados)
+            // console.log("item: ", item)
+            // console.log("firstKey: ", firstKey)
+
             const matchingItem = htmlPredecessoresSelecionados.find((item) => item.includes(firstKey));
+            // console.log("matchingItem: ", matchingItem)
             verificaPosicao(svg, valorIdPredecessor, id, matchingItem);
           } else {
           }
@@ -2411,25 +2484,36 @@ function predecessorSucessor(data, level, tableModulosHierarquiaEventos, adicion
 // }
 
 function apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal) {
+  // console.log("apoioPesquisaFilho selecionado: " + selecionado + " - " + JSON.stringify(levelSelecionado) + " - " + JSON.stringify(dadosJsonLocal))
+  // console.log("apoioPesquisaFilho selecionado: " + selecionado + " - " + JSON.stringify(dadosJsonLocal))
+  //row-modulo-1-2- Estratégia-10
+  //row-modulo-1-2- Estratégia-10
+  //
+
   // Verificação inicial
   if (!Array.isArray(dadosJsonLocal)) {
-    console.warn("apoioPesquisaFilho: dadosJsonLocal não é um array:", dadosJsonLocal);
+    // console.warn("apoioPesquisaFilho: dadosJsonLocal não é um array:", dadosJsonLocal);
     return undefined;
   }
 
   // Percorre todos os itens do array atual
   for (const item of dadosJsonLocal) {
-
+    // console.log("apoioPesquisaFilho item.nome: " + item.nome)
+    // console.log("item.level === levelSelecionado && item.nome === selecionado: " + item.level + " - " + levelSelecionado + " - " + item.nome + " - " + selecionado)
+    // console.log("apoioPesquisaFilho item: " + item.nome + " - " + item.idSequencial)
+    var nomeItem = item.nome + "-" + item.idSequencial
+    // console.log("apoioPesquisaFilho nomeItem: " + nomeItem)
     // Verifica se é o item desejado
-    if (item.level === levelSelecionado && item.nome === selecionado) {
-      console.log("✅ Encontrado item:", item);
+    // if (item.level === levelSelecionado && item.nome === selecionado) {
+    if (item.level === levelSelecionado && nomeItem === selecionado) {
+      // console.log("✅ Encontrado item:", item);
       return item; // retorna imediatamente o item encontrado
     }
 
     // Se tiver filhos, busca recursivamente
     if (Array.isArray(item.dados) && item.dados.length > 0) {
       const resultadoFilho = apoioPesquisaFilho(selecionado, levelSelecionado, item.dados);
-
+      // console.log("resultadoFilho = apoioPesquisaFilho: " + JSON.stringify(resultadoFilho))
       // Se encontrou no nível abaixo, retorna também
       if (resultadoFilho !== undefined) {
         return resultadoFilho;
@@ -2454,7 +2538,7 @@ function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
   // });
   // console.log("itemEncontrado: ", itemEncontrado)
   var itemEncontrado = apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal)
-  console.log("pesquisaFilhos itemEncontrado:", itemEncontrado);
+  // console.log("pesquisaFilhos itemEncontrado:", itemEncontrado);
 
   let dadosFilhos = [];
   let idsFilhosPesquisaFilhos = [];
@@ -2462,10 +2546,10 @@ function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
 
   if (itemEncontrado) {
     dadosFilhos = itemEncontrado.dados; // Atribui os dados encontrados à variável dadosFilhos
-    console.log("dadosFilhos: ", dadosFilhos)
+    // console.log("dadosFilhos: ", dadosFilhos)
 
     if (dadosFilhos?.[0]?.levelValues?.[0]) {
-      console.log("esta no nivel certo!")
+      // console.log("esta no nivel certo!")
 
 
       var idDadosAdd = [];
@@ -2490,7 +2574,7 @@ function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
       return { idsFilhosPesquisaFilhos, idsPredecessoresPesquisaFilhos };
     }
     else {
-      console.log("hierarquia com niveis errados");
+      // console.log("hierarquia com niveis errados");
     }
 
   } else {
@@ -2501,10 +2585,11 @@ function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
 function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
   // console.log("verificaPosicao svgHTML: " + svgHTML.node().outerHTML)
   // console.log("verificaPosicao valorIdItem: " + valorIdItem)
-  
+
   // console.log("verificaPosicao matchingItem: " + matchingItem)
   // console.log("verificaPosicao principalPortView: " + principalPortView.node().outerHTML)
-  
+
+  //* O bloco abaixo altera para que a pesquisa seja somente feita nos filhos diretos
   // const svgHTML = principalPortView.selectAll(
   //   `:scope > [class^="${matchingItem}"]`
   // );
@@ -2516,13 +2601,15 @@ function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
 
   // console.log("svgHTML2: " + JSON.stringify(svgHTML2.node().outerHTML))
   //matchingItem: "row-modulo-2-0-Campanha da MEQ"
-  
+
   var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
   var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
   // var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
   // var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
-  console.log("HTMLItemAtual: " + JSON.stringify(HTMLItemAtual.node().outerHTML))
-  console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
+  // console.log("valorIdItem: " + valorIdItem)
+  // console.log("HTMLItemAtual: " + JSON.stringify(HTMLItemAtual))
+  // console.log("HTMLItemAtual.node: " + JSON.stringify(HTMLItemAtual.node().outerHTML))
+  // console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
   var dadosAtual = HTMLItemAtual.node().getBoundingClientRect();
   var atualPosX = dadosAtual.left;
   var atualPosY = dadosAtual.top;
@@ -2556,7 +2643,7 @@ function setasPredecessor(svg, predecessorPosX, predecessorPosY, atualPosX, atua
   svg
     .append("rect")
     .attr("x", predecessorPosX - 300) // Posição X do quadrado
-    .attr("y", predecessorPosY) // Posição Y do quadrado
+    .attr("y", predecessorPosY - 4) // Posição Y do quadrado, o -4 joga o elemento 4px para cima
     .attr("width", 5) // Largura do quadrado
     .attr("height", 5) // Altura do quadrado
     .style("fill", "black"); // Cor do quadrado
@@ -2579,35 +2666,35 @@ function setasPredecessor(svg, predecessorPosX, predecessorPosY, atualPosX, atua
   svg
     .append("line")
     .attr("x1", predecessorPosX - 300 + 2.5) // Posição X do quadrado + metade da largura
-    .attr("y1", predecessorPosY + 2.5) // Posição Y do quadrado + metade da altura
+    .attr("y1", predecessorPosY - 1.5) // Posição Y do quadrado + metade da altura (originalmente era +2.5)
     .attr("x2", predecessorPosX - 300 + 2.5) // Posição X do ângulo
-    .attr("y2", predecessorPosY + 15) // Posição Y do ângulo
+    .attr("y2", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha); // Largura da linha
   // Segundo segmento: do ângulo até (atualPosX, predecessorPosY + 10)
   svg
     .append("line")
     .attr("x1", predecessorPosX - 300 + 2.5) // Posição X do ângulo
-    .attr("y1", predecessorPosY + 15) // Posição Y do ângulo
+    .attr("y1", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .attr("x2", atualPosX - 321) // Posição X atual
-    .attr("y2", predecessorPosY + 15) // Posição Y do ângulo
+    .attr("y2", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha); // Largura da linha
   // Terceiro segmento: do ângulo até (atualPosX, atualPosY)
   svg
     .append("line")
     .attr("x1", atualPosX - 321) // Posição X atual
-    .attr("y1", predecessorPosY + 15) // Posição Y do ângulo
+    .attr("y1", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .attr("x2", atualPosX - 321) // Posição X atual
-    .attr("y2", atualPosY + 2.5) // Posição Y atual
+    .attr("y2", atualPosY - 1.5) // Posição Y atual (originalmente era +2.5)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha); // Largura da linha
   svg
     .append("line")
     .attr("x1", atualPosX - 321) // Posição X atual
-    .attr("y1", atualPosY + 2.5) // Posição Y do ângulo
+    .attr("y1", atualPosY - 1.5) // Posição Y do ângulo (originalmente era +2.5)
     .attr("x2", atualPosX - 314) // Posição X atual
-    .attr("y2", atualPosY + 2.5) // Posição Y atual
+    .attr("y2", atualPosY - 1.5) // Posição Y atual (originalmente era +2.5)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha) // Largura da linha
     .attr("marker-end", "url(#arrow)"); // Adicionando a seta
@@ -2751,3 +2838,5 @@ console.log("treeModulos2: " + svgHierarquiaNomes.node().outerHTML) //*exibe o c
 console.log("inicio hierarquiaPrimeiroNivel data: " + JSON.stringify(data)) //*Json.stringfy transforma um object em string na hora de exibir
 console.log("tableModulosHierarquiaEventos: " + JSON.stringify(tableModulosHierarquiaEventos.node().outerHTML))
 */
+// row-modulo-1-0-BID 14 e 15 - Naru, Urissanê, Yba, Mairarê
+// row-modulo-1-2- Estratégia
