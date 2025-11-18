@@ -33,7 +33,9 @@ var fixedScale;
 var svgBase;
 var customData;
 var nomesEventoTdHTML;
+var nomesEventoTdHTMLNivel1;
 var dadosEventoTdHTML;
+var colunaAdicionalTdHTML;
 var dadosEventoScaleTdHTML;
 var tipoEscalaGrafico = "Mês";
 var escalaTickSize;
@@ -47,6 +49,8 @@ var jsonAgrupado = [];
 var temAgrupamento = false;
 var temPredecessor = false;
 let dadosJson = [];
+var colunaAdicional = false;
+var aleatoriedade = 0;
 
 // as 3 variaveis abaixo sao utilizados para predecessorSucessor
 var idsFilhos = [];
@@ -103,7 +107,7 @@ export class Visual implements IVisual {
       .append("div")
       .classed("card", true);
     svgBase = this.svgRootHTML;
-    console.log("version: " + "3.0.1.9");
+    console.log("version: " + "3.0.2.0");
   }
 
   public update(options: VisualUpdateOptions) {
@@ -184,8 +188,10 @@ export class Visual implements IVisual {
 
     var mainTableTr = mainDivTable.append("tr");
 
+    // nomesEventoTdHTMLNivel1 = mainTableTr
     nomesEventoTdHTML = mainTableTr
       .append("td")
+      // .attr("class", "mainTdNomesOri")
       .attr("class", "mainTdNomes")
       .style("background-color", "white")
       .style("max-width", "305px")
@@ -197,6 +203,20 @@ export class Visual implements IVisual {
       .style("overflow-y", "auto")
       .style("border", "1px solid")
       .style("padding-right", "25px");
+
+    // nomesEventoTdHTML
+    // .append("td")
+    //       .attr("class", "mainTdNomes")
+    //       .style("background-color", "white")
+    //       .style("max-width", "305px")
+    //       .style("height", "-webkit-fill-available")
+    //       .style("margin-top", "21px")
+    //       .style("vertical-align", "top")
+    //       .style("position", "fixed")
+    //       .style("overflow-x", "overlay")
+    //       .style("overflow-y", "auto")
+    //       .style("border", "1px solid")
+    //       .style("padding-right", "25px");
 
     dadosEventoTdHTML = mainTableTr
       .append("td")
@@ -270,6 +290,71 @@ export class Visual implements IVisual {
       .attr("class", "main-eventos")
       .style("width", tamanhoScalaExib + "px");
 
+
+    if (colunaAdicional) {
+      console.log("tem a coluna adicional adicionada!")
+      colunaAdicionalTdHTML = mainTableTr
+        // colunaAdicionalTdHTML = nomesEventoTdHTML
+        .append("td")
+        .attr("class", "mainTdColunaAdicional")
+        .style("background-color", "white")
+        // .style("background-color", "purple")
+        .style("max-width", "120px")
+        .style("height", "-webkit-fill-available")
+        .style("margin-top", "21px")
+        .style("margin-bottom", "15px")
+        .style("position", "fixed")
+        .style("overflow-x", "overlay")
+        .style("overflow-y", "auto")
+        // .style("border", "1px solid")
+        .style("border-top", "1px solid")
+        .style("border-left", "1px solid")
+        .style("border-right", "1px solid")
+        // .style("width", "100px")
+        .style("left", "283px");
+
+      dadosEventoTdHTML
+        .style("max-width", "67.4%")
+        // .style("left", "405px");
+        .style("left", "407px");
+
+      fixedScale
+        // .style("max-width", "67.4%")
+        .style("margin-left", "399px")
+      // .style("margin-left", "295px")
+      // .style("left", "405px");
+
+      nomesEventoTdHTML
+        // .style("max-width", "268px")
+        .style("max-width", "23.3%")
+
+
+      const tdNode = colunaAdicionalTdHTML.node();
+
+
+      function atualizarLayout() {
+        if (tdNode.scrollWidth > tdNode.clientWidth) {
+          // Existe barra de rolagem horizontal
+          tdNode.style.marginBottom = "0px";
+          tdNode.style.borderTop = "1px solid";
+          tdNode.style.borderRight = "1px solid";
+          tdNode.style.borderLeft = "1px solid";
+          tdNode.style.borderBottom = "1px solid";
+        } else {
+          // NÃO existe barra de rolagem horizontal
+          tdNode.style.marginBottom = "16px";
+          tdNode.style.borderTop = "1px solid";
+          tdNode.style.borderRight = "1px solid";
+          tdNode.style.borderLeft = "1px solid";
+          tdNode.style.borderBottom = "0px";
+        }
+      }
+
+      new ResizeObserver(atualizarLayout).observe(tdNode);
+      tdNode.addEventListener("scroll", atualizarLayout);
+      atualizarLayout();
+    }
+
     principalPortView = dadosEventoHTML;
 
     const tagsetupScales = d3.selectAll(".grid");
@@ -292,9 +377,9 @@ export class Visual implements IVisual {
     }
 
     if (temAgrupamento) {
-      treeModulos2(dataAgrupado, nomesEventoTdHTML, dadosEventoHTML);
+      treeModulos2(dataAgrupado, nomesEventoTdHTML, dadosEventoHTML, colunaAdicionalTdHTML);
     } else {
-      treeModulos2(dataMap, nomesEventoTdHTML, dadosEventoHTML);
+      treeModulos2(dataMap, nomesEventoTdHTML, dadosEventoHTML, colunaAdicionalTdHTML);
     }
     dadosExpandidos(nomesEventoTdHTML, dadosEventoHTML); // mantem as linhas em exibição apos atualizar o visual
     alternaCores();
@@ -303,10 +388,24 @@ export class Visual implements IVisual {
     const mainTdNomes = document.querySelector(".mainTdNomes");
     const mainTdEventos = document.querySelector(".mainTdEventos");
     const mainTdScale = document.querySelector(".mainTdScale");
+    if (colunaAdicional) {
+      const mainTdColunaAdicional = document.querySelector(".mainTdColunaAdicional");
+
+      mainTdColunaAdicional.addEventListener("scroll", function () {
+        // Define a posição de rolagem da segunda tabela para a posição de rolagem da primeira
+        mainTdEventos.scrollTop = mainTdColunaAdicional.scrollTop;
+      });
+      mainTdNomes.addEventListener("scroll", function () {
+        // Define a posição de rolagem da segunda tabela para a posição de rolagem da primeira
+        mainTdColunaAdicional.scrollTop = mainTdNomes.scrollTop;
+      });
+    }
+
     mainTdNomes.addEventListener("scroll", function () {
       // Define a posição de rolagem da segunda tabela para a posição de rolagem da primeira
       mainTdEventos.scrollTop = mainTdNomes.scrollTop;
     });
+
 
     // Adiciona um listener de evento para o evento de rolagem na segunda tabela
     mainTdEventos.addEventListener("scroll", function () {
@@ -644,6 +743,7 @@ function hierarquiaTree(element, lvl, dataMap) {
       var predecessor = null; //predecessor
       var caminhoCritico = null; //caminhoCritico
       var toolTipDados = []; //toolTipDados
+      var colunaExtra = null; //colunaExtra
 
       dadosEstruturais.forEach((e) => {
         if (e.roleName == "category") {
@@ -673,6 +773,9 @@ function hierarquiaTree(element, lvl, dataMap) {
           caminhoCritico = e.index;
         } else if (e.roleName == "toolTipDados") {
           toolTipDados.push(e.index);
+        } else if (e.roleName == "colunaExtra") {
+          colunaExtra = e.index;
+          colunaAdicional = true;
         }
       });
 
@@ -714,6 +817,9 @@ function hierarquiaTree(element, lvl, dataMap) {
               .map((td) => element[td].value)
               .filter((v) => v !== null && v !== undefined && v !== "null")
               .join(" <br> "),
+          }),
+          ...(element[colunaExtra] && {
+            colunaExtra: element[colunaExtra].value,
           }),
         });
         return dataMap;
@@ -955,12 +1061,8 @@ function atualizaAlturaMainTdNomes() {
 }
 
 function atualizaLarguraMainTdNomes(tipo, hierarquia, index, level) {
-  const queryMainTdNomes = document.querySelector(
-    ".mainTdNomes"
-  ) as HTMLTableCellElement;
-  const tds = queryMainTdNomes.querySelectorAll(
-    `[class^="row-modulo-"][class*="-0-"]`
-  ) as unknown as HTMLTableCellElement[];
+  const queryMainTdNomes = document.querySelector(".mainTdNomes") as HTMLTableCellElement;
+  const tds = queryMainTdNomes.querySelectorAll(`[class^="row-modulo-"][class*="-0-"]`) as unknown as HTMLTableCellElement[];
 
   var tamanhoDomaior = 0;
   var nomeDoMaior = "inicioZerado";
@@ -1014,54 +1116,39 @@ function atualizaLarguraMainTdNomes(tipo, hierarquia, index, level) {
   }
 }
 
-function treeModulos2(data, svgHierarquiaNomes, svgHierarquiaEventos) {
+//o svgHierarquiaColunaAdicional sera null por definicao caso nao seja adicionado algum dado em colunaAdicional
+function treeModulos2(data, svgHierarquiaNomes, svgHierarquiaEventos, svgHierarquiaColunaAdicional) {
   data.forEach((d, index) => {
-    defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
+    defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional);
   });
 }
 
 // esssa funçao deve ser chamada quando é passado somente um array de itens
-function recursividadeHierarquiaArray(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
+function recursividadeHierarquiaArray(data, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional) {
   var dadosRetornar = [];
   if (data[0].agrupamento) {
-    var recursividadeHierarquiaNull = defineNivelHierarquicoComAgrupamento(
-      data,
-      svgHierarquiaNomes,
-      svgHierarquiaEventos,
-      index
-    );
+    var recursividadeHierarquiaNull = defineNivelHierarquicoComAgrupamento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional);
     dadosRetornar.push(recursividadeHierarquiaNull);
   } else if (!data[0].agrupamento) {
     data.forEach((d) => {
-      var recursividadeHierarquiaNull = defineNivelHierarquico(
-        d,
-        svgHierarquiaNomes,
-        svgHierarquiaEventos,
-        index
-      );
+      var recursividadeHierarquiaNull = defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional);
       dadosRetornar.push(recursividadeHierarquiaNull);
     });
   }
   return dadosRetornar;
 }
 
-function defineNivelHierarquicoComAgrupamento(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
+function defineNivelHierarquicoComAgrupamento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional) {
   var posRetorno = [];
   data.forEach((d) => {
-    var eventoLinhaHierarquia = hierarquiaEvento(
-      d.levelValues,
-      svgHierarquiaNomes,
-      svgHierarquiaEventos,
-      index,
-      d.agrupamento
-    );
+    var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento, svgHierarquiaColunaAdicional);
     posRetorno.push(eventoLinhaHierarquia[0]);
   });
   return posRetorno;
 }
 
 // esssa funçao deve ser chamada quando é passado somente um unico item
-function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index) {
+function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional) {
   if (d.level == 0) {
     if (index != 0) {
       var espacamentoNomes = svgHierarquiaNomes
@@ -1073,40 +1160,32 @@ function defineNivelHierarquico(d, svgHierarquiaNomes, svgHierarquiaEventos, ind
         .append("table")
         .attr("class", "row-modulo-espacamentoEventos")
         .style("height", "5px");
+
+      if (colunaAdicional) {
+        var espacamentoEventos = svgHierarquiaColunaAdicional
+          .append("table")
+          .attr("class", "row-modulo-espacamentoEventos")
+          .style("height", "5px");
+      }
     }
-    var barrasEvento = hierarquiaPrimeiroNivel(d, svgHierarquiaNomes, svgHierarquiaEventos, index);
+
+    var barrasEvento = hierarquiaPrimeiroNivel(d, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional);
   } else if (d.level !== 0 && d.dados) {
     if (d.nome == "null" || d.nome == null) {
-      var hierarquiaNull = recursividadeHierarquiaArray(
-        d.dados,
-        svgHierarquiaNomes,
-        svgHierarquiaEventos,
-        index
-      );
+      var hierarquiaNull = recursividadeHierarquiaArray(d.dados, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional);
       return hierarquiaNull;
     } else {
-      var hierarquiaNotNull = hierarquiaPrimeiroNivel(
-        d,
-        svgHierarquiaNomes,
-        svgHierarquiaEventos,
-        index
-      );
+      var hierarquiaNotNull = hierarquiaPrimeiroNivel(d, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional);
       return hierarquiaNotNull;
     }
   } else if (d) {
-    var eventoLinhaHierarquia = hierarquiaEvento(
-      d.levelValues,
-      svgHierarquiaNomes,
-      svgHierarquiaEventos,
-      index,
-      d.agrupamento
-    );
+    var eventoLinhaHierarquia = hierarquiaEvento(d.levelValues, svgHierarquiaNomes, svgHierarquiaEventos, index, d.agrupamento, svgHierarquiaColunaAdicional);
     return eventoLinhaHierarquia[0];
   }
 }
 
-var aleatoriedade = 0
-function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos, index) {
+
+function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos, index, svgHierarquiaColunaAdicional) {
   // adiciona a estrutura inicial da parte de eventos (direita)
   aleatoriedade = aleatoriedade + 1
   data.idSequencial = aleatoriedade
@@ -1114,7 +1193,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
   // console.log("data: " + JSON.stringify(data))
   var tableModulosHierarquiaEventos = svgHierarquiaEventos
     .append("table")
-    // .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
     .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome + "-" + aleatoriedade)
     .attr("id", "hierarquia1-evento")
     .style("height", tamanhoComponenteNome + 9 + "px")
@@ -1126,7 +1204,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
 
   var rowEventos = tableModulosHierarquiaEventos
     .append("tr")
-    // .attr("class", "tr-modulo-" + index + "-" + data.level + "-" + data.nome)
     .attr("class", "tr-modulo-" + index + "-" + data.level + "-" + data.nome + "-" + aleatoriedade)
     .classed("showLinhaAlternada", function () {
       if (data.level == 0) {
@@ -1141,7 +1218,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
   // adiciona a estrutura da primeira hierarquia(esquerda), juntamente com os botoes e nomes
   var tableModulosHierarquiaNomes = svgHierarquiaNomes
     .append("table")
-    // .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome)
     .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome + "-" + aleatoriedade)
     .attr("id", "hierarquia1-nome")
     .style("width", "305px")
@@ -1180,6 +1256,79 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
       return margem * data.level + "px";
     });
 
+
+
+  if (svgHierarquiaColunaAdicional) {
+    // colunaNovaDoida(data, index)
+    console.log("coluna Nova")
+    // var tableModulosHierarquiaColunaNova = colunaAdicionalTdHTML
+    var tableModulosHierarquiaColunaNova = svgHierarquiaColunaAdicional
+      .append("table")
+      .attr("class", "row-modulo-" + index + "-" + data.level + "-" + data.nome + "-" + aleatoriedade)
+      .attr("id", "hierarquia1-nome")
+      // .style("width", "305px")
+      .style("width", "105px")
+      .style("height", tamanhoComponenteNome + "px")
+      .style(
+        "background-color",
+        Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]
+      )
+      .style("padding-left", function () {
+        if (data.level != 0) {
+          return "15px";
+        } else {
+          return "0px";
+        }
+      })
+      .style("display", function () {
+        if (data.level != 0) {
+          return "none";
+        }
+      });
+
+    var rowHierarquiaColunaNova = tableModulosHierarquiaColunaNova
+      .append("tr")
+      .style("display", "flex")
+      .style("height", tamanhoComponenteNome + "px")
+      .attr("class", "alterando")
+      .style("width", function () {
+        if (data.level == 0) return "max-content";
+        else {
+          return "max-content";
+        }
+      })
+      .style("margin-bottom", "5px")
+      .style("margin-left", function () {
+        var margem = 15;
+        return margem * data.level + "px";
+      });
+
+
+    //   rowHierarquiaColunaNova.append("div")
+    // .style("padding-left", "5px")
+    // .attr("class", "text-div")
+
+    // .append("tr")
+    // .attr("class", "text-nome")
+    // .text(function () {
+    //   if (data.level == 0) {
+    //     return data.nome.toUpperCase();
+    //   } else {
+    //     return data.nome;
+    //   }
+    // })
+    // .style("font-size", tamanhoFonteHierarquia + "px")
+    // .style("font-weight", "bold")
+    // .style("color", corFonteHierarquia)
+    // .style("font-family", fontePrimaria)
+    // .style("width", "max-content");
+
+  }
+
+
+
+
+
   var buttonPlus = rowHierarquia
     .append("button")
     .attr("class", "iconPlus-div")
@@ -1189,17 +1338,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
     .style("border", "none")
     .on("click", function () {
       const td = document.querySelector(".mainTdNomes") as HTMLTableCellElement;
-
-
-      // console.log("HTML Completo evento:", document.querySelector(".main-eventos"));
-      // console.log("Classe do botão:", this.className);
-      // console.log("Classe do TR:", this.parentElement.className);
-      // console.log("Classe do TABLE:", this.parentElement.parentElement.className);
-
-      // console.log("clicou em data: " + JSON.stringify(data))
-      // console.log("clicou em data.nome: " + data.nome)
-      // console.log("td: " + JSON.stringify(td))
-
 
       exibir.push("row-modulo-" + index + "-" + data.level + "-" + data.nome);
 
@@ -1241,6 +1379,7 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
           );
         }
       } catch (error) { }
+
       try {
         var segundaHierarquia2 =
           tableModulosHierarquiaNomes.selectAll('[class^="ocultar"]');
@@ -1261,6 +1400,58 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
           );
         }
       } catch (error) { }
+
+
+
+      try {
+        var alteraLinhaEventoColunaNova = tableModulosHierarquiaColunaNova.selectAll(
+          `:scope > [class^="row-linhaEvento-${index}"]`
+        );
+        // Altera o estilo apenas dos filhos diretos
+        alteraLinhaEventoColunaNova.style("display", function () {
+          return d3.select(this).style("display") === "none"
+            ? "contents"
+            : "none";
+        });
+      } catch (error) { }
+
+      try {
+        var segundaHierarquiaColunaNova = tableModulosHierarquiaColunaNova.selectAll(
+          `:scope > [class^="row-modulo-${index}"]`
+        );
+        if (segundaHierarquiaColunaNova) {
+          segundaHierarquiaColunaNova.style(
+            "display",
+            segundaHierarquiaColunaNova.style("display") === "none" ? "contents" : "none"
+          );
+        }
+      } catch (error) { }
+
+
+      try {
+        var segundaHierarquiaColunaNova2 =
+          tableModulosHierarquiaColunaNova.selectAll('[class^="ocultar"]');
+        if (segundaHierarquiaColunaNova2) {
+          segundaHierarquiaColunaNova2.style(
+            "display",
+            segundaHierarquiaColunaNova2.style("display") === "none" ? "contents" : "none"
+          );
+        }
+
+        var terceiraHierarquiaColunaNova = tableModulosHierarquiaColunaNova.selectAll(
+          `[class^="row-linhaEvento-${index}"]`
+        );
+        if (terceiraHierarquiaColunaNova) {
+          terceiraHierarquiaColunaNova.style(
+            "display",
+            terceiraHierarquiaColunaNova.style("display") === "none" ? "contents" : "none"
+          );
+        }
+      } catch (error) { }
+
+
+
+
 
       // altera a propriedade de exibição na parte de eventos
       try {
@@ -1350,14 +1541,8 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
       atualizaLarguraMainTdNomes("expande", data.nome, index, data.level);
       alternaCores();
       if (temPredecessor) {
-        // console.log("click expandir: " + JSON.stringify(data))
-        // var eventoSelecionado = data.nome + "-" + aleatoriedade
         var eventoSelecionado = data.nome + "-" + data.idSequencial
-        var eventoSelecionadoHTML = this.parentElement.parentElement.className
-        // console.log("eventoSelecionado onClick: " + eventoSelecionado)
         predecessorSucessor(eventoSelecionado, data.level, tableModulosHierarquiaEventos, true);
-        // predecessorSucessor(eventoSelecionadoHTML, data.level, tableModulosHierarquiaEventos, true);
-        // predecessorSucessor(data.nome, data.level, tableModulosHierarquiaEventos, true);
       }
     })
     .append("svg")
@@ -1444,6 +1629,64 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
           );
         }
       } catch (error) { }
+
+
+
+
+
+
+      try {
+        var alteraLinhaEventoColunaNova = tableModulosHierarquiaColunaNova.selectAll(
+          `:scope > [class^="row-linhaEvento-${index}"]`
+        );
+        // Altera o estilo apenas dos filhos diretos
+        alteraLinhaEventoColunaNova.style("display", function () {
+          return d3.select(this).style("display") === "none"
+            ? "contents"
+            : "none";
+        });
+      } catch (error) { }
+
+      try {
+        console.log("chamou o try ao expandir")
+        var segundaHierarquiaColunaNova = tableModulosHierarquiaColunaNova.selectAll(
+          `:scope > [class^="row-modulo-${index}"]`
+        );
+        if (segundaHierarquiaColunaNova) {
+          segundaHierarquiaColunaNova.style(
+            "display",
+            segundaHierarquiaColunaNova.style("display") === "none" ? "contents" : "none"
+          );
+        }
+      } catch (error) { }
+
+
+      try {
+        var segundaHierarquiaColunaNova2 =
+          tableModulosHierarquiaColunaNova.selectAll('[class^="ocultar"]');
+        if (segundaHierarquiaColunaNova2) {
+          segundaHierarquiaColunaNova2.style(
+            "display",
+            segundaHierarquiaColunaNova2.style("display") === "none" ? "contents" : "none"
+          );
+        }
+
+        var terceiraHierarquiaColunaNova = tableModulosHierarquiaColunaNova.selectAll(
+          `[class^="row-linhaEvento-${index}"]`
+        );
+        if (terceiraHierarquiaColunaNova) {
+          terceiraHierarquiaColunaNova.style(
+            "display",
+            terceiraHierarquiaColunaNova.style("display") === "none" ? "contents" : "none"
+          );
+        }
+      } catch (error) { }
+
+
+
+
+
+
 
       // altera a propriedade de exibição na parte de eventos
       try {
@@ -1563,12 +1806,7 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
     .style("font-family", fontePrimaria)
     .style("width", "max-content");
 
-  var marcosRecursivos = recursividadeHierarquiaArray(
-    data.dados,
-    tableModulosHierarquiaNomes,
-    tableModulosHierarquiaEventos,
-    index
-  );
+  var marcosRecursivos = recursividadeHierarquiaArray(data.dados, tableModulosHierarquiaNomes, tableModulosHierarquiaEventos, index, tableModulosHierarquiaColunaNova);
 
   //o bloco abaixo eh usado para transformar o array, foi verificado que em alguns casos ele vinha como Array de arrays [[]] com isso os marcos nao sao exibidos
   const arrayTransformado =
@@ -1581,14 +1819,13 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
   return arrayTransformado;
 }
 
-function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, nomeAgrupamento) {
+function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index, nomeAgrupamento, svgHierarquiaColunaAdicional) {
   var dadosEventoAgrupamento = [];
   var tipoEventoBar = [];
   var dItem = data[0];
   var tipoCategoriaBar = [];
 
   data.forEach((dItem, i) => {
-    // console.log("dItem: " + JSON.stringify(dItem))
     if (dItem.agrupamento) {
       var tamanhoBarraEvento = timeScale(dItem.dataInicio);
       var dataInicio = timeScale(dItem.dataInicio) + tickEspacamento;
@@ -1712,8 +1949,37 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
         .style("display", "flex")
         .style("width", tamanhoScalaExib + "px")
         .style("height", tamanhoComponenteNome + "px")
-        // .style("height", "26px")
         .style("align-items", "center");
+
+
+if (svgHierarquiaColunaAdicional) {
+      //* Cria a parte de evento na nova coluna
+      // svgHierarquiaColunaAdicional
+      var tableModulos3HierarquiaColunaAdicional = svgHierarquiaColunaAdicional
+        .append("table")
+        .attr("class", "row-linhaEvento-" + index + "-" + dItem.evento)
+        .style("display", "none");
+      var row3HierarquiaColunaAdicional = tableModulos3HierarquiaColunaAdicional
+        .append("tr")
+        .attr("id", "subhierarquia-nome")
+        .style("display", "flex")
+        // .style("padding-left", "30px")
+        .style("height", tamanhoComponenteNome + "px")
+        .style("align-items", "center")
+        .style("width", "-webkit-fill-available");
+      var testeRow3HierarquiaColunaAdicional = row3HierarquiaColunaAdicional
+        .append("tr")
+        .attr("class", "row-modulo-segundo")
+        .text(dItem.colunaExtra)
+        .style("font-family", fontePrimaria)
+        .style("font-size", parseInt(tamanhoFonteHierarquia) - 5 + "px")
+        // .style("padding-left", "30px")
+        .style("color", corFonteHierarquia)
+        .style("width", "max-content");
+
+}
+
+
 
       //terceiro nivel dos nomes das hierarquias
       var tableModulos3HierarquiaNomes = svgHierarquiaNomes
@@ -1727,9 +1993,7 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
         .style("display", "flex")
         .style("padding-left", "30px")
         .style("height", tamanhoComponenteNome + "px")
-        // .style("height", "21px")
         .style("align-items", "center")
-        // .style("margin-bottom", "5px")
         .style("width", "-webkit-fill-available");
       var testeRow3HierarquiaNomes = row3HierarquiaNomes
         .append("tr")
@@ -1737,21 +2001,11 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
         .text(dItem.evento)
         .style("font-family", fontePrimaria)
         .style("font-size", parseInt(tamanhoFonteHierarquia) - 5 + "px")
-        // .style("font-size", function(){
-        // if(parseInt(tamanhoFonteHierarquia) <= 16){
-        //     return (parseInt(tamanhoFonteHierarquia) - 1) + "px"
-        // }
-        //     return (parseInt(tamanhoFonteHierarquia) - 5) + "px"
-        // })
         .style("padding-left", "30px")
         .style("color", corFonteHierarquia)
-        // .style("color", "#FFFFFF")
         .style("width", "max-content");
-      // console.log("dItem: " + JSON.stringify(dItem))
       var eventoBarDiv = row3HierarquiaEventos
         .append("svg")
-        // .attr("transform", `translate(${timeScale(dItem.previstoInicio)}, 0)`)
-        // .attr("transform", `translate(${timeScale(dItem.previstoInicio || dItem.dataInicio)}, 0)`)
         .attr("transform", function (d, i) {
           if (dataFimTeste == "null") {
             return `translate(${dataInicio}, 0)`;
@@ -1759,15 +2013,10 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
             return `translate(${dataInicio + tickEspacamento}, 0)`;
           }
         })
-
-        // .attr("height", 20)
-        // .style("height", "20px")
         .style("height", function () {
           if (dItem.caminhoCritico == true) {
             return "14px";
           } else {
-            // return 11.5 + "px";
-            // return parseInt(tamanhoComponenteNome) - 10 + "px";
             return parseInt(tamanhoComponenteNome) - 2 + "px";
           }
         })
@@ -1814,17 +2063,13 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
           .attr("width", 20)
           .append("path")
           .attr("fill", function () {
-            // console.log("ditem verifica cor: " + JSON.stringify(dItem));
             if (dItem.cor) {
               if (dItem.cor.startsWith('#')) {
-                // console.log("tem essa budega sim")
                 return dItem.cor;
               }
               else {
-                // console.log("nao tem esse treco nao")
                 return "#" + dItem.cor;
               }
-              // return dItem.cor;
             } else {
               // return "#F2A840"
               return Object.values(corPrimaria)[
@@ -1863,23 +2108,17 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
           .attr("fill", function () {
             if (dItem.cor) {
               if (dItem.cor.startsWith('#')) {
-                // console.log("tem essa budega sim")
                 return dItem.cor;
               }
               else {
-                // console.log("nao tem esse treco nao")
                 return "#" + dItem.cor;
               }
-              // return dItem.cor;
             } else {
               return Object.values(
                 corPrimaria
               )[index % Object.keys(corPrimaria).length];
             }
           })
-          // .attr("fill", "#E67E22") // vermelho = realizado
-          // .style("height", "21.25px")
-          // .style("height", parseInt(tamanhoComponenteNome) - 5 + "px")
           .style("height", parseInt(tamanhoComponenteNome) - 2 + "px")
           .attr("width", function () {
             if (dataFimTeste !== "null") {
@@ -1906,17 +2145,13 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
             }
           });
       }
-      // console.log("antes if (dItem.dIniReal && dItem.dataFim): " + JSON.stringify(dItem))
       //? Adiciona barra "Previsto" em verde (#008542) se houver datas e for diferente da real
       if (dItem.dIniReal && dItem.dataFim) {
-        // console.log("depois if (dItem.dIniReal && dItem.dataFim): " + JSON.stringify(dItem))
-
         const dataInicioPrevisto = timeScale(dItem.dIniReal);
         const dataFimPrevisto = timeScale(dItem.dataFim);
         const tamanhoPrevisto = dataFimPrevisto - dataInicioPrevisto;
 
         if (dItem.dIniReal == dItem.dFimReal) {
-          // console.log("Precisa gerar um marco para " + dItem.evento)
           var eventoPrevisto = row3HierarquiaEventos
             .append("svg")
             .attr("class", "marcoPrevisto")
@@ -1951,16 +2186,11 @@ function hierarquiaEvento(data, svgHierarquiaNomes, svgHierarquiaEventos, index,
                 return iconsBase.base;
               }
             })
-
         }
-
-
 
         else {
           // console.log("if (dItem.dIniReal && dItem.dFimPrev) depois")?
           if (dataInicioPrevisto < timeScale(DATA_FINAL)) {
-            // console.log("barra-previsto: " + dataInicio)
-
             var eventoPrevisto = row3HierarquiaEventos
               .append("svg")
               .attr("transform", function (d, i) {
@@ -2380,16 +2610,12 @@ function predecessorSucessor(data, level, tableModulosHierarquiaEventos, adicion
   tagSVGSetas.remove();
 
   const firstClass = tableModulosHierarquiaEventos.node().getAttribute("class");
-  // console.log("firstClass: " + firstClass)
-  // console.log("predecessorSucessor: " + data)
   if (adicionaIsTrue == true) {
     var resultado = pesquisaFilhos(data, level, dadosJson);
-    // console.log("resultado = pesquisaFilhos: " + JSON.stringify(resultado))
     if (resultado == null) {
       // console.log("resultado==null")
     }
     else {
-      // console.log("resultado: " + JSON.stringify(resultado))
       idsFilhos.push(resultado.idsFilhosPesquisaFilhos[0]);
       idsPredecessores.push(resultado.idsPredecessoresPesquisaFilhos[0]);
       htmlPredecessoresSelecionados.push(firstClass);
@@ -2437,12 +2663,7 @@ function predecessorSucessor(data, level, tableModulosHierarquiaEventos, adicion
               filhosArray.includes(parseInt(val.trim()))
             )
           ) {
-            // console.log("htmlPredecessoresSelecionados: ", htmlPredecessoresSelecionados)
-            // console.log("item: ", item)
-            // console.log("firstKey: ", firstKey)
-
             const matchingItem = htmlPredecessoresSelecionados.find((item) => item.includes(firstKey));
-            // console.log("matchingItem: ", matchingItem)
             verificaPosicao(svg, valorIdPredecessor, id, matchingItem);
           } else {
           }
@@ -2452,61 +2673,16 @@ function predecessorSucessor(data, level, tableModulosHierarquiaEventos, adicion
   });
 }
 
-// function apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal) {
-//   // console.log("apoioPesquisaFilho levelSelecionado: ", levelSelecionado)
-//   // console.log("apoioPesquisaFilho dadosJson: ", dadosJsonLocal)
-//   console.log("apoioPesquisaFilho selecionado:", selecionado);
-//   console.log("apoioPesquisaFilho dadosJsonLocal:", dadosJsonLocal);
-//   const itemEncontrado = dadosJsonLocal.find((item) => {
-//     // console.log("apoioPesquisaFilho item.level:", item.level);
-//     // console.log("apoioPesquisaFilho item.nome:", item.nome);
-//     if (item.level === levelSelecionado && item.nome === selecionado) {
-//       console.log("apoioPesquisaFilho itemEncontrado item: ", item)
-//       return item.nome === selecionado
-//     }
-//     else {
-//       // console.log("nao eh o level certo ainda")
-//       // console.log("item.dados: " + JSON.stringify(item.dados))
-//       if (item.dados) {
-//         var coca2L = apoioPesquisaFilho(selecionado, levelSelecionado, item.dados)
-//         if (Array.isArray(item.dados) && item.dados.length > 0) {
-//           var coca2L = apoioPesquisaFilho(selecionado, levelSelecionado, item.dados);
-//           console.log("coca2L:", JSON.stringify(coca2L));
-//         }
-//         // return coca2L
-//       } else {
-//         // console.log("nao eh o level do levelValue")
-//       }
-//     }
-//   });
-//   console.log("apoioPesquisaFilho return itemEncontrado: ", itemEncontrado)
-//   return itemEncontrado
-// }
-
 function apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal) {
-  // console.log("apoioPesquisaFilho selecionado: " + selecionado + " - " + JSON.stringify(levelSelecionado) + " - " + JSON.stringify(dadosJsonLocal))
-  // console.log("apoioPesquisaFilho selecionado: " + selecionado + " - " + JSON.stringify(dadosJsonLocal))
-  //row-modulo-1-2- Estratégia-10
-  //row-modulo-1-2- Estratégia-10
-  //
-
   // Verificação inicial
   if (!Array.isArray(dadosJsonLocal)) {
-    // console.warn("apoioPesquisaFilho: dadosJsonLocal não é um array:", dadosJsonLocal);
     return undefined;
   }
 
   // Percorre todos os itens do array atual
   for (const item of dadosJsonLocal) {
-    // console.log("apoioPesquisaFilho item.nome: " + item.nome)
-    // console.log("item.level === levelSelecionado && item.nome === selecionado: " + item.level + " - " + levelSelecionado + " - " + item.nome + " - " + selecionado)
-    // console.log("apoioPesquisaFilho item: " + item.nome + " - " + item.idSequencial)
     var nomeItem = item.nome + "-" + item.idSequencial
-    // console.log("apoioPesquisaFilho nomeItem: " + nomeItem)
-    // Verifica se é o item desejado
-    // if (item.level === levelSelecionado && item.nome === selecionado) {
     if (item.level === levelSelecionado && nomeItem === selecionado) {
-      // console.log("✅ Encontrado item:", item);
       return item; // retorna imediatamente o item encontrado
     }
 
@@ -2530,15 +2706,8 @@ function apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal) {
 //verifica quais sao os filhos da hierarquia selecionada e retorna para idsFilhos
 //tambem verifica quais possuem predecessor e retorna a informacao para idsPredecessores
 function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
-  // console.log("pesquisaFilhos levelSelecionado: ", levelSelecionado)
-  // console.log("pesquisaFilhos dadosJson: ", dadosJsonLocal)
-  // const itemEncontrado = dadosJsonLocal.find((item) => {
-  //   console.log("itemEncontrado item: ", item)
-  //   return item.nome === selecionado
-  // });
-  // console.log("itemEncontrado: ", itemEncontrado)
+
   var itemEncontrado = apoioPesquisaFilho(selecionado, levelSelecionado, dadosJsonLocal)
-  // console.log("pesquisaFilhos itemEncontrado:", itemEncontrado);
 
   let dadosFilhos = [];
   let idsFilhosPesquisaFilhos = [];
@@ -2546,20 +2715,17 @@ function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
 
   if (itemEncontrado) {
     dadosFilhos = itemEncontrado.dados; // Atribui os dados encontrados à variável dadosFilhos
-    // console.log("dadosFilhos: ", dadosFilhos)
 
     if (dadosFilhos?.[0]?.levelValues?.[0]) {
-      // console.log("esta no nivel certo!")
-
 
       var idDadosAdd = [];
       var predecessoresDadosAdd = [];
       dadosFilhos.forEach((d) => {
-        if (d.levelValues[0]) {
-          // console.log("d.levelValues[0].idEvento: ", d.levelValues[0])
-        } else {
-          // console.log("d.levelValues[0].idEvento: ", d)
-        }
+        // if (d.levelValues[0]) {
+        //   // console.log("d.levelValues[0].idEvento: ", d.levelValues[0])
+        // } else {
+        //   // console.log("d.levelValues[0].idEvento: ", d)
+        // }
         idDadosAdd.push(d.levelValues[0].idEvento);
         d.levelValues[0].predecessor
           ? predecessoresDadosAdd.push({
@@ -2583,11 +2749,6 @@ function pesquisaFilhos(selecionado, levelSelecionado, dadosJsonLocal) {
 }
 
 function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
-  // console.log("verificaPosicao svgHTML: " + svgHTML.node().outerHTML)
-  // console.log("verificaPosicao valorIdItem: " + valorIdItem)
-
-  // console.log("verificaPosicao matchingItem: " + matchingItem)
-  // console.log("verificaPosicao principalPortView: " + principalPortView.node().outerHTML)
 
   //* O bloco abaixo altera para que a pesquisa seja somente feita nos filhos diretos
   // const svgHTML = principalPortView.selectAll(
@@ -2595,21 +2756,8 @@ function verificaPosicao(svg, valorIdPredecessor, valorIdItem, matchingItem) {
   // );
   const svgHTML = principalPortView.selectAll(`[class^="${matchingItem}"]`);
 
-  // console.log("verificaPosicao JSON.stringify(svgHTML): " + JSON.stringify(svgHTML))
-  // console.log("verificaPosicao svgHTML empty?", svgHTML.empty());
-  // console.log("verificaPosicao svgHTML: " + svgHTML.node().outerHTML)
-
-  // console.log("svgHTML2: " + JSON.stringify(svgHTML2.node().outerHTML))
-  //matchingItem: "row-modulo-2-0-Campanha da MEQ"
-
   var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
   var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
-  // var HTMLPredecessor = svgHTML.selectAll(`[id^="${valorIdPredecessor}"]`);
-  // var HTMLItemAtual = svgHTML.selectAll(`[id^="${valorIdItem}"]`);
-  // console.log("valorIdItem: " + valorIdItem)
-  // console.log("HTMLItemAtual: " + JSON.stringify(HTMLItemAtual))
-  // console.log("HTMLItemAtual.node: " + JSON.stringify(HTMLItemAtual.node().outerHTML))
-  // console.log("verificaPosicao valorIdItem - valorIdPredecessor: " + valorIdItem + " - " + valorIdPredecessor)
   var dadosAtual = HTMLItemAtual.node().getBoundingClientRect();
   var atualPosX = dadosAtual.left;
   var atualPosY = dadosAtual.top;
@@ -2642,8 +2790,10 @@ function setasPredecessor(svg, predecessorPosX, predecessorPosY, atualPosX, atua
   // Criando o quadrado
   svg
     .append("rect")
+    .classed("setaQuadrado", true)
     .attr("x", predecessorPosX - 300) // Posição X do quadrado
-    .attr("y", predecessorPosY - 4) // Posição Y do quadrado, o -4 joga o elemento 4px para cima
+    // .attr("y", predecessorPosY - 4) // Posição Y do quadrado, o -4 joga o elemento 4px para cima
+    .attr("y", predecessorPosY) // Posição Y do quadrado, o -4 joga o elemento 4px para cima
     .attr("width", 5) // Largura do quadrado
     .attr("height", 5) // Altura do quadrado
     .style("fill", "black"); // Cor do quadrado
@@ -2652,6 +2802,7 @@ function setasPredecessor(svg, predecessorPosX, predecessorPosY, atualPosX, atua
   svg
     .append("defs")
     .append("marker")
+    .classed("????", true)
     .attr("id", "arrow")
     .attr("viewBox", "0 0 10 10") // Área de visualização menor
     .attr("refX", 5) // Ponto de referência ajustado
@@ -2665,36 +2816,48 @@ function setasPredecessor(svg, predecessorPosX, predecessorPosY, atualPosX, atua
 
   svg
     .append("line")
+    .classed("setaLinhaVertical1", true)
     .attr("x1", predecessorPosX - 300 + 2.5) // Posição X do quadrado + metade da largura
-    .attr("y1", predecessorPosY - 1.5) // Posição Y do quadrado + metade da altura (originalmente era +2.5)
     .attr("x2", predecessorPosX - 300 + 2.5) // Posição X do ângulo
-    .attr("y2", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
+    .attr("y1", predecessorPosY + 2.5) // Posição Y do quadrado + metade da altura (originalmente era +2.5)
+    .attr("y2", predecessorPosY + 15) // Posição Y do ângulo (originalmente era +15)
+    // .attr("y1", predecessorPosY - 1.5) // Posição Y do quadrado + metade da altura (originalmente era +2.5)
+    // .attr("y2", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha); // Largura da linha
   // Segundo segmento: do ângulo até (atualPosX, predecessorPosY + 10)
   svg
     .append("line")
+    .classed("setaLinhaHorizontal1", true)
     .attr("x1", predecessorPosX - 300 + 2.5) // Posição X do ângulo
-    .attr("y1", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .attr("x2", atualPosX - 321) // Posição X atual
-    .attr("y2", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
+    .attr("y1", predecessorPosY + 15) // Posição Y do ângulo (originalmente era +15)
+    .attr("y2", predecessorPosY + 15) // Posição Y do ângulo (originalmente era +15)
+    // .attr("y1", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
+    // .attr("y2", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha); // Largura da linha
   // Terceiro segmento: do ângulo até (atualPosX, atualPosY)
   svg
     .append("line")
+    .classed("setaLinhaVertical2", true)
     .attr("x1", atualPosX - 321) // Posição X atual
-    .attr("y1", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
     .attr("x2", atualPosX - 321) // Posição X atual
-    .attr("y2", atualPosY - 1.5) // Posição Y atual (originalmente era +2.5)
+    .attr("y1", predecessorPosY + 15) // Posição Y do ângulo (originalmente era +15)
+    .attr("y2", atualPosY + 2.5) // Posição Y atual (originalmente era +2.5)
+    // .attr("y1", predecessorPosY + 11) // Posição Y do ângulo (originalmente era +15)
+    // .attr("y2", atualPosY - 1.5) // Posição Y atual (originalmente era +2.5)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha); // Largura da linha
   svg
     .append("line")
+    .classed("setaSetaFinal", true)
     .attr("x1", atualPosX - 321) // Posição X atual
-    .attr("y1", atualPosY - 1.5) // Posição Y do ângulo (originalmente era +2.5)
     .attr("x2", atualPosX - 314) // Posição X atual
-    .attr("y2", atualPosY - 1.5) // Posição Y atual (originalmente era +2.5)
+    .attr("y1", atualPosY + 2.5) // Posição Y do ângulo (originalmente era +2.5)
+    .attr("y2", atualPosY + 2.5) // Posição Y atual (originalmente era +2.5)
+    // .attr("y1", atualPosY - 1.5) // Posição Y do ângulo (originalmente era +2.5)
+    // .attr("y2", atualPosY - 1.5) // Posição Y atual (originalmente era +2.5)
     .style("stroke", "black") // Cor da linha
     .style("stroke-width", tamanhoLinha) // Largura da linha
     .attr("marker-end", "url(#arrow)"); // Adicionando a seta
@@ -2708,12 +2871,6 @@ function dadosCustom(customData) {
   var corBackground1;
   var corBackground2;
   var corBackground3;
-  /*
-    tamanhoFonte = fontSize
-    corFonte = fontColor
-    backgroundFonte = backgroundFontColor
-    corBackground = backgroundFontTeste
-    */
 
   customData.forEach((item) => {
     corPrimaria = { "1": "#006432", "2": "#93A100", "3": "#00867F" };
