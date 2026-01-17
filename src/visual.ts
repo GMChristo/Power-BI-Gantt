@@ -107,7 +107,7 @@ export class Visual implements IVisual {
       .append("div")
       .classed("card", true);
     svgBase = this.svgRootHTML;
-    console.log("version: " + "3.0.2.0");
+    console.log("version: " + "3.0.2.1");
   }
 
   public update(options: VisualUpdateOptions) {
@@ -1260,7 +1260,6 @@ function hierarquiaPrimeiroNivel(data, svgHierarquiaNomes, svgHierarquiaEventos,
 
   if (svgHierarquiaColunaAdicional) {
     // colunaNovaDoida(data, index)
-    console.log("coluna Nova")
     // var tableModulosHierarquiaColunaNova = colunaAdicionalTdHTML
     var tableModulosHierarquiaColunaNova = svgHierarquiaColunaAdicional
       .append("table")
@@ -2938,7 +2937,7 @@ function getTooltipContent(dItem, index) {
   return `
     <b>${dItem.evento}</b><br>
     <div style="margin-top: 4px;">
-    <span style="display:inline-block;width:10px;height:10px;background:#${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]};
+    <span style="display:inline-block;width:10px;height:10px;background:${dItem.cor ? dItem.cor : Object.values(corPrimaria)[index % Object.keys(corPrimaria).length]};
             margin-right:5px;border-radius:2px;"></span>
       <b>Previsto:</b> ${formatDate(dItem.dataInicio)} até ${formatDate(dItem.dataFim)}
     </div>
